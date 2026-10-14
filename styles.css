@@ -92,4 +92,6 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 
 .patrol-mob{position:absolute;width:85px;height:90px;transform:translate(-50%,-80%);z-index:4;pointer-events:none;filter:drop-shadow(0 5px 4px #0006)}.patrol-mob[hidden]{display:none!important}.patrol-mob svg{width:100%;height:100%;overflow:hidden}
 
+#boss-route-gate{position:absolute;z-index:6;transform:translate(-50%,-50%);pointer-events:none;color:#ffecb3;text-align:center}#boss-route-gate[hidden]{display:none!important}#boss-route-gate span{display:block;width:35px;height:110px;margin:auto;background:repeating-linear-gradient(90deg,#776d51 0 4px,#c1aa76 4px 7px,#473e2f 7px 10px);border:4px ridge #d2b477;border-radius:4px;box-shadow:0 0 18px #ffe19c66;font-size:25px;line-height:100px}#boss-route-gate strong{display:block;white-space:nowrap;background:#182b20ee;padding:6px 10px;border:1px solid #d0b16a;border-radius:5px;font:12px system-ui}
+
 .region-loading{position:fixed;inset:35% auto auto 50%;transform:translateX(-50%);z-index:100;max-width:90%;padding:24px;background:#102a2cf5;color:#ffe7ae;border:2px solid #c4a477;border-radius:10px;text-align:center;box-shadow:0 0 0 100vmax #06141599;font:16px system-ui}
