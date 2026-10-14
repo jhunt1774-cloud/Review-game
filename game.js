@@ -130,4 +130,8 @@ document.addEventListener('keydown',e=>{if(audio.enabled&&audio.ctx?.state==='su
 window.GameModes={title,showTeacher(){show('teacher');},startTeacher(lesson){if(!window.validLesson(lesson))return;KEY='web-wizardry-teacher-save-v1';start(JSON.parse(JSON.stringify(lesson)));},startLinked(lesson,id){if(!window.validLesson(lesson)||!/^[a-f0-9]{64}$/.test(id))return;KEY='web-wizardry-assignment-'+id;start(JSON.parse(JSON.stringify(lesson)));},hasLinkedSave(id){if(!/^[a-f0-9]{64}$/.test(id))return false;const old=KEY;KEY='web-wizardry-assignment-'+id;const found=readSave();KEY=old;return !!found;},continueLinked(id){if(!/^[a-f0-9]{64}$/.test(id))return;KEY='web-wizardry-assignment-'+id;state=readSave();if(state)resume();}};title();
 $('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if($('game').requestFullscreen)await $('game').requestFullscreen();else $('save-status').textContent='Use your browser fullscreen shortcut (F11).';}catch{$('save-status').textContent='Fullscreen unavailable here. Open the game directly or use F11.';}};document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=document.fullscreenElement?'Exit fullscreen':'Fullscreen';$('fullscreen').setAttribute('aria-pressed',String(!!document.fullscreenElement));});
 
+
+function enterAdventureFullscreen(){if(!document.fullscreenElement&&$('game').requestFullscreen){try{const pending=$('game').requestFullscreen();pending?.catch(()=>{});}catch{}}}
+for(const id of ['start','continue','continue-teacher','begin-chapter','begin-encounter']){const button=$(id),previous=button.onclick;if(previous)button.onclick=function(event){enterAdventureFullscreen();return previous.call(this,event);};}
+
 })();
