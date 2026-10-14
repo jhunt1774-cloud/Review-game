@@ -1,0 +1,29 @@
+window.RegionAssetManifest={
+  "assets/area-scenes.webp": "assets/area-scenes.webp?v=4508446bc1",
+  "assets/beacon-map.webp": "assets/beacon-map.webp?v=43eb8175a4",
+  "assets/beacon-scenes.webp": "assets/beacon-scenes.webp?v=e4bd1362e2",
+  "assets/brom-animations.webp": "assets/brom-animations.webp?v=0d1c3b62fd",
+  "assets/enemy-briar-imp.webp": "assets/enemy-briar-imp.webp?v=e9abaf0e0b",
+  "assets/enemy-ember-sentinel.webp": "assets/enemy-ember-sentinel.webp?v=1c604ea1b9",
+  "assets/enemy-forest-guardian.webp": "assets/enemy-forest-guardian.webp?v=a2c5b4105f",
+  "assets/enemy-frost-wolf.webp": "assets/enemy-frost-wolf.webp?v=e96160cbb7",
+  "assets/enemy-nightroot.webp": "assets/enemy-nightroot.webp?v=4b6988539f",
+  "assets/enemy-ridge-bandit.webp": "assets/enemy-ridge-bandit.webp?v=7bdbbc2932",
+  "assets/enemy-runebark.webp": "assets/enemy-runebark.webp?v=f29078b376",
+  "assets/enemy-shadow-specter.webp": "assets/enemy-shadow-specter.webp?v=3a9510ecf3",
+  "assets/enemy-stone-warden.webp": "assets/enemy-stone-warden.webp?v=6eff020c6c",
+  "assets/enemy-storm-drake.webp": "assets/enemy-storm-drake.webp?v=bc7d3caedf",
+  "assets/enemy-thorn-knight.webp": "assets/enemy-thorn-knight.webp?v=624aba3a26",
+  "assets/enemy-thornfang.webp": "assets/enemy-thornfang.webp?v=e5fc427568",
+  "assets/forest-map.webp": "assets/forest-map.webp?v=893f9ae00f",
+  "assets/forest.webp": "assets/forest.webp?v=6c05d267ed",
+  "assets/lira-animations.webp": "assets/lira-animations.webp?v=fdfbbef34d",
+  "assets/mountain-map.webp": "assets/mountain-map.webp?v=6639c03fbd",
+  "assets/mountain-scenes.webp": "assets/mountain-scenes.webp?v=a844c8b80c",
+  "assets/seren-animations.webp": "assets/seren-animations.webp?v=94d1c475a5",
+  "assets/thorin-idle-attack.webp": "assets/thorin-idle-attack.webp?v=32e106c2cf",
+  "assets/thorin-reactions.webp": "assets/thorin-reactions.webp?v=9dfc9a681a",
+  "assets/thorin-walk.webp": "assets/thorin-walk.webp?v=97146b6030"
+};
+// Only the current encounter's assets are prepared. Failed requests offer retry.
+window.RegionLoader={cache:new Map(),image(url){if(this.cache.has(url))return this.cache.get(url);const pending=new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(url);image.onerror=()=>{this.cache.delete(url);reject(Error('An area image could not load.'));};image.src=url;});this.cache.set(url,pending);return pending;},async prepare(chapter,index){const region=JOURNEY_CHAPTERS[chapter],enemy=EnemyRoster.resolve(index),scenes=['area-scenes','mountain-scenes','beacon-scenes'][chapter];const urls=new Set([region.map,enemy.image]);for(const hero of HEROES){urls.add(hero.image);for(const state of Object.values(hero.states))if(state.image)urls.add(state.image);}const text='Preparing '+region.name+'…';const panel=document.createElement('div');panel.className='region-loading';panel.setAttribute('role','status');panel.textContent=text;document.getElementById('game').append(panel);try{const scene=Object.keys(window.RegionAssetManifest||{}).find(p=>p==='assets/'+scenes+'.webp');urls.add(scene?RegionAssetManifest[scene]:'assets/'+scenes+'.webp');for(;;){const results=await Promise.allSettled([...urls].filter(Boolean).map(url=>this.image(url)));if(results.every(r=>r.status==='fulfilled'))break;panel.replaceChildren();const message=document.createElement('p');message.textContent='Some area files could not load. Check your connection, then retry.';const retry=document.createElement('button');retry.textContent='Retry area download';panel.append(message,retry);await new Promise(resolve=>retry.onclick=resolve);panel.textContent=text;}}finally{panel.remove();}}};

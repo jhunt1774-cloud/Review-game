@@ -1,0 +1,32 @@
+// One readable enemy turn per answered question; no attacks while reading.
+window.DefenseRules={
+ pattern(encounter,turn,effect){const chapter=Math.floor(encounter/4),boss=encounter%4===3;const patterns=effect==='enemy-spell'?[['dodge'],['dodge','parry'],['parry','dodge','block']]:effect==='hammer'?[['block'],['parry','block'],['dodge','parry','block']]:[['block'],['dodge','block'],['parry','dodge','block']];const index=chapter===0&&!boss?0:chapter===0?1:chapter===1?(turn%2?1:0):turn%3===0?2:1;return {actions:patterns[index],name:index===2?'Relentless flurry':effect==='enemy-spell'?'Arcane volley':effect==='hammer'?'Crushing blow':index===1?'Double strike':'Quick strike',duration:Math.max(1150,1900-chapter*200-(boss?100:0))};},
+ reward(c,result){c.defenseChain=result.grade==='perfect'?(c.defenseChain||0)+1:0;if(result.grade==='perfect'&&((result.beats||1)>=2||c.defenseChain>=3)){c.powerStrike=1;c.defenseChain=0;return true;}return false;},
+ grade(progress,mode='timed'){
+  if(mode==='assisted')return {grade:'guard',multiplier:.4,label:'Assisted block · 60% damage prevented'};
+  if(progress>=.68&&progress<=.84)return {grade:'perfect',multiplier:0,label:'Perfect block · no damage'};
+  if(progress>=.56&&progress<=.94)return {grade:'guard',multiplier:.35,label:'Block · 65% damage prevented'};
+  return {grade:'miss',multiplier:1,label:progress<.56?'Too early · the strike gets through':'Too late · the strike gets through'};
+ },
+ damage(base,correct,multiplier=1){return Math.max(0,Math.round(base*.65*(correct?1:1.6)*multiplier));},
+ validPending(p){return p&&p.version===1&&Number.isInteger(p.target)&&p.target>=0&&p.target<4&&Number.isInteger(p.damage)&&p.damage>=0&&p.damage<=999&&typeof p.correct==='boolean'&&typeof p.name==='string'&&p.name.length<=100&&['claw','hammer','enemy-spell'].includes(p.effect);}
+};
+window.BlockController=class{
+ constructor(elements,options={}){this.ui=elements;this.now=options.now||(()=>Date.now());this.startTimer=options.setInterval||((callback,delay)=>window.setInterval(callback,delay));this.stopTimer=options.clearInterval||(timer=>window.clearInterval(timer));this.hidden=options.hidden||(()=>document.hidden);this.ui.block.onclick=()=>this.attempt('block');if(this.ui.dodge)this.ui.dodge.onclick=()=>this.attempt('dodge');if(this.ui.parry)this.ui.parry.onclick=()=>this.attempt('parry');this.ui.skip.onclick=()=>this.finish({grade:'miss',multiplier:1,label:'You take the strike'});}
+ begin({mode='timed',duration=1800,enemy,target,charged=false,sequence=['block']}){
+  this.cancel();this.sequence=sequence;this.beat=0;this.results=[];this.mode=mode;this.duration=duration;this.elapsed=0;this.last=this.now();this.active=true;this.ui.panel.hidden=false;this.ui.block.disabled=false;this.ui.skip.hidden=mode!=='assisted';this.ui.title.textContent=enemy+' is attacking '+target+'!';this.ui.message.textContent=mode==='assisted'?'Press Block or Space when ready. There is no timer.':'Press Block or Space when the marker reaches the green zone.';this.ui.meter.hidden=mode==='assisted';this.ui.panel.dataset.result='charging';this.ui.block.textContent='Block · Space';this.ui.mode.disabled=true;this.paint();
+  const promise=new Promise(resolve=>this.resolve=resolve);
+  if(mode==='timed')this.timer=this.startTimer(()=>this.tick(),16);
+  this.prompt();return promise;
+ }
+ tick(){if(!this.active||this.mode!=='timed')return;const now=this.now(),delta=Math.max(0,now-this.last);this.last=now;if(this.hidden())return;this.elapsed+=delta;this.paint();if(this.elapsed>=this.duration)this.completeBeat({grade:'miss',multiplier:1,label:'Missed defense'});}
+ paint(){const progress=Math.max(0,Math.min(1,this.elapsed/this.duration));this.ui.marker.style.left=progress*100+'%';this.ui.meter.setAttribute('aria-valuenow',String(Math.round(progress*100)));}
+ visibility(){this.last=this.now();}
+ prompt(){const action=this.sequence[this.beat];this.ui.message.textContent='Beat '+(this.beat+1)+' of '+this.sequence.length+' · '+action.toUpperCase()+(this.mode==='assisted'?' when ready (no timer).':' in the green zone.');this.ui.block.textContent='Block · Space';if(this.ui.dodge)this.ui.dodge.disabled=false;if(this.ui.parry)this.ui.parry.disabled=false;this.ui.panel.setAttribute('tabindex','-1');this.ui.panel.focus?.();}
+ handleKey(event){const key=event.key?.toLowerCase(),action=event.code==='Space'||key===' '||key==='b'?'block':key==='d'?'dodge':key==='p'?'parry':null;if(!this.active||!action||['INPUT','TEXTAREA','SELECT'].includes(event.target?.tagName))return false;event.preventDefault();event.stopImmediatePropagation?.();if(!event.repeat)this.attempt(action);return true;}
+ attempt(action='block'){if(!this.active)return;const beat=this.beat;this.tick();if(this.active&&this.beat===beat){const result=action===this.sequence[this.beat]?DefenseRules.grade(this.elapsed/this.duration,this.mode):{grade:'miss',multiplier:1,label:'Wrong defense'};this.completeBeat(result);}}
+ completeBeat(result){this.results.push(result);if(this.beat+1<this.sequence.length){this.beat++;this.elapsed=0;this.last=this.now();this.paint();this.prompt();return;}const multiplier=this.results.reduce((n,r)=>n+r.multiplier,0)/this.results.length,grade=this.results.every(r=>r.grade==='perfect')?'perfect':this.results.every(r=>r.grade==='miss')?'miss':'guard';this.finish({grade,multiplier,beats:this.results.length,label:grade==='perfect'?'Perfect defense sequence':grade==='miss'?'Defense sequence missed':'Partial defense sequence'});}
+ finish(result){if(!this.active)return;this.active=false;this.stopTimer(this.timer);this.timer=null;this.ui.block.disabled=true;if(this.ui.dodge)this.ui.dodge.disabled=true;if(this.ui.parry)this.ui.parry.disabled=true;this.ui.skip.hidden=true;this.ui.message.textContent=result.label;this.ui.panel.dataset.result=result.grade;const resolve=this.resolve;this.resolve=null;resolve?.(result);}
+ cancel(){if(this.active)this.finish({cancelled:true});this.stopTimer(this.timer);this.timer=null;this.ui.panel.hidden=true;this.ui.mode.disabled=false;}
+ dismiss(){this.ui.panel.hidden=true;this.ui.mode.disabled=false;}
+};

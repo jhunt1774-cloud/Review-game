@@ -1,0 +1,13 @@
+// Pure combat rules kept separate from question presentation and animations.
+window.TacticalRules={
+ types:['axe','blunt','piercing','fire'],
+ profile(encounter,node,hp,maxHp){if(node==='ruins')return {weak:'fire',resist:null,armor:false,name:'Ancient fur',hint:'Weak to fire; stronger than the hollow wolf.'};return [
+ {weak:'fire',resist:null,armor:false,name:'Briar hide',hint:'Weak to fire. Seren can burn through the briars.'},
+ {weak:'piercing',resist:null,armor:false,name:'Swift hunter',hint:'Weak to piercing attacks. Lira can strike through its guard.'},
+ {weak:'blunt',resist:'piercing',armor:true,name:'Runebark armor',hint:'Weak to hammer blows; resists arrows. Brom can crack its armor.'},
+ {weak:'axe',resist:hp>maxHp/2?'fire':null,armor:false,name:hp>maxHp/2?'Thorn-bound Guardian':'Unbound fury',hint:hp>maxHp/2?'Weak to axe strikes; resists fire. Below half HP its rage strengthens attacks.':'The Guardian is enraged: attacks are stronger, but fire resistance is gone.'}
+ ][encounter];},
+ damage(base,type,profile,streak){const weakness=type===profile.weak,resisted=type===profile.resist,multiplier=weakness?1.3:resisted?.65:1,momentum=streak>0&&streak%3===0?1.15:1;return {damage:Math.max(1,Math.round(base*multiplier*momentum)),weakness,resisted,momentum:momentum>1};},
+ nextActor(current,hp,acted){let available=hp.map((h,i)=>h>0&&!acted.includes(i)?i:-1).filter(i=>i>=0),fresh=acted;if(!available.length){fresh=[];available=hp.map((h,i)=>h>0?i:-1).filter(i=>i>=0);}for(let offset=1;offset<=4;offset++){const i=(current+offset)%4;if(available.includes(i))return {actor:i,acted:fresh};}return {actor:current,acted:fresh};},
+ defaults(c){c.defenseChain=Number.isInteger(c.defenseChain)&&c.defenseChain>=0&&c.defenseChain<=2?c.defenseChain:0;c.powerStrike=c.powerStrike===1?1:0;c.acted??=[];c.streak??=0;c.stagger??=0;c.talents??={power:0,vitality:0,insight:0};c.ward??=0;c.moonwellChoice??=null;c.courierQuest??=null;return c;}
+};
