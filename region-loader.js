@@ -17,6 +17,7 @@ window.RegionAssetManifest={
   "assets/enemy-storm-drake.webp": "assets/enemy-storm-drake.webp?v=bc7d3caedf",
   "assets/enemy-thorn-knight.webp": "assets/enemy-thorn-knight.webp?v=624aba3a26",
   "assets/enemy-thornfang.webp": "assets/enemy-thornfang.webp?v=e5fc427568",
+  "assets/forest-explore.webp": "assets/forest-explore.webp?v=f06739c134",
   "assets/forest-map.webp": "assets/forest-map.webp?v=893f9ae00f",
   "assets/forest.webp": "assets/forest.webp?v=6c05d267ed",
   "assets/lira-animations.webp": "assets/lira-animations.webp?v=fdfbbef34d",
