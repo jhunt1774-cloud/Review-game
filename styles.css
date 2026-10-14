@@ -54,4 +54,6 @@ body{background:#172b20}#game{background:linear-gradient(#14332555,#10231ba0),ur
 
 #enemy-defense button{padding:8px 12px}#dodge-button{border-color:#8ac4ea}#parry-button{border-color:#ecc777}
 
+#combat-readiness{padding:10px 14px;color:#ffe0a0;background:#263925;border:1px solid #bd9d5f;border-radius:6px;font:600 13px system-ui}#defense-history{font:12px/1.4 system-ui;color:#bde8ce;margin:8px 0}#rune-forge{max-width:700px;margin:24px auto;text-align:left}#rune-upgrades>div{display:flex;gap:10px;align-items:center;margin:10px 0;flex-wrap:wrap}#rune-upgrades strong{min-width:80px}
+
 .region-loading{position:fixed;inset:35% auto auto 50%;transform:translateX(-50%);z-index:100;max-width:90%;padding:24px;background:#102a2cf5;color:#ffe7ae;border:2px solid #c4a477;border-radius:10px;text-align:center;box-shadow:0 0 0 100vmax #06141599;font:16px system-ui}
