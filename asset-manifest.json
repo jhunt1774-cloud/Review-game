@@ -3,6 +3,7 @@
   "assets/beacon-map.webp": "assets/beacon-map.webp?v=43eb8175a4",
   "assets/beacon-scenes.webp": "assets/beacon-scenes.webp?v=e4bd1362e2",
   "assets/brom-animations.webp": "assets/brom-animations.webp?v=0d1c3b62fd",
+  "assets/brom-walk-directions.webp": "assets/brom-walk-directions.webp?v=9f4956a208",
   "assets/coast-map.webp": "assets/coast-map.webp?v=e02d182660",
   "assets/coast-scenes.webp": "assets/coast-scenes.webp?v=b4ecac222a",
   "assets/enemy-briar-imp.webp": "assets/enemy-briar-imp.webp?v=e9abaf0e0b",
@@ -21,10 +22,13 @@
   "assets/forest-map.webp": "assets/forest-map.webp?v=893f9ae00f",
   "assets/forest.webp": "assets/forest.webp?v=6c05d267ed",
   "assets/lira-animations.webp": "assets/lira-animations.webp?v=fdfbbef34d",
+  "assets/lira-walk-directions.webp": "assets/lira-walk-directions.webp?v=5b4663488b",
   "assets/mountain-map.webp": "assets/mountain-map.webp?v=6639c03fbd",
   "assets/mountain-scenes.webp": "assets/mountain-scenes.webp?v=a844c8b80c",
   "assets/seren-animations.webp": "assets/seren-animations.webp?v=94d1c475a5",
+  "assets/seren-walk-directions.webp": "assets/seren-walk-directions.webp?v=75199c3d53",
   "assets/thorin-idle-attack.webp": "assets/thorin-idle-attack.webp?v=32e106c2cf",
   "assets/thorin-reactions.webp": "assets/thorin-reactions.webp?v=9dfc9a681a",
+  "assets/thorin-walk-directions.webp": "assets/thorin-walk-directions.webp?v=26efd76ef5",
   "assets/thorin-walk.webp": "assets/thorin-walk.webp?v=97146b6030"
 }
