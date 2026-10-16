@@ -7,7 +7,7 @@ MapRoutes.graphs[0]=MapRoutes.build([
 [['v7',49,57],['v13',48,53],['v14',44,48],['v15',40,46],['m1',37,42],['v16',31,39],['v17',27,35],['v18',23,29],['v19',18,25],['shrine',14,23]],
 [['v7',49,57],['v20',54,62],['v21',58,66],['merchant',63,70],['v22',68,75],['v23',74,77],['ranger-cache',78,79]],
 [['v7',49,57],['v24',49,49],['v25',54,47],['v26',59,45],['v27',64,41],['v28',69,41],['ruins',70,45]],
-[['v24',49,49],['v29',48,43],['v30',48,36],['v31',49,31],['v32',52,25],['v33',54,18.1],['m2',58,16.6],['v34',63,15.1],['v35',69,15],['v36',74,13],['v37',78,15],['v38',80,18],['v39',83,22],['m3',85,21]],
+[['v24',49,49],['north1',47.5,46],['v29',45.7,41],['north2',44.1,37],['v30',43.7,33],['v31',43.5,29.5],['north3',44.3,26.5],['v32',47,23],['north4',50.6,21],['v33',54,18.1],['m2',58,16.6],['v34',63,15.1],['v35',69,15],['v36',74,13],['v37',78,15],['v38',80,18],['v39',83,22],['m3',85,21]],
 [['v1',24,87],['v40',19,87],['v41',14,86],['firefly-cache',9,83]]]);
 MapRoutes.apply();
 window.WorldCamera={size(chapter,width,height){const w=chapter===0?Math.max(1800,width*2.4):Math.max(width,height*1.5);return {width:w,height:w/1.5};},follow(p,world,viewport){return {x:Math.max(0,Math.min(world.width-viewport.width,p.x/100*world.width-viewport.width/2)),y:Math.max(0,Math.min(world.height-viewport.height,p.y/100*world.height-viewport.height/2))};}};
@@ -18,4 +18,4 @@ window.RegionGates={edges:[['v34','v35'],['h32','h33'],['c27','c28'],['s28','s29
 FOREST_NODES.forEach(n=>{if(n.optional&&!n.hidden){n.description=n.description.replace(/optional/gi,'Side-route');if(FOREST_STORY.areas[n.id])FOREST_STORY.areas[n.id].danger=FOREST_STORY.areas[n.id].danger.replace(/optional/gi,'side-route');}});
 
 ExploreRules.roadWidth=1.35;
-ExploreRules.widthAt=p=>p.x>=53&&p.x<=65&&p.y>=13&&p.y<=22?.6:ExploreRules.roadWidth;
+ExploreRules.widthAt=p=>(ExploreRules.activeChapter||0)===0&&p.x>=53&&p.x<=65&&p.y>=13&&p.y<=22?.6:ExploreRules.roadWidth;
