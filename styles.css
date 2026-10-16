@@ -100,4 +100,14 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 
 #block-meter{display:none!important}#attack-cue{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px;margin:5px auto 10px;max-width:270px;border:2px solid #849b94;border-radius:12px;background:#162f2c;color:#eaf2df}#attack-cue-action{font:bold 22px system-ui;letter-spacing:2px}#attack-cue-phase{font:14px system-ui}#attack-cue[data-phase=strike]{background:#ffe4a0;color:#241600;border-color:#fff1bf;box-shadow:0 0 18px #ffc85a66}#enemy-art[data-telegraph=windup]{filter:brightness(.85)}#enemy-art[data-telegraph=strike]{filter:brightness(1.4) drop-shadow(0 0 8px #ffd575)}#mouse-destination{position:absolute;width:26px;height:16px;border:2px solid #ffe5a0;border-radius:50%;transform:translate(-50%,-50%);z-index:6;pointer-events:none;background:#ffe19a33}#mouse-destination[hidden]{display:none!important}
 
+.progress-backup{font:12px/1.5 system-ui;padding:8px 0}.progress-backup p{max-width:260px}.progress-backup button{margin:4px 0}#progress-file-message{color:#ffe7b5}
+/* Foreground battle scale: sprite canvases need room beyond their formation slot. */
+#battle #arena{--actor-height:min(38vh,330px)}
+#arena #heroes,#arena[data-question=visible] #heroes{left:3%;width:58%;gap:0}
+#arena #party,#arena[data-question=visible] #party{left:3%;width:58%;gap:2%}
+#arena .hero[data-sprite=sheet] svg{left:50%;width:145%;max-width:none;height:120%;bottom:0;overflow:visible;transform:translateX(-50%) translateY(4%)}
+#arena #enemy,#arena[data-question=visible] #enemy{right:3%;width:29%;max-width:390px}
+@media(max-height:700px){#battle #arena{--actor-height:min(36vh,265px)}}
+@media(max-width:600px){#arena #heroes,#arena[data-question=visible] #heroes,#arena #party,#arena[data-question=visible] #party{left:2%;width:60%}#arena .hero[data-sprite=sheet] svg{width:130%}#arena #enemy,#arena[data-question=visible] #enemy{right:1%;width:29%}}
+
 .region-loading{position:fixed;inset:35% auto auto 50%;transform:translateX(-50%);z-index:100;max-width:90%;padding:24px;background:#102a2cf5;color:#ffe7ae;border:2px solid #c4a477;border-radius:10px;text-align:center;box-shadow:0 0 0 100vmax #06141599;font:16px system-ui}
