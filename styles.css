@@ -136,4 +136,10 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 #hero-defense-result[hidden]{display:none!important}
 #defense-history,#defense-message{display:none}
 
+/* Discoveries follow the party without capturing clicks or pausing movement. */
+#discovery-notice{position:absolute;z-index:30;transform:translate(-50%,-100%);width:300px;max-width:86vw;padding:10px 14px;border:1px solid #dec086;border-radius:10px;background:#102b23ed;color:#fff1cf;box-shadow:0 5px 18px #0006;text-align:center;pointer-events:none;font:14px/1.4 system-ui}
+#discovery-notice strong{display:block;font-size:17px;color:#ffe2a2;margin-bottom:3px}
+#discovery-notice span{display:block}#discovery-notice[hidden]{display:none!important}
+@media(max-width:600px){#discovery-notice{width:270px;font-size:12px}#discovery-notice strong{font-size:15px}}
+
 .region-loading{position:fixed;inset:35% auto auto 50%;transform:translateX(-50%);z-index:100;max-width:90%;padding:24px;background:#102a2cf5;color:#ffe7ae;border:2px solid #c4a477;border-radius:10px;text-align:center;box-shadow:0 0 0 100vmax #06141599;font:16px system-ui}
