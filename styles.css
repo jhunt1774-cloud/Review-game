@@ -110,4 +110,30 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 @media(max-height:700px){#battle #arena{--actor-height:min(36vh,265px)}}
 @media(max-width:600px){#arena #heroes,#arena[data-question=visible] #heroes,#arena #party,#arena[data-question=visible] #party{left:2%;width:60%}#arena .hero[data-sprite=sheet] svg{width:130%}#arena #enemy,#arena[data-question=visible] #enemy{right:1%;width:29%}}
 
+/* Enemy tells and defense feedback are part of the scene. */
+#arena #enemy-art[data-telegraph]::after{content:'';position:absolute;inset:5% 10%;border:3px solid #ffe1a0;border-radius:50%;transform:scale(var(--windup-scale,1.5));opacity:.45;pointer-events:none}
+#arena #enemy-art[data-telegraph=strike]::after{opacity:1;box-shadow:0 0 22px #ffc85a88}
+#arena #enemy-art[data-timing=perfect]::after{border-color:#a3ffd2;box-shadow:0 0 25px #52efa6aa}
+#attack-cue[data-timing=perfect]{background:#a3ffd2;color:#092519;border-color:#e0fff0;box-shadow:0 0 25px #52efa688}
+#enemy-defense[data-cue=windup] button[data-required=true]{border-color:#ffe1a0;background:#32443c}
+#enemy-defense[data-cue=strike] button[data-required=true]{background:#ffe1a0;color:#241600;border:2px solid #fff3ce;box-shadow:0 0 15px #ffc85a66}
+#enemy-defense[data-timing=perfect][data-result=charging] button[data-required=true]{background:#a3ffd2;color:#092519;border-color:#e0fff0}
+#attack-cue[data-phase=result]{background:#213b36;color:#fff0ca;border-color:#bca16c}
+#attack-cue[data-phase=result][data-timing=perfect]{background:#174e35;color:#d5ffe7;border-color:#a3ffd2}
+#attack-cue[data-phase=result][data-timing=miss]{background:#602c29;color:#fff0df;border-color:#ffb3a1}
+#arena .hero[data-defense=block]{filter:drop-shadow(0 0 8px #8bd9f5)}
+#arena .hero[data-defense=parry]{filter:drop-shadow(0 0 10px #ffe1a0)}
+#arena .hero[data-defense=dodge]{filter:drop-shadow(10px 0 5px #94d8ef66)}
+
+/* Keep the tell on the enemy and the outcome over the targeted hero. */
+#arena #attack-cue.scene-defense-cue{position:absolute;z-index:25;transform:translateX(-50%);width:245px;margin:0;padding:8px 12px;pointer-events:none;text-align:center}
+#arena #attack-cue[hidden]{display:none!important}
+#arena #hero-defense-result{position:absolute;z-index:35;transform:translateX(-50%);width:max-content;max-width:240px;text-align:center;padding:9px 15px;background:#392019f2;color:#fff2df;border:2px solid #ffad8c;border-radius:10px;box-shadow:0 4px 18px #0008;pointer-events:none;font-family:system-ui}
+#hero-defense-result strong{display:block;font-size:clamp(18px,2.1vw,28px);line-height:1.2}
+#hero-defense-result span{display:block;font-size:clamp(16px,1.8vw,23px);font-weight:700;margin-top:3px}
+#arena #hero-defense-result[data-grade=perfect]{background:#103d2ef2;border-color:#a3ffd2;color:#dcffeb}
+#arena #hero-defense-result[data-grade=guard]{background:#172e43f2;border-color:#a6defa;color:#eefaff}
+#hero-defense-result[hidden]{display:none!important}
+#defense-history,#defense-message{display:none}
+
 .region-loading{position:fixed;inset:35% auto auto 50%;transform:translateX(-50%);z-index:100;max-width:90%;padding:24px;background:#102a2cf5;color:#ffe7ae;border:2px solid #c4a477;border-radius:10px;text-align:center;box-shadow:0 0 0 100vmax #06141599;font:16px system-ui}

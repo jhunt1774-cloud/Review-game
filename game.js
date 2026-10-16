@@ -1,3 +1,20 @@
+
+let defenseFeedbackTimer;
+function showHeroDefenseFeedback(index,result,damage=null){
+ const arena=document.getElementById('arena'),actor=document.getElementById('hero-'+index);if(!actor)return;
+ let popup=document.getElementById('hero-defense-result');if(!popup){popup=document.createElement('div');popup.id='hero-defense-result';popup.setAttribute('role','status');popup.setAttribute('aria-live','polite');arena.appendChild(popup);}
+ const a=actor.getBoundingClientRect(),b=arena.getBoundingClientRect();
+ popup.style.left=Math.max(120,Math.min(b.width-120,a.left+a.width/2-b.left))+'px';
+ popup.style.top=Math.max(100,a.top-b.top+15)+'px';popup.dataset.grade=result.grade;
+ const heading=result.grade==='perfect'?'PERFECT!':result.grade==='guard'?'GUARDED':result.label?.startsWith('Too early')?'TOO EARLY':result.label?.startsWith('Too late')?'TOO LATE':result.label?.startsWith('Wrong')?'WRONG DEFENSE':'HIT';
+ popup.replaceChildren();const title=document.createElement('strong');title.textContent=heading;popup.appendChild(title);
+ const detail=document.createElement('span');detail.textContent=damage===null?(result.grade==='perfect'?'Perfect timing':result.grade==='guard'?'Damage reduced':result.label||'Defense missed'):(damage===0?'0 HP LOST':'−'+damage+' HP');popup.appendChild(detail);
+ popup.hidden=false;clearTimeout(defenseFeedbackTimer);defenseFeedbackTimer=setTimeout(()=>{popup.hidden=true;},1800);
+}
+function placeEnemyDefenseCue(){
+ const arena=document.getElementById('arena'),enemy=document.getElementById('enemy-art'),cue=document.getElementById('attack-cue'),a=enemy.getBoundingClientRect(),b=arena.getBoundingClientRect();
+ arena.appendChild(cue);cue.classList.add('scene-defense-cue');cue.style.left=Math.max(125,Math.min(b.width-125,a.left+a.width/2-b.left))+'px';cue.style.top=Math.max(110,a.top-b.top-95)+'px';cue.hidden=false;
+}
 (()=>{'use strict';
 const $=id=>document.getElementById(id),encounters=FOREST_ENCOUNTERS,nodes=FOREST_NODES;
 let menuHero=null;
@@ -29,7 +46,7 @@ async function finishReview(){
  }else{busy=true;try{if(state.phase==='victory'||state.phase==='complete')await departure();}finally{result();}}
 }
 function review(detail){cancelReview();battleQuestion(true);reviewPending=true;$('feedback').textContent=detail+' Correct answer: '+question.answers[question.correct]+'. '+question.explanation;$('next-question').hidden=false;let left=5;const label=()=>{$('next-question').textContent=(state.phase==='battle'?'Enemy turn':'View result')+' in '+left+'s · continue now →';};label();reviewTick=setInterval(()=>{left=Math.max(0,left-1);label();},1000);reviewTimer=setTimeout(finishReview,5000);}
-function show(id){if(id!=='battle')VisualTrial.stop();stopExploration();closeHeroMenu();if($('map-dialog').open)$('map-dialog').close();cancelReview();audio.setScene(id,state?.campaign?.viewChapter??0);$('game').dataset.scene=id;if(id!=='battle'){battleEpoch++;blockController.cancel();enemyRenderer?.destroy();renderers.forEach(r=>r.destroy());}for(const [parent,scene] of [['prologue-party','prologue'],['arrival-party','arrival'],['journey-party','journey'],['map-party','world'],['road-party','road']])if(id!==scene)$(parent)._storyRenderers?.forEach(r=>r.destroy());['title','prologue','arrival','journey','world','road','battle','result','teacher'].forEach(x=>$(x).hidden=x!==id);}
+function show(id){if(id!=='battle')VisualTrial.stop();stopExploration();closeHeroMenu();if($('map-dialog').open)$('map-dialog').close();cancelReview();audio.setScene(id,state?.campaign?.viewChapter??0);$('game').dataset.scene=id;if(id!=='battle'){const cue=$('attack-cue');if(cue)cue.hidden=true;const popup=document.getElementById('hero-defense-result');if(popup)popup.hidden=true;battleEpoch++;blockController.cancel();enemyRenderer?.destroy();renderers.forEach(r=>r.destroy());}for(const [parent,scene] of [['prologue-party','prologue'],['arrival-party','arrival'],['journey-party','journey'],['map-party','world'],['road-party','road']])if(id!==scene)$(parent)._storyRenderers?.forEach(r=>r.destroy());['title','prologue','arrival','journey','world','road','battle','result','teacher'].forEach(x=>$(x).hidden=x!==id);}
 function maxHp(i){return HEROES[i].maxHp+(state.level-1)*12+state.campaign.talents.vitality*8+state.campaign.runeLevels[i].vitality*8;}
 function shuffled(){const a=bank().map((_,i)=>i);for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function start(lesson=null){state={version:1,phase:'prologue',encounter:0,enemyHp:encounters[0].hp,hp:HEROES.map(h=>h.maxHp),level:1,xp:0,gold:0,treasure:[],lesson,qIndex:0,order:[],actor:0,turn:1,correct:0,wrong:0};campaign(state);state.campaign.location='entry';state.order=shuffled();prologue();save();}
@@ -68,14 +85,14 @@ async function enemyTurn(){
  enemyRenderer?.setState('windup',true);
  const reduced=MotionPreference.reduced();
  const mode=$('defense-mode').value;
- const pattern=DefenseRules.pattern(state.encounter,state.turn,pending.effect);const block=await blockController.begin({mode,duration:pattern.duration,sequence:pattern.actions,enemy:encounter().enemy+' · '+pattern.name,target:HEROES[pending.target].name});
+ const pattern=DefenseRules.pattern(state.encounter,state.turn,pending.effect);placeEnemyDefenseCue();const block=await blockController.begin({mode,duration:pattern.duration,sequence:pattern.actions,enemy:encounter().enemy+' · '+pattern.name,target:HEROES[pending.target].name,onBeat:result=>showHeroDefenseFeedback(pending.target,result)});$('attack-cue').hidden=true;
  if(block.cancelled||!stillHere())return false;
  const target=$('hero-'+pending.target),damage=block.multiplier>0&&pending.damage>0?Math.max(1,Math.round(pending.damage*block.multiplier)):0,reaction=damage===0?'idle':state.hp[pending.target]<=damage?'defeat':'hurt';
  async function defendStrike(step,onImpact){const motion=DefenseAnimations.create(renderers[pending.target],step);try{await effect(pending.effect,$('enemy-art'),target,async()=>{await motion.react();await onImpact?.();},motion);}finally{await motion.finish();}}
  let impactTime=0;
  for(let beat=1;beat<(block.beats||1);beat++){if(!stillHere())return false;await defendStrike(block.steps?.[beat-1]||{action:pattern.actions[beat-1],grade:block.grade});}
  await defendStrike(block.steps?.[(block.beats||1)-1]||{action:pattern.actions[(block.beats||1)-1],grade:block.grade},async()=>{
-  if(document.hidden)await new Promise(resolve=>{const visible=()=>{if(!document.hidden){document.removeEventListener('visibilitychange',visible);resolve();}};document.addEventListener('visibilitychange',visible);});if(!stillHere())return;impactTime=Date.now();state.hp[pending.target]=Math.max(0,state.hp[pending.target]-damage);
+  if(document.hidden)await new Promise(resolve=>{const visible=()=>{if(!document.hidden){document.removeEventListener('visibilitychange',visible);resolve();}};document.addEventListener('visibilitychange',visible);});if(!stillHere())return;impactTime=Date.now();const actualLoss=Math.min(state.hp[pending.target],damage);showHeroDefenseFeedback(pending.target,block,actualLoss);state.hp[pending.target]=Math.max(0,state.hp[pending.target]-damage);
   if(block.grade==='perfect')state.campaign.battlePerfects++;if(block.grade==='perfect')state.campaign.focus=Math.min(3,state.campaign.focus+1);if(DefenseRules.reward(state.campaign,block))$('feedback').textContent+=' Power Strike earned! Your next damaging correct answer deals 2.5× damage.';
   state.campaign.shield=0;delete state.pendingEnemy;
   const next=TacticalRules.nextActor(state.answerActor,state.hp,[...state.campaign.acted,state.answerActor]);state.actor=next.actor;state.campaign.acted=next.acted;
