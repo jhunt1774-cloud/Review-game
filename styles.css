@@ -156,4 +156,21 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 .light-orb{width:35px;height:35px;border-radius:50%;background:radial-gradient(circle,#fff,#c9ffd4 40%,#5dbda1 75%);box-shadow:-16px 0 22px #9cffc3}
 .attack-damage{transform:translate(-50%,-40px);font:800 clamp(22px,3vw,38px) system-ui;color:#fff0c6;text-shadow:0 3px 3px #251a0b,0 0 10px #000;white-space:nowrap}
 
+/* Turn presentation: choose a move, then reveal the question. */
+#arena .hero[data-turn=true]::after{content:attr(data-turn-label);position:absolute;left:50%;bottom:-28px;transform:translateX(-50%);padding:4px 9px;border:1px solid #ffe2a2;border-radius:6px;background:#12342bed;color:#fff2c9;font:bold 12px system-ui;white-space:nowrap;z-index:12;pointer-events:none}
+#arena .hero[data-ready=true]::before{background:#ffe1a04d;box-shadow:0 0 16px #ffd36c88;border:2px solid #ffe7a6;filter:none}
+#arena #hero-command-menu{border:2px solid #e0bf7a;background:linear-gradient(145deg,#173f37fa,#0c211ffa);padding:15px;box-shadow:0 10px 35px #000a;max-height:calc(100% - 130px)}
+#hero-menu-title{font:bold 19px/1.3 Georgia;color:#ffe5a9;padding-right:0}
+#hero-menu-close{font-size:11px;padding:4px 8px;margin:0 0 6px 8px}
+#hero-menu-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#hero-menu-actions button[data-action]{position:relative;min-height:90px;padding:10px 10px 10px 43px;border:1px solid #9bbaa166;background:#204337;text-align:left}
+#hero-menu-actions button[data-action] strong{display:block;font-size:15px;color:#fff0ca}
+#hero-menu-actions button[data-action] small{display:block;font:12px/1.4 system-ui;color:#d6e4d9;margin-top:5px}
+.action-icon{position:absolute;left:10px;top:12px;font-size:24px;color:#ffe2a2}
+#hero-menu-actions button[data-action=special]{border-color:#dcc17f;background:#354739}
+#hero-menu-actions button:disabled{opacity:.5}
+#hero-menu-actions button:last-child:not([data-action]){grid-column:1/-1}
+@media(max-height:620px){#hero-menu-actions button[data-action]{min-height:68px;padding-top:6px;padding-bottom:6px}#hero-menu-note,#hero-menu-status{margin:4px 0}#arena #hero-command-menu{max-height:calc(100% - 120px)}}
+@media(max-width:480px){#hero-menu-actions button[data-action]{padding-left:31px}#hero-menu-actions button[data-action] strong{font-size:13px}.action-icon{left:7px;font-size:19px}#hero-menu-title{font-size:16px}}
+
 .region-loading{position:fixed;inset:35% auto auto 50%;transform:translateX(-50%);z-index:100;max-width:90%;padding:24px;background:#102a2cf5;color:#ffe7ae;border:2px solid #c4a477;border-radius:10px;text-align:center;box-shadow:0 0 0 100vmax #06141599;font:16px system-ui}
