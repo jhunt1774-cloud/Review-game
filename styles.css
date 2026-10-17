@@ -202,4 +202,18 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 
 .crypt-puzzle{max-width:540px;width:calc(100% - 44px);padding:28px;background:#14332f;color:#fff1cb;border:2px solid #bda66b;border-radius:14px;box-shadow:0 15px 70px #0009}.crypt-puzzle::backdrop{background:#041012b8}.crypt-puzzle h2{color:#f5d996}.crypt-puzzle p{line-height:1.65}.crypt-puzzle div{display:flex;gap:12px;margin:20px 0}.crypt-puzzle button{min-height:46px;color:#fff5d0;background:#28514b;border:1px solid #bdab76;padding:12px 18px;border-radius:8px}
 
+/* Large Guardian encounter: feet stay on the established scene ground. */
+#arena[data-boss=guardian] #enemy{width:29%;max-width:390px;right:3%;height:calc(var(--actor-height)*1.4)}
+#boss-status{position:absolute;z-index:10;right:16px;top:116px;max-width:40%;padding:7px 12px;background:#08261fee;border:1px solid #c5a66d;border-radius:8px;color:#ffe5ab;font:bold 12px/1.5 system-ui}
+#boss-status[hidden]{display:none}#boss-phase-announcement{position:absolute;top:170px;left:18%;right:18%;z-index:12;opacity:0;pointer-events:none;padding:12px;text-align:center;background:#10352feb;color:#fff1b9;border-radius:8px;font:bold 17px system-ui}
+#arena .hero[data-boss-target=true]:after{content:'TARGET';position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);border:1px solid #efb26d;background:#3e201ae8;color:#ffe6bc;border-radius:10px;padding:2px 7px;font:bold 10px system-ui;pointer-events:none}
+#arena[data-boss=guardian][data-charging=true] #enemy:before{height:16%;background:radial-gradient(ellipse,#dfff9344,#70ffb288,transparent 70%);animation:rootfire-breathe 1s ease-in-out infinite}
+@keyframes rootfire-breathe{50%{opacity:.4;transform:scale(1.15)}}
+.boss-hit-feedback{position:absolute;z-index:40;pointer-events:none;white-space:nowrap;color:#fff4c9;background:#153a2ff2;border:1px solid #d6bb72;border-radius:9px;padding:8px 12px;font:bold 15px system-ui}
+#hero-menu-actions button[data-action=flee]{border-color:#cda777;background:#30392a}#hero-menu-actions button[data-action=flee] small{display:block;margin-top:4px}
+@media(max-width:700px){#arena[data-boss=guardian] #enemy{width:31%;right:1%;height:calc(var(--actor-height)*1.22)}#boss-status{font-size:10px;top:145px;max-width:42%}#boss-phase-announcement{font-size:13px;left:8%;right:8%}}
+@media(prefers-reduced-motion:reduce){#arena[data-boss=guardian][data-charging=true] #enemy:before{animation:none}}
+
+#hero-menu-actions button[data-action=flee]{order:-1}
+
 .region-loading{position:fixed;inset:35% auto auto 50%;transform:translateX(-50%);z-index:100;max-width:90%;padding:24px;background:#102a2cf5;color:#ffe7ae;border:2px solid #c4a477;border-radius:10px;text-align:center;box-shadow:0 0 0 100vmax #06141599;font:16px system-ui}
