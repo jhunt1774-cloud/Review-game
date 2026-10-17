@@ -173,4 +173,10 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 @media(max-height:620px){#hero-menu-actions button[data-action]{min-height:68px;padding-top:6px;padding-bottom:6px}#hero-menu-note,#hero-menu-status{margin:4px 0}#arena #hero-command-menu{max-height:calc(100% - 120px)}}
 @media(max-width:480px){#hero-menu-actions button[data-action]{padding-left:31px}#hero-menu-actions button[data-action] strong{font-size:13px}.action-icon{left:7px;font-size:19px}#hero-menu-title{font-size:16px}}
 
+#loot-inventory{padding:8px 0;border-top:1px solid #b99a5b66}#loot-inventory h3{color:#ffe2a2;font-size:18px}#loot-inventory p{font:13px/1.5 system-ui;color:#e1ebdc}
+#hero-menu-actions button[data-action=relic]{border-color:#b39bf3;background:linear-gradient(120deg,#392c50,#183c37)}
+.relic-halo{width:110px;height:110px;border:3px double #e2cdff;outline:2px dashed #ffe1a0;border-radius:50%;box-shadow:0 0 24px #b596ff}
+
+.map-node[data-loot=true]{border-color:#d6b7fa;color:#f4ddff;background:#28223de8}.map-node[data-loot=true].visited{color:#acb9a8;border-color:#8a9a8766;background:#172c25dd}
+
 .region-loading{position:fixed;inset:35% auto auto 50%;transform:translateX(-50%);z-index:100;max-width:90%;padding:24px;background:#102a2cf5;color:#ffe7ae;border:2px solid #c4a477;border-radius:10px;text-align:center;box-shadow:0 0 0 100vmax #06141599;font:16px system-ui}
