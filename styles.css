@@ -200,4 +200,6 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 #forest-map[data-rendered=true][data-canvas-actors=true] .trail-hero,#forest-map[data-rendered=true][data-canvas-actors=true] #forest-patrol{opacity:0}
 #world-style{font-size:11px;padding:7px 10px}
 
+.crypt-puzzle{max-width:540px;width:calc(100% - 44px);padding:28px;background:#14332f;color:#fff1cb;border:2px solid #bda66b;border-radius:14px;box-shadow:0 15px 70px #0009}.crypt-puzzle::backdrop{background:#041012b8}.crypt-puzzle h2{color:#f5d996}.crypt-puzzle p{line-height:1.65}.crypt-puzzle div{display:flex;gap:12px;margin:20px 0}.crypt-puzzle button{min-height:46px;color:#fff5d0;background:#28514b;border:1px solid #bdab76;padding:12px 18px;border-radius:8px}
+
 .region-loading{position:fixed;inset:35% auto auto 50%;transform:translateX(-50%);z-index:100;max-width:90%;padding:24px;background:#102a2cf5;color:#ffe7ae;border:2px solid #c4a477;border-radius:10px;text-align:center;box-shadow:0 0 0 100vmax #06141599;font:16px system-ui}
