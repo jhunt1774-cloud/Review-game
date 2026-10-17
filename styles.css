@@ -216,4 +216,11 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 
 #hero-menu-actions button[data-action=flee]{order:-1}
 
+#arena[data-boss=drake] #enemy,#arena[data-boss=nightroot] #enemy,#arena[data-boss=leviathan] #enemy{width:30%;max-width:410px;right:3%;height:calc(var(--actor-height)*1.45)}
+#arena[data-boss=leviathan] #enemy{width:32%;max-width:435px;height:calc(var(--actor-height)*1.5)}
+#arena[data-boss=drake][data-charging=true] #enemy:before,#arena[data-boss=nightroot][data-charging=true] #enemy:before,#arena[data-boss=leviathan][data-charging=true] #enemy:before{height:17%;animation:rootfire-breathe 1s ease-in-out infinite;background:radial-gradient(ellipse,#bcefffaa,transparent 70%)}
+#arena[data-boss=nightroot][data-charging=true] #enemy:before{background:radial-gradient(ellipse,#d59bffaa,transparent 70%)}.boss-leech{border-color:#c692ec;color:#f2d7ff}
+@media(max-width:700px){#arena[data-boss=drake] #enemy,#arena[data-boss=nightroot] #enemy,#arena[data-boss=leviathan] #enemy{width:33%;right:1%;height:calc(var(--actor-height)*1.24)}}
+@media(prefers-reduced-motion:reduce){#arena[data-charging=true] #enemy:before{animation:none!important}}
+
 .region-loading{position:fixed;inset:35% auto auto 50%;transform:translateX(-50%);z-index:100;max-width:90%;padding:24px;background:#102a2cf5;color:#ffe7ae;border:2px solid #c4a477;border-radius:10px;text-align:center;box-shadow:0 0 0 100vmax #06141599;font:16px system-ui}
