@@ -2,7 +2,8 @@
 window.AttackStyles={
  names:['Whirlwind cleave','Earthshatter','Triple volley','Frost lance'],
  descriptions:['Two sweeping axe cuts · 1.55× damage','Ground shockwave · 1.35× damage · +1 stagger','Three arrows · 1.65× damage','Ice spear · 1.4× damage · next enemy hit −20%'],
- async play({actor,special=false,relic=false,renderer,target,arena,layer,audio,onImpact,healTarget=null,damage=null}){
+ async play({actor,special=false,relic=false,renderer,target,arena,layer,audio,onImpact,healTarget=null,damage=null,healingGains=null}){
+  if(relic)return RelicAnimations.play({actor,renderer,target,arena,layer,audio,onImpact,damage,healingGains});
   const reduced=MotionPreference.reduced(),nodes=[],motions=[],origin=renderer.el;
   const rect=arena.getBoundingClientRect(),point=el=>{const r=el.getBoundingClientRect();return {x:r.left+r.width/2-rect.left,y:r.top+r.height*.58-rect.top};},a=point(origin),b=point(target);
   const add=(kind,at,content='')=>{const el=document.createElement('div');el.className='attack-art '+kind;el.style.left=at.x+'px';el.style.top=at.y+'px';el.innerHTML=content;layer.appendChild(el);nodes.push(el);return el;};

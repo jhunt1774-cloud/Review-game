@@ -179,4 +179,15 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 
 .map-node[data-loot=true]{border-color:#d6b7fa;color:#f4ddff;background:#28223de8}.map-node[data-loot=true].visited{color:#acb9a8;border-color:#8a9a8766;background:#172c25dd}
 
+/* Relic abilities have separate readable silhouettes and bounded particles. */
+.relic-fx{position:absolute;pointer-events:none;z-index:10;transform-origin:center}.relic-fx svg{width:100%;height:100%;display:block}
+.relic-title{transform:translate(-50%,-140px);font:bold 24px Georgia;color:#fff0c6;text-shadow:0 3px 5px #000;white-space:nowrap}
+.relic-number{font:800 clamp(22px,3vw,36px) system-ui;white-space:nowrap;text-shadow:0 3px 4px #09251a}.relic-number.damage{color:#fff0be}.relic-number.healing{color:#c4ffcf}
+.relic-pulse{width:95px;height:60px;border:3px solid #ffde96;border-radius:50%;box-shadow:0 0 20px #e7bc79}.relic-pulse.blue{border-color:#bbe9ff;box-shadow:0 0 20px #75c9fa}.relic-pulse.green{border-color:#baffcd;box-shadow:0 0 20px #91e5bb}.relic-pulse.soft{box-shadow:none}
+.armor-seal{width:120px;height:140px;transform:translate(-50%,-50%)}.runebreaker-cut{width:215px;height:215px;filter:drop-shadow(0 0 8px #ffd27a)}
+.broken-armor{width:65px;height:120px;background:linear-gradient(130deg,#cef1ff,#315b78);transform:translate(-50%,-50%);clip-path:polygon(0 0,100% 15%,65% 40%,90% 60%,40% 100%,0 75%)}.broken-armor.left{margin-left:-50px}.broken-armor.right{scale:-1 1}
+.aegis-wave{width:160px;height:50px;border:5px solid #c0eeff;border-radius:50%;box-shadow:0 0 16px #64a7ed,inset 0 0 10px #f0faff}.aegis-ward{width:95px;height:160px;border:2px solid #b8e9ff;border-top-left-radius:80px;border-top-right-radius:80px;background:linear-gradient(90deg,#7ecbff22,#b9efff44,#7ecbff22);box-shadow:0 0 15px #7ecbff44}
+.starfall-bow{width:110px;height:110px;border:3px dashed #c3d7ff;border-radius:50%;box-shadow:0 0 18px #a2b5ff}.starfall-arrow{width:140px;height:22px;filter:drop-shadow(-12px 0 5px #c5d5ff)}.starfall-impact{width:160px;height:160px;filter:drop-shadow(0 0 9px #b7ceff)}
+.renewal-source{width:85px;height:85px;border:3px solid #fff3c4;border-radius:50%;background:radial-gradient(circle,#fff9d9,#b1fbd155,transparent);box-shadow:0 0 24px #b1fbd1}.renewal-wisp,.renewal-ray{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle,#fffad3,#b4ffce 40%,#51bca1);box-shadow:-12px 0 20px #a8ffcc}
+
 .region-loading{position:fixed;inset:35% auto auto 50%;transform:translateX(-50%);z-index:100;max-width:90%;padding:24px;background:#102a2cf5;color:#ffe7ae;border:2px solid #c4a477;border-radius:10px;text-align:center;box-shadow:0 0 0 100vmax #06141599;font:16px system-ui}
