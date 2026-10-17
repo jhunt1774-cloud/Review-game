@@ -231,4 +231,6 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 #world:has(#forest-map[data-art-loading=true]) #world-overview{visibility:hidden}
 #forest-map[data-art-loading=true]::after{content:"Loading region…";position:fixed;left:40%;top:45%;color:#ffe6b3;font:20px Georgia}
 
+.hero-identity{max-width:650px;margin:18px auto;padding:18px;background:#102b25ed;border:1px solid #c8a367;border-radius:12px;text-align:left}.hero-identity label{display:block;margin:12px 0;color:#ffe8ba}.hero-identity input,.hero-identity select{display:block;width:100%;padding:12px;margin-top:6px;background:#f5e8cd;color:#172920;border:2px solid #a58959;border-radius:6px;font-size:16px}.hero-identity p,#party-roster p{font:14px/1.5 system-ui;color:#e9e2cb}.roster-role{padding:12px;margin:10px 0;background:#0a201bc9;border:1px solid #8eaa7966;border-radius:8px}.roster-role strong{display:block;color:#ffe6b1}.roster-role button{display:block;width:100%;text-align:left;margin-top:8px;font:14px/1.4 system-ui}.roster-role button:disabled{opacity:.65}
+
 .region-loading{position:fixed;inset:35% auto auto 50%;transform:translateX(-50%);z-index:100;max-width:90%;padding:24px;background:#102a2cf5;color:#ffe7ae;border:2px solid #c4a477;border-radius:10px;text-align:center;box-shadow:0 0 0 100vmax #06141599;font:16px system-ui}
