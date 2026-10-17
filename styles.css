@@ -190,4 +190,14 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 .starfall-bow{width:110px;height:110px;border:3px dashed #c3d7ff;border-radius:50%;box-shadow:0 0 18px #a2b5ff}.starfall-arrow{width:140px;height:22px;filter:drop-shadow(-12px 0 5px #c5d5ff)}.starfall-impact{width:160px;height:160px;filter:drop-shadow(0 0 9px #b7ceff)}
 .renewal-source{width:85px;height:85px;border:3px solid #fff3c4;border-radius:50%;background:radial-gradient(circle,#fff9d9,#b1fbd155,transparent);box-shadow:0 0 24px #b1fbd1}.renewal-wisp,.renewal-ray{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle,#fffad3,#b4ffce 40%,#51bca1);box-shadow:-12px 0 20px #a8ffcc}
 
+/* Living Forest: cached terrain plus one viewport canvas for depth and actors. */
+#forest-terrain{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+#forest-scene{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+#forest-scene[hidden]{display:none!important}
+#forest-map[data-rendered=false] #forest-terrain{display:none}
+#forest-map[data-rendered=true]{background-image:none!important}
+#forest-map[data-rendered=true]>svg,#forest-map[data-rendered=true] #map-nodes,#forest-map[data-rendered=true] #boss-route-gate{visibility:hidden}
+#forest-map[data-rendered=true][data-canvas-actors=true] .trail-hero,#forest-map[data-rendered=true][data-canvas-actors=true] #forest-patrol{opacity:0}
+#world-style{font-size:11px;padding:7px 10px}
+
 .region-loading{position:fixed;inset:35% auto auto 50%;transform:translateX(-50%);z-index:100;max-width:90%;padding:24px;background:#102a2cf5;color:#ffe7ae;border:2px solid #c4a477;border-radius:10px;text-align:center;box-shadow:0 0 0 100vmax #06141599;font:16px system-ui}
