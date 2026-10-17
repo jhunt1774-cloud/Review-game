@@ -1,0 +1,28 @@
+// Bounded, scene-space effects; sprite poses remain owned by CharacterRenderer.
+window.AttackStyles={
+ names:['Whirlwind cleave','Earthshatter','Triple volley','Frost lance'],
+ descriptions:['Two sweeping axe cuts · 1.55× damage','Ground shockwave · 1.35× damage · +1 stagger','Three arrows · 1.65× damage','Ice spear · 1.4× damage · next enemy hit −20%'],
+ async play({actor,special=false,renderer,target,arena,layer,audio,onImpact,healTarget=null,damage=null}){
+  const reduced=MotionPreference.reduced(),nodes=[],motions=[],origin=renderer.el;
+  const rect=arena.getBoundingClientRect(),point=el=>{const r=el.getBoundingClientRect();return {x:r.left+r.width/2-rect.left,y:r.top+r.height*.58-rect.top};},a=point(origin),b=point(target);
+  const add=(kind,at,content='')=>{const el=document.createElement('div');el.className='attack-art '+kind;el.style.left=at.x+'px';el.style.top=at.y+'px';el.innerHTML=content;layer.appendChild(el);nodes.push(el);return el;};
+  const animate=async(el,frames,duration=300,fill)=>{const motion=el.animate(frames,{duration:reduced?60:duration,easing:'ease-out',...(fill?{fill}:{} )});motions.push(motion);await motion.finished;};
+  const ring=async(at,kind='gold')=>{const el=add('attack-ring '+kind,at);await animate(el,[{transform:'translate(-50%,-50%) scale(.2)',opacity:1},{transform:'translate(-50%,-50%) scale(1.8)',opacity:0}],320);};
+  const arrow='<svg viewBox="0 0 130 24"><path d="M4 12H116M99 3L124 12L99 21M5 4L20 12L5 20" fill="none" stroke="currentColor" stroke-width="3"/></svg>';
+  const cut='<svg viewBox="0 0 150 150"><path d="M12 125Q100 85 135 10Q132 112 12 125Z" fill="currentColor"/></svg>';
+  const bolt='<svg viewBox="0 0 150 40"><path d="M0 20L108 7L149 20L108 33Z" fill="#c8f6ff"/><path d="M18 20H139" stroke="#fff" stroke-width="3"/></svg>';
+  try{
+   renderer.setState('attack',true);
+   const title=add('attack-name',a);title.textContent=special?this.names[actor]:['Sundering axe','Challenge','Hunter’s mark','Healing light'][actor];audio?.launch(['slash','hammer','arrow','fireball'][actor],-.25);
+   if(actor===0||actor===1){const dx=Math.max(0,b.x-a.x-(actor===0?100:120));renderer.setState('walk');await animate(origin,[{translate:'0px'},{translate:dx+'px'}],240,'forwards');renderer.setState('attack',true);await animate(origin,[{rotate:actor===0?'-14deg':'-8deg'},{rotate:actor===0?'10deg':'6deg'}],200);
+    if(actor===0){for(let i=0;i<(special?2:1);i++){const el=add('axe-arc '+(special?'whirlwind':'sunder'),b,cut);await animate(el,[{transform:'translate(-50%,-50%) rotate('+(i?75:-35)+'deg) scale(.4)',opacity:1},{transform:'translate(-50%,-50%) rotate('+(i?220:55)+'deg) scale(1.4)',opacity:0}],230);}await ring(b);}
+    else {const wave=add('ground-wave',b);await animate(wave,[{transform:'translate(-50%,10px) scaleX(.1)',opacity:1},{transform:'translate(-50%,10px) scaleX(1.8)',opacity:0}],440);await ring(special?b:a,special?'earth':'blue');}
+   }else if(actor===2){const count=special?3:1;for(let i=0;i<count;i++){const start={x:a.x,y:a.y+(i-1)*13},el=add('flying-arrow '+(special?'volley':'mark'),start,arrow);await animate(el,[{transform:'translate(0,-50%)',opacity:1},{transform:'translate('+(b.x-start.x)+'px,'+(b.y-start.y)+'px)',opacity:1}],special?190:380);el.hidden=true;}const mark=add('target-rune',b);await animate(mark,[{transform:'translate(-50%,-50%) rotate(-45deg) scale(1.5)',opacity:0},{transform:'translate(-50%,-50%) rotate(0) scale(1)',opacity:1},{transform:'translate(-50%,-50%) scale(1.2)',opacity:0}],420);
+   }else if(special){const lance=add('ice-lance',a,bolt);await animate(lance,[{transform:'translate(0,-50%) scale(.4)'},{transform:'translate('+(b.x-a.x)+'px,'+(b.y-a.y)+'px) scale(1.2)'}],420);lance.hidden=true;for(let i=0;i<8;i++){const shard=add('ice-shard',b);const angle=i*Math.PI/4;const motion=shard.animate([{translate:'0px',opacity:1},{translate:(Math.cos(angle)*90)+'px '+(Math.sin(angle)*70)+'px',rotate:(i*50)+'deg',opacity:0}],{duration:reduced?60:350});motions.push(motion);}await ring(b,'blue');
+   }else {if(healTarget){await ring(point(healTarget),'healing');}const orb=add('light-orb',a);await animate(orb,[{transform:'translate(0,0) scale(.3)'},{transform:'translate('+(b.x-a.x)+'px,'+(b.y-a.y)+'px) scale(1)'}],420);orb.hidden=true;await ring(b,'healing');}
+   await onImpact?.();audio?.impact(['slash','hammer','arrow','fireball'][actor],.25);
+   if(damage!==null){const number=add('attack-damage',b);number.textContent='−'+damage+' HP';await animate(number,[{transform:'translate(-50%,-40px)',opacity:1},{transform:'translate(-50%,-75px)',opacity:1},{transform:'translate(-50%,-90px)',opacity:0}],600);}
+   if(actor===0||actor===1){renderer.setState('walk');await animate(origin,[{translate:Math.max(0,b.x-a.x-(actor===0?100:120))+'px'},{translate:'0px'}],260);}
+  }finally{motions.forEach(m=>m.cancel?.());nodes.forEach(n=>n.remove());if(['attack','walk'].includes(renderer.state))renderer.setState('idle');}
+ }
+};

@@ -142,4 +142,18 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 #discovery-notice span{display:block}#discovery-notice[hidden]{display:none!important}
 @media(max-width:600px){#discovery-notice{width:270px;font-size:12px}#discovery-notice strong{font-size:15px}}
 
+/* Skill artwork is short-lived and bounded; it never moves the camera. */
+.attack-art{position:absolute;pointer-events:none;z-index:8;transform-origin:center;color:#ffe9a8}
+.attack-art svg{display:block;width:100%;height:100%}
+.attack-name{transform:translate(-50%,-130px);width:230px;text-align:center;font:bold 18px system-ui;color:#fff2ce;text-shadow:0 2px 5px #000,0 0 10px #000}
+.axe-arc{width:180px;height:180px;filter:drop-shadow(0 0 7px #ffc85a)}
+.axe-arc.whirlwind{color:#fff5cf}.attack-ring{width:100px;height:100px;border:4px solid #ffe2a2;border-radius:50%;box-shadow:0 0 15px #ffd46c}
+.attack-ring.blue{border-color:#b4edff;box-shadow:0 0 18px #79caff}.attack-ring.healing{border-color:#b9ffd4;box-shadow:0 0 20px #67e5b3}.attack-ring.earth{width:170px;height:60px}
+.ground-wave{width:230px;height:55px;border:5px solid #f7cf8e;border-radius:50%;box-shadow:0 0 18px #d7984b,inset 0 0 14px #ffc574}
+.flying-arrow{width:120px;height:24px;color:#fff0c9;filter:drop-shadow(-10px 0 4px #b4e9aa)}.flying-arrow.mark{color:#a6ffd6}
+.target-rune{width:90px;height:90px;border:3px dashed #a3ffd2;border-radius:50%;box-shadow:0 0 15px #80ecbc}
+.ice-lance{width:150px;height:40px;filter:drop-shadow(-16px 0 10px #6ad9f7)}.ice-shard{width:12px;height:26px;background:#c8f6ff;clip-path:polygon(50% 0,100% 65%,50% 100%,0 65%)}
+.light-orb{width:35px;height:35px;border-radius:50%;background:radial-gradient(circle,#fff,#c9ffd4 40%,#5dbda1 75%);box-shadow:-16px 0 22px #9cffc3}
+.attack-damage{transform:translate(-50%,-40px);font:800 clamp(22px,3vw,38px) system-ui;color:#fff0c6;text-shadow:0 3px 3px #251a0b,0 0 10px #000;white-space:nowrap}
+
 .region-loading{position:fixed;inset:35% auto auto 50%;transform:translateX(-50%);z-index:100;max-width:90%;padding:24px;background:#102a2cf5;color:#ffe7ae;border:2px solid #c4a477;border-radius:10px;text-align:center;box-shadow:0 0 0 100vmax #06141599;font:16px system-ui}
