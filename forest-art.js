@@ -16,5 +16,5 @@ window.ForestArt={paths:{oak:'assets/map-painted-oak.webp?v=4de94aa3a4',pine:'as
 const renderer=ForestRenderer,oldPaint=renderer.paintTerrain,oldLandmark=renderer.landmark,oldRender=renderer.render;
 renderer.paintTerrain=function(c,w,h){return this.painted?ForestArt.paint(c,w,h):oldPaint.call(this,c,w,h);};
 renderer.landmark=function(c,node,at,done,time){return this.painted?ForestArt.landmark(c,node,at,done,time):oldLandmark.call(this,c,node,at,done,time);};
-renderer.render=function(p,c,time,force){if(ForestWorld.active(c.viewChapter)){ForestArt.select?.(c.viewChapter);if(this.ensure())ForestArt.upgrade();}return oldRender.call(this,p,c,time,force);};
+renderer.render=function(p,c,time,force){if(ForestWorld.active(c.viewChapter)){ForestArt.select?.(c.viewChapter);const map=document.getElementById('forest-map');map.dataset.artLoading='true';if(this.ensure())ForestArt.upgrade();map.dataset.artLoading=String(!this.painted);if(!this.painted)return;}return oldRender.call(this,p,c,time,force);};
 })();
