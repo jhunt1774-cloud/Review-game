@@ -223,4 +223,6 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 @media(max-width:700px){#arena[data-boss=drake] #enemy,#arena[data-boss=nightroot] #enemy,#arena[data-boss=leviathan] #enemy{width:33%;right:1%;height:calc(var(--actor-height)*1.24)}}
 @media(prefers-reduced-motion:reduce){#arena[data-charging=true] #enemy:before{animation:none!important}}
 
+.timed-projectile{position:absolute;z-index:8;width:28px;height:28px;border-radius:50%;background:radial-gradient(circle,#fff8d9,#72d6e7 45%,#5267ba);box-shadow:0 0 15px #80dbe9;pointer-events:none}.timed-contact{position:absolute;z-index:8;width:65px;height:65px;border:4px solid #f5eab3;border-radius:50%;pointer-events:none}.claw-contact{border-width:0 6px 0 0;border-radius:60%;rotate:-25deg}.spell-contact{border-color:#abf0ed}
+
 .region-loading{position:fixed;inset:35% auto auto 50%;transform:translateX(-50%);z-index:100;max-width:90%;padding:24px;background:#102a2cf5;color:#ffe7ae;border:2px solid #c4a477;border-radius:10px;text-align:center;box-shadow:0 0 0 100vmax #06141599;font:16px system-ui}
