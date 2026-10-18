@@ -1,0 +1,14 @@
+// Region-specific landmarks and sparse props; clear roads use the same terrain grid as movement.
+(()=>{'use strict';const originalPaths={...ForestArt.paths},prop=i=>'assets/map-detail-'+i+'.webp';
+window.MapVariety={
+ draw(c,index,x,y,w=110,h=110){const image=ForestRenderer.image(prop(index));if(!image.complete||!image.naturalWidth)return false;ForestArt.fit(c,image,x,y,w,h);return true;},
+ clear(tree){const chapter=ExploreRules.activeChapter||0;for(const oy of [-4.5,-3,-1.5,0])for(const ox of [-2,0,2]){const cell=ForestWorld.cell({x:tree.x+ox,y:tree.y+oy});if([1,3].includes(ForestWorld.terrain(cell.x,cell.y)))return false;}return true;},
+ upgrade(){const r=ForestRenderer;if(!r.painted||r._variedTerrain===r.terrain||DungeonRules.active&&!SideAdventures.active)return;const chapter=ExploreRules.activeChapter||0,images=Array.from({length:4},(_,i)=>ForestRenderer.image(prop(chapter*4+i)));if(!images.every(im=>im.complete&&im.naturalWidth))return;const originals=r.sprites.slice(0,2);r.sprites=originals.concat(images.map((image,i)=>{const canvas=document.createElement('canvas');canvas.width=100;canvas.height=130;const c=canvas.getContext('2d');ForestArt.fit(c,image,50,119,86,i===0?92:76);return canvas;}));r.trees=r.trees.filter(t=>this.clear(t)).filter((t,i)=>chapter!==2||i%3!==0);r.trees.forEach((tree,i)=>{const random=Math.abs(Math.sin(tree.x*17+tree.y*29));tree.variant=chapter===2?Math.floor(random*6):i%4===0?2+Math.floor(random*4):i%2;tree.scale=Math.min(1.15,tree.scale);});r._variedTerrain=r.terrain;}
+};
+const select=ForestArt.select;ForestArt.select=function(chapter){select.call(this,chapter);if(SideAdventures.active)this.paths={...originalPaths,...RegionArt.sets[chapter]};if(!DungeonRules.active||SideAdventures.active)this.paths.grass='assets/map-quiet-ground-'+chapter+'.webp';};
+const upgrade=ForestArt.upgrade;ForestArt.upgrade=function(){upgrade.call(this);MapVariety.upgrade();};
+const landmark=ForestArt.landmark;
+ForestArt.landmark=function(c,node,at,done,time){const info=SideAdventures.byNode.get(node.id);if(info){const {spec:s,key}=info,index=key==='entrance'||key==='exit'?s.entryProp:key==='support'?s.base+2:key==='puzzle'?s.base+3:key==='secret'?s.base+1:key==='cache'?s.base+2:key==='boss'?s.base:s.base+1;c.save();if(done)c.globalAlpha=.6;const drawn=MapVariety.draw(c,index,at.x,at.y,key==='entrance'?145:105,key==='entrance'?135:105);c.restore();if(drawn)return;}
+ const replacements={m0:3,m1:0,ruins:2,m4:4,m5:6,m6:5,m8:8,m9:11,m10:9,m12:13,m13:14,m14:15};const index=replacements[node.id];if(!DungeonRules.active&&index!==undefined){c.save();if(done)c.globalAlpha=.7;const drawn=MapVariety.draw(c,index,at.x,at.y,125,115);if(done){c.fillStyle='#bce7a4';c.font='bold 20px system-ui';c.textAlign='center';c.fillText('✓',at.x,at.y-119);}c.restore();if(drawn)return;}return landmark.call(this,c,node,at,done,time);
+};
+})();
