@@ -2,7 +2,7 @@
 window.AttackStyles={
  names:['Whirlwind cleave','Earthshatter','Triple volley','Frost lance'],
  descriptions:['Two sweeping axe cuts · 1.55× damage','Ground shockwave · 1.35× damage · +1 stagger','Three arrows · 1.65× damage','Ice spear · 1.4× damage · next enemy hit −20%'],
- async play({actor,special=false,relic=false,renderer,target,arena,layer,audio,onImpact,healTarget=null,damage=null,healingGains=null}){
+ async play({actor,special=false,relic=false,team=false,renderer,target,arena,layer,audio,onImpact,healTarget=null,damage=null,healingGains=null}){
   if(relic)return RelicAnimations.play({actor,renderer,target,arena,layer,audio,onImpact,damage,healingGains});
   const reduced=MotionPreference.reduced(),nodes=[],motions=[],origin=renderer.el;
   const rect=arena.getBoundingClientRect(),point=el=>{const r=el.getBoundingClientRect();return {x:r.left+r.width/2-rect.left,y:r.top+r.height*.58-rect.top};},a=point(origin),b=point(target);
@@ -14,7 +14,7 @@ window.AttackStyles={
   const bolt='<svg viewBox="0 0 150 40"><path d="M0 20L108 7L149 20L108 33Z" fill="#c8f6ff"/><path d="M18 20H139" stroke="#fff" stroke-width="3"/></svg>';
   try{
    renderer.setState('idle');let landed=false;const impact=async()=>{if(landed)return;landed=true;await onImpact?.();audio?.impact(actor===3&&special?'ice':['slash','hammer','arrow','fireball'][actor],.25);};
-   const title=add('attack-name',a);title.textContent=relic?LootRules.powers[actor].name:special?this.names[actor]:['Sundering axe','Challenge','Hunter’s mark','Healing light'][actor];
+   const title=add('attack-name',a);title.textContent=team?PartyTeamwork.moves[actor].name:relic?LootRules.powers[actor].name:special?this.names[actor]:['Sundering axe','Challenge','Hunter’s mark','Healing light'][actor];
    if(relic){const halo=add('relic-halo',a);await animate(halo,[{transform:'translate(-50%,-50%) scale(.2)',opacity:0},{transform:'translate(-50%,-50%) scale(1.7)',opacity:1},{transform:'translate(-50%,-50%) scale(2.3)',opacity:0}],450);if(actor===3){special=false;for(const ally of document.querySelectorAll('#heroes .hero'))await ring(point(ally),'healing');}}if(actor===0||actor===1){const dx=Math.max(0,b.x-a.x-(actor===0?100:120));renderer.setState('walk');await animate(origin,[{translate:'0px'},{translate:dx+'px'}],240,'forwards');
     if(actor===0){for(let i=0;i<(special?2:1);i++){const swing=animate(origin,[{rotate:'-14deg'},{rotate:'10deg'}],200);await CombatTiming.release(renderer);audio?.launch('slash',-.25);await swing;const el=add('axe-arc '+(special?'whirlwind':'sunder'),b,cut);if(i===(special?1:0))await impact();await animate(el,[{transform:'translate(-50%,-50%) rotate('+(i?75:-35)+'deg) scale(.4)',opacity:1},{transform:'translate(-50%,-50%) rotate('+(i?220:55)+'deg) scale(1.4)',opacity:0}],230);}await ring(b);}
     else {const swing=animate(origin,[{rotate:'-8deg'},{rotate:'6deg'}],200);await CombatTiming.release(renderer);audio?.launch('hammer',-.25);await swing;const wave=add('ground-wave',b);await impact();await animate(wave,[{transform:'translate(-50%,10px) scaleX(.1)',opacity:1},{transform:'translate(-50%,10px) scaleX(1.8)',opacity:0}],440);await ring(special?b:a,special?'earth':'blue');}
