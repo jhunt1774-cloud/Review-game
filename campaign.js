@@ -55,7 +55,7 @@ window.CombatAudio=class{
  play(type){this.cue(['heal','victory','defeat','chime'].includes(type)?type:type+'-impact');}
  async startMusic(){
   if(!this.enabled||!this.music||!this.ctx||this.hidden||this.ctx.state&&this.ctx.state!=='running')return;
-  const id=this.battleMusic?'battle':'adventure';if(this.currentMusic?.id===id||this.loadingMusic===id)return;
+  const id=this.themeId||(this.battleMusic?'battle':'adventure');if(this.currentMusic?.id===id||this.loadingMusic===id)return;
   const token=++this.musicToken;this.loadingMusic=id;
   try{
    const buffer=await this.musicBuffer(id);if(token!==this.musicToken||!this.enabled||!this.music||this.hidden)return;

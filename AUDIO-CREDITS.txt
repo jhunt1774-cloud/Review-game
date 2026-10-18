@@ -1,0 +1,257 @@
+ASTERFALL AUDIO SOURCES AND LICENSES
+All recordings selected for this update are published under CC0 1.0. No royalty payments or attribution conditions are imposed by CC0. Credits are retained voluntarily for provenance.
+CC0: https://creativecommons.org/publicdomain/zero/1.0/
+
+MUSIC (musical recordings by the artists below; not newly composed by Codex)
+
+adventure: Unexplored Expansion
+Artist: Bo Jingles / TAD
+License: CC0 1.0
+Source: https://opengameart.org/content/unexplored-expansion
+Game file: assets/music/adventure.mp3
+SHA256: 2de0aac278fb0e6ce0bd9b7974fb1db9fae3708e0401fa1ae60029968d9a1c7d
+Edits: loudness normalization, 32 kHz stereo/96 kbps MP3, wrap crossfade.
+
+mountain: A Legend Will Rise
+Artist: CodeManu
+License: CC0 1.0
+Source: https://opengameart.org/content/a-legend-will-rise-orchestral
+Game file: assets/music/mountain.mp3
+SHA256: 40dbf7ac58645a110cd23a00b1f3040b49f12b685e5f7d386f0b11fa2b6fc8c3
+Edits: loudness normalization, 32 kHz stereo/96 kbps MP3, wrap crossfade.
+
+city: From Here to Where?
+Artist: Écrivain
+License: CC0 1.0
+Source: https://opengameart.org/content/from-here-to-where
+Game file: assets/music/city.mp3
+SHA256: bc9bd16c7fc7230e922fdfd559c96a834f2159e77e6eb6cfef868ba05bfbc8c1
+Edits: loudness normalization, 32 kHz stereo/96 kbps MP3, wrap crossfade.
+
+coast: Treasure Hunter
+Artist: TAD
+License: CC0 1.0
+Source: https://opengameart.org/content/treasure-hunter
+Game file: assets/music/coast.mp3
+SHA256: 9541bfdb145633ab513ef489c024ccd2bf63ac3e3a6931b618e4cd99991f71c0
+Edits: loudness normalization, 32 kHz stereo/96 kbps MP3, wrap crossfade.
+
+battle: Determined Pursuit
+Artist: Emma_MA
+License: CC0 1.0
+Source: https://opengameart.org/content/determined-pursuit-epic-orchestra-loop
+Game file: assets/music/battle.mp3
+SHA256: 39cca25e0751996faef53a180feb75924bf0857b5f8684c0e0c318b908e64944
+Edits: loudness normalization, 32 kHz stereo/96 kbps MP3, wrap crossfade.
+
+boss: Epic Boss Battle
+Artist: Juhani Junkala / SubspaceAudio
+License: CC0 1.0
+Source: https://opengameart.org/content/boss-battle-music
+Game file: assets/music/boss.mp3
+SHA256: 7d41ba2c57268069490846739f3c03c59d6434d6b689c984bede7d15131aecda
+Edits: loudness normalization, 32 kHz stereo/96 kbps MP3, wrap crossfade.
+
+RECORDED FOLEY
+Kenney - Impact Sounds 1.0 (2019)
+https://kenney.nl/assets/impact-sounds
+License: CC0 1.0; included license explicitly permits commercial projects.
+
+Vehicle / Jan Schupke - Fantasy Weapons and Apparel SFX Library
+https://opengameart.org/content/fantasy-weapons-and-apparel-sfx-library
+Vehicle / Jan Schupke - Fantasy Sound Effects (Tinysized SFX)
+https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx
+License: CC0 1.0 in both included readme files.
+
+Ben Jaszczak and Brian Nelson / Still North Media - Medieval Weapon Textures
+https://opengameart.org/content/medieval-sound-effects-weapon-textures
+License: CC0 1.0 on source page; recordings credited to both artists.
+
+EXACT EFFECT FILES AND EDITS
+
+axe-swing-0
+Source file: textures/Axe Swing.wav
+Source crop seconds: 1.54 to 1.95
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: 3c765fed26b11eee148a6c3697468e4df9869b68fdc657c7f6840f5bbfff7117
+
+axe-swing-1
+Source file: textures/Axe Swing.wav
+Source crop seconds: 2.46 to 2.85
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: 37facde62aa6ff0eb3dfdda2e7e0bbc3849d3bc4361007508abe70bcce906481
+
+axe-swing-2
+Source file: textures/Axe Swing.wav
+Source crop seconds: 3.42 to 3.82
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: 63e2dbb4a50b6f028a199bcf049237a8e8a28cae745e9da6c3a5e6334897fd1c
+
+bow-release-0
+Source file: textures/English Longbow Shoot.wav
+Source crop seconds: 0.07 to 0.52
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: 1d2acb30d0e1371153bb1b15d2e3450833e713cc0587816f343beba6a760628f
+
+bow-release-1
+Source file: textures/English Longbow Shoot.wav
+Source crop seconds: 0.75 to 1.13
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: aa7029866f79b265c9dde515e5404ca0014f65ad0fc96660ae669744ddcc0836
+
+bow-release-2
+Source file: textures/English Longbow Shoot.wav
+Source crop seconds: 1.22 to 1.65
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: e5309f44f27f90681ca9535a65a9e764f8ae8db2f67156bcf69e6dd192ebea30
+
+blade-swing-0
+Source file: textures/Sabre Swing.wav
+Source crop seconds: 9.02 to 9.38
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: 6b5a761bdae96dbde8cb4484b789571a76a72ac2f509e4e917950a8b6da4db6e
+
+blade-swing-1
+Source file: textures/Sabre Swing.wav
+Source crop seconds: 10.15 to 10.53
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: 4b8bed2e9c6f3f84a25faadd914c72ef8759856853f889127b51ef50d9db58cf
+
+wood-hit-0
+Source file: impact/Audio/impactWood_heavy_000.ogg
+Source crop seconds: 0 to None
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: 8626eb1c7949aa40d9986f22a2ad70024aa0131e69eec038ef4599a52a9c2a4b
+
+body-hit-0
+Source file: impact/Audio/impactSoft_heavy_000.ogg
+Source crop seconds: 0 to None
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: d71e043821cca7912f41745d46494998f7b081f82cd72e62fad049b41c948673
+
+metal-hit-0
+Source file: tinysized/sfx-cc0/metal-hammer-hit-01.wav
+Source crop seconds: 0 to 1.1
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: 8803000c21af25091b0eae0dbe5dbbdd7e6bfc2d6e10e59f5ca5bee0970449b0
+
+parry-0
+Source file: weapons-apparel/sfx/sword-knife-clash-10.wav
+Source crop seconds: 0 to 1.1
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: 66f0fca5d21eba325b46ddfd7109fb4f71382c09847ad4ff39b2b84f884a4151
+
+wood-hit-1
+Source file: impact/Audio/impactWood_heavy_001.ogg
+Source crop seconds: 0 to None
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: 4eed26d0d64b05f9a5b69ec9d6d956796dd0ced6281d7125ccbe76f0873b2bf2
+
+body-hit-1
+Source file: impact/Audio/impactSoft_heavy_001.ogg
+Source crop seconds: 0 to None
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: e9a7373d21c2e5b991f9c90f98c92b5bd93b9290803e1c2eac4f1150a7133b55
+
+metal-hit-1
+Source file: tinysized/sfx-cc0/metal-hammer-hit-02.wav
+Source crop seconds: 0 to 1.1
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: 12bcfb7a7b0794cbc0cb0d8a3fa741ac04e641108322c91e9223df55373aa68a
+
+parry-1
+Source file: weapons-apparel/sfx/sword-knife-clash-11.wav
+Source crop seconds: 0 to 1.1
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: 227867b418670185ab1c3ae0ab35b03f268ef6287e60131127f8adb68537fb14
+
+magic-air
+Source file: tinysized/sfx-cc0/compressed-air-spray-01.wav
+Source crop seconds: 0 to 0.9
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: 23a3b540d2063cd713de3580f4b702faa5469448ceb2717d24b5cbfeddd6622c
+
+magic-glass
+Source file: impact/Audio/impactGlass_heavy_000.ogg
+Source crop seconds: 0 to 0.9
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: e09ab9e34f90e3ed446e606c69b0cf3ec02a4a9c0e09e8c35bbc4fd0d000429c
+
+dodge-cloth
+Source file: weapons-apparel/sfx/quiver-leather-squeeze-01.wav
+Source crop seconds: 0 to 0.5
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: 743833fab1f571ae8bcad8af12bb3c287bff655b384a175a2e0d8a8c2027e3d7
+
+jump-step
+Source file: tinysized/sfx-cc0/boots-leather-jump-01.wav
+Source crop seconds: 0 to 0.65
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: 01564b966bc2d4c08ae1d5717132f68d6e909295492a1c368fe64601613ce6af
+
+heal-water
+Source file: tinysized/sfx-cc0/water-vial-fill-01.wav
+Source crop seconds: 0 to 1.0
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: aa8f03f153fc6c620c7385b15d9669b25a3c7e939537f839df0864be50f06047
+
+coin-reward
+Source file: tinysized/sfx-cc0/coins-shake-01.wav
+Source crop seconds: 0 to 0.7
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: 79ba49d83d28f9560c91ae6276c1829dc768fa31b8295aaaad708b34acefb318
+
+wood-chimes
+Source file: tinysized/sfx-cc0/chimes-wood-rattle.wav
+Source crop seconds: 0 to 1.2
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: 623886938b1d7d2f56bd89361ade9e8301a55b0f99c1709815eebb29cfb9791c
+
+twigs-break
+Source file: tinysized/sfx-cc0/wood-twigs-break-01.wav
+Source crop seconds: 0 to 0.7
+Edits: silence trimming, short edge fades, peak normalization, mono 24 kHz PCM WAV.
+Game SHA256: 5a4a5729d934bc372f12e3e77845f4e26ce7f8b16a8401544dabc3990a8dc422
+
+INCLUDED SOURCE LICENSE TEXTS
+	
+
+	Impact Sounds (1.0)
+
+	Created/distributed by Kenney (www.kenney.nl)
+	Creation date: 19-12-2019
+
+			------------------------------
+
+	License: (Creative Commons Zero, CC0)
+	http://creativecommons.org/publicdomain/zero/1.0/
+
+	This content is free to use in personal, educational and commercial projects.
+
+	Support us by crediting Kenney or www.kenney.nl (this is not mandatory)
+
+			------------------------------
+
+	Donate:   http://support.kenney.nl
+	Request:  http://request.kenney.nl
+	Patreon:  http://patreon.com/kenney/
+
+	Follow on Twitter for updates:
+	http://twitter.com/KenneyNL
+Weapons and Apparel SFX Library
+
+Distributed under Creative Commons Zero:
+https://creativecommons.org/publicdomain/zero/1.0/
+
+Contact Information:
+    jan.schupke@gmail.com
+    http://www.vehiclemusic.eu
+
+Tinysized SFX Library
+
+Distributed under Creative Commons Zero:
+https://creativecommons.org/publicdomain/zero/1.0/
+
+Contact Information:
+    jan.schupke@gmail.com
+    http://www.vehiclemusic.eu
