@@ -1,0 +1,5 @@
+// Optional one-role visual trial. It never changes names, stats, gear or saves.
+(()=>{'use strict';const keys=['image','crop','frameWidth','frameHeight','columns','rows','sheetWidth','sheetHeight','frameRects','states'],original=Object.fromEntries(keys.map(key=>[key,HEROES[0][key]]));
+window.HeroArtTrial={enabled:false,read(){try{this.enabled=localStorage.getItem('asterfall-painted-thorin')==='yes';}catch{}},apply(){const art=this.enabled?{...PAINTED_THORIN,crop:null,columns:4,rows:4}:original;for(const key of keys)HEROES[0][key]=key==='states'?JSON.parse(JSON.stringify(art[key])):art[key];},set(enabled){this.enabled=!!enabled;try{localStorage.setItem('asterfall-painted-thorin',this.enabled?'yes':'no');}catch{}window.GameAppearance?.refresh();}};
+HeroArtTrial.read();const apply=RosterSystem.apply;RosterSystem.apply=function(s){apply.call(this,s);HeroArtTrial.apply();};const choice=document.getElementById('hero-art-trial');choice.checked=HeroArtTrial.enabled;choice.onchange=()=>HeroArtTrial.set(choice.checked);
+})();
