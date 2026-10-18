@@ -30,6 +30,9 @@ window.RegionAssetManifest={
   "assets/coast-scenes-4.webp": "assets/coast-scenes-4.webp?v=92944d2a1d",
   "assets/coast-scenes-5.webp": "assets/coast-scenes-5.webp?v=369ee0d082",
   "assets/coast-scenes.webp": "assets/coast-scenes.webp?v=b4ecac222a",
+  "assets/crypt-explore-archive.webp": "assets/crypt-explore-archive.webp?v=66eb6f77ee",
+  "assets/crypt-explore-roots.webp": "assets/crypt-explore-roots.webp?v=e2781fcc6a",
+  "assets/crypt-explore-winch.webp": "assets/crypt-explore-winch.webp?v=e35b95c822",
   "assets/enemy-briar-imp.webp": "assets/enemy-briar-imp.webp?v=e9abaf0e0b",
   "assets/enemy-city-ember-sentinel.webp": "assets/enemy-city-ember-sentinel.webp?v=80d8c2057a",
   "assets/enemy-city-nightroot-city.webp": "assets/enemy-city-nightroot-city.webp?v=5f6198ee75",
@@ -151,7 +154,11 @@ window.RegionAssetManifest={
   "assets/thorin-painted-walk.webp": "assets/thorin-painted-walk.webp?v=0b739fefd3",
   "assets/thorin-reactions.webp": "assets/thorin-reactions.webp?v=9dfc9a681a",
   "assets/thorin-walk-directions.webp": "assets/thorin-walk-directions.webp?v=26efd76ef5",
-  "assets/thorin-walk.webp": "assets/thorin-walk.webp?v=97146b6030"
+  "assets/thorin-walk.webp": "assets/thorin-walk.webp?v=97146b6030",
+  "assets/world-restored-archive.webp": "assets/world-restored-archive.webp?v=4868593aba",
+  "assets/world-restored-caravan.webp": "assets/world-restored-caravan.webp?v=8e58737925",
+  "assets/world-restored-dock.webp": "assets/world-restored-dock.webp?v=70088a9f78",
+  "assets/world-restored-expedition.webp": "assets/world-restored-expedition.webp?v=f468b46bf3"
 };
 // Only the current encounter's assets are prepared. Failed requests offer retry.
 window.RegionLoader={cache:new Map(),image(url){if(this.cache.has(url))return this.cache.get(url);const pending=new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(url);image.onerror=()=>{this.cache.delete(url);reject(Error('An area image could not load.'));};image.src=url;});this.cache.set(url,pending);return pending;},async prepare(chapter,index,node=null){const region=JOURNEY_CHAPTERS[chapter],enemy=EnemyRoster.resolve(index,node),scenes=region.scenes||['area-scenes','mountain-scenes','beacon-scenes'][chapter];const urls=new Set([window.ForestWorld?.active(chapter)?null:region.map,enemy.image]);for(const hero of HEROES){urls.add(hero.image);for(const state of Object.values(hero.states))if(state.image)urls.add(state.image);}const objective=window.EncounterObjectives?.byId.get(node);if(objective){const prop='assets/map-detail-'+objective.prop+'.webp';urls.add(window.RegionAssetManifest?.[prop]||prop);}const text='Preparing '+region.name+'…';const panel=document.createElement('div');panel.className='region-loading';panel.setAttribute('role','status');panel.textContent=text;document.getElementById('game').append(panel);try{const scene=JourneyArt.resolve(node||'m'+index).path;urls.add(window.RegionAssetManifest?.[scene]||scene);for(;;){const results=await Promise.allSettled([...urls].filter(Boolean).map(url=>this.image(url)));if(results.every(r=>r.status==='fulfilled'))break;panel.replaceChildren();const message=document.createElement('p');message.textContent='Some area files could not load. Check your connection, then retry.';const retry=document.createElement('button');retry.textContent='Retry area download';panel.append(message,retry);await new Promise(resolve=>retry.onclick=resolve);panel.textContent=text;}}finally{panel.remove();}}};
