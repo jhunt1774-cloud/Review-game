@@ -54,6 +54,7 @@ window.RegionAssetManifest={
   "assets/forest-explore.webp": "assets/forest-explore.webp?v=f06739c134",
   "assets/forest-map.webp": "assets/forest-map.webp?v=893f9ae00f",
   "assets/forest.webp": "assets/forest.webp?v=6c05d267ed",
+  "assets/hero-brom-painted-trial.webp": "assets/hero-brom-painted-trial.webp?v=d7a9df8e8c",
   "assets/hero-thorin-painted-trial.webp": "assets/hero-thorin-painted-trial.webp?v=58c8710644",
   "assets/lira-animations.webp": "assets/lira-animations.webp?v=fdfbbef34d",
   "assets/lira-walk-directions.webp": "assets/lira-walk-directions.webp?v=5b4663488b",
