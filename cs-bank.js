@@ -1,5 +1,5 @@
 // Original reviewed questions. Source links support each added web skill.
-window.CS_DOMAINS=["HTML","CSS","Computer basics","Algorithms","Programming","Data","Networks","Cybersecurity","Computing & society","AI literacy","3D design"];
+window.CS_DOMAINS=["HTML","CSS","Computer basics","Algorithms","Programming","Data","Networks","Cybersecurity","Computing & society","AI literacy","3D design","Math"];
 window.CS_BANK=[
   {
     "topic": "Computer basics",
@@ -2547,3 +2547,4 @@ window.CS_BANK=[
     "source": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overflow"
   }
 ];
+
