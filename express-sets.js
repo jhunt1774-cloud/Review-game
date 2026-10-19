@@ -1,85 +1,89 @@
-// Original practice, mapped to the published Express 2025 lesson sequence.
+// Independent programming practice. Legacy global/IDs retained for game compatibility.
 window.EXPRESS_SETS=[
   {
     "version": 1,
-    "name": "Express 2025 · L01 · Programming with Angry Birds",
-    "course": "Express Course 2025",
+    "name": "Programming Skills · Ordered instructions",
+    "course": "Independent Programming Skills",
     "lesson": 1,
-    "lessonTitle": "Programming with Angry Birds",
+    "lessonTitle": "Ordered instructions",
     "group": "Sequencing",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/1",
     "difficulty": "intermediate",
     "pace": "standard",
+    "contentRevision": 2,
     "questions": [
       {
         "id": 0,
         "topic": "Programming",
-        "subject": "Express · Sequencing",
+        "subject": "Programming skills · Sequencing",
         "difficulty": "beginner",
-        "text": "What makes a sequence of commands useful?",
+        "text": "A parcel kiosk must print a label before attaching it. Which pair preserves that dependency?",
         "answers": [
-          "They are alphabetized",
-          "They all have the same color",
-          "Their order is random",
-          "The commands are in the order needed for the task"
+          "Print label; attach label",
+          "Attach label; print label",
+          "Attach label twice",
+          "Print label after dispatch"
         ],
-        "correct": 3,
-        "explanation": "Execution order determines what the program does.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/1",
+        "correct": 0,
+        "explanation": "The label must exist before it can be attached.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 1,
         "expressGroup": "Sequencing"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · Sequencing",
-        "difficulty": "beginner",
-        "text": "A robot must move forward, turn right, then move forward. Which sequence fits?",
+        "subject": "Programming skills · Sequencing",
+        "difficulty": "intermediate",
+        "text": "A program sets lamp = off, then lamp = on. What is the final state?",
         "answers": [
-          "Forward; forward; right turn",
-          "Right turn; right turn; forward",
-          "Forward; right turn; forward",
-          "Right turn; forward; forward"
+          "Off",
+          "Both states at once",
+          "No state is assigned",
+          "On"
         ],
-        "correct": 2,
-        "explanation": "Translate each required movement in order.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/1",
+        "correct": 3,
+        "explanation": "The later assignment replaces the earlier lamp value.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 1,
         "expressGroup": "Sequencing"
       },
       {
         "id": 2,
         "topic": "Programming",
-        "subject": "Express · Sequencing",
+        "subject": "Programming skills · Sequencing",
         "difficulty": "intermediate",
-        "text": "Your program turns before reaching the corner. What should you inspect?",
+        "text": "An app saves a receipt before calculating its total. Which change fixes the order?",
         "answers": [
-          "The number of people watching",
-          "The position of the turn command",
-          "Only the screen color",
-          "Only the file name"
+          "Remove the calculation",
+          "Rename the receipt",
+          "Calculate the total before saving the receipt",
+          "Save the receipt twice"
         ],
-        "correct": 1,
-        "explanation": "A turn in the wrong place changes the path.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/1",
+        "correct": 2,
+        "explanation": "The saved receipt should use the completed calculation.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 1,
         "expressGroup": "Sequencing"
       },
       {
         "id": 3,
         "topic": "Programming",
-        "subject": "Express · Sequencing",
+        "subject": "Programming skills · Sequencing",
         "difficulty": "intermediate",
-        "text": "Why run a short part of a movement program while building it?",
+        "text": "Why write a numbered plan for a parcel-sorting program?",
         "answers": [
-          "To compare its movements with the plan",
-          "To prevent all future bugs automatically",
-          "To avoid using a plan",
-          "To change every command randomly"
+          "To replace the computer's memory",
+          "To specify the order of its actions",
+          "To guarantee that no tests are needed",
+          "To make all actions simultaneous"
         ],
-        "correct": 0,
-        "explanation": "Small tests reveal mismatches early.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/1",
+        "correct": 1,
+        "explanation": "A numbered plan makes action dependencies explicit.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 1,
         "expressGroup": "Sequencing"
       }
@@ -87,169 +91,177 @@ window.EXPRESS_SETS=[
   },
   {
     "version": 1,
-    "name": "Express 2025 · L02 · Debugging in Maze",
-    "course": "Express Course 2025",
+    "name": "Programming Skills · Tracing and evidence",
+    "course": "Independent Programming Skills",
     "lesson": 2,
-    "lessonTitle": "Debugging in Maze",
-    "group": "Sequencing",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/2",
+    "lessonTitle": "Tracing and evidence",
+    "group": "Debugging",
     "difficulty": "intermediate",
     "pace": "standard",
+    "contentRevision": 2,
     "questions": [
       {
         "id": 0,
         "topic": "Programming",
-        "subject": "Express · Sequencing",
+        "subject": "Programming skills · Debugging",
         "difficulty": "beginner",
-        "text": "A program stops one square before its goal. What should you investigate first?",
+        "text": "A thermostat should turn on below 18 degrees but turns on at 24. What is useful evidence?",
         "answers": [
-          "Whether to delete all commands",
-          "Whether to skip testing",
-          "Whether a needed movement command is missing",
-          "Whether the goal needs a new color"
+          "The case color",
+          "The user's favorite song",
+          "The monitor size",
+          "The measured value and the comparison result"
         ],
-        "correct": 2,
-        "explanation": "Compare the program’s movements with the required route.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/2",
+        "correct": 3,
+        "explanation": "The temperature and comparison reveal why the branch runs.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 2,
-        "expressGroup": "Sequencing"
+        "expressGroup": "Debugging"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · Sequencing",
-        "difficulty": "beginner",
-        "text": "Which debugging approach gives clear evidence?",
+        "subject": "Programming skills · Debugging",
+        "difficulty": "intermediate",
+        "text": "An order contains two items but its total includes only one. What should be traced?",
         "answers": [
-          "Only rename the program",
-          "Change one suspected error and test again",
-          "Change every block at once",
-          "Ignore the unexpected result"
+          "The printer's logo",
+          "Only the startup sound",
+          "Which items reach the total calculation",
+          "Only the title font"
         ],
-        "correct": 1,
-        "explanation": "A focused change helps identify what fixed the problem.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/2",
+        "correct": 2,
+        "explanation": "Tracing item processing can reveal a skipped calculation.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 2,
-        "expressGroup": "Sequencing"
+        "expressGroup": "Debugging"
       },
       {
         "id": 2,
         "topic": "Programming",
-        "subject": "Express · Sequencing",
+        "subject": "Programming skills · Debugging",
         "difficulty": "intermediate",
-        "text": "Which prediction is useful before running code?",
+        "text": "Why keep a failing input when repairing a program?",
         "answers": [
-          "Where each movement will place the character",
-          "Which font is prettiest",
-          "How many students like it",
-          "What the program’s title should be"
+          "To change the assignment goal",
+          "To rerun the same case after the fix",
+          "To prove every other input fails",
+          "To avoid checking the output"
         ],
-        "correct": 0,
-        "explanation": "Tracing commands helps locate likely failures.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/2",
+        "correct": 1,
+        "explanation": "A repeatable case lets you compare behavior before and after a change.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 2,
-        "expressGroup": "Sequencing"
+        "expressGroup": "Debugging"
       },
       {
         "id": 3,
         "topic": "Programming",
-        "subject": "Express · Sequencing",
+        "subject": "Programming skills · Debugging",
         "difficulty": "intermediate",
-        "text": "A first fix does not work. What is a productive next step?",
+        "text": "After changing one calculation, what should a developer do?",
         "answers": [
-          "Give up immediately",
-          "Assume the result is correct",
-          "Remove the goal",
-          "Use the new result to refine your next test"
+          "Test the failing case and related working cases",
+          "Delete the expected results",
+          "Assume all bugs disappeared",
+          "Change every other calculation"
         ],
-        "correct": 3,
-        "explanation": "Debugging often takes repeated evidence-based attempts.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/2",
+        "correct": 0,
+        "explanation": "The fix should solve the failure without breaking related behavior.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 2,
-        "expressGroup": "Sequencing"
+        "expressGroup": "Debugging"
       }
     ]
   },
   {
     "version": 1,
-    "name": "Express 2025 · L03 · Sequencing in Music Lab",
-    "course": "Express Course 2025",
+    "name": "Programming Skills · Schedules and timing",
+    "course": "Independent Programming Skills",
     "lesson": 3,
-    "lessonTitle": "Sequencing in Music Lab",
+    "lessonTitle": "Schedules and timing",
     "group": "Sequencing",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/3",
     "difficulty": "intermediate",
     "pace": "standard",
+    "contentRevision": 2,
     "questions": [
       {
         "id": 0,
         "topic": "Programming",
-        "subject": "Express · Sequencing",
+        "subject": "Programming skills · Sequencing",
         "difficulty": "beginner",
-        "text": "A song needs a sound followed by silence. Which sequence fits?",
+        "text": "A timer waits 2 seconds, rings, waits 3 seconds, then flashes. When does the flash occur after starting?",
         "answers": [
-          "Delete the sound",
-          "Play sound, then rest",
-          "Rest, then play sound",
-          "Play two sounds together"
+          "After 3 seconds",
+          "After 6 seconds",
+          "After 5 seconds",
+          "After 2 seconds"
         ],
-        "correct": 1,
-        "explanation": "Sequence controls the order of sounds and silence.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/3",
+        "correct": 2,
+        "explanation": "The two sequential waits add to 5 seconds.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 3,
         "expressGroup": "Sequencing"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · Sequencing",
-        "difficulty": "beginner",
-        "text": "A musical phrase repeats four times. What can simplify its code?",
+        "subject": "Programming skills · Sequencing",
+        "difficulty": "intermediate",
+        "text": "Two tasks must run in order: unlock a cabinet, then open it. Why is order important?",
         "answers": [
-          "Put the phrase inside a repeat-four loop",
-          "Copy unrelated commands",
-          "Remove the phrase",
-          "Change the song title"
+          "Both tasks must have equal duration",
+          "Opening depends on the cabinet already being unlocked",
+          "The shorter task must always be first",
+          "Alphabetical order controls execution"
         ],
-        "correct": 0,
-        "explanation": "A loop repeats a defined sequence.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/3",
+        "correct": 1,
+        "explanation": "A dependency requires one task to finish before the next can succeed.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 3,
         "expressGroup": "Sequencing"
       },
       {
         "id": 2,
         "topic": "Programming",
-        "subject": "Express · Sequencing",
+        "subject": "Programming skills · Sequencing",
         "difficulty": "intermediate",
-        "text": "Why split a musical program into sections?",
+        "text": "A display shows Red, then Blue, then Green. Swapping the first two commands produces what order?",
         "answers": [
-          "To make every section identical",
-          "To remove the need for order",
-          "To prevent sound output",
-          "To work on manageable parts"
+          "Blue, Red, Green",
+          "Green, Blue, Red",
+          "Red, Green, Blue",
+          "Blue, Green, Red"
         ],
-        "correct": 3,
-        "explanation": "Decomposition helps plan and test a larger composition.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/3",
+        "correct": 0,
+        "explanation": "Only the first two positions are exchanged.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 3,
         "expressGroup": "Sequencing"
       },
       {
         "id": 3,
         "topic": "Programming",
-        "subject": "Express · Sequencing",
+        "subject": "Programming skills · Sequencing",
         "difficulty": "intermediate",
-        "text": "Two sound blocks are swapped. What may change?",
+        "text": "A recipe app skips its timer step. Which comparison best helps locate the omission?",
         "answers": [
-          "Only the account password",
-          "Nothing can ever change",
-          "The order in which sounds play",
-          "Only the saved file size"
+          "Two unrelated color palettes",
+          "The number of installed apps",
+          "The phone's brand against its name",
+          "The intended steps against the executed steps"
         ],
-        "correct": 2,
-        "explanation": "Changing order can change the composition.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/3",
+        "correct": 3,
+        "explanation": "Comparing planned and executed actions reveals missing steps.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 3,
         "expressGroup": "Sequencing"
       }
@@ -257,169 +269,177 @@ window.EXPRESS_SETS=[
   },
   {
     "version": 1,
-    "name": "Express 2025 · L04 · Creating Art with Code",
-    "course": "Express Course 2025",
+    "name": "Programming Skills · Coordinates and directions",
+    "course": "Independent Programming Skills",
     "lesson": 4,
-    "lessonTitle": "Creating Art with Code",
-    "group": "Sequencing",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/4",
+    "lessonTitle": "Coordinates and directions",
+    "group": "Graphics",
     "difficulty": "intermediate",
     "pace": "standard",
+    "contentRevision": 2,
     "questions": [
       {
         "id": 0,
         "topic": "Programming",
-        "subject": "Express · Sequencing",
+        "subject": "Programming skills · Graphics",
         "difficulty": "beginner",
-        "text": "How can a complex drawing be easier to program?",
+        "text": "On a coordinate plane where x increases rightward, a marker moves from x = 12 to x = 19. How far right did it move?",
         "answers": [
-          "Break it into lines and turns",
-          "Guess random distances",
-          "Ignore angles",
-          "Use only the file name"
+          "31 units",
+          "7 units",
+          "12 units",
+          "19 units"
         ],
-        "correct": 0,
-        "explanation": "Decompose a shape into simpler drawing actions.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/4",
+        "correct": 1,
+        "explanation": "The change is 19 minus 12, or 7.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 4,
-        "expressGroup": "Sequencing"
+        "expressGroup": "Graphics"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · Sequencing",
-        "difficulty": "beginner",
-        "text": "A square needs which exterior turn after each side?",
+        "subject": "Programming skills · Graphics",
+        "difficulty": "intermediate",
+        "text": "A drawing tool faces east and turns 90 degrees counterclockwise. Which direction does it face?",
         "answers": [
-          "45 degrees",
-          "180 degrees",
-          "30 degrees",
-          "90 degrees"
+          "North",
+          "South",
+          "West",
+          "East"
         ],
-        "correct": 3,
-        "explanation": "Four right-angle turns make one complete rotation.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/4",
+        "correct": 0,
+        "explanation": "A counterclockwise quarter-turn from east points north.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 4,
-        "expressGroup": "Sequencing"
+        "expressGroup": "Graphics"
       },
       {
         "id": 2,
         "topic": "Programming",
-        "subject": "Express · Sequencing",
+        "subject": "Programming skills · Graphics",
         "difficulty": "intermediate",
-        "text": "What does changing a forward distance from 20 to 40 do?",
+        "text": "A pen draws a line of length 15, then one of length 25 without turning. What is the combined length?",
         "answers": [
-          "Changes only its color",
-          "Makes it a right turn",
-          "Doubles that segment’s length",
-          "Halves its length"
+          "10 units",
+          "25 units",
+          "375 units",
+          "40 units"
         ],
-        "correct": 2,
-        "explanation": "Distance controls how far the drawing tool moves.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/4",
+        "correct": 3,
+        "explanation": "Consecutive straight segments add: 15 + 25 = 40.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 4,
-        "expressGroup": "Sequencing"
+        "expressGroup": "Graphics"
       },
       {
         "id": 3,
         "topic": "Programming",
-        "subject": "Express · Sequencing",
+        "subject": "Programming skills · Graphics",
         "difficulty": "intermediate",
-        "text": "Which sequence draws two connected perpendicular lines?",
+        "text": "Which action moves a cursor without leaving a drawn line in a pen-based drawing tool?",
         "answers": [
-          "Change color without moving",
-          "Draw a line, turn 90 degrees, draw a line",
-          "Draw two lines without turning",
-          "Turn twice without moving"
+          "Change the ink color",
+          "Draw the same segment twice",
+          "Lift the pen before moving",
+          "Increase the line width"
         ],
-        "correct": 1,
-        "explanation": "A right-angle turn changes the direction between segments.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/4",
+        "correct": 2,
+        "explanation": "A lifted pen changes position without marking the surface.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 4,
-        "expressGroup": "Sequencing"
+        "expressGroup": "Graphics"
       }
     ]
   },
   {
     "version": 1,
-    "name": "Express 2025 · L05 · Swimming Fish with Sprite Lab",
-    "course": "Express Course 2025",
+    "name": "Programming Skills · Appearance and state",
+    "course": "Independent Programming Skills",
     "lesson": 5,
-    "lessonTitle": "Swimming Fish with Sprite Lab",
+    "lessonTitle": "Appearance and state",
     "group": "Sprites",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/5",
     "difficulty": "intermediate",
     "pace": "standard",
+    "contentRevision": 2,
     "questions": [
       {
         "id": 0,
         "topic": "Programming",
-        "subject": "Express · Sprites",
+        "subject": "Programming skills · Sprites",
         "difficulty": "beginner",
-        "text": "What is a sprite in an animation?",
+        "text": "A game icon stays at the same coordinates but changes from gray to green. Which property changed?",
         "answers": [
-          "Only a printed worksheet",
-          "Only a sound file",
-          "A browser password",
-          "An on-screen object with appearance and position"
+          "Appearance",
+          "Position",
+          "Execution order",
+          "File size"
         ],
-        "correct": 3,
-        "explanation": "Sprites are objects a program can display and control.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/5",
+        "correct": 0,
+        "explanation": "Its visible styling changed while its location stayed fixed.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 5,
         "expressGroup": "Sprites"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · Sprites",
-        "difficulty": "beginner",
-        "text": "Which change affects a sprite’s appearance?",
+        "subject": "Programming skills · Sprites",
+        "difficulty": "intermediate",
+        "text": "Two screen objects use the same picture but occupy different positions. Are they necessarily the same object?",
         "answers": [
-          "Change the account password",
-          "Remove every event",
-          "Assign a different costume",
-          "Rename an unrelated file"
+          "Yes; an image can be used only once",
+          "Yes; position does not belong to objects",
+          "No; shared pictures cannot be displayed",
+          "No; separate objects can share an image"
         ],
-        "correct": 2,
-        "explanation": "A costume determines a sprite’s visible appearance.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/5",
+        "correct": 3,
+        "explanation": "Objects can have independent state while reusing one visual resource.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 5,
         "expressGroup": "Sprites"
       },
       {
         "id": 2,
         "topic": "Programming",
-        "subject": "Express · Sprites",
+        "subject": "Programming skills · Sprites",
         "difficulty": "intermediate",
-        "text": "How does a continuous behavior differ from one movement command?",
+        "text": "A character has x, y, and health values. What do those values describe?",
         "answers": [
-          "It is always a background image",
-          "It keeps acting until stopped or changed",
-          "It cannot affect motion",
-          "It runs only before the program starts"
+          "Only the image filename",
+          "A guarantee of correct behavior",
+          "Its current state",
+          "The entire operating system"
         ],
-        "correct": 1,
-        "explanation": "A behavior continues rather than performing only one action.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/5",
+        "correct": 2,
+        "explanation": "State records information about an object at a particular moment.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 5,
         "expressGroup": "Sprites"
       },
       {
         "id": 3,
         "topic": "Programming",
-        "subject": "Express · Sprites",
+        "subject": "Programming skills · Sprites",
         "difficulty": "intermediate",
-        "text": "A swimming sprite should stop swimming. What should the program do?",
+        "text": "Which change makes a map marker larger without moving its center?",
         "answers": [
-          "Stop its swimming behavior",
-          "Only change the project name",
-          "Create a second unrelated sprite",
-          "Delete the background only"
+          "Delete its image",
+          "Increase its scale while keeping its position",
+          "Increase only x",
+          "Increase only y"
         ],
-        "correct": 0,
-        "explanation": "Stopping the active behavior ends its continued action.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/5",
+        "correct": 1,
+        "explanation": "Scale controls size independently of the center coordinates.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 5,
         "expressGroup": "Sprites"
       }
@@ -427,509 +447,533 @@ window.EXPRESS_SETS=[
   },
   {
     "version": 1,
-    "name": "Express 2025 · L06 · Making Sprites",
-    "course": "Express Course 2025",
+    "name": "Programming Skills · Creating and selecting objects",
+    "course": "Independent Programming Skills",
     "lesson": 6,
-    "lessonTitle": "Making Sprites",
+    "lessonTitle": "Creating and selecting objects",
     "group": "Sprites",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/6",
     "difficulty": "intermediate",
     "pace": "standard",
+    "contentRevision": 2,
     "questions": [
       {
         "id": 0,
         "topic": "Programming",
-        "subject": "Express · Sprites",
+        "subject": "Programming skills · Sprites",
         "difficulty": "beginner",
-        "text": "What must happen before code can control a newly named sprite?",
+        "text": "Code tries to move an object named beacon before creating it. What is missing?",
         "answers": [
-          "The browser must be renamed",
-          "Every other sprite must be deleted",
-          "The sprite must be created",
-          "The project must be printed"
+          "An extra screen border",
+          "A second keyboard",
+          "A longer project title",
+          "An initialization step for beacon"
         ],
-        "correct": 2,
-        "explanation": "Create an object before using it in the animation.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/6",
+        "correct": 3,
+        "explanation": "A program needs a valid object before it can operate on that object.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 6,
         "expressGroup": "Sprites"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · Sprites",
-        "difficulty": "beginner",
-        "text": "Two sprites need different looks. What should you assign?",
-        "answers": [
-          "The same position only",
-          "A suitable costume to each sprite",
-          "One password to each picture",
-          "A file extension to each sound"
-        ],
-        "correct": 1,
-        "explanation": "Each sprite can have its own appearance.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/6",
-        "expressLesson": 6,
-        "expressGroup": "Sprites"
-      },
-      {
-        "id": 2,
-        "topic": "Programming",
-        "subject": "Express · Sprites",
+        "subject": "Programming skills · Sprites",
         "difficulty": "intermediate",
-        "text": "A sprite moves repeatedly in an animation. Which feature can describe that activity?",
-        "answers": [
-          "A behavior",
-          "A document heading",
-          "A download link",
-          "An account name"
-        ],
-        "correct": 0,
-        "explanation": "Behaviors can describe continuing sprite actions.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/6",
-        "expressLesson": 6,
-        "expressGroup": "Sprites"
-      },
-      {
-        "id": 3,
-        "topic": "Programming",
-        "subject": "Express · Sprites",
-        "difficulty": "intermediate",
-        "text": "A program changes the wrong sprite. What should you inspect?",
-        "answers": [
-          "Only the canvas color",
-          "Only the browser zoom",
-          "Only the project title",
-          "Which sprite the command targets"
-        ],
-        "correct": 3,
-        "explanation": "Commands must target the intended object.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/6",
-        "expressLesson": 6,
-        "expressGroup": "Sprites"
-      }
-    ]
-  },
-  {
-    "version": 1,
-    "name": "Express 2025 · L07 · Mini-Project: Career Journeys",
-    "course": "Express Course 2025",
-    "lesson": 7,
-    "lessonTitle": "Mini-Project: Career Journeys",
-    "group": "Sprites",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/7",
-    "difficulty": "intermediate",
-    "pace": "standard",
-    "questions": [
-      {
-        "id": 0,
-        "topic": "Programming",
-        "subject": "Express · Sprites",
-        "difficulty": "beginner",
-        "text": "Which project plan connects computer science to a career?",
-        "answers": [
-          "A password list",
-          "An interactive model showing how a job uses technology",
-          "A random picture with no explanation",
-          "An empty screen"
-        ],
-        "correct": 1,
-        "explanation": "A purposeful model can show a career’s computing tasks.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/7",
-        "expressLesson": 7,
-        "expressGroup": "Sprites"
-      },
-      {
-        "id": 1,
-        "topic": "Programming",
-        "subject": "Express · Sprites",
-        "difficulty": "beginner",
-        "text": "A project changes a scene after a click. What starts the change?",
-        "answers": [
-          "An event",
-          "A file folder",
-          "An unrelated title",
-          "A printed instruction"
-        ],
-        "correct": 0,
-        "explanation": "A click event can trigger program actions.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/7",
-        "expressLesson": 7,
-        "expressGroup": "Sprites"
-      },
-      {
-        "id": 2,
-        "topic": "Programming",
-        "subject": "Express · Sprites",
-        "difficulty": "intermediate",
-        "text": "What should a presentation explain about an interactive project?",
-        "answers": [
-          "Only which color is favorite",
-          "Only who has the fastest computer",
-          "Nothing about the project",
-          "How its code supports its purpose"
-        ],
-        "correct": 3,
-        "explanation": "Explain what the program does and how the coding choices help.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/7",
-        "expressLesson": 7,
-        "expressGroup": "Sprites"
-      },
-      {
-        "id": 3,
-        "topic": "Programming",
-        "subject": "Express · Sprites",
-        "difficulty": "intermediate",
-        "text": "Why test a career project with another student?",
-        "answers": [
-          "To make its purpose secret",
-          "To remove its instructions",
-          "To see whether its interaction is understandable",
-          "To avoid all revisions"
-        ],
-        "correct": 2,
-        "explanation": "Feedback can reveal usability problems.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/7",
-        "expressLesson": 7,
-        "expressGroup": "Sprites"
-      }
-    ]
-  },
-  {
-    "version": 1,
-    "name": "Express 2025 · L08 · Sprites in Action",
-    "course": "Express Course 2025",
-    "lesson": 8,
-    "lessonTitle": "Sprites in Action",
-    "group": "Events",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/8",
-    "difficulty": "intermediate",
-    "pace": "standard",
-    "questions": [
-      {
-        "id": 0,
-        "topic": "Programming",
-        "subject": "Express · Events",
-        "difficulty": "beginner",
-        "text": "Which event can make a character react to a user?",
-        "answers": [
-          "A key press",
-          "A file extension",
-          "A static color name",
-          "A saved folder"
-        ],
-        "correct": 0,
-        "explanation": "User input can trigger an event handler.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/8",
-        "expressLesson": 8,
-        "expressGroup": "Events"
-      },
-      {
-        "id": 1,
-        "topic": "Programming",
-        "subject": "Express · Events",
-        "difficulty": "beginner",
-        "text": "Which feature can trigger an action after a specified delay?",
-        "answers": [
-          "A picture caption",
-          "A sprite’s name alone",
-          "A printed menu",
-          "A timed event"
-        ],
-        "correct": 3,
-        "explanation": "Timed events start actions at planned times.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/8",
-        "expressLesson": 8,
-        "expressGroup": "Events"
-      },
-      {
-        "id": 2,
-        "topic": "Programming",
-        "subject": "Express · Events",
-        "difficulty": "intermediate",
-        "text": "A character should jump only when clicked. Where should the jump action go?",
-        "answers": [
-          "In the project title",
-          "In an unrelated comment",
-          "In the click event’s response",
-          "Only in startup code"
-        ],
-        "correct": 2,
-        "explanation": "Put the action in the handler for its intended trigger.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/8",
-        "expressLesson": 8,
-        "expressGroup": "Events"
-      },
-      {
-        "id": 3,
-        "topic": "Programming",
-        "subject": "Express · Events",
-        "difficulty": "intermediate",
-        "text": "Two handlers respond to different keys. Why is that useful?",
-        "answers": [
-          "Sprites cannot move",
-          "Different inputs can cause different actions",
-          "All keys become identical",
-          "The program no longer needs tests"
-        ],
-        "correct": 1,
-        "explanation": "Events allow distinct user-controlled actions.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/8",
-        "expressLesson": 8,
-        "expressGroup": "Events"
-      }
-    ]
-  },
-  {
-    "version": 1,
-    "name": "Express 2025 · L09 · Mini-Project: Virtual Pet",
-    "course": "Express Course 2025",
-    "lesson": 9,
-    "lessonTitle": "Mini-Project: Virtual Pet",
-    "group": "Events",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/9",
-    "difficulty": "intermediate",
-    "pace": "standard",
-    "questions": [
-      {
-        "id": 0,
-        "topic": "Programming",
-        "subject": "Express · Events",
-        "difficulty": "beginner",
-        "text": "A virtual pet eats when its food is clicked. What is the trigger?",
-        "answers": [
-          "The project title",
-          "A saved password",
-          "The background color alone",
-          "Clicking the food"
-        ],
-        "correct": 3,
-        "explanation": "The input event starts the feeding action.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/9",
-        "expressLesson": 9,
-        "expressGroup": "Events"
-      },
-      {
-        "id": 1,
-        "topic": "Programming",
-        "subject": "Express · Events",
-        "difficulty": "beginner",
-        "text": "A pet keeps walking after a command ends. What should you inspect?",
-        "answers": [
-          "Only the screen border",
-          "Only the number of costumes",
-          "Whether a walking behavior is still active",
-          "Only the file name"
-        ],
-        "correct": 2,
-        "explanation": "A continuing behavior may need an explicit stop.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/9",
-        "expressLesson": 9,
-        "expressGroup": "Events"
-      },
-      {
-        "id": 2,
-        "topic": "Programming",
-        "subject": "Express · Events",
-        "difficulty": "intermediate",
-        "text": "Which test checks whether feeding works?",
-        "answers": [
-          "Avoid interacting with the pet",
-          "Activate the feeding event and observe the pet’s response",
-          "Only look at the title",
-          "Only count the blocks"
-        ],
-        "correct": 1,
-        "explanation": "Test the input and the resulting behavior together.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/9",
-        "expressLesson": 9,
-        "expressGroup": "Events"
-      },
-      {
-        "id": 3,
-        "topic": "Programming",
-        "subject": "Express · Events",
-        "difficulty": "intermediate",
-        "text": "A pet’s buttons are difficult to understand. Which improvement fits?",
-        "answers": [
-          "Label each control with its action",
-          "Remove every control",
-          "Make all labels blank",
-          "Only rename the file"
-        ],
-        "correct": 0,
-        "explanation": "Clear controls help users understand the interaction.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/9",
-        "expressLesson": 9,
-        "expressGroup": "Events"
-      }
-    ]
-  },
-  {
-    "version": 1,
-    "name": "Express 2025 · L10 · Dance Party",
-    "course": "Express Course 2025",
-    "lesson": 10,
-    "lessonTitle": "Dance Party",
-    "group": "Events",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/10",
-    "difficulty": "intermediate",
-    "pace": "standard",
-    "questions": [
-      {
-        "id": 0,
-        "topic": "Programming",
-        "subject": "Express · Events",
-        "difficulty": "beginner",
-        "text": "A dancer changes moves at a particular music time. What controls the trigger?",
+        "text": "Three markers share a class, but only marker B should blink. What must the command identify?",
         "answers": [
           "Only the background",
-          "The saved file name",
-          "A timed event",
-          "Only its costume"
+          "The file containing the project",
+          "Marker B specifically",
+          "Every object on the screen"
         ],
         "correct": 2,
-        "explanation": "Timed events coordinate actions with the music.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/10",
-        "expressLesson": 10,
-        "expressGroup": "Events"
-      },
-      {
-        "id": 1,
-        "topic": "Programming",
-        "subject": "Express · Events",
-        "difficulty": "beginner",
-        "text": "A dance pattern repeats three times. What structure fits?",
-        "answers": [
-          "A random title",
-          "A repeat loop",
-          "A password field",
-          "A table heading"
-        ],
-        "correct": 1,
-        "explanation": "A loop repeats the pattern.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/10",
-        "expressLesson": 10,
-        "expressGroup": "Events"
+        "explanation": "A specific target prevents unintended changes to the other markers.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 6,
+        "expressGroup": "Sprites"
       },
       {
         "id": 2,
         "topic": "Programming",
-        "subject": "Express · Events",
+        "subject": "Programming skills · Sprites",
         "difficulty": "intermediate",
-        "text": "What should a key-press dance control do?",
+        "text": "Two objects both start with health 10. Object A loses 3 health. If their state is independent, what is B's health?",
         "answers": [
-          "Run its programmed response when that key is pressed",
-          "Run before the program exists",
-          "Ignore every input",
-          "Delete all dancers"
+          "13",
+          "10",
+          "7",
+          "3"
         ],
-        "correct": 0,
-        "explanation": "An input event connects the key press to an action.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/10",
-        "expressLesson": 10,
-        "expressGroup": "Events"
+        "correct": 1,
+        "explanation": "Changing A's independent health value does not change B's value.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 6,
+        "expressGroup": "Sprites"
       },
       {
         "id": 3,
         "topic": "Programming",
-        "subject": "Express · Events",
+        "subject": "Programming skills · Sprites",
         "difficulty": "intermediate",
-        "text": "Why preview a dance after adding a new event?",
+        "text": "Why give screen objects meaningful names such as exitMarker?",
         "answers": [
-          "Guarantee all future events are correct",
-          "Remove the need for music",
-          "Avoid seeing the result",
-          "Check the timing and resulting action"
+          "To make the intended target easier to recognize",
+          "To make the program execute faster automatically",
+          "To eliminate all duplicate images",
+          "To prevent any future bugs"
         ],
-        "correct": 3,
-        "explanation": "Testing checks that the choreography behaves as planned.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/10",
-        "expressLesson": 10,
-        "expressGroup": "Events"
+        "correct": 0,
+        "explanation": "Clear names help a reader understand which object code controls.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 6,
+        "expressGroup": "Sprites"
       }
     ]
   },
   {
     "version": 1,
-    "name": "Express 2025 · L11 · Events in Music Lab",
-    "course": "Express Course 2025",
-    "lesson": 11,
-    "lessonTitle": "Events in Music Lab",
+    "name": "Programming Skills · Interactive information",
+    "course": "Independent Programming Skills",
+    "lesson": 7,
+    "lessonTitle": "Interactive information",
+    "group": "Design",
+    "difficulty": "intermediate",
+    "pace": "standard",
+    "contentRevision": 2,
+    "questions": [
+      {
+        "id": 0,
+        "topic": "Programming",
+        "subject": "Programming skills · Design",
+        "difficulty": "beginner",
+        "text": "A museum kiosk needs to explain three exhibits. Which plan is easiest to test?",
+        "answers": [
+          "A single blank screen",
+          "Random text on every click",
+          "One labeled button for each exhibit",
+          "Three unlabeled buttons with changing meanings"
+        ],
+        "correct": 2,
+        "explanation": "Explicit labels and responses give each interaction an observable purpose.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 7,
+        "expressGroup": "Design"
+      },
+      {
+        "id": 1,
+        "topic": "Programming",
+        "subject": "Programming skills · Design",
+        "difficulty": "intermediate",
+        "text": "A project explains how weather sensors help gardeners. Which feature supports that purpose?",
+        "answers": [
+          "A button that never responds",
+          "A reading display linked to a watering recommendation",
+          "An unrelated flashing advertisement",
+          "A hidden score with no explanation"
+        ],
+        "correct": 1,
+        "explanation": "The feature connects the displayed measurement to its practical use.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 7,
+        "expressGroup": "Design"
+      },
+      {
+        "id": 2,
+        "topic": "Programming",
+        "subject": "Programming skills · Design",
+        "difficulty": "intermediate",
+        "text": "What should a tester know before checking an interaction?",
+        "answers": [
+          "The input to try and the expected response",
+          "Only the author's favorite color",
+          "The price of the keyboard",
+          "The number of files on the device"
+        ],
+        "correct": 0,
+        "explanation": "A test compares a specified action with an expected result.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 7,
+        "expressGroup": "Design"
+      },
+      {
+        "id": 3,
+        "topic": "Programming",
+        "subject": "Programming skills · Design",
+        "difficulty": "intermediate",
+        "text": "A visitor cannot find the reset control. Which revision addresses the feedback?",
+        "answers": [
+          "Add more hidden controls",
+          "Remove all labels",
+          "Change the project name only",
+          "Add a visible control labeled Reset"
+        ],
+        "correct": 3,
+        "explanation": "A visible descriptive control makes the action discoverable.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 7,
+        "expressGroup": "Design"
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "name": "Programming Skills · Input handlers",
+    "course": "Independent Programming Skills",
+    "lesson": 8,
+    "lessonTitle": "Input handlers",
     "group": "Events",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/11",
     "difficulty": "intermediate",
     "pace": "standard",
+    "contentRevision": 2,
     "questions": [
       {
         "id": 0,
         "topic": "Programming",
-        "subject": "Express · Events",
+        "subject": "Programming skills · Events",
         "difficulty": "beginner",
-        "text": "A sound should play when a button is pressed. What code structure fits?",
+        "text": "A map should zoom when the plus button is clicked. Which event should trigger zooming?",
         "answers": [
-          "A file folder",
-          "An event response for that button",
-          "Only a static image",
-          "Only the project title"
+          "A random screen refresh",
+          "A click on the plus button",
+          "Any mouse movement",
+          "The app's filename changing"
         ],
         "correct": 1,
-        "explanation": "Event responses connect input to sound output.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/11",
+        "explanation": "The handler should respond to the specified user action.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 8,
+        "expressGroup": "Events"
+      },
+      {
+        "id": 1,
+        "topic": "Programming",
+        "subject": "Programming skills · Events",
+        "difficulty": "intermediate",
+        "text": "Pressing R should reset a timer. Where should the reset action be placed?",
+        "answers": [
+          "In the R-key handler",
+          "Only in an unrelated click handler",
+          "After the app has closed",
+          "In an unused comment"
+        ],
+        "correct": 0,
+        "explanation": "The matching key event should execute the reset action.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 8,
+        "expressGroup": "Events"
+      },
+      {
+        "id": 2,
+        "topic": "Programming",
+        "subject": "Programming skills · Events",
+        "difficulty": "intermediate",
+        "text": "A button click runs two handlers, and both add 1 to a counter. How much is added per click?",
+        "answers": [
+          "0",
+          "1",
+          "4",
+          "2"
+        ],
+        "correct": 3,
+        "explanation": "Each handler contributes one increment when that click triggers both.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 8,
+        "expressGroup": "Events"
+      },
+      {
+        "id": 3,
+        "topic": "Programming",
+        "subject": "Programming skills · Events",
+        "difficulty": "intermediate",
+        "text": "Why test a button with both mouse and keyboard activation when both are supported?",
+        "answers": [
+          "To disable accessibility",
+          "To ensure every event fires twice",
+          "To verify both input routes perform the intended action",
+          "To require simultaneous input"
+        ],
+        "correct": 2,
+        "explanation": "Different supported inputs should produce the intended equivalent response.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 8,
+        "expressGroup": "Events"
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "name": "Programming Skills · Interactive simulations",
+    "course": "Independent Programming Skills",
+    "lesson": 9,
+    "lessonTitle": "Interactive simulations",
+    "group": "State",
+    "difficulty": "intermediate",
+    "pace": "standard",
+    "contentRevision": 2,
+    "questions": [
+      {
+        "id": 0,
+        "topic": "Programming",
+        "subject": "Programming skills · State",
+        "difficulty": "beginner",
+        "text": "A digital greenhouse has a water button. Which state change could represent watering?",
+        "answers": [
+          "Increase stored moisture",
+          "Change the author's name",
+          "Erase the temperature sensor code",
+          "Rename every variable"
+        ],
+        "correct": 0,
+        "explanation": "A moisture value models a relevant part of the simulation.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 9,
+        "expressGroup": "State"
+      },
+      {
+        "id": 1,
+        "topic": "Programming",
+        "subject": "Programming skills · State",
+        "difficulty": "intermediate",
+        "text": "A cart keeps moving after Pause is clicked. What should be inspected?",
+        "answers": [
+          "Only its image resolution",
+          "The title capitalization",
+          "The browser's bookmarks",
+          "Whether its movement update is still enabled"
+        ],
+        "correct": 3,
+        "explanation": "Pausing must stop or disable the code that advances movement.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 9,
+        "expressGroup": "State"
+      },
+      {
+        "id": 2,
+        "topic": "Programming",
+        "subject": "Programming skills · State",
+        "difficulty": "intermediate",
+        "text": "A simulation restarts. Which action makes its starting behavior predictable?",
+        "answers": [
+          "Delete all input handlers",
+          "Randomize every value without a rule",
+          "Initialize its state to documented starting values",
+          "Keep arbitrary values from an old run"
+        ],
+        "correct": 2,
+        "explanation": "Known initial values make behavior repeatable and testable.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 9,
+        "expressGroup": "State"
+      },
+      {
+        "id": 3,
+        "topic": "Programming",
+        "subject": "Programming skills · State",
+        "difficulty": "intermediate",
+        "text": "A visitor clicks Start twice. Which rule prevents two concurrent timers?",
+        "answers": [
+          "Change the button color only",
+          "Ignore Start while a timer is already running",
+          "Create another timer on every click",
+          "Delete Pause after the first click"
+        ],
+        "correct": 1,
+        "explanation": "A running-state check prevents duplicate timer creation.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 9,
+        "expressGroup": "State"
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "name": "Programming Skills · Timed changes",
+    "course": "Independent Programming Skills",
+    "lesson": 10,
+    "lessonTitle": "Timed changes",
+    "group": "Events",
+    "difficulty": "intermediate",
+    "pace": "standard",
+    "contentRevision": 2,
+    "questions": [
+      {
+        "id": 0,
+        "topic": "Programming",
+        "subject": "Programming skills · Events",
+        "difficulty": "beginner",
+        "text": "A reminder is scheduled for 8 seconds after Start. What triggers its handler?",
+        "answers": [
+          "Every letter typed",
+          "The reminder's text length",
+          "The app's window title",
+          "The timer reaching the scheduled delay"
+        ],
+        "correct": 3,
+        "explanation": "The timer event is tied to elapsed time after scheduling.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 10,
+        "expressGroup": "Events"
+      },
+      {
+        "id": 1,
+        "topic": "Programming",
+        "subject": "Programming skills · Events",
+        "difficulty": "intermediate",
+        "text": "An animation updates every 0.5 seconds. How many updates occur at 0.5, 1.0, 1.5, and 2.0 seconds?",
+        "answers": [
+          "3",
+          "5",
+          "4",
+          "2"
+        ],
+        "correct": 2,
+        "explanation": "The four listed update times each cause one update.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 10,
+        "expressGroup": "Events"
+      },
+      {
+        "id": 2,
+        "topic": "Programming",
+        "subject": "Programming skills · Events",
+        "difficulty": "intermediate",
+        "text": "A scheduled warning should not appear after Cancel. What should Cancel do?",
+        "answers": [
+          "Disable the keyboard permanently",
+          "Cancel the pending timer",
+          "Only change the background",
+          "Schedule a second warning"
+        ],
+        "correct": 1,
+        "explanation": "Removing the pending timer prevents that delayed action from firing.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 10,
+        "expressGroup": "Events"
+      },
+      {
+        "id": 3,
+        "topic": "Programming",
+        "subject": "Programming skills · Events",
+        "difficulty": "intermediate",
+        "text": "Why avoid assuming that a browser timer fires at an exact real-world instant?",
+        "answers": [
+          "Other work can delay the callback",
+          "Timers always fire before scheduling",
+          "Timers cannot use numbers",
+          "The user's name determines the delay"
+        ],
+        "correct": 0,
+        "explanation": "Busy execution can postpone a scheduled callback.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 10,
+        "expressGroup": "Events"
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "name": "Programming Skills · Routing actions",
+    "course": "Independent Programming Skills",
+    "lesson": 11,
+    "lessonTitle": "Routing actions",
+    "group": "Events",
+    "difficulty": "intermediate",
+    "pace": "standard",
+    "contentRevision": 2,
+    "questions": [
+      {
+        "id": 0,
+        "topic": "Programming",
+        "subject": "Programming skills · Events",
+        "difficulty": "beginner",
+        "text": "A weather app displays details immediately instead of waiting for More. Which placement is suspect?",
+        "answers": [
+          "The screen has two colors",
+          "The temperature is a number",
+          "The details action is in startup code rather than the More handler",
+          "The button label uses a capital letter"
+        ],
+        "correct": 2,
+        "explanation": "Startup code runs without waiting for that button event.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 11,
         "expressGroup": "Events"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · Events",
-        "difficulty": "beginner",
-        "text": "Why might you choose a calm sound for a quiet scene?",
+        "subject": "Programming skills · Events",
+        "difficulty": "intermediate",
+        "text": "Two buttons should open different panels. What test checks their routing?",
         "answers": [
-          "Its mood supports the intended experience",
-          "It fixes every code bug",
-          "It makes input unnecessary",
-          "It prevents event responses"
+          "Remove both event handlers",
+          "Activate each button and verify its own panel",
+          "Click one button and assume the other works",
+          "Rename both buttons identically"
         ],
-        "correct": 0,
-        "explanation": "Sound choices can support the project’s intended mood.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/11",
+        "correct": 1,
+        "explanation": "Each input-to-response mapping needs its own check.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 11,
         "expressGroup": "Events"
       },
       {
         "id": 2,
         "topic": "Programming",
-        "subject": "Express · Events",
+        "subject": "Programming skills · Events",
         "difficulty": "intermediate",
-        "text": "A sound plays immediately rather than after a click. What should you inspect?",
+        "text": "An alarm handler should update the label and play a tone. What must its code include?",
         "answers": [
-          "Only the file name",
-          "Only the image size",
-          "Only the login page",
-          "Whether it was placed in startup code instead of the click handler"
+          "Both required actions",
+          "Only a comment naming the tone",
+          "Only a new project title",
+          "Only an unused variable"
         ],
-        "correct": 3,
-        "explanation": "Code placement determines when actions occur.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/11",
+        "correct": 0,
+        "explanation": "The event response must execute both requested operations.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 11,
         "expressGroup": "Events"
       },
       {
         "id": 3,
         "topic": "Programming",
-        "subject": "Express · Events",
+        "subject": "Programming skills · Events",
         "difficulty": "intermediate",
-        "text": "Which test checks two sound buttons?",
+        "text": "Why keep an event handler focused on a clear action?",
         "answers": [
-          "Only inspect the title",
-          "Delete one button before testing",
-          "Activate each separately and check its sound",
-          "Press neither button"
+          "It makes all other handlers unnecessary",
+          "It prevents all network delays",
+          "It changes every variable into a constant",
+          "Its input and outcome are easier to understand and test"
         ],
-        "correct": 2,
-        "explanation": "Test each event-response connection.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/11",
+        "correct": 3,
+        "explanation": "A focused responsibility makes behavior easier to reason about.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 11,
         "expressGroup": "Events"
       }
@@ -937,84 +981,88 @@ window.EXPRESS_SETS=[
   },
   {
     "version": 1,
-    "name": "Express 2025 · L12 · Loops with Rey and BB-8",
-    "course": "Express Course 2025",
+    "name": "Programming Skills · Fixed repetition",
+    "course": "Independent Programming Skills",
     "lesson": 12,
-    "lessonTitle": "Loops with Rey and BB-8",
+    "lessonTitle": "Fixed repetition",
     "group": "Loops",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/12",
     "difficulty": "intermediate",
     "pace": "standard",
+    "contentRevision": 2,
     "questions": [
       {
         "id": 0,
         "topic": "Programming",
-        "subject": "Express · Loops",
+        "subject": "Programming skills · Loops",
         "difficulty": "beginner",
-        "text": "What is a benefit of replacing repeated commands with a loop?",
+        "text": "A loop prints one ticket per iteration and repeats 7 times. How many tickets are printed?",
         "answers": [
-          "Less duplicated code for the repeated pattern",
-          "The program never needs testing",
-          "All actions happen randomly",
-          "The goal disappears"
+          "14",
+          "7",
+          "6",
+          "8"
         ],
-        "correct": 0,
-        "explanation": "Loops express repetition compactly.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/12",
+        "correct": 1,
+        "explanation": "One print per iteration across seven iterations produces seven tickets.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 12,
         "expressGroup": "Loops"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · Loops",
-        "difficulty": "beginner",
-        "text": "Repeat forward three times moves one square each time. How far is the total movement?",
-        "answers": [
-          "1 square",
-          "2 squares",
-          "4 squares",
-          "3 squares"
-        ],
-        "correct": 3,
-        "explanation": "Three one-square movements total three squares.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/12",
-        "expressLesson": 12,
-        "expressGroup": "Loops"
-      },
-      {
-        "id": 2,
-        "topic": "Programming",
-        "subject": "Express · Loops",
+        "subject": "Programming skills · Loops",
         "difficulty": "intermediate",
-        "text": "What should go inside a loop for a repeated path pattern?",
+        "text": "A badge must be shown once after a loop ends. Where does the display command belong?",
         "answers": [
-          "An unrelated final action",
-          "Nothing",
-          "The complete sequence that repeats",
-          "Only the project title"
-        ],
-        "correct": 2,
-        "explanation": "The loop body should represent the repeating unit.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/12",
-        "expressLesson": 12,
-        "expressGroup": "Loops"
-      },
-      {
-        "id": 3,
-        "topic": "Programming",
-        "subject": "Express · Loops",
-        "difficulty": "intermediate",
-        "text": "An action should happen once after five repeats. Where does it belong?",
-        "answers": [
-          "Only in a comment",
           "After the loop",
           "Inside every iteration",
-          "Before the program starts"
+          "Only in the loop condition",
+          "In a comment before the loop"
         ],
-        "correct": 1,
-        "explanation": "Code after the loop runs after the repeated work finishes.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/12",
+        "correct": 0,
+        "explanation": "An action after the loop runs once after repetition finishes.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 12,
+        "expressGroup": "Loops"
+      },
+      {
+        "id": 2,
+        "topic": "Programming",
+        "subject": "Programming skills · Loops",
+        "difficulty": "intermediate",
+        "text": "Which task naturally fits a repeat-8 loop?",
+        "answers": [
+          "Repeat until a user supplies an unknown password",
+          "Wait for an unpredictable network reply",
+          "Choose between two colors once",
+          "Apply the same stamp eight times"
+        ],
+        "correct": 3,
+        "explanation": "The stamp task has a known repetition count.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 12,
+        "expressGroup": "Loops"
+      },
+      {
+        "id": 3,
+        "topic": "Programming",
+        "subject": "Programming skills · Loops",
+        "difficulty": "intermediate",
+        "text": "A loop contains two moves and runs 5 times. How many move commands execute?",
+        "answers": [
+          "5",
+          "7",
+          "10",
+          "2"
+        ],
+        "correct": 2,
+        "explanation": "Two moves per iteration times five iterations equals ten.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 12,
         "expressGroup": "Loops"
       }
@@ -1022,57 +1070,78 @@ window.EXPRESS_SETS=[
   },
   {
     "version": 1,
-    "name": "Express 2025 · L13 · Mini-Project: Sticker Art",
-    "course": "Express Course 2025",
+    "name": "Programming Skills · Repetition boundaries",
+    "course": "Independent Programming Skills",
     "lesson": 13,
-    "lessonTitle": "Mini-Project: Sticker Art",
+    "lessonTitle": "Repetition boundaries",
     "group": "Loops",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/13",
     "difficulty": "intermediate",
     "pace": "standard",
+    "contentRevision": 2,
     "questions": [
       {
         "id": 0,
         "topic": "Programming",
-        "subject": "Express · Loops",
+        "subject": "Programming skills · Loops",
         "difficulty": "beginner",
-        "text": "A sticker pattern repeats six times, then a signature appears once. Which plan fits?",
+        "text": "A display needs six identical cards followed by one footer. Which plan fits?",
         "answers": [
-          "Loop the signature with every sticker",
-          "Delete the pattern",
-          "Add only the signature",
-          "Loop the pattern, then add the signature"
+          "Repeat the card six times, then draw the footer",
+          "Repeat the footer six times, then one card",
+          "Draw the footer inside each card",
+          "Draw one card and omit the footer"
         ],
-        "correct": 3,
-        "explanation": "Keep repeated actions inside the loop and one-time actions outside.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/13",
+        "correct": 0,
+        "explanation": "Only the repeated card belongs inside the six-iteration loop.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 13,
         "expressGroup": "Loops"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · Loops",
-        "difficulty": "beginner",
-        "text": "Why identify a repeated group before coding artwork?",
+        "subject": "Programming skills · Loops",
+        "difficulty": "intermediate",
+        "text": "A setup command should run once before processing 9 records. Where should it go?",
         "answers": [
-          "It removes the artwork",
-          "It makes every action one-time",
-          "It reveals what belongs in the loop",
-          "It guarantees no changes are needed"
+          "At the end of every iteration",
+          "Only in the ninth record's data",
+          "Inside a comment",
+          "Before the record loop"
         ],
-        "correct": 2,
-        "explanation": "Recognizing repeated units helps organize the algorithm.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/13",
+        "correct": 3,
+        "explanation": "Setup outside the loop avoids repeating initialization.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 13,
         "expressGroup": "Loops"
       },
       {
         "id": 2,
         "topic": "Programming",
-        "subject": "Express · Loops",
+        "subject": "Programming skills · Loops",
         "difficulty": "intermediate",
-        "text": "A loop stamps four stickers per row for three rows. How many stickers are stamped?",
+        "text": "A loop starts a subtotal at zero on every iteration. Why can that lose earlier additions?",
+        "answers": [
+          "Addition requires a network connection",
+          "Loops cannot contain assignments",
+          "Each iteration overwrites the accumulated subtotal",
+          "Zero cannot be stored"
+        ],
+        "correct": 2,
+        "explanation": "Resetting the accumulator discards the previous running value.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 13,
+        "expressGroup": "Loops"
+      },
+      {
+        "id": 3,
+        "topic": "Programming",
+        "subject": "Programming skills · Loops",
+        "difficulty": "intermediate",
+        "text": "A printer repeats four batches of three labels. How many labels are produced?",
         "answers": [
           "3",
           "12",
@@ -1080,26 +1149,9 @@ window.EXPRESS_SETS=[
           "4"
         ],
         "correct": 1,
-        "explanation": "Three rows of four produce twelve stickers.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/13",
-        "expressLesson": 13,
-        "expressGroup": "Loops"
-      },
-      {
-        "id": 3,
-        "topic": "Programming",
-        "subject": "Express · Loops",
-        "difficulty": "intermediate",
-        "text": "A border is accidentally drawn once for every sticker. What should you inspect?",
-        "answers": [
-          "Whether the border command belongs outside the sticker loop",
-          "Only the border color",
-          "Only the file name",
-          "The keyboard battery"
-        ],
-        "correct": 0,
-        "explanation": "A one-time border should not be repeated with each sticker.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/13",
+        "explanation": "Four groups of three labels give twelve labels.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 13,
         "expressGroup": "Loops"
       }
@@ -1107,254 +1159,266 @@ window.EXPRESS_SETS=[
   },
   {
     "version": 1,
-    "name": "Express 2025 · L14 · Nested Loops in Maze",
-    "course": "Express Course 2025",
+    "name": "Programming Skills · Nested repetition",
+    "course": "Independent Programming Skills",
     "lesson": 14,
-    "lessonTitle": "Nested Loops in Maze",
+    "lessonTitle": "Nested repetition",
     "group": "Loops",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/14",
     "difficulty": "intermediate",
     "pace": "standard",
+    "contentRevision": 2,
     "questions": [
       {
         "id": 0,
         "topic": "Programming",
-        "subject": "Express · Loops",
+        "subject": "Programming skills · Loops",
         "difficulty": "beginner",
-        "text": "What is a nested loop?",
+        "text": "A tray has 4 rows with 5 slots in each row. An outer loop visits rows and an inner loop visits slots. How many slots are visited?",
         "answers": [
-          "Only a comment",
-          "A deleted function",
-          "A loop inside another loop",
-          "A variable’s name"
+          "9",
+          "4",
+          "5",
+          "20"
         ],
-        "correct": 2,
-        "explanation": "Nested loops repeat an inner process within an outer repetition.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/14",
+        "correct": 3,
+        "explanation": "The inner five visits repeat for each of four rows.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 14,
         "expressGroup": "Loops"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · Loops",
-        "difficulty": "beginner",
-        "text": "An outer loop repeats three times and its inner loop moves twice. How many moves occur?",
+        "subject": "Programming skills · Loops",
+        "difficulty": "intermediate",
+        "text": "What distinguishes a nested loop from two consecutive loops?",
+        "answers": [
+          "Neither loop can change variables",
+          "Both loops must run simultaneously",
+          "One loop executes inside another loop's body",
+          "Both loops must have the same count"
+        ],
+        "correct": 2,
+        "explanation": "Nesting places the inner repetition within each outer iteration.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 14,
+        "expressGroup": "Loops"
+      },
+      {
+        "id": 2,
+        "topic": "Programming",
+        "subject": "Programming skills · Loops",
+        "difficulty": "intermediate",
+        "text": "An outer loop runs 2 times and an inner loop runs 6 times per outer iteration. How many inner iterations occur?",
         "answers": [
           "2",
+          "12",
+          "8",
+          "6"
+        ],
+        "correct": 1,
+        "explanation": "Each of the two outer iterations includes six inner iterations.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 14,
+        "expressGroup": "Loops"
+      },
+      {
+        "id": 3,
+        "topic": "Programming",
+        "subject": "Programming skills · Loops",
+        "difficulty": "intermediate",
+        "text": "An inner loop should restart for each new row. When should its starting value be set?",
+        "answers": [
+          "At the start of each row's inner loop",
+          "Only after all rows finish",
+          "Only when the app closes",
+          "Never initialize it"
+        ],
+        "correct": 0,
+        "explanation": "Each row needs a fresh traversal of its columns.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 14,
+        "expressGroup": "Loops"
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "name": "Programming Skills · Pattern geometry",
+    "course": "Independent Programming Skills",
+    "lesson": 15,
+    "lessonTitle": "Pattern geometry",
+    "group": "Graphics",
+    "difficulty": "intermediate",
+    "pace": "standard",
+    "contentRevision": 2,
+    "questions": [
+      {
+        "id": 0,
+        "topic": "Programming",
+        "subject": "Programming skills · Graphics",
+        "difficulty": "beginner",
+        "text": "A circular dial has 8 equally spaced marks. What angle separates neighboring marks?",
+        "answers": [
+          "90 degrees",
+          "180 degrees",
+          "45 degrees",
+          "8 degrees"
+        ],
+        "correct": 2,
+        "explanation": "A full turn of 360 degrees divided by eight gives 45 degrees.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 15,
+        "expressGroup": "Graphics"
+      },
+      {
+        "id": 1,
+        "topic": "Programming",
+        "subject": "Programming skills · Graphics",
+        "difficulty": "intermediate",
+        "text": "A repeating tile has 3 drawn edges and is placed 7 times. How many edge draws occur?",
+        "answers": [
+          "3",
+          "21",
+          "10",
+          "7"
+        ],
+        "correct": 1,
+        "explanation": "Three edge draws for each of seven placements gives twenty-one.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 15,
+        "expressGroup": "Graphics"
+      },
+      {
+        "id": 2,
+        "topic": "Programming",
+        "subject": "Programming skills · Graphics",
+        "difficulty": "intermediate",
+        "text": "To double a regular polygon's size without changing its shape, what should change?",
+        "answers": [
+          "Double all side lengths and keep its turn angles",
+          "Double every angle only",
+          "Remove half its sides",
+          "Change only its starting direction"
+        ],
+        "correct": 0,
+        "explanation": "Uniformly scaling lengths preserves the shape's angles.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 15,
+        "expressGroup": "Graphics"
+      },
+      {
+        "id": 3,
+        "topic": "Programming",
+        "subject": "Programming skills · Graphics",
+        "difficulty": "intermediate",
+        "text": "A pattern rotates 120 degrees after each placement. How many such turns make one full turn?",
+        "answers": [
+          "2",
+          "4",
           "6",
-          "5",
           "3"
         ],
-        "correct": 1,
-        "explanation": "Three repetitions of two moves produce six moves.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/14",
-        "expressLesson": 14,
-        "expressGroup": "Loops"
-      },
-      {
-        "id": 2,
-        "topic": "Programming",
-        "subject": "Express · Loops",
-        "difficulty": "intermediate",
-        "text": "Why can nested loops help represent repeated path sections?",
-        "answers": [
-          "Each large repetition can contain a smaller repeated pattern",
-          "They make directions unnecessary",
-          "They prevent movement",
-          "They always use fewer turns"
-        ],
-        "correct": 0,
-        "explanation": "Nested structures express repetition at different levels.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/14",
-        "expressLesson": 14,
-        "expressGroup": "Loops"
-      },
-      {
-        "id": 3,
-        "topic": "Programming",
-        "subject": "Express · Loops",
-        "difficulty": "intermediate",
-        "text": "The inner loop count changes from two to four while the outer count stays three. What happens to the inner action count?",
-        "answers": [
-          "It stays at 6",
-          "It falls to 3",
-          "It becomes 7",
-          "It doubles from 6 to 12"
-        ],
         "correct": 3,
-        "explanation": "Multiply the inner count by the outer count.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/14",
-        "expressLesson": 14,
-        "expressGroup": "Loops"
+        "explanation": "Three turns of 120 degrees total 360 degrees.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 15,
+        "expressGroup": "Graphics"
       }
     ]
   },
   {
     "version": 1,
-    "name": "Express 2025 · L15 · Snowflakes with Anna and Elsa",
-    "course": "Express Course 2025",
-    "lesson": 15,
-    "lessonTitle": "Snowflakes with Anna and Elsa",
-    "group": "Loops",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/15",
-    "difficulty": "intermediate",
-    "pace": "standard",
-    "questions": [
-      {
-        "id": 0,
-        "topic": "Programming",
-        "subject": "Express · Loops",
-        "difficulty": "beginner",
-        "text": "A design repeats a small shape around a center. Which structure can repeat both the shape’s sides and its placements?",
-        "answers": [
-          "A blank comment",
-          "Nested loops",
-          "A title only",
-          "A password field"
-        ],
-        "correct": 1,
-        "explanation": "One loop can draw the shape while another repeats its placement.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/15",
-        "expressLesson": 15,
-        "expressGroup": "Loops"
-      },
-      {
-        "id": 1,
-        "topic": "Programming",
-        "subject": "Express · Loops",
-        "difficulty": "beginner",
-        "text": "Six evenly spaced arms surround a center. What turn separates them?",
-        "answers": [
-          "60 degrees",
-          "90 degrees",
-          "30 degrees",
-          "180 degrees"
-        ],
-        "correct": 0,
-        "explanation": "A full rotation divided into six equal parts is 60 degrees.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/15",
-        "expressLesson": 15,
-        "expressGroup": "Loops"
-      },
-      {
-        "id": 2,
-        "topic": "Programming",
-        "subject": "Express · Loops",
-        "difficulty": "intermediate",
-        "text": "When is a single loop enough?",
-        "answers": [
-          "Every program has two repeating levels",
-          "No repeated action exists",
-          "Only nested loops can draw",
-          "Only one repeating level is needed"
-        ],
-        "correct": 3,
-        "explanation": "Choose the simplest structure that represents the pattern.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/15",
-        "expressLesson": 15,
-        "expressGroup": "Loops"
-      },
-      {
-        "id": 3,
-        "topic": "Programming",
-        "subject": "Express · Loops",
-        "difficulty": "intermediate",
-        "text": "An inner shape repeats four drawing actions for each of five arms. How many drawing actions occur?",
-        "answers": [
-          "5",
-          "4",
-          "20",
-          "9"
-        ],
-        "correct": 2,
-        "explanation": "Five groups of four drawing actions total twenty.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/15",
-        "expressLesson": 15,
-        "expressGroup": "Loops"
-      }
-    ]
-  },
-  {
-    "version": 1,
-    "name": "Express 2025 · L16 · Looking Ahead with Minecraft",
-    "course": "Express Course 2025",
+    "name": "Programming Skills · Boolean decisions",
+    "course": "Independent Programming Skills",
     "lesson": 16,
-    "lessonTitle": "Looking Ahead with Minecraft",
+    "lessonTitle": "Boolean decisions",
     "group": "Conditionals",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/16",
     "difficulty": "intermediate",
     "pace": "standard",
+    "contentRevision": 2,
     "questions": [
       {
         "id": 0,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
+        "subject": "Programming skills · Conditionals",
         "difficulty": "beginner",
-        "text": "What does a condition provide to a program?",
+        "text": "A door opens if badgeValid is true. When should it remain closed?",
         "answers": [
-          "A test that can be true or false",
-          "Only a color",
-          "A guaranteed answer of true",
-          "A file name"
+          "Only when the variable name is short",
+          "When badgeValid is false",
+          "Whenever the badge is blue",
+          "Whenever the screen refreshes"
         ],
-        "correct": 0,
-        "explanation": "Conditions let code decide whether an action should occur.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/16",
+        "correct": 1,
+        "explanation": "The stated rule grants entry only when the Boolean test is true.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 16,
         "expressGroup": "Conditionals"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
-        "difficulty": "beginner",
-        "text": "If a path ahead is blocked, turn right. When should the turn run?",
+        "subject": "Programming skills · Conditionals",
+        "difficulty": "intermediate",
+        "text": "Which expression tests whether a numeric temperature is below 5?",
         "answers": [
-          "On every step regardless of the condition",
-          "Only when the path is clear",
-          "Never",
-          "When the blocked-path condition is true"
+          "temperature < 5",
+          "temperature + 5",
+          "temperature = temperature + 5",
+          "temperature * 5"
         ],
-        "correct": 3,
-        "explanation": "The action is tied to the stated condition.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/16",
+        "correct": 0,
+        "explanation": "A less-than comparison produces the required true-or-false result.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 16,
         "expressGroup": "Conditionals"
       },
       {
         "id": 2,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
+        "subject": "Programming skills · Conditionals",
         "difficulty": "intermediate",
-        "text": "Why can a condition help with an unknown path?",
+        "text": "A delivery robot checks for a barrier before each move. Why repeat the check?",
         "answers": [
-          "It always knows every future obstacle",
-          "It prevents testing",
-          "The program can respond to the current situation",
-          "It removes all input"
+          "The first check changes every future position",
+          "Conditions can be used only once",
+          "Checking removes all barriers",
+          "The next position may have a different barrier state"
         ],
-        "correct": 2,
-        "explanation": "Conditions allow decisions based on available information.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/16",
+        "correct": 3,
+        "explanation": "The decision should use information relevant to the next movement.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 16,
         "expressGroup": "Conditionals"
       },
       {
         "id": 3,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
+        "subject": "Programming skills · Conditionals",
         "difficulty": "intermediate",
-        "text": "A repeated movement must check for obstacles each time. Where should the check go?",
+        "text": "An alert should appear only when battery < 15. Which test case checks the false outcome?",
         "answers": [
-          "Only in a comment",
-          "Inside the movement loop",
-          "Only after the entire route ends",
-          "Only in the file name"
+          "battery = 8",
+          "battery = 14",
+          "battery = 40",
+          "battery = 5"
         ],
-        "correct": 1,
-        "explanation": "Each iteration should check the situation it is about to act on.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/16",
+        "correct": 2,
+        "explanation": "Forty is not less than fifteen, so the alert condition is false.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 16,
         "expressGroup": "Conditionals"
       }
@@ -1362,84 +1426,88 @@ window.EXPRESS_SETS=[
   },
   {
     "version": 1,
-    "name": "Express 2025 · L17 · If/Else with Bee",
-    "course": "Express Course 2025",
+    "name": "Programming Skills · Two-way branches",
+    "course": "Independent Programming Skills",
     "lesson": 17,
-    "lessonTitle": "If/Else with Bee",
+    "lessonTitle": "Two-way branches",
     "group": "Conditionals",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/17",
     "difficulty": "intermediate",
     "pace": "standard",
+    "contentRevision": 2,
     "questions": [
       {
         "id": 0,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
+        "subject": "Programming skills · Conditionals",
         "difficulty": "beginner",
-        "text": "What does else specify?",
+        "text": "If parcelWeight > 5, use the large bin; otherwise use the small bin. Which bin gets weight 5?",
         "answers": [
-          "A second action that always runs",
-          "A command that deletes the condition",
-          "Only a loop count",
-          "What to do when the if condition is false"
+          "Small bin",
+          "Large bin",
+          "Both bins",
+          "Neither bin"
         ],
-        "correct": 3,
-        "explanation": "Else provides the alternative branch.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/17",
+        "correct": 0,
+        "explanation": "Five does not satisfy the strictly-greater-than-five test.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 17,
         "expressGroup": "Conditionals"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
-        "difficulty": "beginner",
-        "text": "If a square has a flower, collect nectar; else, move on. What happens on an empty square?",
+        "subject": "Programming skills · Conditionals",
+        "difficulty": "intermediate",
+        "text": "In an ordinary if/else, how are the two branches selected?",
         "answers": [
-          "Run both branches",
-          "Stop forever",
-          "Move on",
-          "Collect nectar"
+          "Both branches always execute",
+          "Only the else branch can execute",
+          "The longer branch always executes",
+          "The condition chooses one branch"
         ],
-        "correct": 2,
-        "explanation": "The condition is false, so the else branch runs.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/17",
+        "correct": 3,
+        "explanation": "True selects the if branch and false selects the else branch.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 17,
         "expressGroup": "Conditionals"
       },
       {
         "id": 2,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
+        "subject": "Programming skills · Conditionals",
         "difficulty": "intermediate",
-        "text": "How many branches of one ordinary if/else execute each time it is checked?",
+        "text": "If member is true, price = 8; else price = 11. What is the price for a nonmember?",
         "answers": [
-          "Every branch in the program",
-          "One",
-          "Always two",
-          "Always zero"
+          "3",
+          "19",
+          "11",
+          "8"
         ],
-        "correct": 1,
-        "explanation": "The condition selects one of the two branches.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/17",
+        "correct": 2,
+        "explanation": "A nonmember makes member false, selecting the else assignment.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 17,
         "expressGroup": "Conditionals"
       },
       {
         "id": 3,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
+        "subject": "Programming skills · Conditionals",
         "difficulty": "intermediate",
-        "text": "A program collects nectar on every square. What should you inspect?",
+        "text": "Which pair best tests both branches of age >= 13?",
         "answers": [
-          "Whether collection is correctly inside the flower condition",
-          "Only the sprite color",
-          "Only the project title",
-          "Only the turn speed"
+          "Ages 13 and 14",
+          "Ages 12 and 13",
+          "Ages 15 and 16",
+          "Ages 20 and 30"
         ],
-        "correct": 0,
-        "explanation": "Put conditional actions inside the appropriate branch.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/17",
+        "correct": 1,
+        "explanation": "Twelve is false and thirteen is true, including the decision boundary.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 17,
         "expressGroup": "Conditionals"
       }
@@ -1447,169 +1515,177 @@ window.EXPRESS_SETS=[
   },
   {
     "version": 1,
-    "name": "Express 2025 · L18 · While Loops in Farmer",
-    "course": "Express Course 2025",
+    "name": "Programming Skills · While conditions",
+    "course": "Independent Programming Skills",
     "lesson": 18,
-    "lessonTitle": "While Loops in Farmer",
-    "group": "Conditionals",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/18",
+    "lessonTitle": "While conditions",
+    "group": "Loops",
     "difficulty": "intermediate",
     "pace": "standard",
+    "contentRevision": 2,
     "questions": [
       {
         "id": 0,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
+        "subject": "Programming skills · Loops",
         "difficulty": "beginner",
-        "text": "When does a while loop continue?",
+        "text": "While supplies > 0, remove one supply. Starting with supplies = 4, how many iterations run?",
         "answers": [
-          "Only when its condition is false",
-          "After all code is deleted",
-          "While its condition is true",
-          "Only for exactly five iterations"
+          "0",
+          "3",
+          "5",
+          "4"
         ],
-        "correct": 2,
-        "explanation": "While repeats based on a condition rather than a fixed count.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/18",
+        "correct": 3,
+        "explanation": "Four removals reduce the value to zero, where the condition becomes false.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 18,
-        "expressGroup": "Conditionals"
+        "expressGroup": "Loops"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
-        "difficulty": "beginner",
-        "text": "A pile starts with three items; each iteration removes one while the pile is not empty. How many iterations occur?",
+        "subject": "Programming skills · Loops",
+        "difficulty": "intermediate",
+        "text": "A pre-test while loop checks ready == false. If ready is already true, how many iterations run?",
         "answers": [
-          "4",
-          "3",
+          "2",
+          "An unlimited number",
           "0",
           "1"
         ],
-        "correct": 1,
-        "explanation": "After three removals the pile is empty and the loop stops.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/18",
+        "correct": 2,
+        "explanation": "The condition is false before the first iteration.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 18,
-        "expressGroup": "Conditionals"
+        "expressGroup": "Loops"
       },
       {
         "id": 2,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
+        "subject": "Programming skills · Loops",
         "difficulty": "intermediate",
-        "text": "A while condition is false before the first check. How many iterations run?",
+        "text": "While count < 3, print count and increase it by 1. Starting at count = 1, what is printed?",
         "answers": [
-          "0",
-          "1",
-          "2",
-          "The loop must run forever"
+          "3 only",
+          "1, 2",
+          "1, 2, 3",
+          "0, 1, 2"
         ],
-        "correct": 0,
-        "explanation": "A pre-check while loop skips its body when the condition is already false.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/18",
+        "correct": 1,
+        "explanation": "Values one and two satisfy the condition; three does not.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 18,
-        "expressGroup": "Conditionals"
+        "expressGroup": "Loops"
       },
       {
         "id": 3,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
+        "subject": "Programming skills · Loops",
         "difficulty": "intermediate",
-        "text": "A while loop keeps repeating because nothing changes its condition. What is the risk?",
+        "text": "A loop waits while jobsRemaining > 0 but never changes jobsRemaining. What is a concern?",
         "answers": [
-          "It automatically fixes itself",
-          "It always runs exactly once",
-          "It becomes a function",
-          "It may never stop"
+          "The loop may continue indefinitely",
+          "It must stop after one iteration",
+          "The variable automatically becomes zero",
+          "The loop becomes a comment"
         ],
-        "correct": 3,
-        "explanation": "The loop must be able to reach a state where its condition is false.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/18",
+        "correct": 0,
+        "explanation": "The condition may remain true if nothing changes the relevant state.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 18,
-        "expressGroup": "Conditionals"
+        "expressGroup": "Loops"
       }
     ]
   },
   {
     "version": 1,
-    "name": "Express 2025 · L19 · Conditionals in Minecraft: Voyage Aquatic",
-    "course": "Express Course 2025",
+    "name": "Programming Skills · Decision test cases",
+    "course": "Independent Programming Skills",
     "lesson": 19,
-    "lessonTitle": "Conditionals in Minecraft: Voyage Aquatic",
+    "lessonTitle": "Decision test cases",
     "group": "Conditionals",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/19",
     "difficulty": "intermediate",
     "pace": "standard",
+    "contentRevision": 2,
     "questions": [
       {
         "id": 0,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
+        "subject": "Programming skills · Conditionals",
         "difficulty": "beginner",
-        "text": "A diver turns only when coral blocks the way. What controls that decision?",
+        "text": "A warning appears when speed > 30. Which value tests the boundary without triggering it?",
         "answers": [
-          "The account password",
-          "A blocked-path condition",
-          "The file name",
-          "The number of costumes"
+          "40",
+          "99",
+          "30",
+          "31"
         ],
-        "correct": 1,
-        "explanation": "A condition tests the environment before choosing an action.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/19",
+        "correct": 2,
+        "explanation": "Thirty equals the boundary and does not satisfy a strict greater-than test.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 19,
         "expressGroup": "Conditionals"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
-        "difficulty": "beginner",
-        "text": "Which test checks both outcomes of a conditional?",
+        "subject": "Programming skills · Conditionals",
+        "difficulty": "intermediate",
+        "text": "A cooler runs if hot AND powerAvailable. Which case keeps it off?",
         "answers": [
-          "Try one case where it is true and one where it is false",
-          "Test only the title",
-          "Use only one true case",
-          "Avoid every false case"
+          "powerAvailable is true and hot is true",
+          "hot is true and powerAvailable is false",
+          "Both values are true",
+          "hot is true and powerAvailable is true"
         ],
-        "correct": 0,
-        "explanation": "Both outcomes need testing.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/19",
+        "correct": 1,
+        "explanation": "An AND expression requires both parts to be true.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 19,
         "expressGroup": "Conditionals"
       },
       {
         "id": 2,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
+        "subject": "Programming skills · Conditionals",
         "difficulty": "intermediate",
-        "text": "Why put an environment check inside a travel loop?",
+        "text": "An access check accepts badge OR supervisorApproval. Which case is accepted?",
         "answers": [
-          "The program must ignore input",
-          "The route has no steps",
-          "The check can never change",
-          "The surroundings may change at each step"
+          "No badge, but supervisorApproval is true",
+          "Both values are false",
+          "No badge and no approval",
+          "Neither condition can be evaluated"
         ],
-        "correct": 3,
-        "explanation": "Repeated checks let decisions respond to the current position.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/19",
+        "correct": 0,
+        "explanation": "An OR expression is true when at least one part is true.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 19,
         "expressGroup": "Conditionals"
       },
       {
         "id": 3,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
+        "subject": "Programming skills · Conditionals",
         "difficulty": "intermediate",
-        "text": "A turn should happen only when an obstacle is detected. Which is a logical error?",
+        "text": "A sensor program handles low, normal, and high values. Which test plan is strongest?",
         "answers": [
-          "Testing both outcomes",
-          "Recording a failed test",
-          "Turning even when the obstacle condition is false",
-          "Checking the condition before acting"
+          "Test only normal values",
+          "Test only the largest possible value",
+          "Test without checking the output",
+          "Test at least one value in each range and the boundaries"
         ],
-        "correct": 2,
-        "explanation": "Acting when the condition is false violates the intended rule.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/19",
+        "correct": 3,
+        "explanation": "Different ranges and boundaries can expose different decision errors.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 19,
         "expressGroup": "Conditionals"
       }
@@ -1617,169 +1693,177 @@ window.EXPRESS_SETS=[
   },
   {
     "version": 1,
-    "name": "Express 2025 · L20 · Until Loops in Maze",
-    "course": "Express Course 2025",
+    "name": "Programming Skills · Stopping rules",
+    "course": "Independent Programming Skills",
     "lesson": 20,
-    "lessonTitle": "Until Loops in Maze",
-    "group": "Conditionals",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/20",
+    "lessonTitle": "Stopping rules",
+    "group": "Loops",
     "difficulty": "intermediate",
     "pace": "standard",
+    "contentRevision": 2,
     "questions": [
       {
         "id": 0,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
+        "subject": "Programming skills · Loops",
         "difficulty": "beginner",
-        "text": "A repeat-until-goal loop keeps moving until the goal condition becomes true. When does it stop?",
+        "text": "A pre-test loop repeats while the destination has not been reached. What makes it stop?",
         "answers": [
-          "When the goal condition is true",
-          "Only when it is false",
-          "After exactly two moves",
-          "Only when renamed"
+          "The window changes color",
+          "The destination test becomes true",
+          "The project is renamed",
+          "The loop count is always two"
         ],
-        "correct": 0,
-        "explanation": "An until loop repeats up to its stopping condition.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/20",
+        "correct": 1,
+        "explanation": "Once the destination is reached, the while condition becomes false.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 20,
-        "expressGroup": "Conditionals"
+        "expressGroup": "Loops"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
-        "difficulty": "beginner",
-        "text": "The goal is three moves away and each iteration moves one square. How many moves are needed?",
+        "subject": "Programming skills · Loops",
+        "difficulty": "intermediate",
+        "text": "A process handles one queued item per iteration until the queue is empty. It starts with 6 items and receives no new items. How many iterations are needed?",
         "answers": [
-          "1",
-          "2",
-          "4",
-          "3"
+          "6",
+          "0",
+          "5",
+          "7"
         ],
-        "correct": 3,
-        "explanation": "Three one-square moves reach the stated goal.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/20",
+        "correct": 0,
+        "explanation": "Each iteration removes one of the six starting items.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 20,
-        "expressGroup": "Conditionals"
+        "expressGroup": "Loops"
       },
       {
         "id": 2,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
+        "subject": "Programming skills · Loops",
         "difficulty": "intermediate",
-        "text": "Which condition fits stopping at a destination?",
+        "text": "Why must a repeat-until rule specify when its condition is checked?",
         "answers": [
-          "The background is blue",
-          "The keyboard is wireless",
-          "Destination reached",
-          "The file has a long name"
+          "A condition cannot be checked twice",
+          "All languages use identical loop semantics",
+          "The condition is always ignored",
+          "Checking before or after the body can change the first iteration"
         ],
-        "correct": 2,
-        "explanation": "Use a condition representing the desired stopping state.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/20",
+        "correct": 3,
+        "explanation": "Pre-test and post-test loops can behave differently when the condition starts true.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 20,
-        "expressGroup": "Conditionals"
+        "expressGroup": "Loops"
       },
       {
         "id": 3,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
+        "subject": "Programming skills · Loops",
         "difficulty": "intermediate",
-        "text": "A loop cannot ever reach its stopping condition. What should you investigate?",
+        "text": "A loop should stop when remaining <= 0. Why is that safer than remaining == 0 if updates may subtract 2?",
         "answers": [
-          "Only the cursor shape",
-          "Its movement and stopping test",
-          "Only its title",
-          "Only the window size"
+          "It forces the value to stay positive",
+          "It makes subtraction impossible",
+          "It also stops when the value skips below zero",
+          "It prevents all arithmetic"
         ],
-        "correct": 1,
-        "explanation": "The actions must make reaching the stopping condition possible.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/20",
+        "correct": 2,
+        "explanation": "A decrement of two can pass from one to minus one without equaling zero.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 20,
-        "expressGroup": "Conditionals"
+        "expressGroup": "Loops"
       }
     ]
   },
   {
     "version": 1,
-    "name": "Express 2025 · L21 · Harvesting with Conditionals",
-    "course": "Express Course 2025",
+    "name": "Programming Skills · Multiple decisions",
+    "course": "Independent Programming Skills",
     "lesson": 21,
-    "lessonTitle": "Harvesting with Conditionals",
+    "lessonTitle": "Multiple decisions",
     "group": "Conditionals",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/21",
     "difficulty": "intermediate",
     "pace": "standard",
+    "contentRevision": 2,
     "questions": [
       {
         "id": 0,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
+        "subject": "Programming skills · Conditionals",
         "difficulty": "beginner",
-        "text": "Why combine a loop with conditionals when harvesting?",
+        "text": "A sorter checks red first, blue second, and otherwise uses a mixed bin. Where does a yellow item go?",
         "answers": [
-          "Every location must have identical contents",
-          "Conditions remove the need to move",
-          "Loops cannot include decisions",
-          "Each location may require a different action"
+          "Mixed bin",
+          "Red bin",
+          "Blue bin",
+          "Every bin"
         ],
-        "correct": 3,
-        "explanation": "Loops visit locations while conditions select their actions.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/21",
+        "correct": 0,
+        "explanation": "Yellow matches neither named color, so the fallback branch runs.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 21,
         "expressGroup": "Conditionals"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
-        "difficulty": "beginner",
-        "text": "If a square has corn, harvest corn; else if it has lettuce, harvest lettuce; else move. What happens on lettuce?",
-        "answers": [
-          "Run all three actions",
-          "Never inspect the square",
-          "Harvest lettuce",
-          "Harvest corn"
-        ],
-        "correct": 2,
-        "explanation": "The matching else-if branch is selected.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/21",
-        "expressLesson": 21,
-        "expressGroup": "Conditionals"
-      },
-      {
-        "id": 2,
-        "topic": "Programming",
-        "subject": "Express · Conditionals",
+        "subject": "Programming skills · Conditionals",
         "difficulty": "intermediate",
         "text": "What is a nested conditional?",
         "answers": [
-          "A renamed costume",
-          "A condition checked inside another conditional branch",
-          "A comment inside a title",
-          "A missing movement block"
+          "A variable whose name has two words",
+          "Two unrelated images",
+          "A loop without a body",
+          "A decision inside another decision's branch"
         ],
-        "correct": 1,
-        "explanation": "Nested conditionals make a further decision within an existing branch.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/21",
+        "correct": 3,
+        "explanation": "A branch can contain another condition to refine a decision.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 21,
+        "expressGroup": "Conditionals"
+      },
+      {
+        "id": 2,
+        "topic": "Programming",
+        "subject": "Programming skills · Conditionals",
+        "difficulty": "intermediate",
+        "text": "A program first checks whether a file exists, then checks its size inside that branch. When is size checked?",
+        "answers": [
+          "Always, even without a file",
+          "Only after the program ends",
+          "Only when the file-exists branch runs",
+          "Before the existence check"
+        ],
+        "correct": 2,
+        "explanation": "The inner decision is reached through its containing branch.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 21,
         "expressGroup": "Conditionals"
       },
       {
         "id": 3,
         "topic": "Programming",
-        "subject": "Express · Conditionals",
+        "subject": "Programming skills · Conditionals",
         "difficulty": "intermediate",
-        "text": "Which tests best check a three-way crop decision?",
+        "text": "If score >= 90 use Gold; else if score >= 70 use Silver; else Bronze. What label does 85 receive?",
         "answers": [
-          "Corn, lettuce, and empty-square cases",
-          "Only corn",
-          "Only the title",
-          "One screenshot without execution"
+          "No label",
+          "Silver",
+          "Gold",
+          "Bronze"
         ],
-        "correct": 0,
-        "explanation": "Test each intended branch.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/21",
+        "correct": 1,
+        "explanation": "Eighty-five fails the first test and satisfies the second.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 21,
         "expressGroup": "Conditionals"
       }
@@ -1787,424 +1871,444 @@ window.EXPRESS_SETS=[
   },
   {
     "version": 1,
-    "name": "Express 2025 · L22 · Functions in Minecraft",
-    "course": "Express Course 2025",
+    "name": "Programming Skills · Reusable tasks",
+    "course": "Independent Programming Skills",
     "lesson": 22,
-    "lessonTitle": "Functions in Minecraft",
+    "lessonTitle": "Reusable tasks",
     "group": "Functions",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/22",
     "difficulty": "intermediate",
     "pace": "standard",
+    "contentRevision": 2,
     "questions": [
       {
         "id": 0,
         "topic": "Programming",
-        "subject": "Express · Functions",
+        "subject": "Programming skills · Functions",
         "difficulty": "beginner",
-        "text": "What is the purpose of calling a function?",
+        "text": "A function named sendReceipt groups the steps for sending one receipt. What does calling it do?",
         "answers": [
-          "Change only its name",
-          "Automatically print the program",
-          "Run its grouped instructions",
-          "Delete its instructions"
+          "Rename all receipts",
+          "Delete its definition",
+          "Run every function in the app",
+          "Execute those grouped steps"
         ],
-        "correct": 2,
-        "explanation": "A call executes the function’s behavior.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/22",
+        "correct": 3,
+        "explanation": "A call invokes the function's behavior.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 22,
         "expressGroup": "Functions"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · Functions",
-        "difficulty": "beginner",
-        "text": "A function places four blocks. It is called three times. How many blocks are placed?",
-        "answers": [
-          "3",
-          "12",
-          "7",
-          "4"
-        ],
-        "correct": 1,
-        "explanation": "Each call places four blocks, so three calls place twelve.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/22",
-        "expressLesson": 22,
-        "expressGroup": "Functions"
-      },
-      {
-        "id": 2,
-        "topic": "Programming",
-        "subject": "Express · Functions",
+        "subject": "Programming skills · Functions",
         "difficulty": "intermediate",
-        "text": "Why use a function for a repeated building task?",
+        "text": "A packBox function adds 2 inserts per call. Five calls add how many inserts?",
         "answers": [
-          "Keep the task’s instructions in one reusable place",
-          "Make testing unnecessary",
-          "Prevent every loop",
-          "Hide all output"
-        ],
-        "correct": 0,
-        "explanation": "Functions reduce duplication and organize behavior.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/22",
-        "expressLesson": 22,
-        "expressGroup": "Functions"
-      },
-      {
-        "id": 3,
-        "topic": "Programming",
-        "subject": "Express · Functions",
-        "difficulty": "intermediate",
-        "text": "A function is defined but never called. What happens to its actions in ordinary execution?",
-        "answers": [
-          "They run automatically forever",
-          "They run twice",
-          "They replace every command",
-          "They do not run just because it was defined"
-        ],
-        "correct": 3,
-        "explanation": "Defining behavior and invoking it are different steps.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/22",
-        "expressLesson": 22,
-        "expressGroup": "Functions"
-      }
-    ]
-  },
-  {
-    "version": 1,
-    "name": "Express 2025 · L23 · Functions in Music Lab",
-    "course": "Express Course 2025",
-    "lesson": 23,
-    "lessonTitle": "Functions in Music Lab",
-    "group": "Functions",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/23",
-    "difficulty": "intermediate",
-    "pace": "standard",
-    "questions": [
-      {
-        "id": 0,
-        "topic": "Programming",
-        "subject": "Express · Functions",
-        "difficulty": "beginner",
-        "text": "A musical phrase is used in several sections. What helps reuse it?",
-        "answers": [
-          "A random file name",
-          "A function for the phrase",
-          "A password",
-          "An unrelated picture"
-        ],
-        "correct": 1,
-        "explanation": "A function organizes a reusable sequence.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/23",
-        "expressLesson": 23,
-        "expressGroup": "Functions"
-      },
-      {
-        "id": 1,
-        "topic": "Programming",
-        "subject": "Express · Functions",
-        "difficulty": "beginner",
-        "text": "You revise the shared phrase’s function. What uses the revision?",
-        "answers": [
-          "Later calls to that function",
-          "Only unrelated images",
-          "Only comments",
-          "No call can ever change"
-        ],
-        "correct": 0,
-        "explanation": "Calls execute the updated function definition.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/23",
-        "expressLesson": 23,
-        "expressGroup": "Functions"
-      },
-      {
-        "id": 2,
-        "topic": "Programming",
-        "subject": "Express · Functions",
-        "difficulty": "intermediate",
-        "text": "Which name helps communicate a music function’s purpose?",
-        "answers": [
-          "thing123",
-          "password",
-          "unknown",
-          "playChorus"
-        ],
-        "correct": 3,
-        "explanation": "A descriptive name helps readers understand the function.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/23",
-        "expressLesson": 23,
-        "expressGroup": "Functions"
-      },
-      {
-        "id": 3,
-        "topic": "Programming",
-        "subject": "Express · Functions",
-        "difficulty": "intermediate",
-        "text": "A function plays three sounds and is called twice. How many sound actions occur?",
-        "answers": [
-          "3",
-          "2",
-          "6",
-          "5"
-        ],
-        "correct": 2,
-        "explanation": "Two executions of three sound actions total six.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/23",
-        "expressLesson": 23,
-        "expressGroup": "Functions"
-      }
-    ]
-  },
-  {
-    "version": 1,
-    "name": "Express 2025 · L24 · Functions with Artist",
-    "course": "Express Course 2025",
-    "lesson": 24,
-    "lessonTitle": "Functions with Artist",
-    "group": "Functions",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/24",
-    "difficulty": "intermediate",
-    "pace": "standard",
-    "questions": [
-      {
-        "id": 0,
-        "topic": "Programming",
-        "subject": "Express · Functions",
-        "difficulty": "beginner",
-        "text": "Which repeated task is a useful drawing function?",
-        "answers": [
-          "Draw one reusable star",
-          "Change the account password",
-          "Rename the browser",
-          "Delete the project"
-        ],
-        "correct": 0,
-        "explanation": "A repeated meaningful drawing task can be grouped and reused.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/24",
-        "expressLesson": 24,
-        "expressGroup": "Functions"
-      },
-      {
-        "id": 1,
-        "topic": "Programming",
-        "subject": "Express · Functions",
-        "difficulty": "beginner",
-        "text": "A drawTriangle function draws three sides. Four calls draw how many sides?",
-        "answers": [
-          "7",
-          "4",
-          "3",
-          "12"
-        ],
-        "correct": 3,
-        "explanation": "Four calls each drawing three sides produce twelve sides.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/24",
-        "expressLesson": 24,
-        "expressGroup": "Functions"
-      },
-      {
-        "id": 2,
-        "topic": "Programming",
-        "subject": "Express · Functions",
-        "difficulty": "intermediate",
-        "text": "Where should you fix a wrong turn used by every call of a drawing function?",
-        "answers": [
-          "In every unrelated image",
-          "Only in a comment",
-          "In the function’s definition",
-          "Only in the project title"
-        ],
-        "correct": 2,
-        "explanation": "Fixing the shared definition updates its behavior for later calls.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/24",
-        "expressLesson": 24,
-        "expressGroup": "Functions"
-      },
-      {
-        "id": 3,
-        "topic": "Programming",
-        "subject": "Express · Functions",
-        "difficulty": "intermediate",
-        "text": "Why choose a function boundary around a complete shape?",
-        "answers": [
-          "Naming never matters",
-          "It represents a meaningful reusable task",
-          "Functions must contain every program command",
-          "Shapes cannot use loops"
-        ],
-        "correct": 1,
-        "explanation": "Good function boundaries reflect useful tasks.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/24",
-        "expressLesson": 24,
-        "expressGroup": "Functions"
-      }
-    ]
-  },
-  {
-    "version": 1,
-    "name": "Express 2025 · L25 · Text and Prompts",
-    "course": "Express Course 2025",
-    "lesson": 25,
-    "lessonTitle": "Text and Prompts",
-    "group": "Variables",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/25",
-    "difficulty": "intermediate",
-    "pace": "standard",
-    "questions": [
-      {
-        "id": 0,
-        "topic": "Programming",
-        "subject": "Express · Variables",
-        "difficulty": "beginner",
-        "text": "What does a prompt ask the user to provide?",
-        "answers": [
-          "Only an automatic picture",
-          "A guaranteed correct answer",
-          "A loop count in every case",
-          "Input"
-        ],
-        "correct": 3,
-        "explanation": "A prompt requests information from the user.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/25",
-        "expressLesson": 25,
-        "expressGroup": "Variables"
-      },
-      {
-        "id": 1,
-        "topic": "Programming",
-        "subject": "Express · Variables",
-        "difficulty": "beginner",
-        "text": "Why store a response in a variable?",
-        "answers": [
-          "So it becomes a password automatically",
-          "So it disappears immediately",
-          "So later code can use it",
-          "So it cannot ever be read"
-        ],
-        "correct": 2,
-        "explanation": "A variable gives the response a usable name.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/25",
-        "expressLesson": 25,
-        "expressGroup": "Variables"
-      },
-      {
-        "id": 2,
-        "topic": "Programming",
-        "subject": "Express · Variables",
-        "difficulty": "intermediate",
-        "text": "A name variable contains Maya. The program shows Hello followed by the name. What is displayed?",
-        "answers": [
-          "Only Hello",
-          "Hello Maya",
-          "Hello name",
-          "Maya Hello name"
-        ],
-        "correct": 1,
-        "explanation": "The stored value replaces the variable reference.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/25",
-        "expressLesson": 25,
-        "expressGroup": "Variables"
-      },
-      {
-        "id": 3,
-        "topic": "Programming",
-        "subject": "Express · Variables",
-        "difficulty": "intermediate",
-        "text": "Which variable is suited to storing a user’s chosen pet name?",
-        "answers": [
-          "petName",
-          "Always the number 0",
-          "A turn command",
-          "A fixed background picture"
-        ],
-        "correct": 0,
-        "explanation": "A descriptive variable can hold the entered text.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/25",
-        "expressLesson": 25,
-        "expressGroup": "Variables"
-      }
-    ]
-  },
-  {
-    "version": 1,
-    "name": "Express 2025 · L26 · Counting with Variables",
-    "course": "Express Course 2025",
-    "lesson": 26,
-    "lessonTitle": "Counting with Variables",
-    "group": "Variables",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/26",
-    "difficulty": "intermediate",
-    "pace": "standard",
-    "questions": [
-      {
-        "id": 0,
-        "topic": "Programming",
-        "subject": "Express · Variables",
-        "difficulty": "beginner",
-        "text": "A score starts at 0 and increases by 1 for each of four clicks. What is the score?",
-        "answers": [
-          "1",
           "5",
-          "4",
-          "0"
+          "7",
+          "10",
+          "2"
         ],
         "correct": 2,
-        "explanation": "Four one-point updates produce a score of four.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/26",
+        "explanation": "Two inserts per call times five calls gives ten.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 22,
+        "expressGroup": "Functions"
+      },
+      {
+        "id": 2,
+        "topic": "Programming",
+        "subject": "Programming skills · Functions",
+        "difficulty": "intermediate",
+        "text": "A function is defined but never called, and no event invokes it. Will its body run just because it is defined?",
+        "answers": [
+          "Only if its name is long",
+          "No",
+          "Yes, once each second",
+          "Yes, once per variable"
+        ],
+        "correct": 1,
+        "explanation": "Defining behavior does not by itself invoke that behavior.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 22,
+        "expressGroup": "Functions"
+      },
+      {
+        "id": 3,
+        "topic": "Programming",
+        "subject": "Programming skills · Functions",
+        "difficulty": "intermediate",
+        "text": "Which function name best describes checking an entered postal code?",
+        "answers": [
+          "validatePostalCode",
+          "doThing",
+          "imageColor",
+          "counterSeven"
+        ],
+        "correct": 0,
+        "explanation": "The name identifies the task rather than an unrelated detail.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 22,
+        "expressGroup": "Functions"
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "name": "Programming Skills · Inputs and results",
+    "course": "Independent Programming Skills",
+    "lesson": 23,
+    "lessonTitle": "Inputs and results",
+    "group": "Functions",
+    "difficulty": "intermediate",
+    "pace": "standard",
+    "contentRevision": 2,
+    "questions": [
+      {
+        "id": 0,
+        "topic": "Programming",
+        "subject": "Programming skills · Functions",
+        "difficulty": "beginner",
+        "text": "A function doubleValue(n) returns n * 2. What does doubleValue(9) return?",
+        "answers": [
+          "11",
+          "81",
+          "18",
+          "9"
+        ],
+        "correct": 2,
+        "explanation": "The parameter receives nine and multiplication produces eighteen.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 23,
+        "expressGroup": "Functions"
+      },
+      {
+        "id": 1,
+        "topic": "Programming",
+        "subject": "Programming skills · Functions",
+        "difficulty": "intermediate",
+        "text": "What is the role of a parameter?",
+        "answers": [
+          "Replace every global variable",
+          "Receive an input value for a function call",
+          "Always store the final screen image",
+          "Automatically repeat a function forever"
+        ],
+        "correct": 1,
+        "explanation": "Parameters let the same function work with supplied inputs.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 23,
+        "expressGroup": "Functions"
+      },
+      {
+        "id": 2,
+        "topic": "Programming",
+        "subject": "Programming skills · Functions",
+        "difficulty": "intermediate",
+        "text": "A function returns a calculated shipping fee. How can its caller use that result?",
+        "answers": [
+          "Store it or include it in another calculation",
+          "Only rename the function",
+          "Only change the keyboard layout",
+          "Assume it has been printed automatically"
+        ],
+        "correct": 0,
+        "explanation": "Returning supplies a result to the calling code; display is a separate action.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 23,
+        "expressGroup": "Functions"
+      },
+      {
+        "id": 3,
+        "topic": "Programming",
+        "subject": "Programming skills · Functions",
+        "difficulty": "intermediate",
+        "text": "Why test a calculation function with several inputs?",
+        "answers": [
+          "To make its name shorter",
+          "To guarantee every possible program is correct",
+          "To remove its need for inputs",
+          "To check its rule beyond a single example"
+        ],
+        "correct": 3,
+        "explanation": "Different cases can reveal limits or mistakes hidden by one example.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 23,
+        "expressGroup": "Functions"
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "name": "Programming Skills · Decomposition and maintenance",
+    "course": "Independent Programming Skills",
+    "lesson": 24,
+    "lessonTitle": "Decomposition and maintenance",
+    "group": "Functions",
+    "difficulty": "intermediate",
+    "pace": "standard",
+    "contentRevision": 2,
+    "questions": [
+      {
+        "id": 0,
+        "topic": "Programming",
+        "subject": "Programming skills · Functions",
+        "difficulty": "beginner",
+        "text": "Several screens use the same price-formatting rule. Where should that shared rule live?",
+        "answers": [
+          "In a variable name with no code",
+          "In a reusable formatting function",
+          "In separately edited copies on every screen",
+          "Only in a screenshot"
+        ],
+        "correct": 1,
+        "explanation": "Centralizing the rule makes consistent updates easier.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 24,
+        "expressGroup": "Functions"
+      },
+      {
+        "id": 1,
+        "topic": "Programming",
+        "subject": "Programming skills · Functions",
+        "difficulty": "intermediate",
+        "text": "A shared function formats prices incorrectly. Where should the common mistake be repaired?",
+        "answers": [
+          "In the shared function's implementation",
+          "Only in the project's title",
+          "By removing every call",
+          "By changing unrelated image names"
+        ],
+        "correct": 0,
+        "explanation": "Repairing the shared behavior affects the calls that use it.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 24,
+        "expressGroup": "Functions"
+      },
+      {
+        "id": 2,
+        "topic": "Programming",
+        "subject": "Programming skills · Functions",
+        "difficulty": "intermediate",
+        "text": "Which task is a clear function-sized responsibility?",
+        "answers": [
+          "Do every possible task in the app",
+          "Store an entire operating system",
+          "Replace testing with comments",
+          "Calculate the tax for one subtotal"
+        ],
+        "correct": 3,
+        "explanation": "A focused responsibility has a clear input, purpose, and result.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 24,
+        "expressGroup": "Functions"
+      },
+      {
+        "id": 3,
+        "topic": "Programming",
+        "subject": "Programming skills · Functions",
+        "difficulty": "intermediate",
+        "text": "After changing a shared function, which tests matter?",
+        "answers": [
+          "Only an unrelated game",
+          "No tests if it still has the same name",
+          "Its own cases and the features that call it",
+          "Only a screenshot of its name"
+        ],
+        "correct": 2,
+        "explanation": "A change can affect both the function and its callers.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 24,
+        "expressGroup": "Functions"
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "name": "Programming Skills · Text input and output",
+    "course": "Independent Programming Skills",
+    "lesson": 25,
+    "lessonTitle": "Text input and output",
+    "group": "Variables",
+    "difficulty": "intermediate",
+    "pace": "standard",
+    "contentRevision": 2,
+    "questions": [
+      {
+        "id": 0,
+        "topic": "Programming",
+        "subject": "Programming skills · Variables",
+        "difficulty": "beginner",
+        "text": "A form asks for a display name. What does the user's typed response provide?",
+        "answers": [
+          "Input data",
+          "A new processor",
+          "A loop definition",
+          "A file license"
+        ],
+        "correct": 0,
+        "explanation": "A form collects information supplied by its user.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 25,
+        "expressGroup": "Variables"
+      },
+      {
+        "id": 1,
+        "topic": "Programming",
+        "subject": "Programming skills · Variables",
+        "difficulty": "intermediate",
+        "text": "name stores Imani. The program joins Welcome, a space, and name. What text results?",
+        "answers": [
+          "name Welcome",
+          "Welcome name",
+          "ImaniWelcome",
+          "Welcome Imani"
+        ],
+        "correct": 3,
+        "explanation": "The stored value is inserted after the greeting and space.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 25,
+        "expressGroup": "Variables"
+      },
+      {
+        "id": 2,
+        "topic": "Programming",
+        "subject": "Programming skills · Variables",
+        "difficulty": "intermediate",
+        "text": "Why validate an entered quantity before using it in arithmetic?",
+        "answers": [
+          "Validation makes addition unnecessary",
+          "Only negative numbers can be typed",
+          "The input might be empty or nonnumeric",
+          "Every input is already a number"
+        ],
+        "correct": 2,
+        "explanation": "User input must meet the calculation's required format and range.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 25,
+        "expressGroup": "Variables"
+      },
+      {
+        "id": 3,
+        "topic": "Programming",
+        "subject": "Programming skills · Variables",
+        "difficulty": "intermediate",
+        "text": "A user enters 7 as text. What may be needed before numeric addition?",
+        "answers": [
+          "Change the display font",
+          "Convert and validate it as a number",
+          "Add quotation marks around every number",
+          "Delete the result variable"
+        ],
+        "correct": 1,
+        "explanation": "Text and numeric values can behave differently during addition.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 25,
+        "expressGroup": "Variables"
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "name": "Programming Skills · Counters and initialization",
+    "course": "Independent Programming Skills",
+    "lesson": 26,
+    "lessonTitle": "Counters and initialization",
+    "group": "Variables",
+    "difficulty": "intermediate",
+    "pace": "standard",
+    "contentRevision": 2,
+    "questions": [
+      {
+        "id": 0,
+        "topic": "Programming",
+        "subject": "Programming skills · Variables",
+        "difficulty": "beginner",
+        "text": "A counter starts at 3 and increases by 2 after each of four scans. What is its final value?",
+        "answers": [
+          "8",
+          "9",
+          "14",
+          "11"
+        ],
+        "correct": 3,
+        "explanation": "The initial three plus four increments of two equals eleven.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 26,
         "expressGroup": "Variables"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · Variables",
-        "difficulty": "beginner",
-        "text": "What does a score variable record in a clicker game?",
+        "subject": "Programming skills · Variables",
+        "difficulty": "intermediate",
+        "text": "Where should a session's score usually be initialized if it should survive multiple clicks?",
         "answers": [
-          "Only the title",
-          "A value that can change during play",
-          "Only the background color",
-          "Only a password"
+          "Only after each point is displayed",
+          "Inside every label update",
+          "At session start, outside the scoring click handler",
+          "At the start of every scoring click"
         ],
-        "correct": 1,
-        "explanation": "Variables can track changing game information.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/26",
+        "correct": 2,
+        "explanation": "Repeated initialization would erase the accumulated score.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 26,
         "expressGroup": "Variables"
       },
       {
         "id": 2,
         "topic": "Programming",
-        "subject": "Express · Variables",
+        "subject": "Programming skills · Variables",
         "difficulty": "intermediate",
-        "text": "Why initialize a score before play begins?",
+        "text": "A counter has value 8. The statement counter = counter - 3 leaves what value?",
         "answers": [
-          "To give it a known starting value",
-          "To guarantee every click is correct",
-          "To remove the events",
-          "To prevent all updates"
+          "11",
+          "5",
+          "3",
+          "8"
         ],
-        "correct": 0,
-        "explanation": "Initialization establishes the starting state.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/26",
+        "correct": 1,
+        "explanation": "The updated value is eight minus three.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 26,
         "expressGroup": "Variables"
       },
       {
         "id": 3,
         "topic": "Programming",
-        "subject": "Express · Variables",
+        "subject": "Programming skills · Variables",
         "difficulty": "intermediate",
-        "text": "A score resets to zero inside every click event. What is the likely problem?",
+        "text": "Which variable name best describes the number of completed deliveries?",
         "answers": [
-          "The score always doubles",
-          "The title changes",
-          "No event can run",
-          "Earlier points are lost on each click"
+          "completedDeliveries",
+          "blue",
+          "temporaryThing",
+          "imageFile"
         ],
-        "correct": 3,
-        "explanation": "Repeated initialization can erase accumulated progress.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/26",
+        "correct": 0,
+        "explanation": "The name communicates what quantity is stored.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 26,
         "expressGroup": "Variables"
       }
@@ -2212,169 +2316,177 @@ window.EXPRESS_SETS=[
   },
   {
     "version": 1,
-    "name": "Express 2025 · L27 · Using Variables with the Artist",
-    "course": "Express Course 2025",
+    "name": "Programming Skills · Changing dimensions",
+    "course": "Independent Programming Skills",
     "lesson": 27,
-    "lessonTitle": "Using Variables with the Artist",
+    "lessonTitle": "Changing dimensions",
     "group": "Variables",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/27",
     "difficulty": "intermediate",
     "pace": "standard",
+    "contentRevision": 2,
     "questions": [
       {
         "id": 0,
         "topic": "Programming",
-        "subject": "Express · Variables",
+        "subject": "Programming skills · Variables",
         "difficulty": "beginner",
-        "text": "What is a benefit of using a sideLength variable for several sides?",
+        "text": "width starts at 12. Before each of three drawings it increases by 4. What widths are drawn?",
         "answers": [
-          "All tests disappear",
-          "One value can control repeated dimensions",
-          "No code must execute",
-          "Every angle becomes identical"
+          "4, 8, 12",
+          "16, 16, 16",
+          "16, 20, 24",
+          "12, 16, 20"
         ],
-        "correct": 1,
-        "explanation": "A shared variable avoids separately editing each dimension.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/27",
+        "correct": 2,
+        "explanation": "The update happens before each draw, so the first width is sixteen.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 27,
         "expressGroup": "Variables"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · Variables",
-        "difficulty": "beginner",
-        "text": "sideLength starts at 10 and grows by 5 after each drawn side. What are the first three side lengths?",
+        "subject": "Programming skills · Variables",
+        "difficulty": "intermediate",
+        "text": "A diagram uses the same margin variable on all four sides. What does changing that variable support?",
         "answers": [
-          "10, 15, 20",
-          "10, 10, 10",
-          "5, 10, 15",
-          "15, 20, 25"
+          "A guarantee that every screen fits",
+          "Consistent margin updates",
+          "Automatic spelling correction",
+          "Removal of all coordinates"
         ],
-        "correct": 0,
-        "explanation": "Draw with the current value, then increase it by five.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/27",
+        "correct": 1,
+        "explanation": "A shared value can control repeated dimensions consistently.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 27,
         "expressGroup": "Variables"
       },
       {
         "id": 2,
         "topic": "Programming",
-        "subject": "Express · Variables",
+        "subject": "Programming skills · Variables",
         "difficulty": "intermediate",
-        "text": "A size variable changes from 20 to 40 before drawing. How does the stored value change?",
+        "text": "radius is assigned 6, then assigned 9 before drawing a circle. Which radius does the drawing use?",
         "answers": [
-          "It remains 20",
-          "It becomes 60 automatically",
-          "It disappears",
-          "It becomes 40"
-        ],
-        "correct": 3,
-        "explanation": "Assignment replaces the stored value.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/27",
-        "expressLesson": 27,
-        "expressGroup": "Variables"
-      },
-      {
-        "id": 3,
-        "topic": "Programming",
-        "subject": "Express · Variables",
-        "difficulty": "intermediate",
-        "text": "Why update a variable inside a drawing loop?",
-        "answers": [
-          "To remove the loop",
-          "To prevent drawing",
-          "To change dimensions across iterations",
-          "To rename all functions"
-        ],
-        "correct": 2,
-        "explanation": "Updating a value can create a changing pattern.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/27",
-        "expressLesson": 27,
-        "expressGroup": "Variables"
-      }
-    ]
-  },
-  {
-    "version": 1,
-    "name": "Express 2025 · L28 · Variables with the Bee",
-    "course": "Express Course 2025",
-    "lesson": 28,
-    "lessonTitle": "Variables with the Bee",
-    "group": "Variables",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/28",
-    "difficulty": "intermediate",
-    "pace": "standard",
-    "questions": [
-      {
-        "id": 0,
-        "topic": "Programming",
-        "subject": "Express · Variables",
-        "difficulty": "beginner",
-        "text": "Why use a variable for a quantity that changes during a task?",
-        "answers": [
-          "The program can update and reuse that quantity",
-          "It guarantees the quantity is always zero",
-          "It removes all decisions",
-          "It replaces every instruction"
-        ],
-        "correct": 0,
-        "explanation": "Variables represent changing values.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/28",
-        "expressLesson": 28,
-        "expressGroup": "Variables"
-      },
-      {
-        "id": 1,
-        "topic": "Programming",
-        "subject": "Express · Variables",
-        "difficulty": "beginner",
-        "text": "nectarNeeded is 3. Code collects once for each needed unit. How many collections occur?",
-        "answers": [
-          "0",
-          "1",
-          "4",
+          "9",
+          "6",
+          "15",
           "3"
         ],
+        "correct": 0,
+        "explanation": "The most recent assignment is nine.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 27,
+        "expressGroup": "Variables"
+      },
+      {
+        "id": 3,
+        "topic": "Programming",
+        "subject": "Programming skills · Variables",
+        "difficulty": "intermediate",
+        "text": "Why record a dimension's unit in its description or name?",
+        "answers": [
+          "To make multiplication illegal",
+          "To remove every need for scaling",
+          "To force every image to be square",
+          "To avoid mixing quantities such as pixels and millimeters"
+        ],
         "correct": 3,
-        "explanation": "The stored count specifies three collections.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/28",
+        "explanation": "Explicit units prevent incompatible measurements from being confused.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 27,
+        "expressGroup": "Variables"
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "name": "Programming Skills · Accumulation and updates",
+    "course": "Independent Programming Skills",
+    "lesson": 28,
+    "lessonTitle": "Accumulation and updates",
+    "group": "Variables",
+    "difficulty": "intermediate",
+    "pace": "standard",
+    "contentRevision": 2,
+    "questions": [
+      {
+        "id": 0,
+        "topic": "Programming",
+        "subject": "Programming skills · Variables",
+        "difficulty": "beginner",
+        "text": "A basket starts with 2 parts. Deliveries add 4, then 3 more. What is the final count?",
+        "answers": [
+          "3",
+          "9",
+          "7",
+          "6"
+        ],
+        "correct": 1,
+        "explanation": "The running total is 2 + 4 + 3 = 9.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 28,
+        "expressGroup": "Variables"
+      },
+      {
+        "id": 1,
+        "topic": "Programming",
+        "subject": "Programming skills · Variables",
+        "difficulty": "intermediate",
+        "text": "A display shows yesterday's stock after a new delivery. What should be checked?",
+        "answers": [
+          "Whether the stored stock and display were updated",
+          "Only the button's border",
+          "The author's initials",
+          "Only the window title"
+        ],
+        "correct": 0,
+        "explanation": "Both the data update and the presentation may need to run.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 28,
         "expressGroup": "Variables"
       },
       {
         "id": 2,
         "topic": "Programming",
-        "subject": "Express · Variables",
+        "subject": "Programming skills · Variables",
         "difficulty": "intermediate",
-        "text": "What should you inspect when code uses an outdated quantity?",
+        "text": "A total begins at 0 and adds each value in [2, 5, 1]. What does it become?",
         "answers": [
-          "Only the costume color",
-          "Only the screen brightness",
-          "Whether the variable was updated before it was used",
-          "Only the project title"
+          "5",
+          "3",
+          "10",
+          "8"
         ],
-        "correct": 2,
-        "explanation": "The timing of updates affects which value code reads.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/28",
+        "correct": 3,
+        "explanation": "Accumulation adds all three values: 2 + 5 + 1.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 28,
         "expressGroup": "Variables"
       },
       {
         "id": 3,
         "topic": "Programming",
-        "subject": "Express · Variables",
+        "subject": "Programming skills · Variables",
         "difficulty": "intermediate",
-        "text": "Which name best communicates a stored collection count?",
+        "text": "Which operation records one additional completed task?",
         "answers": [
-          "fileName",
-          "nectarCount",
-          "unknown",
-          "blue"
+          "completed = completed - 1",
+          "completed = completed * 0",
+          "completed = completed + 1",
+          "completed = 0"
         ],
-        "correct": 1,
-        "explanation": "A descriptive name communicates what the value represents.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/28",
+        "correct": 2,
+        "explanation": "An increment increases the existing count by one.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 28,
         "expressGroup": "Variables"
       }
@@ -2382,256 +2494,268 @@ window.EXPRESS_SETS=[
   },
   {
     "version": 1,
-    "name": "Express 2025 · L29 · For Loops with Bee",
-    "course": "Express Course 2025",
+    "name": "Programming Skills · Ranges and steps",
+    "course": "Independent Programming Skills",
     "lesson": 29,
-    "lessonTitle": "For Loops with Bee",
-    "group": "For Loops",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/29",
+    "lessonTitle": "Ranges and steps",
+    "group": "Counting loops",
     "difficulty": "intermediate",
     "pace": "standard",
+    "contentRevision": 2,
     "questions": [
       {
         "id": 0,
         "topic": "Programming",
-        "subject": "Express · For Loops",
+        "subject": "Programming skills · Counting loops",
         "difficulty": "beginner",
-        "text": "Which three values define a typical counting for loop?",
+        "text": "A counting loop uses 2, 4, 6, and 8. What is its step?",
         "answers": [
-          "Color, title, and password",
-          "Costume, image, and sound",
-          "Only three file names",
-          "Start, stopping bound, and step"
+          "2",
+          "1",
+          "4",
+          "8"
         ],
-        "correct": 3,
-        "explanation": "A counting loop follows a planned range and increment.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/29",
+        "correct": 0,
+        "explanation": "Each successive value increases by two.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 29,
-        "expressGroup": "For Loops"
+        "expressGroup": "Counting loops"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · For Loops",
-        "difficulty": "beginner",
-        "text": "A loop visits 1, 3, and 5, stopping at 5 inclusive. What is its step?",
+        "subject": "Programming skills · Counting loops",
+        "difficulty": "intermediate",
+        "text": "A loop includes every integer from 3 through 7. How many iterations run?",
         "answers": [
           "3",
-          "5",
-          "2",
+          "4",
+          "7",
+          "5"
+        ],
+        "correct": 3,
+        "explanation": "The included values are 3, 4, 5, 6, and 7.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 29,
+        "expressGroup": "Counting loops"
+      },
+      {
+        "id": 2,
+        "topic": "Programming",
+        "subject": "Programming skills · Counting loops",
+        "difficulty": "intermediate",
+        "text": "Which three choices describe a numeric counting range?",
+        "answers": [
+          "Filename, author, and password",
+          "Width, height, and font only",
+          "Starting value, stopping rule, and step",
+          "Color, image, and sound"
+        ],
+        "correct": 2,
+        "explanation": "These choices determine the counter values and when counting stops.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 29,
+        "expressGroup": "Counting loops"
+      },
+      {
+        "id": 3,
+        "topic": "Programming",
+        "subject": "Programming skills · Counting loops",
+        "difficulty": "intermediate",
+        "text": "A loop starts at 10 and subtracts 2 while the value is at least 4. Which values are used?",
+        "answers": [
+          "10, 8, 6, 4, 2",
+          "10, 8, 6, 4",
+          "10, 9, 8, 7",
+          "8, 6, 4, 2"
+        ],
+        "correct": 1,
+        "explanation": "Four is included by the at-least-four stopping rule; two is not.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 29,
+        "expressGroup": "Counting loops"
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "name": "Programming Skills · Bounds in generated patterns",
+    "course": "Independent Programming Skills",
+    "lesson": 30,
+    "lessonTitle": "Bounds in generated patterns",
+    "group": "Counting loops",
+    "difficulty": "intermediate",
+    "pace": "standard",
+    "contentRevision": 2,
+    "questions": [
+      {
+        "id": 0,
+        "topic": "Programming",
+        "subject": "Programming skills · Counting loops",
+        "difficulty": "beginner",
+        "text": "A pattern uses sizes 6, 12, 18, and 24. What is the increment?",
+        "answers": [
+          "4",
+          "12",
+          "18",
+          "6"
+        ],
+        "correct": 3,
+        "explanation": "The difference between neighboring sizes is six.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 30,
+        "expressGroup": "Counting loops"
+      },
+      {
+        "id": 1,
+        "topic": "Programming",
+        "subject": "Programming skills · Counting loops",
+        "difficulty": "intermediate",
+        "text": "A counter takes 1, 2, 3. Each iteration draws a bar of length counter * 5. What lengths result?",
+        "answers": [
+          "6, 7, 8",
+          "5, 5, 5",
+          "5, 10, 15",
+          "1, 2, 3"
+        ],
+        "correct": 2,
+        "explanation": "Multiplying each counter value by five yields the three lengths.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 30,
+        "expressGroup": "Counting loops"
+      },
+      {
+        "id": 2,
+        "topic": "Programming",
+        "subject": "Programming skills · Counting loops",
+        "difficulty": "intermediate",
+        "text": "A loop starts at 0, continues while i < 4, and adds 1 each time. Which value is never used in its body?",
+        "answers": [
+          "3",
+          "4",
+          "0",
           "1"
         ],
-        "correct": 2,
-        "explanation": "Each visited value increases by two.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/29",
-        "expressLesson": 29,
-        "expressGroup": "For Loops"
-      },
-      {
-        "id": 2,
-        "topic": "Programming",
-        "subject": "Express · For Loops",
-        "difficulty": "intermediate",
-        "text": "A for loop uses values 2 through 5 inclusive, increasing by 1. How many iterations run?",
-        "answers": [
-          "2",
-          "4",
-          "3",
-          "5"
-        ],
         "correct": 1,
-        "explanation": "The values are 2, 3, 4, and 5.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/29",
-        "expressLesson": 29,
-        "expressGroup": "For Loops"
+        "explanation": "The body runs for zero through three; the test fails at four.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 30,
+        "expressGroup": "Counting loops"
       },
       {
         "id": 3,
         "topic": "Programming",
-        "subject": "Express · For Loops",
+        "subject": "Programming skills · Counting loops",
         "difficulty": "intermediate",
-        "text": "When is a counting for loop especially useful?",
+        "text": "A pattern needs exactly five bars but produces six. What should be checked first?",
         "answers": [
-          "When work follows a known numeric range",
-          "When no action repeats",
-          "Only when the program has no variables",
-          "Only for a password field"
+          "Whether the loop's bounds include an extra value",
+          "Only the line color",
+          "The project author field",
+          "Only the drawing filename"
         ],
         "correct": 0,
-        "explanation": "Counting loops manage planned ranges of values.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/29",
-        "expressLesson": 29,
-        "expressGroup": "For Loops"
+        "explanation": "An inclusive bound can create an extra iteration.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
+        "expressLesson": 30,
+        "expressGroup": "Counting loops"
       }
     ]
   },
   {
     "version": 1,
-    "name": "Express 2025 · L30 · For Loops with Artist",
-    "course": "Express Course 2025",
-    "lesson": 30,
-    "lessonTitle": "For Loops with Artist",
-    "group": "For Loops",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/30",
-    "difficulty": "intermediate",
-    "pace": "standard",
-    "questions": [
-      {
-        "id": 0,
-        "topic": "Programming",
-        "subject": "Express · For Loops",
-        "difficulty": "beginner",
-        "text": "A for loop draws at lengths 10, 20, 30, and 40. What is the increment?",
-        "answers": [
-          "20",
-          "40",
-          "10",
-          "5"
-        ],
-        "correct": 2,
-        "explanation": "Each value increases by ten.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/30",
-        "expressLesson": 30,
-        "expressGroup": "For Loops"
-      },
-      {
-        "id": 1,
-        "topic": "Programming",
-        "subject": "Express · For Loops",
-        "difficulty": "beginner",
-        "text": "How can a for-loop counter help draw a growing pattern?",
-        "answers": [
-          "Keep every length unrelated",
-          "Use the counter value in the drawing dimensions",
-          "Ignore its value in every action",
-          "Replace all drawing with comments"
-        ],
-        "correct": 1,
-        "explanation": "The changing counter can control each iteration’s drawing.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/30",
-        "expressLesson": 30,
-        "expressGroup": "For Loops"
-      },
-      {
-        "id": 2,
-        "topic": "Programming",
-        "subject": "Express · For Loops",
-        "difficulty": "intermediate",
-        "text": "Values run from 5 through 15 inclusive in steps of 5. Which sequence is used?",
-        "answers": [
-          "5, 10, 15",
-          "5, 6, 7",
-          "0, 5, 10",
-          "15, 20, 25"
-        ],
-        "correct": 0,
-        "explanation": "Start at five and increase by five until the inclusive bound.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/30",
-        "expressLesson": 30,
-        "expressGroup": "For Loops"
-      },
-      {
-        "id": 3,
-        "topic": "Programming",
-        "subject": "Express · For Loops",
-        "difficulty": "intermediate",
-        "text": "Why check the stopping bound while debugging a for-loop drawing?",
-        "answers": [
-          "It changes only the title",
-          "It is never used",
-          "It replaces the background",
-          "It affects how many iterations occur"
-        ],
-        "correct": 3,
-        "explanation": "An incorrect bound can create too many or too few repetitions.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/30",
-        "expressLesson": 30,
-        "expressGroup": "For Loops"
-      }
-    ]
-  },
-  {
-    "version": 1,
-    "name": "Express 2025 · L31 · End of Course Project",
-    "course": "Express Course 2025",
+    "name": "Programming Skills · Project planning and review",
+    "course": "Independent Programming Skills",
     "lesson": 31,
-    "lessonTitle": "End of Course Project",
-    "group": "End of Course Project",
-    "source": "https://studio.code.org/courses/express-2025/units/1/lessons/31",
+    "lessonTitle": "Project planning and review",
+    "group": "Design",
     "difficulty": "intermediate",
     "pace": "standard",
+    "contentRevision": 2,
     "questions": [
       {
         "id": 0,
         "topic": "Programming",
-        "subject": "Express · End of Course Project",
+        "subject": "Programming skills · Design",
         "difficulty": "beginner",
-        "text": "Which first step helps an end-of-course project succeed?",
+        "text": "A class plans an accessible homework reminder. What should be specified first?",
         "answers": [
-          "Only choose a password",
-          "Define its purpose and users",
-          "Add random blocks before planning",
-          "Skip every test"
+          "Every decorative animation",
+          "The color of an unused icon",
+          "Who will use it and which task it must support",
+          "The longest possible file name"
         ],
-        "correct": 1,
-        "explanation": "A clear purpose guides the design.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/31",
+        "correct": 2,
+        "explanation": "Purpose and users guide meaningful feature decisions.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 31,
-        "expressGroup": "End of Course Project"
+        "expressGroup": "Design"
       },
       {
         "id": 1,
         "topic": "Programming",
-        "subject": "Express · End of Course Project",
-        "difficulty": "beginner",
-        "text": "Time is limited. What is a useful project strategy?",
+        "subject": "Programming skills · Design",
+        "difficulty": "intermediate",
+        "text": "Only one day remains before a demo. Which choice best protects a useful result?",
         "answers": [
-          "Finish the core behavior before adding optional features",
-          "Add every possible feature first",
-          "Avoid prioritizing",
-          "Never test anything"
+          "Skip checking whether reminders appear",
+          "Finish and test the essential reminder flow first",
+          "Add many unfinished decorations",
+          "Remove all working controls"
         ],
-        "correct": 0,
-        "explanation": "Prioritization helps produce a working core within constraints.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/31",
+        "correct": 1,
+        "explanation": "A reliable core feature provides value before optional polish.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 31,
-        "expressGroup": "End of Course Project"
+        "expressGroup": "Design"
       },
       {
         "id": 2,
         "topic": "Programming",
-        "subject": "Express · End of Course Project",
+        "subject": "Programming skills · Design",
         "difficulty": "intermediate",
-        "text": "A project has a bug near the deadline. What helps?",
+        "text": "A tester reports that saving fails only with an empty title. What should the developer capture?",
         "answers": [
-          "Hide every test result",
-          "Assume it works",
-          "Change every block randomly",
-          "Reproduce the problem and test a focused fix"
+          "Steps, input values, expected result, and actual result",
+          "Only the tester's favorite subject",
+          "Only the number of images",
+          "Only a screenshot of the desktop wallpaper"
         ],
-        "correct": 3,
-        "explanation": "Systematic debugging remains useful under time pressure.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/31",
+        "correct": 0,
+        "explanation": "A clear report makes the failure reproducible.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 31,
-        "expressGroup": "End of Course Project"
+        "expressGroup": "Design"
       },
       {
         "id": 3,
         "topic": "Programming",
-        "subject": "Express · End of Course Project",
+        "subject": "Programming skills · Design",
         "difficulty": "intermediate",
-        "text": "What should a final reflection include?",
+        "text": "Which reflection gives actionable information for the next version?",
         "answers": [
-          "Only the browser name",
-          "A claim that testing was unnecessary",
-          "What worked, what changed, and what could improve",
-          "Only the project’s color"
+          "Everything is perfect because we finished",
+          "There is nothing left to test",
+          "The project title has enough letters",
+          "Users missed Reset, so we will test a clearer label and placement"
         ],
-        "correct": 2,
-        "explanation": "Reflection uses evidence to identify progress and next improvements.",
-        "source": "https://studio.code.org/courses/express-2025/units/1/lessons/31",
+        "correct": 3,
+        "explanation": "Specific observations can lead to a testable improvement.",
+        "origin": "independently authored concept practice",
+        "contentRevision": 2,
         "expressLesson": 31,
-        "expressGroup": "End of Course Project"
+        "expressGroup": "Design"
       }
     ]
   }
