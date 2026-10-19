@@ -7,7 +7,7 @@ const composedFeatures={"region-0":[{"x":50.111111111111114,"y":45.7777777777777
 const mapOrigins=new Map();
 const solid=(p,o)=>{if(!o.poly)return Math.pow((p.x-o.x)/o.rx,2)+Math.pow((p.y-o.y)/o.ry,2)<1;let inside=false;for(let i=0,j=o.poly.length-1;i<o.poly.length;j=i++){const [x,y]=o.poly[i],[u,v]=o.poly[j];if(segment(p,{x,y},{x:u,y:v})<1.3)return true;if((y>p.y)!==(v>p.y)&&p.x<(u-x)*(p.y-y)/(v-y)+x)inside=!inside;}return inside;};
 
-window.OpenPaintedMaps={revision:3,layout:null,
+window.OpenPaintedMaps={revision:4,layout:null,
  key(){return DungeonRules.campaign?.dungeon?.id||'region-'+(ExploreRules.activeChapter||0);},
  theme(){const id=this.key();return id==='rootbound'?'crypt':id==='frostmine'?'mine':id==='amber-hollow'?'forest':id==='clockwork-garden'?'city':id==='lantern-grotto'?'coast':themes[ExploreRules.activeChapter||0];},
  enabled(){return ForestWorld.active(ExploreRules.activeChapter||0);},
@@ -65,6 +65,9 @@ window.OpenPaintedMaps={revision:3,layout:null,
  ready(){this.build();const l=this.layout;const images=[this.sceneAsset(),...new Set(l.props.map(o=>this.propFile(o)))].map(file=>{const im=ForestRenderer.image(file);if(!im._openTracked){im._openTracked=true;im.addEventListener?.('error',()=>{im._openFailed=true;});}return im;});this.failed=images.some(im=>im._openFailed);return images.every(im=>im.complete&&im.naturalWidth);},
  upgrade(){if(!this.enabled())return;this.build();const r=ForestRenderer;if(!r.terrain)return;r.trees=[];const ready=this.ready();r.painted=ready;if(r._openTerrain!==r.terrain||r._openReady!==ready||r._openLayout!==this.layout.key){r._openTerrain=r.terrain;r._openReady=ready;r._openLayout=this.layout.key;if(ready)this.paint(r.terrain.getContext('2d'),r.terrain.width,r.terrain.height);else{const c=r.terrain.getContext('2d');c.fillStyle='#10201b';c.fillRect(0,0,r.terrain.width,r.terrain.height);}const mini=document.createElement('canvas');mini.width=180;mini.height=120;mini.getContext('2d').drawImage(r.terrain,0,0,180,120);r.minimap=mini.toDataURL();}const status=document.getElementById('map-travel-status');if(status)status.textContent=ready?'':this.failed?'This area artwork is missing. Upload the complete assets folder from this update.':'Preparing the open exploration area…';const map=document.getElementById('forest-map');if(map)map.dataset.art=ready?'painted':'loading';},
 };
+// Restoring a battle binds its dungeon before the walking screen is shown.
+// Keep navigation on that same chapter even when no world() call has run yet.
+const bindCampaign=DungeonRules.bind;DungeonRules.bind=function(c){if(Number.isInteger(c?.viewChapter)&&c.viewChapter>=0&&c.viewChapter<themes.length)ExploreRules.activeChapter=c.viewChapter;return bindCampaign.call(this,c);};
 const init=ForestWorld.init;ForestWorld.init=function(){if(OpenPaintedMaps.enabled())return OpenPaintedMaps.build();return init.call(this);};
 const paint=ForestArt.paint;ForestArt.paint=function(c,w,h){return OpenPaintedMaps.enabled()?OpenPaintedMaps.paint(c,w,h):paint.call(this,c,w,h);};
 const upgrade=ForestArt.upgrade;ForestArt.upgrade=function(){if(OpenPaintedMaps.enabled())return OpenPaintedMaps.upgrade();return upgrade.call(this);};
