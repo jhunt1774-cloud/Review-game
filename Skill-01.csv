@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","A parcel kiosk must print a label before attaching it. Which pair preserves that dependency?","Print label; attach label","Attach label; print label","Attach label twice","Print label after dispatch","A","The label must exist before it can be attached."
+"Programming","A program sets lamp = off, then lamp = on. What is the final state?","Off","Both states at once","No state is assigned","On","D","The later assignment replaces the earlier lamp value."
+"Programming","An app saves a receipt before calculating its total. Which change fixes the order?","Remove the calculation","Rename the receipt","Calculate the total before saving the receipt","Save the receipt twice","C","The saved receipt should use the completed calculation."
+"Programming","Why write a numbered plan for a parcel-sorting program?","To replace the computer's memory","To specify the order of its actions","To guarantee that no tests are needed","To make all actions simultaneous","B","A numbered plan makes action dependencies explicit."

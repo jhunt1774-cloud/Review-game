@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","A map should zoom when the plus button is clicked. Which event should trigger zooming?","A random screen refresh","A click on the plus button","Any mouse movement","The app's filename changing","B","The handler should respond to the specified user action."
+"Programming","Pressing R should reset a timer. Where should the reset action be placed?","In the R-key handler","Only in an unrelated click handler","After the app has closed","In an unused comment","A","The matching key event should execute the reset action."
+"Programming","A button click runs two handlers, and both add 1 to a counter. How much is added per click?","0","1","4","2","D","Each handler contributes one increment when that click triggers both."
+"Programming","Why test a button with both mouse and keyboard activation when both are supported?","To disable accessibility","To ensure every event fires twice","To verify both input routes perform the intended action","To require simultaneous input","C","Different supported inputs should produce the intended equivalent response."

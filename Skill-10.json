@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Timed changes",
+  "course": "Independent Programming Skills",
+  "lesson": 10,
+  "lessonTitle": "Timed changes",
+  "group": "Events",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "beginner",
+      "text": "A reminder is scheduled for 8 seconds after Start. What triggers its handler?",
+      "answers": [
+        "Every letter typed",
+        "The reminder's text length",
+        "The app's window title",
+        "The timer reaching the scheduled delay"
+      ],
+      "correct": 3,
+      "explanation": "The timer event is tied to elapsed time after scheduling.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 10,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "intermediate",
+      "text": "An animation updates every 0.5 seconds. How many updates occur at 0.5, 1.0, 1.5, and 2.0 seconds?",
+      "answers": [
+        "3",
+        "5",
+        "4",
+        "2"
+      ],
+      "correct": 2,
+      "explanation": "The four listed update times each cause one update.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 10,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "intermediate",
+      "text": "A scheduled warning should not appear after Cancel. What should Cancel do?",
+      "answers": [
+        "Disable the keyboard permanently",
+        "Cancel the pending timer",
+        "Only change the background",
+        "Schedule a second warning"
+      ],
+      "correct": 1,
+      "explanation": "Removing the pending timer prevents that delayed action from firing.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 10,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "intermediate",
+      "text": "Why avoid assuming that a browser timer fires at an exact real-world instant?",
+      "answers": [
+        "Other work can delay the callback",
+        "Timers always fire before scheduling",
+        "Timers cannot use numbers",
+        "The user's name determines the delay"
+      ],
+      "correct": 0,
+      "explanation": "Busy execution can postpone a scheduled callback.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 10,
+      "expressGroup": "Events"
+    }
+  ]
+}

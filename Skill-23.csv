@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","A function doubleValue(n) returns n * 2. What does doubleValue(9) return?","11","81","18","9","C","The parameter receives nine and multiplication produces eighteen."
+"Programming","What is the role of a parameter?","Replace every global variable","Receive an input value for a function call","Always store the final screen image","Automatically repeat a function forever","B","Parameters let the same function work with supplied inputs."
+"Programming","A function returns a calculated shipping fee. How can its caller use that result?","Store it or include it in another calculation","Only rename the function","Only change the keyboard layout","Assume it has been printed automatically","A","Returning supplies a result to the calling code; display is a separate action."
+"Programming","Why test a calculation function with several inputs?","To make its name shorter","To guarantee every possible program is correct","To remove its need for inputs","To check its rule beyond a single example","D","Different cases can reveal limits or mistakes hidden by one example."

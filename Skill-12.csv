@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","A loop prints one ticket per iteration and repeats 7 times. How many tickets are printed?","14","7","6","8","B","One print per iteration across seven iterations produces seven tickets."
+"Programming","A badge must be shown once after a loop ends. Where does the display command belong?","After the loop","Inside every iteration","Only in the loop condition","In a comment before the loop","A","An action after the loop runs once after repetition finishes."
+"Programming","Which task naturally fits a repeat-8 loop?","Repeat until a user supplies an unknown password","Wait for an unpredictable network reply","Choose between two colors once","Apply the same stamp eight times","D","The stamp task has a known repetition count."
+"Programming","A loop contains two moves and runs 5 times. How many move commands execute?","5","7","10","2","C","Two moves per iteration times five iterations equals ten."

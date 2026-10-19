@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Stopping rules",
+  "course": "Independent Programming Skills",
+  "lesson": 20,
+  "lessonTitle": "Stopping rules",
+  "group": "Loops",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "beginner",
+      "text": "A pre-test loop repeats while the destination has not been reached. What makes it stop?",
+      "answers": [
+        "The window changes color",
+        "The destination test becomes true",
+        "The project is renamed",
+        "The loop count is always two"
+      ],
+      "correct": 1,
+      "explanation": "Once the destination is reached, the while condition becomes false.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 20,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "A process handles one queued item per iteration until the queue is empty. It starts with 6 items and receives no new items. How many iterations are needed?",
+      "answers": [
+        "6",
+        "0",
+        "5",
+        "7"
+      ],
+      "correct": 0,
+      "explanation": "Each iteration removes one of the six starting items.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 20,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "Why must a repeat-until rule specify when its condition is checked?",
+      "answers": [
+        "A condition cannot be checked twice",
+        "All languages use identical loop semantics",
+        "The condition is always ignored",
+        "Checking before or after the body can change the first iteration"
+      ],
+      "correct": 3,
+      "explanation": "Pre-test and post-test loops can behave differently when the condition starts true.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 20,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "A loop should stop when remaining <= 0. Why is that safer than remaining == 0 if updates may subtract 2?",
+      "answers": [
+        "It forces the value to stay positive",
+        "It makes subtraction impossible",
+        "It also stops when the value skips below zero",
+        "It prevents all arithmetic"
+      ],
+      "correct": 2,
+      "explanation": "A decrement of two can pass from one to minus one without equaling zero.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 20,
+      "expressGroup": "Loops"
+    }
+  ]
+}

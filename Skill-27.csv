@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","width starts at 12. Before each of three drawings it increases by 4. What widths are drawn?","4, 8, 12","16, 16, 16","16, 20, 24","12, 16, 20","C","The update happens before each draw, so the first width is sixteen."
+"Programming","A diagram uses the same margin variable on all four sides. What does changing that variable support?","A guarantee that every screen fits","Consistent margin updates","Automatic spelling correction","Removal of all coordinates","B","A shared value can control repeated dimensions consistently."
+"Programming","radius is assigned 6, then assigned 9 before drawing a circle. Which radius does the drawing use?","9","6","15","3","A","The most recent assignment is nine."
+"Programming","Why record a dimension's unit in its description or name?","To make multiplication illegal","To remove every need for scaling","To force every image to be square","To avoid mixing quantities such as pixels and millimeters","D","Explicit units prevent incompatible measurements from being confused."

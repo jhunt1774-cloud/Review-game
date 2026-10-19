@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Repetition boundaries",
+  "course": "Independent Programming Skills",
+  "lesson": 13,
+  "lessonTitle": "Repetition boundaries",
+  "group": "Loops",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "beginner",
+      "text": "A display needs six identical cards followed by one footer. Which plan fits?",
+      "answers": [
+        "Repeat the card six times, then draw the footer",
+        "Repeat the footer six times, then one card",
+        "Draw the footer inside each card",
+        "Draw one card and omit the footer"
+      ],
+      "correct": 0,
+      "explanation": "Only the repeated card belongs inside the six-iteration loop.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 13,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "A setup command should run once before processing 9 records. Where should it go?",
+      "answers": [
+        "At the end of every iteration",
+        "Only in the ninth record's data",
+        "Inside a comment",
+        "Before the record loop"
+      ],
+      "correct": 3,
+      "explanation": "Setup outside the loop avoids repeating initialization.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 13,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "A loop starts a subtotal at zero on every iteration. Why can that lose earlier additions?",
+      "answers": [
+        "Addition requires a network connection",
+        "Loops cannot contain assignments",
+        "Each iteration overwrites the accumulated subtotal",
+        "Zero cannot be stored"
+      ],
+      "correct": 2,
+      "explanation": "Resetting the accumulator discards the previous running value.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 13,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "A printer repeats four batches of three labels. How many labels are produced?",
+      "answers": [
+        "3",
+        "12",
+        "7",
+        "4"
+      ],
+      "correct": 1,
+      "explanation": "Four groups of three labels give twelve labels.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 13,
+      "expressGroup": "Loops"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Changing dimensions",
+  "course": "Independent Programming Skills",
+  "lesson": 27,
+  "lessonTitle": "Changing dimensions",
+  "group": "Variables",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "beginner",
+      "text": "width starts at 12. Before each of three drawings it increases by 4. What widths are drawn?",
+      "answers": [
+        "4, 8, 12",
+        "16, 16, 16",
+        "16, 20, 24",
+        "12, 16, 20"
+      ],
+      "correct": 2,
+      "explanation": "The update happens before each draw, so the first width is sixteen.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 27,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "A diagram uses the same margin variable on all four sides. What does changing that variable support?",
+      "answers": [
+        "A guarantee that every screen fits",
+        "Consistent margin updates",
+        "Automatic spelling correction",
+        "Removal of all coordinates"
+      ],
+      "correct": 1,
+      "explanation": "A shared value can control repeated dimensions consistently.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 27,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "radius is assigned 6, then assigned 9 before drawing a circle. Which radius does the drawing use?",
+      "answers": [
+        "9",
+        "6",
+        "15",
+        "3"
+      ],
+      "correct": 0,
+      "explanation": "The most recent assignment is nine.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 27,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "Why record a dimension's unit in its description or name?",
+      "answers": [
+        "To make multiplication illegal",
+        "To remove every need for scaling",
+        "To force every image to be square",
+        "To avoid mixing quantities such as pixels and millimeters"
+      ],
+      "correct": 3,
+      "explanation": "Explicit units prevent incompatible measurements from being confused.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 27,
+      "expressGroup": "Variables"
+    }
+  ]
+}

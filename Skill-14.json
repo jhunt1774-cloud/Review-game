@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Nested repetition",
+  "course": "Independent Programming Skills",
+  "lesson": 14,
+  "lessonTitle": "Nested repetition",
+  "group": "Loops",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "beginner",
+      "text": "A tray has 4 rows with 5 slots in each row. An outer loop visits rows and an inner loop visits slots. How many slots are visited?",
+      "answers": [
+        "9",
+        "4",
+        "5",
+        "20"
+      ],
+      "correct": 3,
+      "explanation": "The inner five visits repeat for each of four rows.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 14,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "What distinguishes a nested loop from two consecutive loops?",
+      "answers": [
+        "Neither loop can change variables",
+        "Both loops must run simultaneously",
+        "One loop executes inside another loop's body",
+        "Both loops must have the same count"
+      ],
+      "correct": 2,
+      "explanation": "Nesting places the inner repetition within each outer iteration.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 14,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "An outer loop runs 2 times and an inner loop runs 6 times per outer iteration. How many inner iterations occur?",
+      "answers": [
+        "2",
+        "12",
+        "8",
+        "6"
+      ],
+      "correct": 1,
+      "explanation": "Each of the two outer iterations includes six inner iterations.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 14,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "An inner loop should restart for each new row. When should its starting value be set?",
+      "answers": [
+        "At the start of each row's inner loop",
+        "Only after all rows finish",
+        "Only when the app closes",
+        "Never initialize it"
+      ],
+      "correct": 0,
+      "explanation": "Each row needs a fresh traversal of its columns.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 14,
+      "expressGroup": "Loops"
+    }
+  ]
+}

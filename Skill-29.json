@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Ranges and steps",
+  "course": "Independent Programming Skills",
+  "lesson": 29,
+  "lessonTitle": "Ranges and steps",
+  "group": "Counting loops",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Counting loops",
+      "difficulty": "beginner",
+      "text": "A counting loop uses 2, 4, 6, and 8. What is its step?",
+      "answers": [
+        "2",
+        "1",
+        "4",
+        "8"
+      ],
+      "correct": 0,
+      "explanation": "Each successive value increases by two.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 29,
+      "expressGroup": "Counting loops"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Counting loops",
+      "difficulty": "intermediate",
+      "text": "A loop includes every integer from 3 through 7. How many iterations run?",
+      "answers": [
+        "3",
+        "4",
+        "7",
+        "5"
+      ],
+      "correct": 3,
+      "explanation": "The included values are 3, 4, 5, 6, and 7.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 29,
+      "expressGroup": "Counting loops"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Counting loops",
+      "difficulty": "intermediate",
+      "text": "Which three choices describe a numeric counting range?",
+      "answers": [
+        "Filename, author, and password",
+        "Width, height, and font only",
+        "Starting value, stopping rule, and step",
+        "Color, image, and sound"
+      ],
+      "correct": 2,
+      "explanation": "These choices determine the counter values and when counting stops.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 29,
+      "expressGroup": "Counting loops"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Counting loops",
+      "difficulty": "intermediate",
+      "text": "A loop starts at 10 and subtracts 2 while the value is at least 4. Which values are used?",
+      "answers": [
+        "10, 8, 6, 4, 2",
+        "10, 8, 6, 4",
+        "10, 9, 8, 7",
+        "8, 6, 4, 2"
+      ],
+      "correct": 1,
+      "explanation": "Four is included by the at-least-four stopping rule; two is not.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 29,
+      "expressGroup": "Counting loops"
+    }
+  ]
+}

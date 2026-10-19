@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","A reminder is scheduled for 8 seconds after Start. What triggers its handler?","Every letter typed","The reminder's text length","The app's window title","The timer reaching the scheduled delay","D","The timer event is tied to elapsed time after scheduling."
+"Programming","An animation updates every 0.5 seconds. How many updates occur at 0.5, 1.0, 1.5, and 2.0 seconds?","3","5","4","2","C","The four listed update times each cause one update."
+"Programming","A scheduled warning should not appear after Cancel. What should Cancel do?","Disable the keyboard permanently","Cancel the pending timer","Only change the background","Schedule a second warning","B","Removing the pending timer prevents that delayed action from firing."
+"Programming","Why avoid assuming that a browser timer fires at an exact real-world instant?","Other work can delay the callback","Timers always fire before scheduling","Timers cannot use numbers","The user's name determines the delay","A","Busy execution can postpone a scheduled callback."

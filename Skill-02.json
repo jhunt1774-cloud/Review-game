@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Tracing and evidence",
+  "course": "Independent Programming Skills",
+  "lesson": 2,
+  "lessonTitle": "Tracing and evidence",
+  "group": "Debugging",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Debugging",
+      "difficulty": "beginner",
+      "text": "A thermostat should turn on below 18 degrees but turns on at 24. What is useful evidence?",
+      "answers": [
+        "The case color",
+        "The user's favorite song",
+        "The monitor size",
+        "The measured value and the comparison result"
+      ],
+      "correct": 3,
+      "explanation": "The temperature and comparison reveal why the branch runs.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 2,
+      "expressGroup": "Debugging"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Debugging",
+      "difficulty": "intermediate",
+      "text": "An order contains two items but its total includes only one. What should be traced?",
+      "answers": [
+        "The printer's logo",
+        "Only the startup sound",
+        "Which items reach the total calculation",
+        "Only the title font"
+      ],
+      "correct": 2,
+      "explanation": "Tracing item processing can reveal a skipped calculation.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 2,
+      "expressGroup": "Debugging"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Debugging",
+      "difficulty": "intermediate",
+      "text": "Why keep a failing input when repairing a program?",
+      "answers": [
+        "To change the assignment goal",
+        "To rerun the same case after the fix",
+        "To prove every other input fails",
+        "To avoid checking the output"
+      ],
+      "correct": 1,
+      "explanation": "A repeatable case lets you compare behavior before and after a change.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 2,
+      "expressGroup": "Debugging"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Debugging",
+      "difficulty": "intermediate",
+      "text": "After changing one calculation, what should a developer do?",
+      "answers": [
+        "Test the failing case and related working cases",
+        "Delete the expected results",
+        "Assume all bugs disappeared",
+        "Change every other calculation"
+      ],
+      "correct": 0,
+      "explanation": "The fix should solve the failure without breaking related behavior.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 2,
+      "expressGroup": "Debugging"
+    }
+  ]
+}

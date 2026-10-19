@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","A thermostat should turn on below 18 degrees but turns on at 24. What is useful evidence?","The case color","The user's favorite song","The monitor size","The measured value and the comparison result","D","The temperature and comparison reveal why the branch runs."
+"Programming","An order contains two items but its total includes only one. What should be traced?","The printer's logo","Only the startup sound","Which items reach the total calculation","Only the title font","C","Tracing item processing can reveal a skipped calculation."
+"Programming","Why keep a failing input when repairing a program?","To change the assignment goal","To rerun the same case after the fix","To prove every other input fails","To avoid checking the output","B","A repeatable case lets you compare behavior before and after a change."
+"Programming","After changing one calculation, what should a developer do?","Test the failing case and related working cases","Delete the expected results","Assume all bugs disappeared","Change every other calculation","A","The fix should solve the failure without breaking related behavior."

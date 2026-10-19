@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Creating and selecting objects",
+  "course": "Independent Programming Skills",
+  "lesson": 6,
+  "lessonTitle": "Creating and selecting objects",
+  "group": "Sprites",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Sprites",
+      "difficulty": "beginner",
+      "text": "Code tries to move an object named beacon before creating it. What is missing?",
+      "answers": [
+        "An extra screen border",
+        "A second keyboard",
+        "A longer project title",
+        "An initialization step for beacon"
+      ],
+      "correct": 3,
+      "explanation": "A program needs a valid object before it can operate on that object.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 6,
+      "expressGroup": "Sprites"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Sprites",
+      "difficulty": "intermediate",
+      "text": "Three markers share a class, but only marker B should blink. What must the command identify?",
+      "answers": [
+        "Only the background",
+        "The file containing the project",
+        "Marker B specifically",
+        "Every object on the screen"
+      ],
+      "correct": 2,
+      "explanation": "A specific target prevents unintended changes to the other markers.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 6,
+      "expressGroup": "Sprites"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Sprites",
+      "difficulty": "intermediate",
+      "text": "Two objects both start with health 10. Object A loses 3 health. If their state is independent, what is B's health?",
+      "answers": [
+        "13",
+        "10",
+        "7",
+        "3"
+      ],
+      "correct": 1,
+      "explanation": "Changing A's independent health value does not change B's value.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 6,
+      "expressGroup": "Sprites"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Sprites",
+      "difficulty": "intermediate",
+      "text": "Why give screen objects meaningful names such as exitMarker?",
+      "answers": [
+        "To make the intended target easier to recognize",
+        "To make the program execute faster automatically",
+        "To eliminate all duplicate images",
+        "To prevent any future bugs"
+      ],
+      "correct": 0,
+      "explanation": "Clear names help a reader understand which object code controls.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 6,
+      "expressGroup": "Sprites"
+    }
+  ]
+}

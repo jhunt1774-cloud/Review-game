@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","A game icon stays at the same coordinates but changes from gray to green. Which property changed?","Appearance","Position","Execution order","File size","A","Its visible styling changed while its location stayed fixed."
+"Programming","Two screen objects use the same picture but occupy different positions. Are they necessarily the same object?","Yes; an image can be used only once","Yes; position does not belong to objects","No; shared pictures cannot be displayed","No; separate objects can share an image","D","Objects can have independent state while reusing one visual resource."
+"Programming","A character has x, y, and health values. What do those values describe?","Only the image filename","A guarantee of correct behavior","Its current state","The entire operating system","C","State records information about an object at a particular moment."
+"Programming","Which change makes a map marker larger without moving its center?","Delete its image","Increase its scale while keeping its position","Increase only x","Increase only y","B","Scale controls size independently of the center coordinates."

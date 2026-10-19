@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","A display needs six identical cards followed by one footer. Which plan fits?","Repeat the card six times, then draw the footer","Repeat the footer six times, then one card","Draw the footer inside each card","Draw one card and omit the footer","A","Only the repeated card belongs inside the six-iteration loop."
+"Programming","A setup command should run once before processing 9 records. Where should it go?","At the end of every iteration","Only in the ninth record's data","Inside a comment","Before the record loop","D","Setup outside the loop avoids repeating initialization."
+"Programming","A loop starts a subtotal at zero on every iteration. Why can that lose earlier additions?","Addition requires a network connection","Loops cannot contain assignments","Each iteration overwrites the accumulated subtotal","Zero cannot be stored","C","Resetting the accumulator discards the previous running value."
+"Programming","A printer repeats four batches of three labels. How many labels are produced?","3","12","7","4","B","Four groups of three labels give twelve labels."

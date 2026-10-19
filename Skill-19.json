@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Decision test cases",
+  "course": "Independent Programming Skills",
+  "lesson": 19,
+  "lessonTitle": "Decision test cases",
+  "group": "Conditionals",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "beginner",
+      "text": "A warning appears when speed > 30. Which value tests the boundary without triggering it?",
+      "answers": [
+        "40",
+        "99",
+        "30",
+        "31"
+      ],
+      "correct": 2,
+      "explanation": "Thirty equals the boundary and does not satisfy a strict greater-than test.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 19,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "A cooler runs if hot AND powerAvailable. Which case keeps it off?",
+      "answers": [
+        "powerAvailable is true and hot is true",
+        "hot is true and powerAvailable is false",
+        "Both values are true",
+        "hot is true and powerAvailable is true"
+      ],
+      "correct": 1,
+      "explanation": "An AND expression requires both parts to be true.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 19,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "An access check accepts badge OR supervisorApproval. Which case is accepted?",
+      "answers": [
+        "No badge, but supervisorApproval is true",
+        "Both values are false",
+        "No badge and no approval",
+        "Neither condition can be evaluated"
+      ],
+      "correct": 0,
+      "explanation": "An OR expression is true when at least one part is true.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 19,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "A sensor program handles low, normal, and high values. Which test plan is strongest?",
+      "answers": [
+        "Test only normal values",
+        "Test only the largest possible value",
+        "Test without checking the output",
+        "Test at least one value in each range and the boundaries"
+      ],
+      "correct": 3,
+      "explanation": "Different ranges and boundaries can expose different decision errors.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 19,
+      "expressGroup": "Conditionals"
+    }
+  ]
+}

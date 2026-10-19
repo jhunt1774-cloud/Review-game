@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Interactive simulations",
+  "course": "Independent Programming Skills",
+  "lesson": 9,
+  "lessonTitle": "Interactive simulations",
+  "group": "State",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · State",
+      "difficulty": "beginner",
+      "text": "A digital greenhouse has a water button. Which state change could represent watering?",
+      "answers": [
+        "Increase stored moisture",
+        "Change the author's name",
+        "Erase the temperature sensor code",
+        "Rename every variable"
+      ],
+      "correct": 0,
+      "explanation": "A moisture value models a relevant part of the simulation.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 9,
+      "expressGroup": "State"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · State",
+      "difficulty": "intermediate",
+      "text": "A cart keeps moving after Pause is clicked. What should be inspected?",
+      "answers": [
+        "Only its image resolution",
+        "The title capitalization",
+        "The browser's bookmarks",
+        "Whether its movement update is still enabled"
+      ],
+      "correct": 3,
+      "explanation": "Pausing must stop or disable the code that advances movement.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 9,
+      "expressGroup": "State"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · State",
+      "difficulty": "intermediate",
+      "text": "A simulation restarts. Which action makes its starting behavior predictable?",
+      "answers": [
+        "Delete all input handlers",
+        "Randomize every value without a rule",
+        "Initialize its state to documented starting values",
+        "Keep arbitrary values from an old run"
+      ],
+      "correct": 2,
+      "explanation": "Known initial values make behavior repeatable and testable.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 9,
+      "expressGroup": "State"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · State",
+      "difficulty": "intermediate",
+      "text": "A visitor clicks Start twice. Which rule prevents two concurrent timers?",
+      "answers": [
+        "Change the button color only",
+        "Ignore Start while a timer is already running",
+        "Create another timer on every click",
+        "Delete Pause after the first click"
+      ],
+      "correct": 1,
+      "explanation": "A running-state check prevents duplicate timer creation.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 9,
+      "expressGroup": "State"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Two-way branches",
+  "course": "Independent Programming Skills",
+  "lesson": 17,
+  "lessonTitle": "Two-way branches",
+  "group": "Conditionals",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "beginner",
+      "text": "If parcelWeight > 5, use the large bin; otherwise use the small bin. Which bin gets weight 5?",
+      "answers": [
+        "Small bin",
+        "Large bin",
+        "Both bins",
+        "Neither bin"
+      ],
+      "correct": 0,
+      "explanation": "Five does not satisfy the strictly-greater-than-five test.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 17,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "In an ordinary if/else, how are the two branches selected?",
+      "answers": [
+        "Both branches always execute",
+        "Only the else branch can execute",
+        "The longer branch always executes",
+        "The condition chooses one branch"
+      ],
+      "correct": 3,
+      "explanation": "True selects the if branch and false selects the else branch.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 17,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "If member is true, price = 8; else price = 11. What is the price for a nonmember?",
+      "answers": [
+        "3",
+        "19",
+        "11",
+        "8"
+      ],
+      "correct": 2,
+      "explanation": "A nonmember makes member false, selecting the else assignment.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 17,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "Which pair best tests both branches of age >= 13?",
+      "answers": [
+        "Ages 13 and 14",
+        "Ages 12 and 13",
+        "Ages 15 and 16",
+        "Ages 20 and 30"
+      ],
+      "correct": 1,
+      "explanation": "Twelve is false and thirteen is true, including the decision boundary.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 17,
+      "expressGroup": "Conditionals"
+    }
+  ]
+}

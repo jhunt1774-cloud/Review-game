@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Input handlers",
+  "course": "Independent Programming Skills",
+  "lesson": 8,
+  "lessonTitle": "Input handlers",
+  "group": "Events",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "beginner",
+      "text": "A map should zoom when the plus button is clicked. Which event should trigger zooming?",
+      "answers": [
+        "A random screen refresh",
+        "A click on the plus button",
+        "Any mouse movement",
+        "The app's filename changing"
+      ],
+      "correct": 1,
+      "explanation": "The handler should respond to the specified user action.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 8,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "intermediate",
+      "text": "Pressing R should reset a timer. Where should the reset action be placed?",
+      "answers": [
+        "In the R-key handler",
+        "Only in an unrelated click handler",
+        "After the app has closed",
+        "In an unused comment"
+      ],
+      "correct": 0,
+      "explanation": "The matching key event should execute the reset action.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 8,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "intermediate",
+      "text": "A button click runs two handlers, and both add 1 to a counter. How much is added per click?",
+      "answers": [
+        "0",
+        "1",
+        "4",
+        "2"
+      ],
+      "correct": 3,
+      "explanation": "Each handler contributes one increment when that click triggers both.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 8,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "intermediate",
+      "text": "Why test a button with both mouse and keyboard activation when both are supported?",
+      "answers": [
+        "To disable accessibility",
+        "To ensure every event fires twice",
+        "To verify both input routes perform the intended action",
+        "To require simultaneous input"
+      ],
+      "correct": 2,
+      "explanation": "Different supported inputs should produce the intended equivalent response.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 8,
+      "expressGroup": "Events"
+    }
+  ]
+}

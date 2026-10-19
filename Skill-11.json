@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Routing actions",
+  "course": "Independent Programming Skills",
+  "lesson": 11,
+  "lessonTitle": "Routing actions",
+  "group": "Events",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "beginner",
+      "text": "A weather app displays details immediately instead of waiting for More. Which placement is suspect?",
+      "answers": [
+        "The screen has two colors",
+        "The temperature is a number",
+        "The details action is in startup code rather than the More handler",
+        "The button label uses a capital letter"
+      ],
+      "correct": 2,
+      "explanation": "Startup code runs without waiting for that button event.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 11,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "intermediate",
+      "text": "Two buttons should open different panels. What test checks their routing?",
+      "answers": [
+        "Remove both event handlers",
+        "Activate each button and verify its own panel",
+        "Click one button and assume the other works",
+        "Rename both buttons identically"
+      ],
+      "correct": 1,
+      "explanation": "Each input-to-response mapping needs its own check.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 11,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "intermediate",
+      "text": "An alarm handler should update the label and play a tone. What must its code include?",
+      "answers": [
+        "Both required actions",
+        "Only a comment naming the tone",
+        "Only a new project title",
+        "Only an unused variable"
+      ],
+      "correct": 0,
+      "explanation": "The event response must execute both requested operations.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 11,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "intermediate",
+      "text": "Why keep an event handler focused on a clear action?",
+      "answers": [
+        "It makes all other handlers unnecessary",
+        "It prevents all network delays",
+        "It changes every variable into a constant",
+        "Its input and outcome are easier to understand and test"
+      ],
+      "correct": 3,
+      "explanation": "A focused responsibility makes behavior easier to reason about.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 11,
+      "expressGroup": "Events"
+    }
+  ]
+}

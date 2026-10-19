@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Multiple decisions",
+  "course": "Independent Programming Skills",
+  "lesson": 21,
+  "lessonTitle": "Multiple decisions",
+  "group": "Conditionals",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "beginner",
+      "text": "A sorter checks red first, blue second, and otherwise uses a mixed bin. Where does a yellow item go?",
+      "answers": [
+        "Mixed bin",
+        "Red bin",
+        "Blue bin",
+        "Every bin"
+      ],
+      "correct": 0,
+      "explanation": "Yellow matches neither named color, so the fallback branch runs.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 21,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "What is a nested conditional?",
+      "answers": [
+        "A variable whose name has two words",
+        "Two unrelated images",
+        "A loop without a body",
+        "A decision inside another decision's branch"
+      ],
+      "correct": 3,
+      "explanation": "A branch can contain another condition to refine a decision.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 21,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "A program first checks whether a file exists, then checks its size inside that branch. When is size checked?",
+      "answers": [
+        "Always, even without a file",
+        "Only after the program ends",
+        "Only when the file-exists branch runs",
+        "Before the existence check"
+      ],
+      "correct": 2,
+      "explanation": "The inner decision is reached through its containing branch.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 21,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "If score >= 90 use Gold; else if score >= 70 use Silver; else Bronze. What label does 85 receive?",
+      "answers": [
+        "No label",
+        "Silver",
+        "Gold",
+        "Bronze"
+      ],
+      "correct": 1,
+      "explanation": "Eighty-five fails the first test and satisfies the second.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 21,
+      "expressGroup": "Conditionals"
+    }
+  ]
+}

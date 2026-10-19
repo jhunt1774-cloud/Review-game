@@ -1,0 +1,2364 @@
+{
+  "version": 1,
+  "name": "Independent Programming Skills · Complete Bank",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Sequencing",
+      "difficulty": "beginner",
+      "text": "A parcel kiosk must print a label before attaching it. Which pair preserves that dependency?",
+      "answers": [
+        "Print label; attach label",
+        "Attach label; print label",
+        "Attach label twice",
+        "Print label after dispatch"
+      ],
+      "correct": 0,
+      "explanation": "The label must exist before it can be attached.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 1,
+      "expressGroup": "Sequencing"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Sequencing",
+      "difficulty": "intermediate",
+      "text": "A program sets lamp = off, then lamp = on. What is the final state?",
+      "answers": [
+        "Off",
+        "Both states at once",
+        "No state is assigned",
+        "On"
+      ],
+      "correct": 3,
+      "explanation": "The later assignment replaces the earlier lamp value.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 1,
+      "expressGroup": "Sequencing"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Sequencing",
+      "difficulty": "intermediate",
+      "text": "An app saves a receipt before calculating its total. Which change fixes the order?",
+      "answers": [
+        "Remove the calculation",
+        "Rename the receipt",
+        "Calculate the total before saving the receipt",
+        "Save the receipt twice"
+      ],
+      "correct": 2,
+      "explanation": "The saved receipt should use the completed calculation.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 1,
+      "expressGroup": "Sequencing"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Sequencing",
+      "difficulty": "intermediate",
+      "text": "Why write a numbered plan for a parcel-sorting program?",
+      "answers": [
+        "To replace the computer's memory",
+        "To specify the order of its actions",
+        "To guarantee that no tests are needed",
+        "To make all actions simultaneous"
+      ],
+      "correct": 1,
+      "explanation": "A numbered plan makes action dependencies explicit.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 1,
+      "expressGroup": "Sequencing"
+    },
+    {
+      "id": 4,
+      "topic": "Programming",
+      "subject": "Programming skills · Debugging",
+      "difficulty": "beginner",
+      "text": "A thermostat should turn on below 18 degrees but turns on at 24. What is useful evidence?",
+      "answers": [
+        "The case color",
+        "The user's favorite song",
+        "The monitor size",
+        "The measured value and the comparison result"
+      ],
+      "correct": 3,
+      "explanation": "The temperature and comparison reveal why the branch runs.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 2,
+      "expressGroup": "Debugging"
+    },
+    {
+      "id": 5,
+      "topic": "Programming",
+      "subject": "Programming skills · Debugging",
+      "difficulty": "intermediate",
+      "text": "An order contains two items but its total includes only one. What should be traced?",
+      "answers": [
+        "The printer's logo",
+        "Only the startup sound",
+        "Which items reach the total calculation",
+        "Only the title font"
+      ],
+      "correct": 2,
+      "explanation": "Tracing item processing can reveal a skipped calculation.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 2,
+      "expressGroup": "Debugging"
+    },
+    {
+      "id": 6,
+      "topic": "Programming",
+      "subject": "Programming skills · Debugging",
+      "difficulty": "intermediate",
+      "text": "Why keep a failing input when repairing a program?",
+      "answers": [
+        "To change the assignment goal",
+        "To rerun the same case after the fix",
+        "To prove every other input fails",
+        "To avoid checking the output"
+      ],
+      "correct": 1,
+      "explanation": "A repeatable case lets you compare behavior before and after a change.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 2,
+      "expressGroup": "Debugging"
+    },
+    {
+      "id": 7,
+      "topic": "Programming",
+      "subject": "Programming skills · Debugging",
+      "difficulty": "intermediate",
+      "text": "After changing one calculation, what should a developer do?",
+      "answers": [
+        "Test the failing case and related working cases",
+        "Delete the expected results",
+        "Assume all bugs disappeared",
+        "Change every other calculation"
+      ],
+      "correct": 0,
+      "explanation": "The fix should solve the failure without breaking related behavior.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 2,
+      "expressGroup": "Debugging"
+    },
+    {
+      "id": 8,
+      "topic": "Programming",
+      "subject": "Programming skills · Sequencing",
+      "difficulty": "beginner",
+      "text": "A timer waits 2 seconds, rings, waits 3 seconds, then flashes. When does the flash occur after starting?",
+      "answers": [
+        "After 3 seconds",
+        "After 6 seconds",
+        "After 5 seconds",
+        "After 2 seconds"
+      ],
+      "correct": 2,
+      "explanation": "The two sequential waits add to 5 seconds.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 3,
+      "expressGroup": "Sequencing"
+    },
+    {
+      "id": 9,
+      "topic": "Programming",
+      "subject": "Programming skills · Sequencing",
+      "difficulty": "intermediate",
+      "text": "Two tasks must run in order: unlock a cabinet, then open it. Why is order important?",
+      "answers": [
+        "Both tasks must have equal duration",
+        "Opening depends on the cabinet already being unlocked",
+        "The shorter task must always be first",
+        "Alphabetical order controls execution"
+      ],
+      "correct": 1,
+      "explanation": "A dependency requires one task to finish before the next can succeed.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 3,
+      "expressGroup": "Sequencing"
+    },
+    {
+      "id": 10,
+      "topic": "Programming",
+      "subject": "Programming skills · Sequencing",
+      "difficulty": "intermediate",
+      "text": "A display shows Red, then Blue, then Green. Swapping the first two commands produces what order?",
+      "answers": [
+        "Blue, Red, Green",
+        "Green, Blue, Red",
+        "Red, Green, Blue",
+        "Blue, Green, Red"
+      ],
+      "correct": 0,
+      "explanation": "Only the first two positions are exchanged.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 3,
+      "expressGroup": "Sequencing"
+    },
+    {
+      "id": 11,
+      "topic": "Programming",
+      "subject": "Programming skills · Sequencing",
+      "difficulty": "intermediate",
+      "text": "A recipe app skips its timer step. Which comparison best helps locate the omission?",
+      "answers": [
+        "Two unrelated color palettes",
+        "The number of installed apps",
+        "The phone's brand against its name",
+        "The intended steps against the executed steps"
+      ],
+      "correct": 3,
+      "explanation": "Comparing planned and executed actions reveals missing steps.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 3,
+      "expressGroup": "Sequencing"
+    },
+    {
+      "id": 12,
+      "topic": "Programming",
+      "subject": "Programming skills · Graphics",
+      "difficulty": "beginner",
+      "text": "On a coordinate plane where x increases rightward, a marker moves from x = 12 to x = 19. How far right did it move?",
+      "answers": [
+        "31 units",
+        "7 units",
+        "12 units",
+        "19 units"
+      ],
+      "correct": 1,
+      "explanation": "The change is 19 minus 12, or 7.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 4,
+      "expressGroup": "Graphics"
+    },
+    {
+      "id": 13,
+      "topic": "Programming",
+      "subject": "Programming skills · Graphics",
+      "difficulty": "intermediate",
+      "text": "A drawing tool faces east and turns 90 degrees counterclockwise. Which direction does it face?",
+      "answers": [
+        "North",
+        "South",
+        "West",
+        "East"
+      ],
+      "correct": 0,
+      "explanation": "A counterclockwise quarter-turn from east points north.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 4,
+      "expressGroup": "Graphics"
+    },
+    {
+      "id": 14,
+      "topic": "Programming",
+      "subject": "Programming skills · Graphics",
+      "difficulty": "intermediate",
+      "text": "A pen draws a line of length 15, then one of length 25 without turning. What is the combined length?",
+      "answers": [
+        "10 units",
+        "25 units",
+        "375 units",
+        "40 units"
+      ],
+      "correct": 3,
+      "explanation": "Consecutive straight segments add: 15 + 25 = 40.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 4,
+      "expressGroup": "Graphics"
+    },
+    {
+      "id": 15,
+      "topic": "Programming",
+      "subject": "Programming skills · Graphics",
+      "difficulty": "intermediate",
+      "text": "Which action moves a cursor without leaving a drawn line in a pen-based drawing tool?",
+      "answers": [
+        "Change the ink color",
+        "Draw the same segment twice",
+        "Lift the pen before moving",
+        "Increase the line width"
+      ],
+      "correct": 2,
+      "explanation": "A lifted pen changes position without marking the surface.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 4,
+      "expressGroup": "Graphics"
+    },
+    {
+      "id": 16,
+      "topic": "Programming",
+      "subject": "Programming skills · Sprites",
+      "difficulty": "beginner",
+      "text": "A game icon stays at the same coordinates but changes from gray to green. Which property changed?",
+      "answers": [
+        "Appearance",
+        "Position",
+        "Execution order",
+        "File size"
+      ],
+      "correct": 0,
+      "explanation": "Its visible styling changed while its location stayed fixed.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 5,
+      "expressGroup": "Sprites"
+    },
+    {
+      "id": 17,
+      "topic": "Programming",
+      "subject": "Programming skills · Sprites",
+      "difficulty": "intermediate",
+      "text": "Two screen objects use the same picture but occupy different positions. Are they necessarily the same object?",
+      "answers": [
+        "Yes; an image can be used only once",
+        "Yes; position does not belong to objects",
+        "No; shared pictures cannot be displayed",
+        "No; separate objects can share an image"
+      ],
+      "correct": 3,
+      "explanation": "Objects can have independent state while reusing one visual resource.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 5,
+      "expressGroup": "Sprites"
+    },
+    {
+      "id": 18,
+      "topic": "Programming",
+      "subject": "Programming skills · Sprites",
+      "difficulty": "intermediate",
+      "text": "A character has x, y, and health values. What do those values describe?",
+      "answers": [
+        "Only the image filename",
+        "A guarantee of correct behavior",
+        "Its current state",
+        "The entire operating system"
+      ],
+      "correct": 2,
+      "explanation": "State records information about an object at a particular moment.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 5,
+      "expressGroup": "Sprites"
+    },
+    {
+      "id": 19,
+      "topic": "Programming",
+      "subject": "Programming skills · Sprites",
+      "difficulty": "intermediate",
+      "text": "Which change makes a map marker larger without moving its center?",
+      "answers": [
+        "Delete its image",
+        "Increase its scale while keeping its position",
+        "Increase only x",
+        "Increase only y"
+      ],
+      "correct": 1,
+      "explanation": "Scale controls size independently of the center coordinates.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 5,
+      "expressGroup": "Sprites"
+    },
+    {
+      "id": 20,
+      "topic": "Programming",
+      "subject": "Programming skills · Sprites",
+      "difficulty": "beginner",
+      "text": "Code tries to move an object named beacon before creating it. What is missing?",
+      "answers": [
+        "An extra screen border",
+        "A second keyboard",
+        "A longer project title",
+        "An initialization step for beacon"
+      ],
+      "correct": 3,
+      "explanation": "A program needs a valid object before it can operate on that object.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 6,
+      "expressGroup": "Sprites"
+    },
+    {
+      "id": 21,
+      "topic": "Programming",
+      "subject": "Programming skills · Sprites",
+      "difficulty": "intermediate",
+      "text": "Three markers share a class, but only marker B should blink. What must the command identify?",
+      "answers": [
+        "Only the background",
+        "The file containing the project",
+        "Marker B specifically",
+        "Every object on the screen"
+      ],
+      "correct": 2,
+      "explanation": "A specific target prevents unintended changes to the other markers.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 6,
+      "expressGroup": "Sprites"
+    },
+    {
+      "id": 22,
+      "topic": "Programming",
+      "subject": "Programming skills · Sprites",
+      "difficulty": "intermediate",
+      "text": "Two objects both start with health 10. Object A loses 3 health. If their state is independent, what is B's health?",
+      "answers": [
+        "13",
+        "10",
+        "7",
+        "3"
+      ],
+      "correct": 1,
+      "explanation": "Changing A's independent health value does not change B's value.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 6,
+      "expressGroup": "Sprites"
+    },
+    {
+      "id": 23,
+      "topic": "Programming",
+      "subject": "Programming skills · Sprites",
+      "difficulty": "intermediate",
+      "text": "Why give screen objects meaningful names such as exitMarker?",
+      "answers": [
+        "To make the intended target easier to recognize",
+        "To make the program execute faster automatically",
+        "To eliminate all duplicate images",
+        "To prevent any future bugs"
+      ],
+      "correct": 0,
+      "explanation": "Clear names help a reader understand which object code controls.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 6,
+      "expressGroup": "Sprites"
+    },
+    {
+      "id": 24,
+      "topic": "Programming",
+      "subject": "Programming skills · Design",
+      "difficulty": "beginner",
+      "text": "A museum kiosk needs to explain three exhibits. Which plan is easiest to test?",
+      "answers": [
+        "A single blank screen",
+        "Random text on every click",
+        "One labeled button for each exhibit",
+        "Three unlabeled buttons with changing meanings"
+      ],
+      "correct": 2,
+      "explanation": "Explicit labels and responses give each interaction an observable purpose.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 7,
+      "expressGroup": "Design"
+    },
+    {
+      "id": 25,
+      "topic": "Programming",
+      "subject": "Programming skills · Design",
+      "difficulty": "intermediate",
+      "text": "A project explains how weather sensors help gardeners. Which feature supports that purpose?",
+      "answers": [
+        "A button that never responds",
+        "A reading display linked to a watering recommendation",
+        "An unrelated flashing advertisement",
+        "A hidden score with no explanation"
+      ],
+      "correct": 1,
+      "explanation": "The feature connects the displayed measurement to its practical use.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 7,
+      "expressGroup": "Design"
+    },
+    {
+      "id": 26,
+      "topic": "Programming",
+      "subject": "Programming skills · Design",
+      "difficulty": "intermediate",
+      "text": "What should a tester know before checking an interaction?",
+      "answers": [
+        "The input to try and the expected response",
+        "Only the author's favorite color",
+        "The price of the keyboard",
+        "The number of files on the device"
+      ],
+      "correct": 0,
+      "explanation": "A test compares a specified action with an expected result.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 7,
+      "expressGroup": "Design"
+    },
+    {
+      "id": 27,
+      "topic": "Programming",
+      "subject": "Programming skills · Design",
+      "difficulty": "intermediate",
+      "text": "A visitor cannot find the reset control. Which revision addresses the feedback?",
+      "answers": [
+        "Add more hidden controls",
+        "Remove all labels",
+        "Change the project name only",
+        "Add a visible control labeled Reset"
+      ],
+      "correct": 3,
+      "explanation": "A visible descriptive control makes the action discoverable.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 7,
+      "expressGroup": "Design"
+    },
+    {
+      "id": 28,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "beginner",
+      "text": "A map should zoom when the plus button is clicked. Which event should trigger zooming?",
+      "answers": [
+        "A random screen refresh",
+        "A click on the plus button",
+        "Any mouse movement",
+        "The app's filename changing"
+      ],
+      "correct": 1,
+      "explanation": "The handler should respond to the specified user action.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 8,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 29,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "intermediate",
+      "text": "Pressing R should reset a timer. Where should the reset action be placed?",
+      "answers": [
+        "In the R-key handler",
+        "Only in an unrelated click handler",
+        "After the app has closed",
+        "In an unused comment"
+      ],
+      "correct": 0,
+      "explanation": "The matching key event should execute the reset action.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 8,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 30,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "intermediate",
+      "text": "A button click runs two handlers, and both add 1 to a counter. How much is added per click?",
+      "answers": [
+        "0",
+        "1",
+        "4",
+        "2"
+      ],
+      "correct": 3,
+      "explanation": "Each handler contributes one increment when that click triggers both.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 8,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 31,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "intermediate",
+      "text": "Why test a button with both mouse and keyboard activation when both are supported?",
+      "answers": [
+        "To disable accessibility",
+        "To ensure every event fires twice",
+        "To verify both input routes perform the intended action",
+        "To require simultaneous input"
+      ],
+      "correct": 2,
+      "explanation": "Different supported inputs should produce the intended equivalent response.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 8,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 32,
+      "topic": "Programming",
+      "subject": "Programming skills · State",
+      "difficulty": "beginner",
+      "text": "A digital greenhouse has a water button. Which state change could represent watering?",
+      "answers": [
+        "Increase stored moisture",
+        "Change the author's name",
+        "Erase the temperature sensor code",
+        "Rename every variable"
+      ],
+      "correct": 0,
+      "explanation": "A moisture value models a relevant part of the simulation.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 9,
+      "expressGroup": "State"
+    },
+    {
+      "id": 33,
+      "topic": "Programming",
+      "subject": "Programming skills · State",
+      "difficulty": "intermediate",
+      "text": "A cart keeps moving after Pause is clicked. What should be inspected?",
+      "answers": [
+        "Only its image resolution",
+        "The title capitalization",
+        "The browser's bookmarks",
+        "Whether its movement update is still enabled"
+      ],
+      "correct": 3,
+      "explanation": "Pausing must stop or disable the code that advances movement.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 9,
+      "expressGroup": "State"
+    },
+    {
+      "id": 34,
+      "topic": "Programming",
+      "subject": "Programming skills · State",
+      "difficulty": "intermediate",
+      "text": "A simulation restarts. Which action makes its starting behavior predictable?",
+      "answers": [
+        "Delete all input handlers",
+        "Randomize every value without a rule",
+        "Initialize its state to documented starting values",
+        "Keep arbitrary values from an old run"
+      ],
+      "correct": 2,
+      "explanation": "Known initial values make behavior repeatable and testable.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 9,
+      "expressGroup": "State"
+    },
+    {
+      "id": 35,
+      "topic": "Programming",
+      "subject": "Programming skills · State",
+      "difficulty": "intermediate",
+      "text": "A visitor clicks Start twice. Which rule prevents two concurrent timers?",
+      "answers": [
+        "Change the button color only",
+        "Ignore Start while a timer is already running",
+        "Create another timer on every click",
+        "Delete Pause after the first click"
+      ],
+      "correct": 1,
+      "explanation": "A running-state check prevents duplicate timer creation.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 9,
+      "expressGroup": "State"
+    },
+    {
+      "id": 36,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "beginner",
+      "text": "A reminder is scheduled for 8 seconds after Start. What triggers its handler?",
+      "answers": [
+        "Every letter typed",
+        "The reminder's text length",
+        "The app's window title",
+        "The timer reaching the scheduled delay"
+      ],
+      "correct": 3,
+      "explanation": "The timer event is tied to elapsed time after scheduling.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 10,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 37,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "intermediate",
+      "text": "An animation updates every 0.5 seconds. How many updates occur at 0.5, 1.0, 1.5, and 2.0 seconds?",
+      "answers": [
+        "3",
+        "5",
+        "4",
+        "2"
+      ],
+      "correct": 2,
+      "explanation": "The four listed update times each cause one update.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 10,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 38,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "intermediate",
+      "text": "A scheduled warning should not appear after Cancel. What should Cancel do?",
+      "answers": [
+        "Disable the keyboard permanently",
+        "Cancel the pending timer",
+        "Only change the background",
+        "Schedule a second warning"
+      ],
+      "correct": 1,
+      "explanation": "Removing the pending timer prevents that delayed action from firing.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 10,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 39,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "intermediate",
+      "text": "Why avoid assuming that a browser timer fires at an exact real-world instant?",
+      "answers": [
+        "Other work can delay the callback",
+        "Timers always fire before scheduling",
+        "Timers cannot use numbers",
+        "The user's name determines the delay"
+      ],
+      "correct": 0,
+      "explanation": "Busy execution can postpone a scheduled callback.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 10,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 40,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "beginner",
+      "text": "A weather app displays details immediately instead of waiting for More. Which placement is suspect?",
+      "answers": [
+        "The screen has two colors",
+        "The temperature is a number",
+        "The details action is in startup code rather than the More handler",
+        "The button label uses a capital letter"
+      ],
+      "correct": 2,
+      "explanation": "Startup code runs without waiting for that button event.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 11,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 41,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "intermediate",
+      "text": "Two buttons should open different panels. What test checks their routing?",
+      "answers": [
+        "Remove both event handlers",
+        "Activate each button and verify its own panel",
+        "Click one button and assume the other works",
+        "Rename both buttons identically"
+      ],
+      "correct": 1,
+      "explanation": "Each input-to-response mapping needs its own check.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 11,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 42,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "intermediate",
+      "text": "An alarm handler should update the label and play a tone. What must its code include?",
+      "answers": [
+        "Both required actions",
+        "Only a comment naming the tone",
+        "Only a new project title",
+        "Only an unused variable"
+      ],
+      "correct": 0,
+      "explanation": "The event response must execute both requested operations.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 11,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 43,
+      "topic": "Programming",
+      "subject": "Programming skills · Events",
+      "difficulty": "intermediate",
+      "text": "Why keep an event handler focused on a clear action?",
+      "answers": [
+        "It makes all other handlers unnecessary",
+        "It prevents all network delays",
+        "It changes every variable into a constant",
+        "Its input and outcome are easier to understand and test"
+      ],
+      "correct": 3,
+      "explanation": "A focused responsibility makes behavior easier to reason about.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 11,
+      "expressGroup": "Events"
+    },
+    {
+      "id": 44,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "beginner",
+      "text": "A loop prints one ticket per iteration and repeats 7 times. How many tickets are printed?",
+      "answers": [
+        "14",
+        "7",
+        "6",
+        "8"
+      ],
+      "correct": 1,
+      "explanation": "One print per iteration across seven iterations produces seven tickets.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 12,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 45,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "A badge must be shown once after a loop ends. Where does the display command belong?",
+      "answers": [
+        "After the loop",
+        "Inside every iteration",
+        "Only in the loop condition",
+        "In a comment before the loop"
+      ],
+      "correct": 0,
+      "explanation": "An action after the loop runs once after repetition finishes.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 12,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 46,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "Which task naturally fits a repeat-8 loop?",
+      "answers": [
+        "Repeat until a user supplies an unknown password",
+        "Wait for an unpredictable network reply",
+        "Choose between two colors once",
+        "Apply the same stamp eight times"
+      ],
+      "correct": 3,
+      "explanation": "The stamp task has a known repetition count.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 12,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 47,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "A loop contains two moves and runs 5 times. How many move commands execute?",
+      "answers": [
+        "5",
+        "7",
+        "10",
+        "2"
+      ],
+      "correct": 2,
+      "explanation": "Two moves per iteration times five iterations equals ten.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 12,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 48,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "beginner",
+      "text": "A display needs six identical cards followed by one footer. Which plan fits?",
+      "answers": [
+        "Repeat the card six times, then draw the footer",
+        "Repeat the footer six times, then one card",
+        "Draw the footer inside each card",
+        "Draw one card and omit the footer"
+      ],
+      "correct": 0,
+      "explanation": "Only the repeated card belongs inside the six-iteration loop.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 13,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 49,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "A setup command should run once before processing 9 records. Where should it go?",
+      "answers": [
+        "At the end of every iteration",
+        "Only in the ninth record's data",
+        "Inside a comment",
+        "Before the record loop"
+      ],
+      "correct": 3,
+      "explanation": "Setup outside the loop avoids repeating initialization.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 13,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 50,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "A loop starts a subtotal at zero on every iteration. Why can that lose earlier additions?",
+      "answers": [
+        "Addition requires a network connection",
+        "Loops cannot contain assignments",
+        "Each iteration overwrites the accumulated subtotal",
+        "Zero cannot be stored"
+      ],
+      "correct": 2,
+      "explanation": "Resetting the accumulator discards the previous running value.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 13,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 51,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "A printer repeats four batches of three labels. How many labels are produced?",
+      "answers": [
+        "3",
+        "12",
+        "7",
+        "4"
+      ],
+      "correct": 1,
+      "explanation": "Four groups of three labels give twelve labels.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 13,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 52,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "beginner",
+      "text": "A tray has 4 rows with 5 slots in each row. An outer loop visits rows and an inner loop visits slots. How many slots are visited?",
+      "answers": [
+        "9",
+        "4",
+        "5",
+        "20"
+      ],
+      "correct": 3,
+      "explanation": "The inner five visits repeat for each of four rows.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 14,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 53,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "What distinguishes a nested loop from two consecutive loops?",
+      "answers": [
+        "Neither loop can change variables",
+        "Both loops must run simultaneously",
+        "One loop executes inside another loop's body",
+        "Both loops must have the same count"
+      ],
+      "correct": 2,
+      "explanation": "Nesting places the inner repetition within each outer iteration.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 14,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 54,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "An outer loop runs 2 times and an inner loop runs 6 times per outer iteration. How many inner iterations occur?",
+      "answers": [
+        "2",
+        "12",
+        "8",
+        "6"
+      ],
+      "correct": 1,
+      "explanation": "Each of the two outer iterations includes six inner iterations.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 14,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 55,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "An inner loop should restart for each new row. When should its starting value be set?",
+      "answers": [
+        "At the start of each row's inner loop",
+        "Only after all rows finish",
+        "Only when the app closes",
+        "Never initialize it"
+      ],
+      "correct": 0,
+      "explanation": "Each row needs a fresh traversal of its columns.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 14,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 56,
+      "topic": "Programming",
+      "subject": "Programming skills · Graphics",
+      "difficulty": "beginner",
+      "text": "A circular dial has 8 equally spaced marks. What angle separates neighboring marks?",
+      "answers": [
+        "90 degrees",
+        "180 degrees",
+        "45 degrees",
+        "8 degrees"
+      ],
+      "correct": 2,
+      "explanation": "A full turn of 360 degrees divided by eight gives 45 degrees.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 15,
+      "expressGroup": "Graphics"
+    },
+    {
+      "id": 57,
+      "topic": "Programming",
+      "subject": "Programming skills · Graphics",
+      "difficulty": "intermediate",
+      "text": "A repeating tile has 3 drawn edges and is placed 7 times. How many edge draws occur?",
+      "answers": [
+        "3",
+        "21",
+        "10",
+        "7"
+      ],
+      "correct": 1,
+      "explanation": "Three edge draws for each of seven placements gives twenty-one.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 15,
+      "expressGroup": "Graphics"
+    },
+    {
+      "id": 58,
+      "topic": "Programming",
+      "subject": "Programming skills · Graphics",
+      "difficulty": "intermediate",
+      "text": "To double a regular polygon's size without changing its shape, what should change?",
+      "answers": [
+        "Double all side lengths and keep its turn angles",
+        "Double every angle only",
+        "Remove half its sides",
+        "Change only its starting direction"
+      ],
+      "correct": 0,
+      "explanation": "Uniformly scaling lengths preserves the shape's angles.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 15,
+      "expressGroup": "Graphics"
+    },
+    {
+      "id": 59,
+      "topic": "Programming",
+      "subject": "Programming skills · Graphics",
+      "difficulty": "intermediate",
+      "text": "A pattern rotates 120 degrees after each placement. How many such turns make one full turn?",
+      "answers": [
+        "2",
+        "4",
+        "6",
+        "3"
+      ],
+      "correct": 3,
+      "explanation": "Three turns of 120 degrees total 360 degrees.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 15,
+      "expressGroup": "Graphics"
+    },
+    {
+      "id": 60,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "beginner",
+      "text": "A door opens if badgeValid is true. When should it remain closed?",
+      "answers": [
+        "Only when the variable name is short",
+        "When badgeValid is false",
+        "Whenever the badge is blue",
+        "Whenever the screen refreshes"
+      ],
+      "correct": 1,
+      "explanation": "The stated rule grants entry only when the Boolean test is true.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 16,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 61,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "Which expression tests whether a numeric temperature is below 5?",
+      "answers": [
+        "temperature < 5",
+        "temperature + 5",
+        "temperature = temperature + 5",
+        "temperature * 5"
+      ],
+      "correct": 0,
+      "explanation": "A less-than comparison produces the required true-or-false result.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 16,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 62,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "A delivery robot checks for a barrier before each move. Why repeat the check?",
+      "answers": [
+        "The first check changes every future position",
+        "Conditions can be used only once",
+        "Checking removes all barriers",
+        "The next position may have a different barrier state"
+      ],
+      "correct": 3,
+      "explanation": "The decision should use information relevant to the next movement.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 16,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 63,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "An alert should appear only when battery < 15. Which test case checks the false outcome?",
+      "answers": [
+        "battery = 8",
+        "battery = 14",
+        "battery = 40",
+        "battery = 5"
+      ],
+      "correct": 2,
+      "explanation": "Forty is not less than fifteen, so the alert condition is false.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 16,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 64,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "beginner",
+      "text": "If parcelWeight > 5, use the large bin; otherwise use the small bin. Which bin gets weight 5?",
+      "answers": [
+        "Small bin",
+        "Large bin",
+        "Both bins",
+        "Neither bin"
+      ],
+      "correct": 0,
+      "explanation": "Five does not satisfy the strictly-greater-than-five test.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 17,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 65,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "In an ordinary if/else, how are the two branches selected?",
+      "answers": [
+        "Both branches always execute",
+        "Only the else branch can execute",
+        "The longer branch always executes",
+        "The condition chooses one branch"
+      ],
+      "correct": 3,
+      "explanation": "True selects the if branch and false selects the else branch.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 17,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 66,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "If member is true, price = 8; else price = 11. What is the price for a nonmember?",
+      "answers": [
+        "3",
+        "19",
+        "11",
+        "8"
+      ],
+      "correct": 2,
+      "explanation": "A nonmember makes member false, selecting the else assignment.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 17,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 67,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "Which pair best tests both branches of age >= 13?",
+      "answers": [
+        "Ages 13 and 14",
+        "Ages 12 and 13",
+        "Ages 15 and 16",
+        "Ages 20 and 30"
+      ],
+      "correct": 1,
+      "explanation": "Twelve is false and thirteen is true, including the decision boundary.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 17,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 68,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "beginner",
+      "text": "While supplies > 0, remove one supply. Starting with supplies = 4, how many iterations run?",
+      "answers": [
+        "0",
+        "3",
+        "5",
+        "4"
+      ],
+      "correct": 3,
+      "explanation": "Four removals reduce the value to zero, where the condition becomes false.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 18,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 69,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "A pre-test while loop checks ready == false. If ready is already true, how many iterations run?",
+      "answers": [
+        "2",
+        "An unlimited number",
+        "0",
+        "1"
+      ],
+      "correct": 2,
+      "explanation": "The condition is false before the first iteration.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 18,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 70,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "While count < 3, print count and increase it by 1. Starting at count = 1, what is printed?",
+      "answers": [
+        "3 only",
+        "1, 2",
+        "1, 2, 3",
+        "0, 1, 2"
+      ],
+      "correct": 1,
+      "explanation": "Values one and two satisfy the condition; three does not.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 18,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 71,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "A loop waits while jobsRemaining > 0 but never changes jobsRemaining. What is a concern?",
+      "answers": [
+        "The loop may continue indefinitely",
+        "It must stop after one iteration",
+        "The variable automatically becomes zero",
+        "The loop becomes a comment"
+      ],
+      "correct": 0,
+      "explanation": "The condition may remain true if nothing changes the relevant state.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 18,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 72,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "beginner",
+      "text": "A warning appears when speed > 30. Which value tests the boundary without triggering it?",
+      "answers": [
+        "40",
+        "99",
+        "30",
+        "31"
+      ],
+      "correct": 2,
+      "explanation": "Thirty equals the boundary and does not satisfy a strict greater-than test.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 19,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 73,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "A cooler runs if hot AND powerAvailable. Which case keeps it off?",
+      "answers": [
+        "powerAvailable is true and hot is true",
+        "hot is true and powerAvailable is false",
+        "Both values are true",
+        "hot is true and powerAvailable is true"
+      ],
+      "correct": 1,
+      "explanation": "An AND expression requires both parts to be true.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 19,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 74,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "An access check accepts badge OR supervisorApproval. Which case is accepted?",
+      "answers": [
+        "No badge, but supervisorApproval is true",
+        "Both values are false",
+        "No badge and no approval",
+        "Neither condition can be evaluated"
+      ],
+      "correct": 0,
+      "explanation": "An OR expression is true when at least one part is true.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 19,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 75,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "A sensor program handles low, normal, and high values. Which test plan is strongest?",
+      "answers": [
+        "Test only normal values",
+        "Test only the largest possible value",
+        "Test without checking the output",
+        "Test at least one value in each range and the boundaries"
+      ],
+      "correct": 3,
+      "explanation": "Different ranges and boundaries can expose different decision errors.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 19,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 76,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "beginner",
+      "text": "A pre-test loop repeats while the destination has not been reached. What makes it stop?",
+      "answers": [
+        "The window changes color",
+        "The destination test becomes true",
+        "The project is renamed",
+        "The loop count is always two"
+      ],
+      "correct": 1,
+      "explanation": "Once the destination is reached, the while condition becomes false.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 20,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 77,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "A process handles one queued item per iteration until the queue is empty. It starts with 6 items and receives no new items. How many iterations are needed?",
+      "answers": [
+        "6",
+        "0",
+        "5",
+        "7"
+      ],
+      "correct": 0,
+      "explanation": "Each iteration removes one of the six starting items.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 20,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 78,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "Why must a repeat-until rule specify when its condition is checked?",
+      "answers": [
+        "A condition cannot be checked twice",
+        "All languages use identical loop semantics",
+        "The condition is always ignored",
+        "Checking before or after the body can change the first iteration"
+      ],
+      "correct": 3,
+      "explanation": "Pre-test and post-test loops can behave differently when the condition starts true.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 20,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 79,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "A loop should stop when remaining <= 0. Why is that safer than remaining == 0 if updates may subtract 2?",
+      "answers": [
+        "It forces the value to stay positive",
+        "It makes subtraction impossible",
+        "It also stops when the value skips below zero",
+        "It prevents all arithmetic"
+      ],
+      "correct": 2,
+      "explanation": "A decrement of two can pass from one to minus one without equaling zero.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 20,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 80,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "beginner",
+      "text": "A sorter checks red first, blue second, and otherwise uses a mixed bin. Where does a yellow item go?",
+      "answers": [
+        "Mixed bin",
+        "Red bin",
+        "Blue bin",
+        "Every bin"
+      ],
+      "correct": 0,
+      "explanation": "Yellow matches neither named color, so the fallback branch runs.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 21,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 81,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "What is a nested conditional?",
+      "answers": [
+        "A variable whose name has two words",
+        "Two unrelated images",
+        "A loop without a body",
+        "A decision inside another decision's branch"
+      ],
+      "correct": 3,
+      "explanation": "A branch can contain another condition to refine a decision.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 21,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 82,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "A program first checks whether a file exists, then checks its size inside that branch. When is size checked?",
+      "answers": [
+        "Always, even without a file",
+        "Only after the program ends",
+        "Only when the file-exists branch runs",
+        "Before the existence check"
+      ],
+      "correct": 2,
+      "explanation": "The inner decision is reached through its containing branch.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 21,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 83,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "If score >= 90 use Gold; else if score >= 70 use Silver; else Bronze. What label does 85 receive?",
+      "answers": [
+        "No label",
+        "Silver",
+        "Gold",
+        "Bronze"
+      ],
+      "correct": 1,
+      "explanation": "Eighty-five fails the first test and satisfies the second.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 21,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 84,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "beginner",
+      "text": "A function named sendReceipt groups the steps for sending one receipt. What does calling it do?",
+      "answers": [
+        "Rename all receipts",
+        "Delete its definition",
+        "Run every function in the app",
+        "Execute those grouped steps"
+      ],
+      "correct": 3,
+      "explanation": "A call invokes the function's behavior.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 22,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 85,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "intermediate",
+      "text": "A packBox function adds 2 inserts per call. Five calls add how many inserts?",
+      "answers": [
+        "5",
+        "7",
+        "10",
+        "2"
+      ],
+      "correct": 2,
+      "explanation": "Two inserts per call times five calls gives ten.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 22,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 86,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "intermediate",
+      "text": "A function is defined but never called, and no event invokes it. Will its body run just because it is defined?",
+      "answers": [
+        "Only if its name is long",
+        "No",
+        "Yes, once each second",
+        "Yes, once per variable"
+      ],
+      "correct": 1,
+      "explanation": "Defining behavior does not by itself invoke that behavior.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 22,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 87,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "intermediate",
+      "text": "Which function name best describes checking an entered postal code?",
+      "answers": [
+        "validatePostalCode",
+        "doThing",
+        "imageColor",
+        "counterSeven"
+      ],
+      "correct": 0,
+      "explanation": "The name identifies the task rather than an unrelated detail.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 22,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 88,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "beginner",
+      "text": "A function doubleValue(n) returns n * 2. What does doubleValue(9) return?",
+      "answers": [
+        "11",
+        "81",
+        "18",
+        "9"
+      ],
+      "correct": 2,
+      "explanation": "The parameter receives nine and multiplication produces eighteen.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 23,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 89,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "intermediate",
+      "text": "What is the role of a parameter?",
+      "answers": [
+        "Replace every global variable",
+        "Receive an input value for a function call",
+        "Always store the final screen image",
+        "Automatically repeat a function forever"
+      ],
+      "correct": 1,
+      "explanation": "Parameters let the same function work with supplied inputs.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 23,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 90,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "intermediate",
+      "text": "A function returns a calculated shipping fee. How can its caller use that result?",
+      "answers": [
+        "Store it or include it in another calculation",
+        "Only rename the function",
+        "Only change the keyboard layout",
+        "Assume it has been printed automatically"
+      ],
+      "correct": 0,
+      "explanation": "Returning supplies a result to the calling code; display is a separate action.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 23,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 91,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "intermediate",
+      "text": "Why test a calculation function with several inputs?",
+      "answers": [
+        "To make its name shorter",
+        "To guarantee every possible program is correct",
+        "To remove its need for inputs",
+        "To check its rule beyond a single example"
+      ],
+      "correct": 3,
+      "explanation": "Different cases can reveal limits or mistakes hidden by one example.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 23,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 92,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "beginner",
+      "text": "Several screens use the same price-formatting rule. Where should that shared rule live?",
+      "answers": [
+        "In a variable name with no code",
+        "In a reusable formatting function",
+        "In separately edited copies on every screen",
+        "Only in a screenshot"
+      ],
+      "correct": 1,
+      "explanation": "Centralizing the rule makes consistent updates easier.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 24,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 93,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "intermediate",
+      "text": "A shared function formats prices incorrectly. Where should the common mistake be repaired?",
+      "answers": [
+        "In the shared function's implementation",
+        "Only in the project's title",
+        "By removing every call",
+        "By changing unrelated image names"
+      ],
+      "correct": 0,
+      "explanation": "Repairing the shared behavior affects the calls that use it.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 24,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 94,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "intermediate",
+      "text": "Which task is a clear function-sized responsibility?",
+      "answers": [
+        "Do every possible task in the app",
+        "Store an entire operating system",
+        "Replace testing with comments",
+        "Calculate the tax for one subtotal"
+      ],
+      "correct": 3,
+      "explanation": "A focused responsibility has a clear input, purpose, and result.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 24,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 95,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "intermediate",
+      "text": "After changing a shared function, which tests matter?",
+      "answers": [
+        "Only an unrelated game",
+        "No tests if it still has the same name",
+        "Its own cases and the features that call it",
+        "Only a screenshot of its name"
+      ],
+      "correct": 2,
+      "explanation": "A change can affect both the function and its callers.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 24,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 96,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "beginner",
+      "text": "A form asks for a display name. What does the user's typed response provide?",
+      "answers": [
+        "Input data",
+        "A new processor",
+        "A loop definition",
+        "A file license"
+      ],
+      "correct": 0,
+      "explanation": "A form collects information supplied by its user.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 25,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 97,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "name stores Imani. The program joins Welcome, a space, and name. What text results?",
+      "answers": [
+        "name Welcome",
+        "Welcome name",
+        "ImaniWelcome",
+        "Welcome Imani"
+      ],
+      "correct": 3,
+      "explanation": "The stored value is inserted after the greeting and space.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 25,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 98,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "Why validate an entered quantity before using it in arithmetic?",
+      "answers": [
+        "Validation makes addition unnecessary",
+        "Only negative numbers can be typed",
+        "The input might be empty or nonnumeric",
+        "Every input is already a number"
+      ],
+      "correct": 2,
+      "explanation": "User input must meet the calculation's required format and range.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 25,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 99,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "A user enters 7 as text. What may be needed before numeric addition?",
+      "answers": [
+        "Change the display font",
+        "Convert and validate it as a number",
+        "Add quotation marks around every number",
+        "Delete the result variable"
+      ],
+      "correct": 1,
+      "explanation": "Text and numeric values can behave differently during addition.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 25,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 100,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "beginner",
+      "text": "A counter starts at 3 and increases by 2 after each of four scans. What is its final value?",
+      "answers": [
+        "8",
+        "9",
+        "14",
+        "11"
+      ],
+      "correct": 3,
+      "explanation": "The initial three plus four increments of two equals eleven.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 26,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 101,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "Where should a session's score usually be initialized if it should survive multiple clicks?",
+      "answers": [
+        "Only after each point is displayed",
+        "Inside every label update",
+        "At session start, outside the scoring click handler",
+        "At the start of every scoring click"
+      ],
+      "correct": 2,
+      "explanation": "Repeated initialization would erase the accumulated score.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 26,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 102,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "A counter has value 8. The statement counter = counter - 3 leaves what value?",
+      "answers": [
+        "11",
+        "5",
+        "3",
+        "8"
+      ],
+      "correct": 1,
+      "explanation": "The updated value is eight minus three.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 26,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 103,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "Which variable name best describes the number of completed deliveries?",
+      "answers": [
+        "completedDeliveries",
+        "blue",
+        "temporaryThing",
+        "imageFile"
+      ],
+      "correct": 0,
+      "explanation": "The name communicates what quantity is stored.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 26,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 104,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "beginner",
+      "text": "width starts at 12. Before each of three drawings it increases by 4. What widths are drawn?",
+      "answers": [
+        "4, 8, 12",
+        "16, 16, 16",
+        "16, 20, 24",
+        "12, 16, 20"
+      ],
+      "correct": 2,
+      "explanation": "The update happens before each draw, so the first width is sixteen.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 27,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 105,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "A diagram uses the same margin variable on all four sides. What does changing that variable support?",
+      "answers": [
+        "A guarantee that every screen fits",
+        "Consistent margin updates",
+        "Automatic spelling correction",
+        "Removal of all coordinates"
+      ],
+      "correct": 1,
+      "explanation": "A shared value can control repeated dimensions consistently.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 27,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 106,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "radius is assigned 6, then assigned 9 before drawing a circle. Which radius does the drawing use?",
+      "answers": [
+        "9",
+        "6",
+        "15",
+        "3"
+      ],
+      "correct": 0,
+      "explanation": "The most recent assignment is nine.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 27,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 107,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "Why record a dimension's unit in its description or name?",
+      "answers": [
+        "To make multiplication illegal",
+        "To remove every need for scaling",
+        "To force every image to be square",
+        "To avoid mixing quantities such as pixels and millimeters"
+      ],
+      "correct": 3,
+      "explanation": "Explicit units prevent incompatible measurements from being confused.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 27,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 108,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "beginner",
+      "text": "A basket starts with 2 parts. Deliveries add 4, then 3 more. What is the final count?",
+      "answers": [
+        "3",
+        "9",
+        "7",
+        "6"
+      ],
+      "correct": 1,
+      "explanation": "The running total is 2 + 4 + 3 = 9.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 28,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 109,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "A display shows yesterday's stock after a new delivery. What should be checked?",
+      "answers": [
+        "Whether the stored stock and display were updated",
+        "Only the button's border",
+        "The author's initials",
+        "Only the window title"
+      ],
+      "correct": 0,
+      "explanation": "Both the data update and the presentation may need to run.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 28,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 110,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "A total begins at 0 and adds each value in [2, 5, 1]. What does it become?",
+      "answers": [
+        "5",
+        "3",
+        "10",
+        "8"
+      ],
+      "correct": 3,
+      "explanation": "Accumulation adds all three values: 2 + 5 + 1.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 28,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 111,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "Which operation records one additional completed task?",
+      "answers": [
+        "completed = completed - 1",
+        "completed = completed * 0",
+        "completed = completed + 1",
+        "completed = 0"
+      ],
+      "correct": 2,
+      "explanation": "An increment increases the existing count by one.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 28,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 112,
+      "topic": "Programming",
+      "subject": "Programming skills · Counting loops",
+      "difficulty": "beginner",
+      "text": "A counting loop uses 2, 4, 6, and 8. What is its step?",
+      "answers": [
+        "2",
+        "1",
+        "4",
+        "8"
+      ],
+      "correct": 0,
+      "explanation": "Each successive value increases by two.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 29,
+      "expressGroup": "Counting loops"
+    },
+    {
+      "id": 113,
+      "topic": "Programming",
+      "subject": "Programming skills · Counting loops",
+      "difficulty": "intermediate",
+      "text": "A loop includes every integer from 3 through 7. How many iterations run?",
+      "answers": [
+        "3",
+        "4",
+        "7",
+        "5"
+      ],
+      "correct": 3,
+      "explanation": "The included values are 3, 4, 5, 6, and 7.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 29,
+      "expressGroup": "Counting loops"
+    },
+    {
+      "id": 114,
+      "topic": "Programming",
+      "subject": "Programming skills · Counting loops",
+      "difficulty": "intermediate",
+      "text": "Which three choices describe a numeric counting range?",
+      "answers": [
+        "Filename, author, and password",
+        "Width, height, and font only",
+        "Starting value, stopping rule, and step",
+        "Color, image, and sound"
+      ],
+      "correct": 2,
+      "explanation": "These choices determine the counter values and when counting stops.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 29,
+      "expressGroup": "Counting loops"
+    },
+    {
+      "id": 115,
+      "topic": "Programming",
+      "subject": "Programming skills · Counting loops",
+      "difficulty": "intermediate",
+      "text": "A loop starts at 10 and subtracts 2 while the value is at least 4. Which values are used?",
+      "answers": [
+        "10, 8, 6, 4, 2",
+        "10, 8, 6, 4",
+        "10, 9, 8, 7",
+        "8, 6, 4, 2"
+      ],
+      "correct": 1,
+      "explanation": "Four is included by the at-least-four stopping rule; two is not.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 29,
+      "expressGroup": "Counting loops"
+    },
+    {
+      "id": 116,
+      "topic": "Programming",
+      "subject": "Programming skills · Counting loops",
+      "difficulty": "beginner",
+      "text": "A pattern uses sizes 6, 12, 18, and 24. What is the increment?",
+      "answers": [
+        "4",
+        "12",
+        "18",
+        "6"
+      ],
+      "correct": 3,
+      "explanation": "The difference between neighboring sizes is six.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 30,
+      "expressGroup": "Counting loops"
+    },
+    {
+      "id": 117,
+      "topic": "Programming",
+      "subject": "Programming skills · Counting loops",
+      "difficulty": "intermediate",
+      "text": "A counter takes 1, 2, 3. Each iteration draws a bar of length counter * 5. What lengths result?",
+      "answers": [
+        "6, 7, 8",
+        "5, 5, 5",
+        "5, 10, 15",
+        "1, 2, 3"
+      ],
+      "correct": 2,
+      "explanation": "Multiplying each counter value by five yields the three lengths.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 30,
+      "expressGroup": "Counting loops"
+    },
+    {
+      "id": 118,
+      "topic": "Programming",
+      "subject": "Programming skills · Counting loops",
+      "difficulty": "intermediate",
+      "text": "A loop starts at 0, continues while i < 4, and adds 1 each time. Which value is never used in its body?",
+      "answers": [
+        "3",
+        "4",
+        "0",
+        "1"
+      ],
+      "correct": 1,
+      "explanation": "The body runs for zero through three; the test fails at four.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 30,
+      "expressGroup": "Counting loops"
+    },
+    {
+      "id": 119,
+      "topic": "Programming",
+      "subject": "Programming skills · Counting loops",
+      "difficulty": "intermediate",
+      "text": "A pattern needs exactly five bars but produces six. What should be checked first?",
+      "answers": [
+        "Whether the loop's bounds include an extra value",
+        "Only the line color",
+        "The project author field",
+        "Only the drawing filename"
+      ],
+      "correct": 0,
+      "explanation": "An inclusive bound can create an extra iteration.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 30,
+      "expressGroup": "Counting loops"
+    },
+    {
+      "id": 120,
+      "topic": "Programming",
+      "subject": "Programming skills · Design",
+      "difficulty": "beginner",
+      "text": "A class plans an accessible homework reminder. What should be specified first?",
+      "answers": [
+        "Every decorative animation",
+        "The color of an unused icon",
+        "Who will use it and which task it must support",
+        "The longest possible file name"
+      ],
+      "correct": 2,
+      "explanation": "Purpose and users guide meaningful feature decisions.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 31,
+      "expressGroup": "Design"
+    },
+    {
+      "id": 121,
+      "topic": "Programming",
+      "subject": "Programming skills · Design",
+      "difficulty": "intermediate",
+      "text": "Only one day remains before a demo. Which choice best protects a useful result?",
+      "answers": [
+        "Skip checking whether reminders appear",
+        "Finish and test the essential reminder flow first",
+        "Add many unfinished decorations",
+        "Remove all working controls"
+      ],
+      "correct": 1,
+      "explanation": "A reliable core feature provides value before optional polish.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 31,
+      "expressGroup": "Design"
+    },
+    {
+      "id": 122,
+      "topic": "Programming",
+      "subject": "Programming skills · Design",
+      "difficulty": "intermediate",
+      "text": "A tester reports that saving fails only with an empty title. What should the developer capture?",
+      "answers": [
+        "Steps, input values, expected result, and actual result",
+        "Only the tester's favorite subject",
+        "Only the number of images",
+        "Only a screenshot of the desktop wallpaper"
+      ],
+      "correct": 0,
+      "explanation": "A clear report makes the failure reproducible.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 31,
+      "expressGroup": "Design"
+    },
+    {
+      "id": 123,
+      "topic": "Programming",
+      "subject": "Programming skills · Design",
+      "difficulty": "intermediate",
+      "text": "Which reflection gives actionable information for the next version?",
+      "answers": [
+        "Everything is perfect because we finished",
+        "There is nothing left to test",
+        "The project title has enough letters",
+        "Users missed Reset, so we will test a clearer label and placement"
+      ],
+      "correct": 3,
+      "explanation": "Specific observations can lead to a testable improvement.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 31,
+      "expressGroup": "Design"
+    }
+  ]
+}

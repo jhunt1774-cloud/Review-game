@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Inputs and results",
+  "course": "Independent Programming Skills",
+  "lesson": 23,
+  "lessonTitle": "Inputs and results",
+  "group": "Functions",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "beginner",
+      "text": "A function doubleValue(n) returns n * 2. What does doubleValue(9) return?",
+      "answers": [
+        "11",
+        "81",
+        "18",
+        "9"
+      ],
+      "correct": 2,
+      "explanation": "The parameter receives nine and multiplication produces eighteen.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 23,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "intermediate",
+      "text": "What is the role of a parameter?",
+      "answers": [
+        "Replace every global variable",
+        "Receive an input value for a function call",
+        "Always store the final screen image",
+        "Automatically repeat a function forever"
+      ],
+      "correct": 1,
+      "explanation": "Parameters let the same function work with supplied inputs.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 23,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "intermediate",
+      "text": "A function returns a calculated shipping fee. How can its caller use that result?",
+      "answers": [
+        "Store it or include it in another calculation",
+        "Only rename the function",
+        "Only change the keyboard layout",
+        "Assume it has been printed automatically"
+      ],
+      "correct": 0,
+      "explanation": "Returning supplies a result to the calling code; display is a separate action.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 23,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "intermediate",
+      "text": "Why test a calculation function with several inputs?",
+      "answers": [
+        "To make its name shorter",
+        "To guarantee every possible program is correct",
+        "To remove its need for inputs",
+        "To check its rule beyond a single example"
+      ],
+      "correct": 3,
+      "explanation": "Different cases can reveal limits or mistakes hidden by one example.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 23,
+      "expressGroup": "Functions"
+    }
+  ]
+}

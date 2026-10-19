@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Interactive information",
+  "course": "Independent Programming Skills",
+  "lesson": 7,
+  "lessonTitle": "Interactive information",
+  "group": "Design",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Design",
+      "difficulty": "beginner",
+      "text": "A museum kiosk needs to explain three exhibits. Which plan is easiest to test?",
+      "answers": [
+        "A single blank screen",
+        "Random text on every click",
+        "One labeled button for each exhibit",
+        "Three unlabeled buttons with changing meanings"
+      ],
+      "correct": 2,
+      "explanation": "Explicit labels and responses give each interaction an observable purpose.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 7,
+      "expressGroup": "Design"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Design",
+      "difficulty": "intermediate",
+      "text": "A project explains how weather sensors help gardeners. Which feature supports that purpose?",
+      "answers": [
+        "A button that never responds",
+        "A reading display linked to a watering recommendation",
+        "An unrelated flashing advertisement",
+        "A hidden score with no explanation"
+      ],
+      "correct": 1,
+      "explanation": "The feature connects the displayed measurement to its practical use.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 7,
+      "expressGroup": "Design"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Design",
+      "difficulty": "intermediate",
+      "text": "What should a tester know before checking an interaction?",
+      "answers": [
+        "The input to try and the expected response",
+        "Only the author's favorite color",
+        "The price of the keyboard",
+        "The number of files on the device"
+      ],
+      "correct": 0,
+      "explanation": "A test compares a specified action with an expected result.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 7,
+      "expressGroup": "Design"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Design",
+      "difficulty": "intermediate",
+      "text": "A visitor cannot find the reset control. Which revision addresses the feedback?",
+      "answers": [
+        "Add more hidden controls",
+        "Remove all labels",
+        "Change the project name only",
+        "Add a visible control labeled Reset"
+      ],
+      "correct": 3,
+      "explanation": "A visible descriptive control makes the action discoverable.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 7,
+      "expressGroup": "Design"
+    }
+  ]
+}

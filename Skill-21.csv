@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","A sorter checks red first, blue second, and otherwise uses a mixed bin. Where does a yellow item go?","Mixed bin","Red bin","Blue bin","Every bin","A","Yellow matches neither named color, so the fallback branch runs."
+"Programming","What is a nested conditional?","A variable whose name has two words","Two unrelated images","A loop without a body","A decision inside another decision's branch","D","A branch can contain another condition to refine a decision."
+"Programming","A program first checks whether a file exists, then checks its size inside that branch. When is size checked?","Always, even without a file","Only after the program ends","Only when the file-exists branch runs","Before the existence check","C","The inner decision is reached through its containing branch."
+"Programming","If score >= 90 use Gold; else if score >= 70 use Silver; else Bronze. What label does 85 receive?","No label","Silver","Gold","Bronze","B","Eighty-five fails the first test and satisfies the second."

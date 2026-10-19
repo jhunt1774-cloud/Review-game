@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Counters and initialization",
+  "course": "Independent Programming Skills",
+  "lesson": 26,
+  "lessonTitle": "Counters and initialization",
+  "group": "Variables",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "beginner",
+      "text": "A counter starts at 3 and increases by 2 after each of four scans. What is its final value?",
+      "answers": [
+        "8",
+        "9",
+        "14",
+        "11"
+      ],
+      "correct": 3,
+      "explanation": "The initial three plus four increments of two equals eleven.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 26,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "Where should a session's score usually be initialized if it should survive multiple clicks?",
+      "answers": [
+        "Only after each point is displayed",
+        "Inside every label update",
+        "At session start, outside the scoring click handler",
+        "At the start of every scoring click"
+      ],
+      "correct": 2,
+      "explanation": "Repeated initialization would erase the accumulated score.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 26,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "A counter has value 8. The statement counter = counter - 3 leaves what value?",
+      "answers": [
+        "11",
+        "5",
+        "3",
+        "8"
+      ],
+      "correct": 1,
+      "explanation": "The updated value is eight minus three.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 26,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "Which variable name best describes the number of completed deliveries?",
+      "answers": [
+        "completedDeliveries",
+        "blue",
+        "temporaryThing",
+        "imageFile"
+      ],
+      "correct": 0,
+      "explanation": "The name communicates what quantity is stored.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 26,
+      "expressGroup": "Variables"
+    }
+  ]
+}

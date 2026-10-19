@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Fixed repetition",
+  "course": "Independent Programming Skills",
+  "lesson": 12,
+  "lessonTitle": "Fixed repetition",
+  "group": "Loops",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "beginner",
+      "text": "A loop prints one ticket per iteration and repeats 7 times. How many tickets are printed?",
+      "answers": [
+        "14",
+        "7",
+        "6",
+        "8"
+      ],
+      "correct": 1,
+      "explanation": "One print per iteration across seven iterations produces seven tickets.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 12,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "A badge must be shown once after a loop ends. Where does the display command belong?",
+      "answers": [
+        "After the loop",
+        "Inside every iteration",
+        "Only in the loop condition",
+        "In a comment before the loop"
+      ],
+      "correct": 0,
+      "explanation": "An action after the loop runs once after repetition finishes.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 12,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "Which task naturally fits a repeat-8 loop?",
+      "answers": [
+        "Repeat until a user supplies an unknown password",
+        "Wait for an unpredictable network reply",
+        "Choose between two colors once",
+        "Apply the same stamp eight times"
+      ],
+      "correct": 3,
+      "explanation": "The stamp task has a known repetition count.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 12,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "A loop contains two moves and runs 5 times. How many move commands execute?",
+      "answers": [
+        "5",
+        "7",
+        "10",
+        "2"
+      ],
+      "correct": 2,
+      "explanation": "Two moves per iteration times five iterations equals ten.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 12,
+      "expressGroup": "Loops"
+    }
+  ]
+}

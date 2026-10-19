@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Bounds in generated patterns",
+  "course": "Independent Programming Skills",
+  "lesson": 30,
+  "lessonTitle": "Bounds in generated patterns",
+  "group": "Counting loops",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Counting loops",
+      "difficulty": "beginner",
+      "text": "A pattern uses sizes 6, 12, 18, and 24. What is the increment?",
+      "answers": [
+        "4",
+        "12",
+        "18",
+        "6"
+      ],
+      "correct": 3,
+      "explanation": "The difference between neighboring sizes is six.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 30,
+      "expressGroup": "Counting loops"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Counting loops",
+      "difficulty": "intermediate",
+      "text": "A counter takes 1, 2, 3. Each iteration draws a bar of length counter * 5. What lengths result?",
+      "answers": [
+        "6, 7, 8",
+        "5, 5, 5",
+        "5, 10, 15",
+        "1, 2, 3"
+      ],
+      "correct": 2,
+      "explanation": "Multiplying each counter value by five yields the three lengths.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 30,
+      "expressGroup": "Counting loops"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Counting loops",
+      "difficulty": "intermediate",
+      "text": "A loop starts at 0, continues while i < 4, and adds 1 each time. Which value is never used in its body?",
+      "answers": [
+        "3",
+        "4",
+        "0",
+        "1"
+      ],
+      "correct": 1,
+      "explanation": "The body runs for zero through three; the test fails at four.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 30,
+      "expressGroup": "Counting loops"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Counting loops",
+      "difficulty": "intermediate",
+      "text": "A pattern needs exactly five bars but produces six. What should be checked first?",
+      "answers": [
+        "Whether the loop's bounds include an extra value",
+        "Only the line color",
+        "The project author field",
+        "Only the drawing filename"
+      ],
+      "correct": 0,
+      "explanation": "An inclusive bound can create an extra iteration.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 30,
+      "expressGroup": "Counting loops"
+    }
+  ]
+}

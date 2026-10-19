@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","A form asks for a display name. What does the user's typed response provide?","Input data","A new processor","A loop definition","A file license","A","A form collects information supplied by its user."
+"Programming","name stores Imani. The program joins Welcome, a space, and name. What text results?","name Welcome","Welcome name","ImaniWelcome","Welcome Imani","D","The stored value is inserted after the greeting and space."
+"Programming","Why validate an entered quantity before using it in arithmetic?","Validation makes addition unnecessary","Only negative numbers can be typed","The input might be empty or nonnumeric","Every input is already a number","C","User input must meet the calculation's required format and range."
+"Programming","A user enters 7 as text. What may be needed before numeric addition?","Change the display font","Convert and validate it as a number","Add quotation marks around every number","Delete the result variable","B","Text and numeric values can behave differently during addition."

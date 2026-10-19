@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Boolean decisions",
+  "course": "Independent Programming Skills",
+  "lesson": 16,
+  "lessonTitle": "Boolean decisions",
+  "group": "Conditionals",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "beginner",
+      "text": "A door opens if badgeValid is true. When should it remain closed?",
+      "answers": [
+        "Only when the variable name is short",
+        "When badgeValid is false",
+        "Whenever the badge is blue",
+        "Whenever the screen refreshes"
+      ],
+      "correct": 1,
+      "explanation": "The stated rule grants entry only when the Boolean test is true.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 16,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "Which expression tests whether a numeric temperature is below 5?",
+      "answers": [
+        "temperature < 5",
+        "temperature + 5",
+        "temperature = temperature + 5",
+        "temperature * 5"
+      ],
+      "correct": 0,
+      "explanation": "A less-than comparison produces the required true-or-false result.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 16,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "A delivery robot checks for a barrier before each move. Why repeat the check?",
+      "answers": [
+        "The first check changes every future position",
+        "Conditions can be used only once",
+        "Checking removes all barriers",
+        "The next position may have a different barrier state"
+      ],
+      "correct": 3,
+      "explanation": "The decision should use information relevant to the next movement.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 16,
+      "expressGroup": "Conditionals"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Conditionals",
+      "difficulty": "intermediate",
+      "text": "An alert should appear only when battery < 15. Which test case checks the false outcome?",
+      "answers": [
+        "battery = 8",
+        "battery = 14",
+        "battery = 40",
+        "battery = 5"
+      ],
+      "correct": 2,
+      "explanation": "Forty is not less than fifteen, so the alert condition is false.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 16,
+      "expressGroup": "Conditionals"
+    }
+  ]
+}

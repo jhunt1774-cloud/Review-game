@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Project planning and review",
+  "course": "Independent Programming Skills",
+  "lesson": 31,
+  "lessonTitle": "Project planning and review",
+  "group": "Design",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Design",
+      "difficulty": "beginner",
+      "text": "A class plans an accessible homework reminder. What should be specified first?",
+      "answers": [
+        "Every decorative animation",
+        "The color of an unused icon",
+        "Who will use it and which task it must support",
+        "The longest possible file name"
+      ],
+      "correct": 2,
+      "explanation": "Purpose and users guide meaningful feature decisions.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 31,
+      "expressGroup": "Design"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Design",
+      "difficulty": "intermediate",
+      "text": "Only one day remains before a demo. Which choice best protects a useful result?",
+      "answers": [
+        "Skip checking whether reminders appear",
+        "Finish and test the essential reminder flow first",
+        "Add many unfinished decorations",
+        "Remove all working controls"
+      ],
+      "correct": 1,
+      "explanation": "A reliable core feature provides value before optional polish.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 31,
+      "expressGroup": "Design"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Design",
+      "difficulty": "intermediate",
+      "text": "A tester reports that saving fails only with an empty title. What should the developer capture?",
+      "answers": [
+        "Steps, input values, expected result, and actual result",
+        "Only the tester's favorite subject",
+        "Only the number of images",
+        "Only a screenshot of the desktop wallpaper"
+      ],
+      "correct": 0,
+      "explanation": "A clear report makes the failure reproducible.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 31,
+      "expressGroup": "Design"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Design",
+      "difficulty": "intermediate",
+      "text": "Which reflection gives actionable information for the next version?",
+      "answers": [
+        "Everything is perfect because we finished",
+        "There is nothing left to test",
+        "The project title has enough letters",
+        "Users missed Reset, so we will test a clearer label and placement"
+      ],
+      "correct": 3,
+      "explanation": "Specific observations can lead to a testable improvement.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 31,
+      "expressGroup": "Design"
+    }
+  ]
+}

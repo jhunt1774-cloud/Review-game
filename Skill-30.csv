@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","A pattern uses sizes 6, 12, 18, and 24. What is the increment?","4","12","18","6","D","The difference between neighboring sizes is six."
+"Programming","A counter takes 1, 2, 3. Each iteration draws a bar of length counter * 5. What lengths result?","6, 7, 8","5, 5, 5","5, 10, 15","1, 2, 3","C","Multiplying each counter value by five yields the three lengths."
+"Programming","A loop starts at 0, continues while i < 4, and adds 1 each time. Which value is never used in its body?","3","4","0","1","B","The body runs for zero through three; the test fails at four."
+"Programming","A pattern needs exactly five bars but produces six. What should be checked first?","Whether the loop's bounds include an extra value","Only the line color","The project author field","Only the drawing filename","A","An inclusive bound can create an extra iteration."

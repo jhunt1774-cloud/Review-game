@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","A circular dial has 8 equally spaced marks. What angle separates neighboring marks?","90 degrees","180 degrees","45 degrees","8 degrees","C","A full turn of 360 degrees divided by eight gives 45 degrees."
+"Programming","A repeating tile has 3 drawn edges and is placed 7 times. How many edge draws occur?","3","21","10","7","B","Three edge draws for each of seven placements gives twenty-one."
+"Programming","To double a regular polygon's size without changing its shape, what should change?","Double all side lengths and keep its turn angles","Double every angle only","Remove half its sides","Change only its starting direction","A","Uniformly scaling lengths preserves the shape's angles."
+"Programming","A pattern rotates 120 degrees after each placement. How many such turns make one full turn?","2","4","6","3","D","Three turns of 120 degrees total 360 degrees."

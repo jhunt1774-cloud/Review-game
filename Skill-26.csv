@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","A counter starts at 3 and increases by 2 after each of four scans. What is its final value?","8","9","14","11","D","The initial three plus four increments of two equals eleven."
+"Programming","Where should a session's score usually be initialized if it should survive multiple clicks?","Only after each point is displayed","Inside every label update","At session start, outside the scoring click handler","At the start of every scoring click","C","Repeated initialization would erase the accumulated score."
+"Programming","A counter has value 8. The statement counter = counter - 3 leaves what value?","11","5","3","8","B","The updated value is eight minus three."
+"Programming","Which variable name best describes the number of completed deliveries?","completedDeliveries","blue","temporaryThing","imageFile","A","The name communicates what quantity is stored."

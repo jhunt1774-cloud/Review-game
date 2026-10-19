@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","On a coordinate plane where x increases rightward, a marker moves from x = 12 to x = 19. How far right did it move?","31 units","7 units","12 units","19 units","B","The change is 19 minus 12, or 7."
+"Programming","A drawing tool faces east and turns 90 degrees counterclockwise. Which direction does it face?","North","South","West","East","A","A counterclockwise quarter-turn from east points north."
+"Programming","A pen draws a line of length 15, then one of length 25 without turning. What is the combined length?","10 units","25 units","375 units","40 units","D","Consecutive straight segments add: 15 + 25 = 40."
+"Programming","Which action moves a cursor without leaving a drawn line in a pen-based drawing tool?","Change the ink color","Draw the same segment twice","Lift the pen before moving","Increase the line width","C","A lifted pen changes position without marking the surface."

@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Accumulation and updates",
+  "course": "Independent Programming Skills",
+  "lesson": 28,
+  "lessonTitle": "Accumulation and updates",
+  "group": "Variables",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "beginner",
+      "text": "A basket starts with 2 parts. Deliveries add 4, then 3 more. What is the final count?",
+      "answers": [
+        "3",
+        "9",
+        "7",
+        "6"
+      ],
+      "correct": 1,
+      "explanation": "The running total is 2 + 4 + 3 = 9.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 28,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "A display shows yesterday's stock after a new delivery. What should be checked?",
+      "answers": [
+        "Whether the stored stock and display were updated",
+        "Only the button's border",
+        "The author's initials",
+        "Only the window title"
+      ],
+      "correct": 0,
+      "explanation": "Both the data update and the presentation may need to run.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 28,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "A total begins at 0 and adds each value in [2, 5, 1]. What does it become?",
+      "answers": [
+        "5",
+        "3",
+        "10",
+        "8"
+      ],
+      "correct": 3,
+      "explanation": "Accumulation adds all three values: 2 + 5 + 1.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 28,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "Which operation records one additional completed task?",
+      "answers": [
+        "completed = completed - 1",
+        "completed = completed * 0",
+        "completed = completed + 1",
+        "completed = 0"
+      ],
+      "correct": 2,
+      "explanation": "An increment increases the existing count by one.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 28,
+      "expressGroup": "Variables"
+    }
+  ]
+}

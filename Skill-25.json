@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Text input and output",
+  "course": "Independent Programming Skills",
+  "lesson": 25,
+  "lessonTitle": "Text input and output",
+  "group": "Variables",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "beginner",
+      "text": "A form asks for a display name. What does the user's typed response provide?",
+      "answers": [
+        "Input data",
+        "A new processor",
+        "A loop definition",
+        "A file license"
+      ],
+      "correct": 0,
+      "explanation": "A form collects information supplied by its user.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 25,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "name stores Imani. The program joins Welcome, a space, and name. What text results?",
+      "answers": [
+        "name Welcome",
+        "Welcome name",
+        "ImaniWelcome",
+        "Welcome Imani"
+      ],
+      "correct": 3,
+      "explanation": "The stored value is inserted after the greeting and space.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 25,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "Why validate an entered quantity before using it in arithmetic?",
+      "answers": [
+        "Validation makes addition unnecessary",
+        "Only negative numbers can be typed",
+        "The input might be empty or nonnumeric",
+        "Every input is already a number"
+      ],
+      "correct": 2,
+      "explanation": "User input must meet the calculation's required format and range.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 25,
+      "expressGroup": "Variables"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Variables",
+      "difficulty": "intermediate",
+      "text": "A user enters 7 as text. What may be needed before numeric addition?",
+      "answers": [
+        "Change the display font",
+        "Convert and validate it as a number",
+        "Add quotation marks around every number",
+        "Delete the result variable"
+      ],
+      "correct": 1,
+      "explanation": "Text and numeric values can behave differently during addition.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 25,
+      "expressGroup": "Variables"
+    }
+  ]
+}

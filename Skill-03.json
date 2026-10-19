@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Schedules and timing",
+  "course": "Independent Programming Skills",
+  "lesson": 3,
+  "lessonTitle": "Schedules and timing",
+  "group": "Sequencing",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Sequencing",
+      "difficulty": "beginner",
+      "text": "A timer waits 2 seconds, rings, waits 3 seconds, then flashes. When does the flash occur after starting?",
+      "answers": [
+        "After 3 seconds",
+        "After 6 seconds",
+        "After 5 seconds",
+        "After 2 seconds"
+      ],
+      "correct": 2,
+      "explanation": "The two sequential waits add to 5 seconds.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 3,
+      "expressGroup": "Sequencing"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Sequencing",
+      "difficulty": "intermediate",
+      "text": "Two tasks must run in order: unlock a cabinet, then open it. Why is order important?",
+      "answers": [
+        "Both tasks must have equal duration",
+        "Opening depends on the cabinet already being unlocked",
+        "The shorter task must always be first",
+        "Alphabetical order controls execution"
+      ],
+      "correct": 1,
+      "explanation": "A dependency requires one task to finish before the next can succeed.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 3,
+      "expressGroup": "Sequencing"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Sequencing",
+      "difficulty": "intermediate",
+      "text": "A display shows Red, then Blue, then Green. Swapping the first two commands produces what order?",
+      "answers": [
+        "Blue, Red, Green",
+        "Green, Blue, Red",
+        "Red, Green, Blue",
+        "Blue, Green, Red"
+      ],
+      "correct": 0,
+      "explanation": "Only the first two positions are exchanged.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 3,
+      "expressGroup": "Sequencing"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Sequencing",
+      "difficulty": "intermediate",
+      "text": "A recipe app skips its timer step. Which comparison best helps locate the omission?",
+      "answers": [
+        "Two unrelated color palettes",
+        "The number of installed apps",
+        "The phone's brand against its name",
+        "The intended steps against the executed steps"
+      ],
+      "correct": 3,
+      "explanation": "Comparing planned and executed actions reveals missing steps.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 3,
+      "expressGroup": "Sequencing"
+    }
+  ]
+}

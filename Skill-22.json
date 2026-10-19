@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Reusable tasks",
+  "course": "Independent Programming Skills",
+  "lesson": 22,
+  "lessonTitle": "Reusable tasks",
+  "group": "Functions",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "beginner",
+      "text": "A function named sendReceipt groups the steps for sending one receipt. What does calling it do?",
+      "answers": [
+        "Rename all receipts",
+        "Delete its definition",
+        "Run every function in the app",
+        "Execute those grouped steps"
+      ],
+      "correct": 3,
+      "explanation": "A call invokes the function's behavior.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 22,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "intermediate",
+      "text": "A packBox function adds 2 inserts per call. Five calls add how many inserts?",
+      "answers": [
+        "5",
+        "7",
+        "10",
+        "2"
+      ],
+      "correct": 2,
+      "explanation": "Two inserts per call times five calls gives ten.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 22,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "intermediate",
+      "text": "A function is defined but never called, and no event invokes it. Will its body run just because it is defined?",
+      "answers": [
+        "Only if its name is long",
+        "No",
+        "Yes, once each second",
+        "Yes, once per variable"
+      ],
+      "correct": 1,
+      "explanation": "Defining behavior does not by itself invoke that behavior.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 22,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "intermediate",
+      "text": "Which function name best describes checking an entered postal code?",
+      "answers": [
+        "validatePostalCode",
+        "doThing",
+        "imageColor",
+        "counterSeven"
+      ],
+      "correct": 0,
+      "explanation": "The name identifies the task rather than an unrelated detail.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 22,
+      "expressGroup": "Functions"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","A warning appears when speed > 30. Which value tests the boundary without triggering it?","40","99","30","31","C","Thirty equals the boundary and does not satisfy a strict greater-than test."
+"Programming","A cooler runs if hot AND powerAvailable. Which case keeps it off?","powerAvailable is true and hot is true","hot is true and powerAvailable is false","Both values are true","hot is true and powerAvailable is true","B","An AND expression requires both parts to be true."
+"Programming","An access check accepts badge OR supervisorApproval. Which case is accepted?","No badge, but supervisorApproval is true","Both values are false","No badge and no approval","Neither condition can be evaluated","A","An OR expression is true when at least one part is true."
+"Programming","A sensor program handles low, normal, and high values. Which test plan is strongest?","Test only normal values","Test only the largest possible value","Test without checking the output","Test at least one value in each range and the boundaries","D","Different ranges and boundaries can expose different decision errors."

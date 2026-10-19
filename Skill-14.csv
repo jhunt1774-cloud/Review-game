@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","A tray has 4 rows with 5 slots in each row. An outer loop visits rows and an inner loop visits slots. How many slots are visited?","9","4","5","20","D","The inner five visits repeat for each of four rows."
+"Programming","What distinguishes a nested loop from two consecutive loops?","Neither loop can change variables","Both loops must run simultaneously","One loop executes inside another loop's body","Both loops must have the same count","C","Nesting places the inner repetition within each outer iteration."
+"Programming","An outer loop runs 2 times and an inner loop runs 6 times per outer iteration. How many inner iterations occur?","2","12","8","6","B","Each of the two outer iterations includes six inner iterations."
+"Programming","An inner loop should restart for each new row. When should its starting value be set?","At the start of each row's inner loop","Only after all rows finish","Only when the app closes","Never initialize it","A","Each row needs a fresh traversal of its columns."

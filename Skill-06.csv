@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","Code tries to move an object named beacon before creating it. What is missing?","An extra screen border","A second keyboard","A longer project title","An initialization step for beacon","D","A program needs a valid object before it can operate on that object."
+"Programming","Three markers share a class, but only marker B should blink. What must the command identify?","Only the background","The file containing the project","Marker B specifically","Every object on the screen","C","A specific target prevents unintended changes to the other markers."
+"Programming","Two objects both start with health 10. Object A loses 3 health. If their state is independent, what is B's health?","13","10","7","3","B","Changing A's independent health value does not change B's value."
+"Programming","Why give screen objects meaningful names such as exitMarker?","To make the intended target easier to recognize","To make the program execute faster automatically","To eliminate all duplicate images","To prevent any future bugs","A","Clear names help a reader understand which object code controls."

@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · While conditions",
+  "course": "Independent Programming Skills",
+  "lesson": 18,
+  "lessonTitle": "While conditions",
+  "group": "Loops",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "beginner",
+      "text": "While supplies > 0, remove one supply. Starting with supplies = 4, how many iterations run?",
+      "answers": [
+        "0",
+        "3",
+        "5",
+        "4"
+      ],
+      "correct": 3,
+      "explanation": "Four removals reduce the value to zero, where the condition becomes false.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 18,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "A pre-test while loop checks ready == false. If ready is already true, how many iterations run?",
+      "answers": [
+        "2",
+        "An unlimited number",
+        "0",
+        "1"
+      ],
+      "correct": 2,
+      "explanation": "The condition is false before the first iteration.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 18,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "While count < 3, print count and increase it by 1. Starting at count = 1, what is printed?",
+      "answers": [
+        "3 only",
+        "1, 2",
+        "1, 2, 3",
+        "0, 1, 2"
+      ],
+      "correct": 1,
+      "explanation": "Values one and two satisfy the condition; three does not.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 18,
+      "expressGroup": "Loops"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Loops",
+      "difficulty": "intermediate",
+      "text": "A loop waits while jobsRemaining > 0 but never changes jobsRemaining. What is a concern?",
+      "answers": [
+        "The loop may continue indefinitely",
+        "It must stop after one iteration",
+        "The variable automatically becomes zero",
+        "The loop becomes a comment"
+      ],
+      "correct": 0,
+      "explanation": "The condition may remain true if nothing changes the relevant state.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 18,
+      "expressGroup": "Loops"
+    }
+  ]
+}

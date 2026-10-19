@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Ordered instructions",
+  "course": "Independent Programming Skills",
+  "lesson": 1,
+  "lessonTitle": "Ordered instructions",
+  "group": "Sequencing",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Sequencing",
+      "difficulty": "beginner",
+      "text": "A parcel kiosk must print a label before attaching it. Which pair preserves that dependency?",
+      "answers": [
+        "Print label; attach label",
+        "Attach label; print label",
+        "Attach label twice",
+        "Print label after dispatch"
+      ],
+      "correct": 0,
+      "explanation": "The label must exist before it can be attached.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 1,
+      "expressGroup": "Sequencing"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Sequencing",
+      "difficulty": "intermediate",
+      "text": "A program sets lamp = off, then lamp = on. What is the final state?",
+      "answers": [
+        "Off",
+        "Both states at once",
+        "No state is assigned",
+        "On"
+      ],
+      "correct": 3,
+      "explanation": "The later assignment replaces the earlier lamp value.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 1,
+      "expressGroup": "Sequencing"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Sequencing",
+      "difficulty": "intermediate",
+      "text": "An app saves a receipt before calculating its total. Which change fixes the order?",
+      "answers": [
+        "Remove the calculation",
+        "Rename the receipt",
+        "Calculate the total before saving the receipt",
+        "Save the receipt twice"
+      ],
+      "correct": 2,
+      "explanation": "The saved receipt should use the completed calculation.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 1,
+      "expressGroup": "Sequencing"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Sequencing",
+      "difficulty": "intermediate",
+      "text": "Why write a numbered plan for a parcel-sorting program?",
+      "answers": [
+        "To replace the computer's memory",
+        "To specify the order of its actions",
+        "To guarantee that no tests are needed",
+        "To make all actions simultaneous"
+      ],
+      "correct": 1,
+      "explanation": "A numbered plan makes action dependencies explicit.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 1,
+      "expressGroup": "Sequencing"
+    }
+  ]
+}

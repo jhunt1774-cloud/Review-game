@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Appearance and state",
+  "course": "Independent Programming Skills",
+  "lesson": 5,
+  "lessonTitle": "Appearance and state",
+  "group": "Sprites",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Sprites",
+      "difficulty": "beginner",
+      "text": "A game icon stays at the same coordinates but changes from gray to green. Which property changed?",
+      "answers": [
+        "Appearance",
+        "Position",
+        "Execution order",
+        "File size"
+      ],
+      "correct": 0,
+      "explanation": "Its visible styling changed while its location stayed fixed.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 5,
+      "expressGroup": "Sprites"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Sprites",
+      "difficulty": "intermediate",
+      "text": "Two screen objects use the same picture but occupy different positions. Are they necessarily the same object?",
+      "answers": [
+        "Yes; an image can be used only once",
+        "Yes; position does not belong to objects",
+        "No; shared pictures cannot be displayed",
+        "No; separate objects can share an image"
+      ],
+      "correct": 3,
+      "explanation": "Objects can have independent state while reusing one visual resource.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 5,
+      "expressGroup": "Sprites"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Sprites",
+      "difficulty": "intermediate",
+      "text": "A character has x, y, and health values. What do those values describe?",
+      "answers": [
+        "Only the image filename",
+        "A guarantee of correct behavior",
+        "Its current state",
+        "The entire operating system"
+      ],
+      "correct": 2,
+      "explanation": "State records information about an object at a particular moment.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 5,
+      "expressGroup": "Sprites"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Sprites",
+      "difficulty": "intermediate",
+      "text": "Which change makes a map marker larger without moving its center?",
+      "answers": [
+        "Delete its image",
+        "Increase its scale while keeping its position",
+        "Increase only x",
+        "Increase only y"
+      ],
+      "correct": 1,
+      "explanation": "Scale controls size independently of the center coordinates.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 5,
+      "expressGroup": "Sprites"
+    }
+  ]
+}

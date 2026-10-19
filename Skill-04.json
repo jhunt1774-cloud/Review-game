@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Coordinates and directions",
+  "course": "Independent Programming Skills",
+  "lesson": 4,
+  "lessonTitle": "Coordinates and directions",
+  "group": "Graphics",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Graphics",
+      "difficulty": "beginner",
+      "text": "On a coordinate plane where x increases rightward, a marker moves from x = 12 to x = 19. How far right did it move?",
+      "answers": [
+        "31 units",
+        "7 units",
+        "12 units",
+        "19 units"
+      ],
+      "correct": 1,
+      "explanation": "The change is 19 minus 12, or 7.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 4,
+      "expressGroup": "Graphics"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Graphics",
+      "difficulty": "intermediate",
+      "text": "A drawing tool faces east and turns 90 degrees counterclockwise. Which direction does it face?",
+      "answers": [
+        "North",
+        "South",
+        "West",
+        "East"
+      ],
+      "correct": 0,
+      "explanation": "A counterclockwise quarter-turn from east points north.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 4,
+      "expressGroup": "Graphics"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Graphics",
+      "difficulty": "intermediate",
+      "text": "A pen draws a line of length 15, then one of length 25 without turning. What is the combined length?",
+      "answers": [
+        "10 units",
+        "25 units",
+        "375 units",
+        "40 units"
+      ],
+      "correct": 3,
+      "explanation": "Consecutive straight segments add: 15 + 25 = 40.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 4,
+      "expressGroup": "Graphics"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Graphics",
+      "difficulty": "intermediate",
+      "text": "Which action moves a cursor without leaving a drawn line in a pen-based drawing tool?",
+      "answers": [
+        "Change the ink color",
+        "Draw the same segment twice",
+        "Lift the pen before moving",
+        "Increase the line width"
+      ],
+      "correct": 2,
+      "explanation": "A lifted pen changes position without marking the surface.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 4,
+      "expressGroup": "Graphics"
+    }
+  ]
+}

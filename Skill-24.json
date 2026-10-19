@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "name": "Programming Skills · Decomposition and maintenance",
+  "course": "Independent Programming Skills",
+  "lesson": 24,
+  "lessonTitle": "Decomposition and maintenance",
+  "group": "Functions",
+  "difficulty": "intermediate",
+  "pace": "standard",
+  "contentRevision": 2,
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "beginner",
+      "text": "Several screens use the same price-formatting rule. Where should that shared rule live?",
+      "answers": [
+        "In a variable name with no code",
+        "In a reusable formatting function",
+        "In separately edited copies on every screen",
+        "Only in a screenshot"
+      ],
+      "correct": 1,
+      "explanation": "Centralizing the rule makes consistent updates easier.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 24,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "intermediate",
+      "text": "A shared function formats prices incorrectly. Where should the common mistake be repaired?",
+      "answers": [
+        "In the shared function's implementation",
+        "Only in the project's title",
+        "By removing every call",
+        "By changing unrelated image names"
+      ],
+      "correct": 0,
+      "explanation": "Repairing the shared behavior affects the calls that use it.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 24,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "intermediate",
+      "text": "Which task is a clear function-sized responsibility?",
+      "answers": [
+        "Do every possible task in the app",
+        "Store an entire operating system",
+        "Replace testing with comments",
+        "Calculate the tax for one subtotal"
+      ],
+      "correct": 3,
+      "explanation": "A focused responsibility has a clear input, purpose, and result.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 24,
+      "expressGroup": "Functions"
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "subject": "Programming skills · Functions",
+      "difficulty": "intermediate",
+      "text": "After changing a shared function, which tests matter?",
+      "answers": [
+        "Only an unrelated game",
+        "No tests if it still has the same name",
+        "Its own cases and the features that call it",
+        "Only a screenshot of its name"
+      ],
+      "correct": 2,
+      "explanation": "A change can affect both the function and its callers.",
+      "origin": "independently authored concept practice",
+      "contentRevision": 2,
+      "expressLesson": 24,
+      "expressGroup": "Functions"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","If parcelWeight > 5, use the large bin; otherwise use the small bin. Which bin gets weight 5?","Small bin","Large bin","Both bins","Neither bin","A","Five does not satisfy the strictly-greater-than-five test."
+"Programming","In an ordinary if/else, how are the two branches selected?","Both branches always execute","Only the else branch can execute","The longer branch always executes","The condition chooses one branch","D","True selects the if branch and false selects the else branch."
+"Programming","If member is true, price = 8; else price = 11. What is the price for a nonmember?","3","19","11","8","C","A nonmember makes member false, selecting the else assignment."
+"Programming","Which pair best tests both branches of age >= 13?","Ages 13 and 14","Ages 12 and 13","Ages 15 and 16","Ages 20 and 30","B","Twelve is false and thirteen is true, including the decision boundary."

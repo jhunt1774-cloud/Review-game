@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","A door opens if badgeValid is true. When should it remain closed?","Only when the variable name is short","When badgeValid is false","Whenever the badge is blue","Whenever the screen refreshes","B","The stated rule grants entry only when the Boolean test is true."
+"Programming","Which expression tests whether a numeric temperature is below 5?","temperature < 5","temperature + 5","temperature = temperature + 5","temperature * 5","A","A less-than comparison produces the required true-or-false result."
+"Programming","A delivery robot checks for a barrier before each move. Why repeat the check?","The first check changes every future position","Conditions can be used only once","Checking removes all barriers","The next position may have a different barrier state","D","The decision should use information relevant to the next movement."
+"Programming","An alert should appear only when battery < 15. Which test case checks the false outcome?","battery = 8","battery = 14","battery = 40","battery = 5","C","Forty is not less than fifteen, so the alert condition is false."

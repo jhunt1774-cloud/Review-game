@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","A function named sendReceipt groups the steps for sending one receipt. What does calling it do?","Rename all receipts","Delete its definition","Run every function in the app","Execute those grouped steps","D","A call invokes the function's behavior."
+"Programming","A packBox function adds 2 inserts per call. Five calls add how many inserts?","5","7","10","2","C","Two inserts per call times five calls gives ten."
+"Programming","A function is defined but never called, and no event invokes it. Will its body run just because it is defined?","Only if its name is long","No","Yes, once each second","Yes, once per variable","B","Defining behavior does not by itself invoke that behavior."
+"Programming","Which function name best describes checking an entered postal code?","validatePostalCode","doThing","imageColor","counterSeven","A","The name identifies the task rather than an unrelated detail."

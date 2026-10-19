@@ -1,0 +1,5 @@
+subject,question,A,B,C,D,correct,explanation
+"Programming","A basket starts with 2 parts. Deliveries add 4, then 3 more. What is the final count?","3","9","7","6","B","The running total is 2 + 4 + 3 = 9."
+"Programming","A display shows yesterday's stock after a new delivery. What should be checked?","Whether the stored stock and display were updated","Only the button's border","The author's initials","Only the window title","A","Both the data update and the presentation may need to run."
+"Programming","A total begins at 0 and adds each value in [2, 5, 1]. What does it become?","5","3","10","8","D","Accumulation adds all three values: 2 + 5 + 1."
+"Programming","Which operation records one additional completed task?","completed = completed - 1","completed = completed * 0","completed = completed + 1","completed = 0","C","An increment increases the existing count by one."
