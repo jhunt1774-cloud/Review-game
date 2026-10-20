@@ -128,12 +128,12 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 /* Keep the tell on the enemy and the outcome over the targeted hero. */
 #arena #attack-cue.scene-defense-cue{position:absolute;z-index:25;transform:translateX(-50%);width:245px;margin:0;padding:8px 12px;pointer-events:none;text-align:center}
 #arena #attack-cue[hidden]{display:none!important}
-#arena #hero-defense-result{position:absolute;z-index:35;transform:translateX(-50%);width:max-content;max-width:240px;text-align:center;padding:9px 15px;background:#392019f2;color:#fff2df;border:2px solid #ffad8c;border-radius:10px;box-shadow:0 4px 18px #0008;pointer-events:none;font-family:system-ui}
-#hero-defense-result strong{display:block;font-size:clamp(18px,2.1vw,28px);line-height:1.2}
-#hero-defense-result span{display:block;font-size:clamp(16px,1.8vw,23px);font-weight:700;margin-top:3px}
-#arena #hero-defense-result[data-grade=perfect]{background:#103d2ef2;border-color:#a3ffd2;color:#dcffeb}
-#arena #hero-defense-result[data-grade=guard]{background:#172e43f2;border-color:#a6defa;color:#eefaff}
-#hero-defense-result[hidden]{display:none!important}
+#arena .hero-defense-result{position:absolute;z-index:35;transform:translateX(-50%);width:max-content;max-width:240px;text-align:center;padding:9px 15px;background:#392019f2;color:#fff2df;border:2px solid #ffad8c;border-radius:10px;box-shadow:0 4px 18px #0008;pointer-events:none;font-family:system-ui}
+.hero-defense-result strong{display:block;font-size:clamp(18px,2.1vw,28px);line-height:1.2}
+.hero-defense-result span{display:block;font-size:clamp(16px,1.8vw,23px);font-weight:700;margin-top:3px}
+#arena .hero-defense-result[data-grade=perfect]{background:#103d2ef2;border-color:#a3ffd2;color:#dcffeb}
+#arena .hero-defense-result[data-grade=guard]{background:#172e43f2;border-color:#a6defa;color:#eefaff}
+.hero-defense-result[hidden]{display:none!important}
 #defense-history,#defense-message{display:none}
 
 /* Discoveries follow the party without capturing clicks or pausing movement. */
@@ -264,5 +264,7 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 .expedition-reward-preview{display:flex;align-items:center;gap:14px;padding:10px;margin-top:8px;background:#13271f;border-radius:8px;color:#f6dfaa}.expedition-reward-preview img{flex:none;border:1px solid #a58b54;border-radius:8px}.expedition-reward-preview span{font:14px/1.5 system-ui}
 .painted-item-portrait{display:inline-block;background-repeat:no-repeat;border-radius:9px;background-color:#14251f;box-shadow:inset 0 0 0 1px #b69b5b55;overflow:hidden}.expedition-reward-preview>.item-portrait{flex:none}.equipment-card>.painted-item-portrait{display:block}
 #teacher-playtest{margin:18px 0;border:1px solid #c5a56b;padding:18px;border-radius:12px;background:#152c24}#teacher-playtest h3{color:#ffe3a2}.playtest-menu{width:min(680px,94vw);max-height:90dvh;overflow:auto;background:#142b23;color:#f8e9c9;border:2px solid #c7a76b;border-radius:14px;padding:24px}.playtest-menu::backdrop,#playtest-bug-report::backdrop{background:#000b}.playtest-fields{display:grid;gap:14px;grid-template-columns:2fr 1fr}.playtest-fields label:first-child{grid-column:1/-1}.playtest-menu label{display:block;margin:12px 0}.playtest-menu select{display:block;width:100%;margin-top:6px;padding:10px;color:#f8e9c9;background:#243e31;border:1px solid #b69a63;border-radius:6px}.playtest-menu .playtest-check{display:flex;gap:10px;align-items:center}.playtest-isolation{padding:10px;background:#594521;color:#ffe7aa;border-radius:6px}#playtest-tools{position:fixed;right:12px;top:64px;z-index:90;max-width:min(320px,90vw);padding:10px;background:#182b22f5;color:#ffe8b3;border:2px solid #c6a35e;border-radius:9px;font:13px/1.4 system-ui}#playtest-tools[hidden]{display:none}#playtest-tools summary{cursor:pointer;font-weight:700}#playtest-tools button{display:block;width:100%;margin:7px 0;font-size:13px}#playtest-bug-report{width:min(650px,94vw);background:#142b23;color:#ffe9bd;padding:24px;border:2px solid #c6a35e;border-radius:12px}#playtest-report-text{width:100%;background:#091a14;color:#f7ebca;font:13px/1.5 monospace;padding:10px;box-sizing:border-box}@media(max-width:600px){.playtest-fields{grid-template-columns:1fr}.playtest-fields label:first-child{grid-column:auto}#playtest-tools{top:48px;right:6px}}
+.party-portrait{display:inline-block;flex:none;background-repeat:no-repeat;vertical-align:middle;filter:drop-shadow(0 4px 3px #0005)}.roster-role button{display:flex;align-items:center;justify-content:space-between;gap:8px}.hero-appearance{padding:12px;background:#152d24;border:1px solid #ad955f;border-radius:10px;margin:12px 0}.hero-appearance label{display:block;color:#ffe5ad}.hero-appearance select{width:100%;margin:8px 0}.hero-appearance p{font-size:13px;color:#e8ddc1}
+.hero-appearance select{padding:10px;background:#f7e5c1;color:#251f17;border:1px solid #aa905c;border-radius:6px;font:14px system-ui}.hero-appearance select:disabled{opacity:.7}
 
 .region-loading{position:fixed;inset:35% auto auto 50%;transform:translateX(-50%);z-index:100;max-width:90%;padding:24px;background:#102a2cf5;color:#ffe7ae;border:2px solid #c4a477;border-radius:10px;text-align:center;box-shadow:0 0 0 100vmax #06141599;font:16px system-ui}

@@ -1,0 +1,8 @@
+// Vegetation uses existing solid footprints; no new obstacles or blocked paths are added.
+(()=>{'use strict';const palette=[[0,1,2],[3,4,3],[5,6,6],[7,8,7],[10,9,11]],distance=(a,b)=>Math.hypot((a.x-b.x)*1.5,a.y-b.y);
+window.LayeredFoliage={key:null,plants:[],
+ prepare(){const l=OpenPaintedMaps.layout;if(!l||l.dungeon)return false;if(this.key===l.key)return true;this.key=l.key;this.plants=[];const cell=[1,4,6,8,9][l.chapter];for(const [i,feature]of l.features.entries()){const bottom=feature.poly?Math.max(...feature.poly.map(p=>p[1])):feature.y+feature.ry;for(const sign of [-1,1]){const x=feature.x+sign*Math.min(3,feature.rx*.28);for(let y=bottom+.5;y>feature.y;y-=.6){if(!ForestWorld.walkable({x,y})&&ForestWorld.walkable({x,y:y+1.8})){this.plants.push({x,y:y+.5,cell,width:92+(i%2)*16});break;}}}}if([0,3,4].includes(l.chapter)){const canopy=l.chapter===0?2:l.chapter===3?7:11;for(const x of [2,98])for(const y of [32,72])if(!ForestWorld.walkable({x,y}))this.plants.push({x,y,cell:canopy,width:230,canopy:true});}return true;},
+ draw(c,cell,at,width,alpha=1){const image=ForestRenderer.image('assets/foliage-v3.webp?v=197eb1abd1');if(!image.complete||!image.naturalWidth)return;const sw=image.naturalWidth/4,sh=image.naturalHeight/3,height=width*sh/sw;c.save();c.globalAlpha=alpha*.92;c.drawImage(image,cell%4*sw,Math.floor(cell/4)*sh,sw,sh,at.x-width/2,at.y-height+8,width,height);c.restore();},
+ scene(c,list,toScreen,p){if(!this.prepare())return;for(const plant of this.plants){const at=toScreen(plant.x,plant.y);list.push({y:at.y,draw:()=>{const alpha=distance(p,plant)<5?.45:1;ForestRenderer.ellipse(c,at.x,at.y-2,plant.width*.27,plant.width*.07,'#091a1540');this.draw(c,plant.cell,at,plant.width,alpha);}});}}
+};
+})();
