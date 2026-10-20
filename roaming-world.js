@@ -1,0 +1,59 @@
+// Visible, avoidable surface encounters. Uses the existing collision grid and painted rigs.
+(()=>{'use strict';
+const distance=(a,b)=>Math.hypot((a.x-b.x)*1.5,a.y-b.y),copy=p=>({x:p.x,y:p.y});
+const mixes=[
+ [{name:'Briar scavenger',rig:0,type:'wander',speed:2.2},{name:'Thornfang pack',rig:1,type:'hunter',speed:3.8},{name:'Grove watcher',rig:2,type:'guard',speed:2.5}],
+ [{name:'Ridge lookout',rig:4,type:'guard',speed:3},{name:'Frost wolf pack',rig:5,type:'hunter',speed:4},{name:'Stone wanderer',rig:6,type:'wander',speed:1.9}],
+ [{name:'Thornblade patrol',rig:8,type:'guard',speed:3},{name:'Archive spirit',rig:9,type:'wander',speed:2.8},{name:'Ember custodian',rig:10,type:'hunter',speed:3.4}],
+ [{name:'Saltfang stalker',rig:12,type:'hunter',speed:3.9},{name:'Tideglass wanderer',rig:13,type:'wander',speed:2.3},{name:'Coral sentry',rig:14,type:'guard',speed:2.7}]
+];
+const specs=[];for(let chapter=0;chapter<4;chapter++)for(let slot=0;slot<3;slot++){
+ const spec={...mixes[chapter][slot],chapter,slot,id:'roam-'+chapter+'-'+slot,cache:'roam-cache-'+chapter+'-'+slot};specs.push(spec);
+ const base=FOREST_ENCOUNTERS[chapter*4];FOREST_NODES.push({id:spec.id,kind:'battle',name:spec.name,chapter,stage:chapter*4,optional:true,hidden:true,roaming:true,x:50,y:50,encounter:chapter*4,enemy:{...base,name:spec.name,enemy:spec.name,hp:Math.round(base.hp*(.7+slot*.15)),damage:Math.round(base.damage*(.8+slot*.08)),xp:35+chapter*20+slot*8,gold:15+chapter*10+slot*5,treasure:spec.name+' trophy'}});
+ FOREST_NODES.push({id:spec.cache,kind:'roam-cache',name:['Abandoned trail satchel','Hunter’s hidden cache','Warden’s relic chest'][slot],chapter,stage:chapter*4,optional:true,hidden:true,roamCache:true,x:50,y:50,radius:1.4});
+ FOREST_STORY.areas[spec.id]={speaker:'Lira',arrival:spec.name+' has caught the party. This roaming fight is optional: on the map, skirt its patrol, break sight behind scenery, or retreat beyond its territory.',danger:spec.type==='hunter'?'A fast hunter. Watch its attack tell and time your defense.':spec.type==='guard'?'A territorial guardian. Read its strike cues and preserve your supplies.':'A wandering creature. Watch the enemy and defend at contact.',victory:'The patrol is cleared for this adventure. Its territory stays safe; nearby supplies can still be searched.'};
+ const name=['Trailkeeper','Ridgewalker','Archive','Tidebound'][chapter]+' '+['charm','bow','mail'][slot];EquipmentLoot.catalog.push({source:spec.cache,id:spec.cache+'-gear',name,slot:slot===0?'accessory':slot===1?'weapon':'armor',role:slot===1?2:null,rarity:slot===2?'rare':'uncommon',damage:slot===1?3+chapter*3:0,hp:slot!==1?6+chapter*6:0,guard:slot===2?.02:0,skill:slot===0?.02:0});
+}
+window.RoamingWorld={specs,actors:[],context:null,clock:0,
+ defaults(c){const old=c.roaming||{};c.roaming={version:1,patrols:Object.fromEntries(specs.filter(s=>old.patrols?.[s.id]).map(s=>{const p=old.patrols[s.id];return [s.id,{x:Number.isFinite(p.x)&&p.x>0&&p.x<100?p.x:null,y:Number.isFinite(p.y)&&p.y>0&&p.y<100?p.y:null,graceUntil:Number.isFinite(p.graceUntil)?Math.min(p.graceUntil,Date.now()+15000):0}];}))};return c.roaming;},
+ enabled(c){return !c.dungeon&&ForestWorld.active(c.viewChapter)&&!!window.OpenPaintedMaps?.enabled();},
+ clear(){this.context=null;this.actors=[];},
+ barriers(c){return RegionGates.open(c.viewChapter,c.completed)?[]:[RegionGates.gate(c.viewChapter)];},
+ line(a,b,c){const length=distance(a,b),n=Math.max(1,Math.ceil(length/.45));let prev=a;for(let i=1;i<=n;i++){const p={x:a.x+(b.x-a.x)*i/n,y:a.y+(b.y-a.y)*i/n};if(!ForestWorld.walkable(p)||ForestWorld.blocked(prev,p,this.barriers(c)))return false;prev=p;}return true;},
+ clearance(p,r=3){for(let i=0;i<12;i++){const angle=i*Math.PI/6;if(!ForestWorld.walkable({x:p.x+Math.cos(angle)*r/1.5,y:p.y+Math.sin(angle)*r}))return false;}return true;},
+ bind(c){if(!this.enabled(c)){this.clear();return;}ForestWorld.init();const layout=OpenPaintedMaps.layout,key=layout.key;if(this.context===key&&this.campaign===c)return;this.context=key;this.campaign=c;this.actors=[];this.defaults(c);
+ const reachable=OpenPaintedMaps.reachable(true),world=ForestWorld,candidates=[],objectives=FOREST_NODES.filter(n=>n.chapter===c.viewChapter&&!n.hidden&&!n.global),origin=layout.entry;
+ // Patrols occupy broad clearings away from required destinations and the only boss bridge.
+ for(let y=10;y<world.height-8;y+=3)for(let x=10;x<world.width-8;x+=3){if(!reachable[y*world.width+x])continue;const p=world.point(x,y);if(distance(p,origin)<17||distance(p,layout.gate)<16||objectives.some(n=>distance(p,n)<9)||!this.clearance(p,5))continue;candidates.push(p);}
+ for(const spec of specs.filter(s=>s.chapter===c.viewChapter)){
+ const aim=[{x:25,y:68},{x:74,y:52},{x:38,y:35}][spec.slot],home=candidates.filter(p=>this.actors.every(a=>distance(p,a.home)>17)).sort((a,b)=>distance(a,aim)-distance(b,aim))[0];if(!home)continue;
+ const saved=c.roaming.patrols[spec.id],position=saved&&saved.x!==null&&saved.y!==null&&distance(saved,home)<14&&this.clearance(saved,1)&&this.line(home,saved,c)?copy(saved):copy(home),route=[copy(home)];
+ for(const offset of [{x:3,y:-2},{x:-3,y:2}]){const point={x:home.x+offset.x,y:home.y+offset.y};if(this.clearance(point,2)&&this.line(home,point,c))route.push(point);}
+ const actor={...spec,home:copy(home),position,route,target:1%route.length,mode:'patrol',timer:0,unseen:0,repath:0,path:[],graceUntil:Math.max(Date.now()+4000,saved?.graceUntil||0),facing:1};this.actors.push(actor);const node=FOREST_NODES.find(n=>n.id===spec.id);Object.assign(node,home);
+ const cache=FOREST_NODES.find(n=>n.id===spec.cache),cacheAt=candidates.filter(p=>distance(p,home)>4&&distance(p,home)<9&&this.line(home,p,c)).sort((a,b)=>a.y-b.y)[0]||home;Object.assign(cache,cacheAt);
+ }
+ },
+ move(a,goal,dt,c,speed){const d=distance(a.position,goal);if(d<.12)return true;const step=Math.min(d,speed*dt),next={x:a.position.x+(goal.x-a.position.x)*step/d,y:a.position.y+(goal.y-a.position.y)*step/d};if(this.line(a.position,next,c)){a.facing=Math.sign(next.x-a.position.x)||a.facing;a.position=next;return d<=step+.12;}return false;},
+ update(c,p,dt){if(!this.enabled(c)){this.clear();return null;}this.bind(c);this.clock+=dt;let caught=null;const now=Date.now();for(const a of this.actors){if(c.completed.includes(a.id))continue;const d=distance(a.position,p),homeDistance=distance(a.home,p),visible=d<12&&this.line(a.position,p,c),safe=now<a.graceUntil||EscapeRules.suppressed(c,a.id);a.timer+=dt;
+ if(safe){a.mode='return';a.path=[];}else if(a.mode==='patrol'&&visible&&d<(a.type==='hunter'?9:a.type==='guard'?7:6)){a.mode='alert';a.timer=0;a.lastSeen=copy(p);}else if(a.mode==='alert'){if(!visible||homeDistance>14){a.mode='return';a.timer=0;}else if(a.timer>=1.3){a.mode='chase';a.timer=0;a.lastSeen=copy(p);}}
+ if(a.mode==='chase'){a.unseen=visible?0:a.unseen+dt;if(visible)a.lastSeen=copy(p);if(homeDistance>16||distance(a.home,a.position)>15||a.unseen>1.6){a.mode='return';a.path=[];a.graceUntil=now+5000;}else{a.repath-=dt;if(a.repath<=0){a.path=ForestWorld.route(a.position,a.lastSeen,!RegionGates.open(c.viewChapter,c.completed))||[];a.repath=.7;}while(a.path.length&&distance(a.position,a.path[0])<.35)a.path.shift();if(a.path[0])this.move(a,a.path[0],dt,c,a.speed);if(d<1.4&&visible&&!safe)caught=a.id;}}
+ else if(a.mode==='return'){if(!a.path.length||a.repath<=0){a.path=ForestWorld.route(a.position,a.home,!RegionGates.open(c.viewChapter,c.completed))||[];a.repath=1;}a.repath-=dt;while(a.path.length&&distance(a.position,a.path[0])<.35)a.path.shift();if(a.path[0])this.move(a,a.path[0],dt,c,a.speed*.8);if(distance(a.position,a.home)<.6){a.mode='patrol';a.path=[];}}
+ else if(a.mode==='patrol'){if(this.move(a,a.route[a.target],dt,c,a.type==='guard'?.9:a.speed*.45))a.target=(a.target+1)%a.route.length;}
+ c.roaming.patrols[a.id]={...copy(a.position),graceUntil:a.graceUntil};
+ }return caught;},
+ scene(c,list,toScreen,campaign,time){if(!this.enabled(campaign))return;this.bind(campaign);for(const a of this.actors){if(campaign.completed.includes(a.id))continue;const at=toScreen(a.position.x,a.position.y),config=EnemyRoster.resolve(a.rig),color=a.mode==='chase'?'#ff816d':a.mode==='alert'?'#ffe296':'#dfd1a8';list.push({y:at.y,draw:()=>{ForestRenderer.ellipse(c,at.x,at.y,17,5,'#071b1366');ForestRenderer.creature(c,config,at,time,a.type==='guard'?82:72,a.mode==='alert'?'idle':'walk');if(a.type==='hunter'){ForestRenderer.creature(c,config,{x:at.x-22,y:at.y+8},time+.4,47,'walk');}c.save();c.textAlign='center';c.font='bold 13px Georgia';c.fillStyle='#13251eef';const text=a.mode==='chase'?'! Pursuing · break sight':a.mode==='alert'?'? Alert · move away':a.name,width=c.measureText(text).width+16;c.fillRect(at.x-width/2,at.y-87,width,23);c.fillStyle=color;c.fillText(text,at.x,at.y-71);c.restore();}});}},
+ escape(c,id){const actor=this.actors.find(a=>a.id===id);if(actor){actor.graceUntil=Date.now()+15000;actor.mode='return';actor.path=[];}if(c.roaming?.patrols[id])c.roaming.patrols[id].graceUntil=Date.now()+15000;},
+};
+const defaults=Progression.defaults;Progression.defaults=function(c){defaults.call(this,c);RoamingWorld.defaults(c);return c;};
+const resolve=EnemyRoster.resolve;EnemyRoster.resolve=function(index,id){const spec=specs.find(s=>s.id===id);return spec?resolve.call(this,spec.rig):resolve.call(this,index,id);};
+const available=RoadRules.available;RoadRules.available=function(c){return RoamingWorld.enabled(c)?false:available.call(this,c);};
+const visible=DungeonRules.visible,handles=DungeonRules.handles,allowed=DungeonRules.allowed,interact=DungeonRules.interact;
+DungeonRules.visible=function(n){if(n.roaming)return false;if(n.roamCache){const c=this.campaign;return !!c&&!c.dungeon&&c.viewChapter===n.chapter&&!c.completed.includes(n.id)&&RoamingWorld.actors.some(a=>a.cache===n.id)&&distance(c.explorePosition||{x:0,y:0},n)<8;}return visible.call(this,n);};
+DungeonRules.handles=function(n){return n.roamCache||handles.call(this,n);};
+DungeonRules.allowed=function(c,n){return n.roamCache?!c.dungeon&&!c.completed.includes(n.id):allowed.call(this,c,n);};
+DungeonRules.interact=function(s,n,ui){if(!n.roamCache)return interact.call(this,s,n,ui);const c=s.campaign;if(c.completed.includes(n.id))return;const spec=specs.find(a=>a.cache===n.id);DungeonRules.reward(s,n.id,30+n.chapter*20,15+n.chapter*10,1,0,n.name);const m=c.progression.materials;m.ore=Math.min(9999,m.ore+3+n.chapter);m.essence=Math.min(9999,m.essence+2+n.chapter);const gear=EquipmentLoot.collect(c,n.id);ui.save();ui.world();ui.notice(n.name,'+'+(30+n.chapter*20)+' XP · +'+(15+n.chapter*10)+' gold · +1 potion · crafting materials · '+gear+'. Equip at camp.');};
+const landmark=ForestArt.landmark;ForestArt.landmark=function(c,n,at,done,time){if(!n.roamCache)return landmark.call(this,c,n,at,done,time);const image=ForestRenderer.image('assets/map-painted-chest-closed.webp?v=6e088e53ce');if(image.complete&&image.naturalWidth)ForestArt.fit(c,image,at.x,at.y,54,48);};
+// Click routes prefer open ground outside patrol awareness; keys remain fully manual.
+const mouseRoute=MouseNavigation.route;MouseNavigation.route=function(chapter,start,goal,closed){const c=RoamingWorld.campaign;if(!c||!RoamingWorld.enabled(c)||chapter!==c.viewChapter)return mouseRoute.call(this,chapter,start,goal,closed);const avoid=RoamingWorld.actors.filter(a=>!c.completed.includes(a.id)).map(a=>({...a.position,radius:a.type==='hunter'?10:a.type==='guard'?8:7}));return ForestWorld.route(start,goal,closed,avoid);};
+const retire=EscapeRules.retire;EscapeRules.retire=function(s,p,hp){RoamingWorld.escape(s.campaign,s.campaign.battleNode);return retire.call(this,s,p,hp);};
+})();
