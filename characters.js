@@ -7,7 +7,7 @@ MotionPreference.read();
 window.HEROES = [
  {id:'axe',name:'Thorin',role:'Axe dwarf',color:'#d09c52',maxHp:110,power:26,effect:'slash',crop:[22,38,206,241]},
  {id:'hammer',name:'Brom',role:'Hammer dwarf',color:'#93b8c5',maxHp:125,power:24,effect:'hammer',crop:[215,38,194,241]},
- {id:'archer',name:'Lira',role:'Elf archer',color:'#97c787',maxHp:85,power:29,effect:'arrow',crop:[208,1099,187,239]},
+ {id:'archer',name:'Lira',role:'Ranger',color:'#97c787',maxHp:85,power:29,effect:'arrow',crop:[208,1099,187,239]},
  {id:'mage',name:'Seren',role:'Mage',color:'#b49bdb',maxHp:80,power:33,effect:'fireball',crop:[587,1099,175,239]}
 ].map(h=>({...h,image:'assets/hero-sheet.webp',states:Object.fromEntries(['idle','walk','attack','hurt','victory','defeat'].map(s=>[s,{frames:[0],fps:6}]))}));
 
@@ -39,3 +39,4 @@ window.CharacterRenderer=class {
  duration(state){const s=this.config.states[state]||this.config.states.idle;return (s.frames?.length||1)*1000/(s.fps||8);}
  destroy(){this.stop();this.finishedState=null;}
 };
+
