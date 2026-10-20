@@ -5,14 +5,15 @@ const mixes=[
  [{name:'Briar scavenger',rig:0,type:'wander',speed:2.2},{name:'Thornfang pack',rig:1,type:'hunter',speed:3.8},{name:'Grove watcher',rig:2,type:'guard',speed:2.5}],
  [{name:'Ridge lookout',rig:4,type:'guard',speed:3},{name:'Frost wolf pack',rig:5,type:'hunter',speed:4},{name:'Stone wanderer',rig:6,type:'wander',speed:1.9}],
  [{name:'Thornblade patrol',rig:8,type:'guard',speed:3},{name:'Archive spirit',rig:9,type:'wander',speed:2.8},{name:'Ember custodian',rig:10,type:'hunter',speed:3.4}],
- [{name:'Saltfang stalker',rig:12,type:'hunter',speed:3.9},{name:'Tideglass wanderer',rig:13,type:'wander',speed:2.3},{name:'Coral sentry',rig:14,type:'guard',speed:2.7}]
+ [{name:'Saltfang stalker',rig:12,type:'hunter',speed:3.9},{name:'Tideglass wanderer',rig:13,type:'wander',speed:2.3},{name:'Coral sentry',rig:14,type:'guard',speed:2.7}],
+ [{name:'Ashroot wanderer',rig:16,type:'wander',speed:2.3},{name:'Cinderfang hunters',rig:17,type:'hunter',speed:4.1},{name:'Basalt sentry',rig:18,type:'guard',speed:2.5}]
 ];
-const specs=[];for(let chapter=0;chapter<4;chapter++)for(let slot=0;slot<3;slot++){
+const specs=[];for(let chapter=0;chapter<JOURNEY_CHAPTERS.length;chapter++)for(let slot=0;slot<3;slot++){
  const spec={...mixes[chapter][slot],chapter,slot,id:'roam-'+chapter+'-'+slot,cache:'roam-cache-'+chapter+'-'+slot};specs.push(spec);
  const base=FOREST_ENCOUNTERS[chapter*4];FOREST_NODES.push({id:spec.id,kind:'battle',name:spec.name,chapter,stage:chapter*4,optional:true,hidden:true,roaming:true,x:50,y:50,encounter:chapter*4,enemy:{...base,name:spec.name,enemy:spec.name,hp:Math.round(base.hp*(.7+slot*.15)),damage:Math.round(base.damage*(.8+slot*.08)),xp:35+chapter*20+slot*8,gold:15+chapter*10+slot*5,treasure:spec.name+' trophy'}});
  FOREST_NODES.push({id:spec.cache,kind:'roam-cache',name:['Abandoned trail satchel','Hunter’s hidden cache','Warden’s relic chest'][slot],chapter,stage:chapter*4,optional:true,hidden:true,roamCache:true,x:50,y:50,radius:1.4});
  FOREST_STORY.areas[spec.id]={speaker:'Lira',arrival:spec.name+' has caught the party. This roaming fight is optional: on the map, skirt its patrol, break sight behind scenery, or retreat beyond its territory.',danger:spec.type==='hunter'?'A fast hunter. Watch its attack tell and time your defense.':spec.type==='guard'?'A territorial guardian. Read its strike cues and preserve your supplies.':'A wandering creature. Watch the enemy and defend at contact.',victory:'The patrol is cleared for this adventure. Its territory stays safe; nearby supplies can still be searched.'};
- const name=['Trailkeeper','Ridgewalker','Archive','Tidebound'][chapter]+' '+['charm','bow','mail'][slot];EquipmentLoot.catalog.push({source:spec.cache,id:spec.cache+'-gear',name,slot:slot===0?'accessory':slot===1?'weapon':'armor',role:slot===1?2:null,rarity:slot===2?'rare':'uncommon',damage:slot===1?3+chapter*3:0,hp:slot!==1?6+chapter*6:0,guard:slot===2?.02:0,skill:slot===0?.02:0});
+ const name=['Trailkeeper','Ridgewalker','Archive','Tidebound','Ashwalker'][chapter]+' '+['charm','bow','mail'][slot];EquipmentLoot.catalog.push({source:spec.cache,id:spec.cache+'-gear',name,slot:slot===0?'accessory':slot===1?'weapon':'armor',role:slot===1?2:null,rarity:slot===2?'rare':'uncommon',damage:slot===1?3+chapter*3:0,hp:slot!==1?6+chapter*6:0,guard:slot===2?.02:0,skill:slot===0?.02:0});
 }
 window.RoamingWorld={specs,actors:[],context:null,clock:0,
  defaults(c){const old=c.roaming||{};c.roaming={version:1,patrols:Object.fromEntries(specs.filter(s=>old.patrols?.[s.id]).map(s=>{const p=old.patrols[s.id];return [s.id,{x:Number.isFinite(p.x)&&p.x>0&&p.x<100?p.x:null,y:Number.isFinite(p.y)&&p.y>0&&p.y<100?p.y:null,graceUntil:Number.isFinite(p.graceUntil)?Math.min(p.graceUntil,Date.now()+15000):0}];}))};return c.roaming;},
@@ -59,12 +60,12 @@ const retire=EscapeRules.retire;EscapeRules.retire=function(s,p,hp){RoamingWorld
 })();
 // Four optional regional expeditions support both careful recovery and fighting.
 (()=>{'use strict';
-const names=['The missing ranger shipment','Supplies beyond the snowline','Fragments of the lost archive','The chartkeeper’s scattered cargo'],givers=['Elowen','Frostpeak quartermaster','Asterfall archivist','Coastal chartkeeper'],themes=['Heartwood','Frostcrest','Runelight','Seastar'];
+const names=['The missing ranger shipment','Supplies beyond the snowline','Fragments of the lost archive','The chartkeeper’s scattered cargo','The lost forge caravan'],givers=['Elowen','Frostpeak quartermaster','Asterfall archivist','Coastal chartkeeper','Sunforge quartermaster'],themes=['Heartwood','Frostcrest','Runelight','Seastar','Embercrest'];
 window.ExplorationQuests={ids:[],count(c,ids){return ids.filter(id=>c.completed.includes(id)).length;},
  totals(c,q){return {caches:this.count(c,q.cacheIds),patrols:this.count(c,q.patrolIds)};},
  description(c,q){const p=this.totals(c,q);return 'Recover: '+p.caches+'/3 caches · OR recover 2 caches and clear 2 patrols ('+p.patrols+'/2).';},
 };
-for(let chapter=0;chapter<4;chapter++){
+for(let chapter=0;chapter<JOURNEY_CHAPTERS.length;chapter++){
  const id='roaming-expedition-'+chapter,caches=RoamingWorld.specs.filter(s=>s.chapter===chapter).map(s=>s.cache),patrols=RoamingWorld.specs.filter(s=>s.chapter===chapter).map(s=>s.id),q={id,chapter,name:names[chapter],giver:givers[chapter],story:'A scattered expedition left supplies in three hidden caches. Recover all three without fighting, or recover two and clear two roaming patrols. Both routes earn the same reward. Earlier discoveries count.',goals:[{ids:caches,count:2,label:'Recover at least two expedition caches'},{either:[{ids:caches,count:3},{ids:patrols,count:2}],label:'Recover the third cache OR clear two patrols'}],cacheIds:caches,patrolIds:patrols,gold:65+chapter*35,xp:60+chapter*25,expedition:true};QuestBoard.quests.push(q);ExplorationQuests.ids.push(id);
  for(const choice of ['smith','mystic'])EquipmentLoot.catalog.push({source:id+'-'+choice,id:id+'-'+choice+'-gear',name:themes[chapter]+(choice==='smith'?' expedition hammer':' wayfinder pendant'),slot:choice==='smith'?'weapon':'accessory',role:choice==='smith'?1:null,rarity:chapter<2?'rare':'epic',damage:choice==='smith'?5+chapter*3:0,hp:choice==='mystic'?12+chapter*6:0,guard:choice==='mystic'?.02:0,skill:choice==='mystic'?.03:0});
 }

@@ -2,7 +2,7 @@
 (()=>{'use strict';
 const W=150,H=100;
 window.ForestWorld={width:W,height:H,cells:null,classic:false,
- active(chapter=ExploreRules.activeChapter||0){return chapter>=0&&chapter<4&&!this.classic;},
+ active(chapter=ExploreRules.activeChapter||0){return chapter>=0&&chapter<JOURNEY_CHAPTERS.length&&!this.classic;},
  init(){const chapter=ExploreRules.activeChapter||0;if(this.cells&&this.chapter===chapter)return;this.chapter=chapter;this.cells=new Uint8Array(W*H);const g=MapRoutes.graphs[chapter],edges=[];for(const [id,list]of g.edges)for(const edge of list)if(id<edge.id)edges.push([g.points.get(id),g.points.get(edge.id)]);
   this.rooms=[...g.points.values()].filter(p=>FOREST_NODES.some(n=>n.id===p.id&&(window.DungeonRules?DungeonRules.visible(n):!n.hidden))||p.id==='merchant');
   if(window.DungeonRules?.active)this.rooms=(DungeonRules.rooms||['entry','fork','safe2','crypt-runes','crypt-guardian','crypt-risk-cache','crypt-secret']).map(id=>g.points.get(id)).filter(Boolean);const roomX=window.DungeonRules?.active?7:4.5,roomY=window.DungeonRules?.active?6:4.7;for(let y=0;y<H;y++)for(let x=0;x<W;x++){const p=this.point(x,y);let distance=Infinity;for(const [a,b]of edges){const dx=(b.x-a.x)*1.5,dy=b.y-a.y,t=Math.max(0,Math.min(1,(((p.x-a.x)*1.5)*dx+(p.y-a.y)*dy)/(dx*dx+dy*dy||1)));distance=Math.min(distance,Math.hypot((p.x-a.x)*1.5-t*dx,p.y-a.y-t*dy));}const room=this.rooms.some(r=>Math.hypot((p.x-r.x)/roomX,(p.y-r.y)/roomY)<=1),river=this.river(p),bridge=river&&distance<=2.9;this.cells[y*W+x]=bridge?3:river?2:distance<=2.9||room?1:0;}
