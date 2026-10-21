@@ -5,10 +5,10 @@ const distance=(p,a,b)=>{const x=(b[0]-a[0])*1.5,y=b[1]-a[1],t=Math.max(0,Math.m
 const ribbon=(p,r)=>r.points.some((b,i)=>i&&distance(p,r.points[i-1],b)<=r.r),ellipse=(p,g)=>((p.x-g.x)/g.rx)**2+((p.y-g.y)/g.ry)**2<=1;
 window.SideGeography={data:SIDE_GEOGRAPHY_DATA,version:1,
  get(id=OpenPaintedMaps.key()){return this.data.find(d=>d.id===id)||null;},
- asset(id){return this.get(id)?'assets/side-geography-'+id+'.webp':null;},
+ asset(id){const d=this.get(id);return d?(d.asset||'assets/side-geography-'+id+'.webp'):null;},
  terrain(id,p){const d=this.get(id);if(!d)return null;if(d.obstacles?.some(poly=>PaintedBoundaries.inside(p,poly,-.2)))return 0;if(ribbon(p,d.pass))return 3;if(PaintedBoundaries.inside(p,d.sanctuary,.2))return 1;if(PaintedBoundaries.inside(p,d.sanctuary,-1.8))return 0;
  if(d.secret&&RootboundExplore.secret(DungeonRules.campaign)&&(ribbon(p,d.secret.path)||ellipse(p,d.secret.room)))return 1;
- return d.paths.some(r=>ribbon(p,r))||d.clearings.some(g=>ellipse(p,g))?1:0;},
+ return (d.surfaces?d.surfaces.some(poly=>PaintedBoundaries.inside(p,poly,d.surfaceInset??.06)):d.paths.some(r=>ribbon(p,r))||d.clearings.some(g=>ellipse(p,g)))?1:0;},
  zone(id,p){const d=this.get(id);return !d?null:ribbon(p,d.pass)?'bridge':PaintedBoundaries.inside(p,d.sanctuary,.2)?'island':this.terrain(id,p)===1?'main':'blocked';},
  prepare(id,graph,nodes){const d=this.get(id);if(!d)return;const gate=RegionGates.gate(d.chapter),anchors={...d.anchors,entry:d.entry,[gate.a]:d.a,[gate.b]:d.b};for(const [name,at]of Object.entries(anchors)){const p=graph.points.get(name);if(p)Object.assign(p,point(at));const n=nodes.find(n=>n.id===name);if(n)Object.assign(n,point(at));}
  if(d.rooms)for(const [id,x,y,w,h]of d.rooms){const room=RootboundExplore.rooms.find(r=>r.id===id);if(room)Object.assign(room,{x,y,w,h});}

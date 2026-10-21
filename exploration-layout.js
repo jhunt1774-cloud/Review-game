@@ -8,7 +8,7 @@ const solids={
  'region-4':[[[34,36],[37,36],[38,39],[36,41],[33,40]],[[7,60],[13,59],[18,61],[19,65],[14,68],[8,67],[6,64]]],
  'rootbound':[[[41,84],[45,84],[45,89],[42,89]]],
  'frostmine':[[[67,10],[70,10],[71,13],[69,15],[67,14]]],
- 'amber-hollow':[[[55,36],[60,37],[61,41],[58,43],[55,42]],[[87,17],[93,19],[94,23],[90,24],[87,23]]],
+ 'amber-hollow':[],
  'clockwork-garden':[],
  'lantern-grotto':[[[84,36],[89,37],[90,41],[88,44],[84,43]]]
 };
@@ -26,7 +26,7 @@ const terrain=PaintedBoundaries.terrain;PaintedBoundaries.terrain=function(id,p)
 for(const d of [...OutdoorGeography.data,...SideGeography.data]){for(const path of d.paths)path.r*=.94;for(const clearing of d.clearings){clearing.rx*=.97;clearing.ry*=.97;}}
 // Follow the actual crypt crosswalk, rather than the empty space below it.
 const crypt=SideGeography.get('rootbound');crypt.paths[3].points=[[50,48],[43,47],[35,46],[29,49],[28,50]];
-const hollow=SideGeography.get('amber-hollow');hollow.anchors['amber-hollow-cache']=[92,27];hollow.paths[5].points[hollow.paths[5].points.length-1]=[92,27];
+// Amber Hollow uses explicit painted deck polygons, with its own authored destinations.
 const clock=SideGeography.get('clockwork-garden');clock.b=[71,23];clock.pass.points=[[64,29],[65,25],[71,23]];
 // The tide machine is solid. Its shore approach goes around the water-facing side.
 const grotto=SideGeography.get('lantern-grotto'),shore=grotto.paths[0].points;shore.splice(shore.findIndex(p=>p[0]===85&&p[1]===44)+1,3,[82,41],[82,37],[84,33],[89,31],[91,28]);

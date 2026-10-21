@@ -237,7 +237,7 @@ window.GamePlaytest={
  heal(){if(!this.active()||busy||reviewPending||!['world','battle'].includes(state.phase))return false;state.hp=HEROES.map((_,i)=>maxHp(i));state.campaign.potions=99;state.campaign.focus=3;RosterSystem.sync(state);save();if(state.phase==='world')world();else update();return true;},
  resetArea(){const settings=this.settings();return settings?this.launch({...settings,lesson:state.lesson}):false;},
  retryBattle(){const settings=this.settings();return settings&&['arrival','battle','victory','defeat'].includes(state.phase)?this.launch({...settings,battle:state.campaign.battleNode,lesson:state.lesson}):false;},
- report(){return this.active()?{mode:'teacher-playtest',build:'exploration-space-v1',phase:state.phase,area:this.settings().area,chapter:state.campaign.viewChapter,location:state.campaign.location,position:state.campaign.explorePosition,battle:state.campaign.battleNode,level:state.level,hp:[...state.hp],enemyHp:state.enemyHp,settings:this.settings()}:null;},
+ report(){return this.active()?{mode:'teacher-playtest',build:'amber-connected-v1',phase:state.phase,area:this.settings().area,chapter:state.campaign.viewChapter,location:state.campaign.location,position:state.campaign.explorePosition,battle:state.campaign.battleNode,level:state.level,hp:[...state.hp],enemyHp:state.enemyHp,settings:this.settings()}:null;},
  exit(){if(!this.active())return false;show('title');KEY='web-wizardry-v1';state=null;title();return true;}
 };
 const playtestGateOpen=RegionGates.open;RegionGates.open=function(chapter,completed){return GamePlaytest.active()&&state.campaign.playtest.openGates||playtestGateOpen.call(this,chapter,completed);};
