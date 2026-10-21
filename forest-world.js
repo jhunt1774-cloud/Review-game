@@ -1,6 +1,6 @@
 // In-house exploration: the rendered terrain and movement share this tile grid.
 (()=>{'use strict';
-const W=150,H=100;
+const W=300,H=200;
 window.ForestWorld={width:W,height:H,cells:null,classic:false,
  active(chapter=ExploreRules.activeChapter||0){return chapter>=0&&chapter<JOURNEY_CHAPTERS.length;},
  init(){const chapter=ExploreRules.activeChapter||0;if(this.cells&&this.chapter===chapter)return;this.chapter=chapter;this.cells=new Uint8Array(W*H);const g=MapRoutes.graphs[chapter],edges=[];for(const [id,list]of g.edges)for(const edge of list)if(id<edge.id)edges.push([g.points.get(id),g.points.get(edge.id)]);
