@@ -8,7 +8,7 @@ const mapOrigins=new Map();
 composedFeatures['region-4']=[{"x":28,"y":45,"rx":8,"ry":11,"poly":[[25,36],[31,36],[35,43],[35,51],[31,54],[23,51],[22,43]]},{"x":48,"y":38,"rx":5,"ry":7,"poly":[[46,33],[50,32],[53,37],[52,42],[45,43],[43,38]]},{"x":75,"y":46,"rx":6,"ry":9,"poly":[[73,38],[78,39],[79,47],[78,53],[70,53],[69,45]]},{"x":32,"y":92,"rx":7,"ry":8,"poly":[[29,84],[34,85],[38,93],[37,99],[27,99],[26,91]]}];
 const solid=(p,o)=>{if(!o.poly)return Math.pow((p.x-o.x)/o.rx,2)+Math.pow((p.y-o.y)/o.ry,2)<1;let inside=false;for(let i=0,j=o.poly.length-1;i<o.poly.length;j=i++){const [x,y]=o.poly[i],[u,v]=o.poly[j];if(segment(p,{x,y},{x:u,y:v})<1.3)return true;if((y>p.y)!==(v>p.y)&&p.x<(u-x)*(p.y-y)/(v-y)+x)inside=!inside;}return inside;};
 
-window.OpenPaintedMaps={revision:4,layout:null,
+window.OpenPaintedMaps={revision:5,layout:null,
  key(){return DungeonRules.campaign?.dungeon?.id||'region-'+(ExploreRules.activeChapter||0);},
  theme(){const id=this.key();return id==='rootbound'?'crypt':id==='frostmine'?'mine':id==='amber-hollow'?'forest':id==='clockwork-garden'?'city':id==='lantern-grotto'?'coast':themes[ExploreRules.activeChapter||0];},
  enabled(){return ForestWorld.active(ExploreRules.activeChapter||0);},
@@ -19,13 +19,13 @@ window.OpenPaintedMaps={revision:4,layout:null,
  const visited=new Set([gate.b]),queue=[gate.b];for(let i=0;i<queue.length;i++)for(const e of graph.edges.get(queue[i])||[]){if(queue[i]===gate.a&&e.id===gate.b||queue[i]===gate.b&&e.id===gate.a)continue;if(!visited.has(e.id)){visited.add(e.id);queue.push(e.id);}}
  if(visited.has('entry'))throw Error('An exploration gate needs one sealed approach: '+this.key());
  const islandPoints=[...visited].map(id=>graph.points.get(id)).filter(Boolean),islandEdges=[],edges=[];for(const [id,list]of graph.edges)for(const e of list)if(id<e.id){const pair=[graph.points.get(id),graph.points.get(e.id)];edges.push(pair);if(visited.has(id)&&visited.has(e.id))islandEdges.push(pair);}
- const a=graph.points.get(gate.a),b=graph.points.get(gate.b),vx=(b.x-a.x)*1.5,vy=b.y-a.y,length=Math.hypot(vx,vy),bridgeStart={x:a.x-vx/length*12/1.5,y:a.y-vy/length*12},along=p=>((p.x-gate.x)*1.5*vx+(p.y-gate.y)*vy)/length,islandDistance=p=>Math.min(...islandPoints.map(q=>metric(p,q)),...islandEdges.map(([a,b])=>segment(p,a,b)));
+ const a=graph.points.get(gate.a),b=graph.points.get(gate.b);window.PaintedBoundaries?.align({id:this.key(),a,b,gate});const vx=(b.x-a.x)*1.5,vy=b.y-a.y,length=Math.hypot(vx,vy),bridgeStart={x:a.x-vx/length*12/1.5,y:a.y-vy/length*12},along=p=>((p.x-gate.x)*1.5*vx+(p.y-gate.y)*vy)/length,islandDistance=p=>Math.min(...islandPoints.map(q=>metric(p,q)),...islandEdges.map(([a,b])=>segment(p,a,b)));
  const layout={key,id:this.key(),chapter,theme:this.theme(),dungeon,nodes,entry,gate,graph,islandIds:visited,islandPoints,islandEdges,edges,a,b,islandDistance,props:[],features:composedFeatures[this.key()]||[]};this.layout=layout;
  if(!mapOrigins.has(layout.id))mapOrigins.set(layout.id,{...entry});layout.originalEntry=mapOrigins.get(layout.id);
  const protectedPoint=(p,r)=>nodes.some(n=>metric(p,n)<8)||metric(p,entry)<7||edges.some(([a,b])=>segment(p,a,b)<r*1.5+1)||islandDistance(p)<11;
  // Broad shared ground with several routes around small scenery groups.
  const ellipse=(p,x,y,rx,ry)=>Math.pow((p.x-x)/rx,2)+Math.pow((p.y-y)/ry,2)<1+.035*Math.sin(p.x*.45+p.y*.24);
- const floor=p=>{if(p.x<4||p.x>96||p.y<5||p.y>98)return 0;let base=p.x>5+Math.sin(p.y*.16)*1.5&&p.x<95+Math.sin(p.y*.14)*1.5&&p.y>7+Math.sin(p.x*.12)*2;
+ const floor=p=>{const traced=window.PaintedBoundaries?.terrain(layout.id,p);if(traced!==null&&traced!==undefined){if(layout.id==='rootbound'&&!RootboundExplore.secret(c)&&metric(p,{x:18,y:31})<8)return 0;return traced;}if(p.x<4||p.x>96||p.y<5||p.y>98)return 0;let base=p.x>5+Math.sin(p.y*.16)*1.5&&p.x<95+Math.sin(p.y*.14)*1.5&&p.y>7+Math.sin(p.x*.12)*2;
  if(layout.id==='rootbound')base=ellipse(p,50,61,45,37)||ellipse(p,22,48,17,24)||ellipse(p,79,49,16,25);
  if(layout.id==='frostmine')base=ellipse(p,50,66,43,31)||ellipse(p,59,39,34,22)||ellipse(p,24,42,16,22);
  if(layout.id==='amber-hollow')base=ellipse(p,50,65,42,33)||ellipse(p,25,45,20,25)||ellipse(p,76,45,19,25);
@@ -46,10 +46,10 @@ window.OpenPaintedMaps={revision:4,layout:null,
  for(let y=0;y<ForestWorld.height;y++)for(let x=0;x<ForestWorld.width;x++){const p=ForestWorld.point(x,y);let cell=floor(p);if(cell===1&&[...layout.props,...layout.features].some(o=>solid(p,o)))cell=0;ForestWorld.cells[y*ForestWorld.width+x]=cell;}
 
  const pass=p=>{const q=ForestWorld.cell(p);return [1,3].includes(ForestWorld.cells[q.y*ForestWorld.width+q.x]);};
- const choose=(origin,room=null,spawn=false)=>{let best=null;for(let y=1;y<ForestWorld.height-1;y++)for(let x=1;x<ForestWorld.width-1;x++){if(![1,3].includes(ForestWorld.cells[y*ForestWorld.width+x]))continue;const q=ForestWorld.point(x,y);if(islandDistance(q)<10.2||layout.id==='rootbound'&&!RootboundExplore.secret(c)&&metric(q,{x:18,y:31})<9)continue;if(room&&(q.x<room.x||q.x>room.x+room.w||q.y<room.y||q.y>room.y+room.h))continue;if(spawn&&nodes.some(n=>n.kind==='dungeon-exit'&&metric(q,n)<7))continue;if(!spawn&&nodes.some(n=>n.id!==origin.id&&pass(n)&&!['crypt-record','milestone'].includes(n.kind)&&Math.hypot(q.x-n.x,q.y-n.y)<3.5))continue;const d=metric(q,origin);if(!best||d<best.d)best={...q,d};}return best;};
+ const choose=(origin,room=null,spawn=false)=>{let best=null;for(let y=1;y<ForestWorld.height-1;y++)for(let x=1;x<ForestWorld.width-1;x++){if(![1,3].includes(ForestWorld.cells[y*ForestWorld.width+x]))continue;const q=ForestWorld.point(x,y);if((window.PaintedBoundaries?PaintedBoundaries.zone(layout.id,q)!=='main':islandDistance(q)<10.2)||layout.id==='rootbound'&&!RootboundExplore.secret(c)&&metric(q,{x:18,y:31})<9)continue;if(room&&(q.x<room.x||q.x>room.x+room.w||q.y<room.y||q.y>room.y+room.h))continue;if(spawn&&nodes.some(n=>n.kind==='dungeon-exit'&&metric(q,n)<7))continue;if(!spawn&&nodes.some(n=>n.id!==origin.id&&pass(n)&&!['crypt-record','milestone'].includes(n.kind)&&Math.hypot(q.x-n.x,q.y-n.y)<3.5))continue;const d=metric(q,origin);if(!best||d<best.d)best={...q,d};}return best;};
  if(!pass(entry)){const q=choose(entry,null,true);if(!q)throw Error('No clear arrival ground: '+layout.id);entry.x=q.x;entry.y=q.y;}
  layout.approaches=[];
- const targets=nodes.filter(n=>!['crypt-record','milestone','dungeon-exit'].includes(n.kind)&&n.id!=='crypt-secret'&&!visited.has(n.id));const merchant=graph.points.get('merchant');if(!dungeon&&merchant)targets.push(merchant);
+ const targets=nodes.filter(n=>!['crypt-record','milestone'].includes(n.kind)&&n.id!=='crypt-secret'&&!visited.has(n.id));const merchant=graph.points.get('merchant');if(!dungeon&&merchant)targets.push(merchant);
  for(const n of targets){if(pass(n))continue;const room=layout.id==='rootbound'?RootboundExplore.room(n):null,q=choose(n,room)||choose(n);if(!q||q.d>25)throw Error('Painted scenery blocks a destination: '+n.id);layout.approaches.push({id:n.id,from:{x:n.x,y:n.y},to:{x:q.x,y:q.y}});n.x=q.x;n.y=q.y;const point=graph.points.get(n.id);if(point){point.x=q.x;point.y=q.y;}if(n.id==='merchant')JOURNEY_CHAPTERS[chapter].camp=[q.x,q.y];const service=WorldConsequences.byId.get(n.id);if(service){service.x=q.x;service.y=q.y;}for(const spec of SideAdventures.specs)if(n.id===spec.id+'-entrance')Object.assign(spec.surfaceEntry,{x:q.x,y:q.y});}
  // Flood reachability is checked by the same 8-way, no-corner-cut rule as mouse routing.
  layout.floor=floor;layout.ready=true;
