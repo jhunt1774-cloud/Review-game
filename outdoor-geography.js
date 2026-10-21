@@ -36,7 +36,7 @@ window.OutdoorGeography={data,version:1,
  zone(id,p){const d=this.get(id);if(!d)return null;return ribbon(p,d.pass)?'bridge':PaintedBoundaries.inside(p,d.sanctuary,.2)?'island':this.terrain(id,p)===1?'main':'blocked';},
  prepare(id,graph,nodes){const d=this.get(id);if(!d)return;const chapter=data.indexOf(d),anchors={entry:d.entry,merchant:d.camp,...Object.fromEntries(d.battles.map((p,i)=>['m'+(chapter*4+i),p]))};for(const [name,at]of Object.entries(anchors)){const g=graph.points.get(name);if(g)Object.assign(g,point(at));const n=nodes.find(n=>n.id===name);if(n)Object.assign(n,point(at));}JOURNEY_CHAPTERS[chapter].camp=d.camp.slice();JOURNEY_CHAPTERS[chapter].map=this.asset(id);},
  features(id){const d=this.get(id);return d?[...d.scenery.map(([x,y,rx,ry])=>({x,y,rx,ry,sceneryOnly:true})),...d.clearings.map(g=>({x:g.x,y:g.y-g.ry,rx:Math.max(2,g.rx*.6),ry:Math.max(2,g.ry*.7),sceneryOnly:true}))]:null;},
- asset(id){const d=this.get(id);return d?'assets/geography-'+d.id+'.webp':null;}
+ asset(id){const d=this.get(id);return d?(d.asset||'assets/geography-'+d.id+'.webp'):null;}
 };
 const terrain=PaintedBoundaries.terrain,zone=PaintedBoundaries.zone,align=PaintedBoundaries.align;
 PaintedBoundaries.terrain=function(id,p){return OutdoorGeography.terrain(id,p)??terrain.call(this,id,p);};
@@ -53,3 +53,4 @@ const foliage=LayeredFoliage.scene;LayeredFoliage.scene=function(c,list,toScreen
 // Painted locations already contain their architecture. Do not stack the old generic gates over it.
 const landmark=ForestArt.landmark;ForestArt.landmark=function(c,n,at,done,time){if(OutdoorGeography.get()&&n.kind==='battle'&&!n.discovery)return;return landmark.call(this,c,n,at,done,time);};
 })();
+
