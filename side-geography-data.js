@@ -1,0 +1,36 @@
+// Painted side worlds: floors and destinations follow the actual stairs, ledges and halls.
+(()=>{'use strict';
+const r=(r,...points)=>({r,points}),g=(x,y,rx,ry)=>({x,y,rx,ry});
+window.SIDE_GEOGRAPHY_DATA=[
+{id:'rootbound',name:'Rootbound Crypt',chapter:0,entry:[50,85],exitDirection:'south',description:'Explore the burial halls. The central Three Lights altar seals the northwestern sanctuary. Search the western archive and root garden for a hidden passage.',
+ anchors:{'crypt-exit':[50,94],hall:[50,79],fork:[50,65],safe1:[32,79],safe2:[20,72],safe3:[24,54],'west-turn':[29,33],'crypt-runes':[50,35],risk1:[66,65],'crypt-sentinel':[86,66],'crypt-risk-cache':[91,43],risk2:[85,32],'crypt-guardian':[24,14],'crypt-shelves':[12,43],'crypt-echo':[18,44],'crypt-hidden-latch':[28,50],'crypt-relief':[86,30],'crypt-urn':[28,13],'crypt-rubble':[46,65],'crypt-winch':[87,50],secret1:[14,67],'crypt-secret':[11,66],'return-east':[69,80]},
+ paths:[r(2.8,[50,94],[50,85],[50,79],[50,72],[50,65],[50,60],[50,53],[50,48],[50,43],[50,35]),r(2.8,[50,79],[40,80],[32,79],[25,76],[20,72],[19,66],[21,60],[24,55],[28,54],[28,50],[25,46],[20,44],[12,43],[9,42]),r(2,[28,50],[27,44],[29,39],[29,33],[29,29],[26,26],[22,23]),r(2.3,[50,48],[40,49],[33,52],[28,54]),r(2.8,[50,65],[59,64],[66,65],[76,68],[86,66],[89,62],[90,56],[87,50],[87,44],[86,39],[83,34],[82,30],[86,30],[91,29]),r(2,[87,44],[91,43]),r(2,[50,79],[61,81],[69,80],[78,78],[80,74],[80,70],[86,66]),r(2,[50,35],[44,35],[40,34])],
+ clearings:[g(50,83,4,4),g(50,65,5,3),g(32,79,5,3),g(12,43,5,2.5),g(28,51,3,2.5),g(50,35,7,3),g(87,65,5,3),g(90,44,4,3),g(86,29,5,3)],
+ a:[22,23],b:[24,16],pass:r(1.7,[22,23],[23,20],[24,16]),sanctuary:[[19,11],[26,10],[30,12],[30,15],[26,17],[21,17],[18,15]],
+ secret:{path:r(1.6,[19,69],[15,68],[11,66]),room:g(11,66,3,2)},
+ rooms:[['entry',36,77,27,20],['hub',37,49,27,27],['archive',5,36,20,12],['roots',20,45,17,14],['barracks',73,58,23,17],['treasury',77,25,20,30],['altar',39,28,24,16],['sanctuary',17,8,15,11],['secret',7,62,8,8]]},
+{obstacles:[[[47,29],[54,30],[61,33],[62,35],[54,36],[48,33]]],id:'frostmine',name:'Lost Expedition Mine',chapter:1,entry:[19,15],exitDirection:'northwest',description:'Follow the quarry benches and stairs. Rescue the miners on the lower western shelf, inspect the upper forge, and unlock the southeastern crystal vault.',
+ anchors:{'frostmine-exit':[7,10],arrival:[32,23],fork:[50,36],'frostmine-brace':[32,53],'frostmine-rescue':[16,72],'frostmine-secret':[9,44],'frostmine-guard':[58,39],'frostmine-cache':[67,37],'frostmine-wisp':[89,18],'frostmine-forge':[66,15],'frostmine-lock':[88,45],'frostmine-overseer':[88,79]},
+ paths:[r(2.5,[7,10],[13,12],[19,15],[25,19],[32,23],[39,27],[44,31],[46,35],[50,39],[58,39],[67,37],[78,42],[88,45]),r(2.7,[50,39],[43,40],[37,44],[31,48],[24,48],[16,47],[9,44]),r(2,[31,48],[32,53],[34,57],[40,60],[43,64],[44,68],[51,74],[60,80],[65,82],[66,90],[70,96],[74,91]),r(2.3,[34,57],[28,61],[23,66],[22,70],[16,72],[9,74]),r(2.3,[58,39],[64,36],[66,33],[68,28],[71,24],[73,20],[78,18],[86,18],[89,18]),r(2.3,[78,18],[70,16],[66,15],[59,12],[53,11],[48,10],[40,8],[34,8])],
+ clearings:[g(17,14,5,2.5),g(52,37,6,3),g(16,72,8,3.8),g(32,54,3,2.7),g(10,45,4,2.5),g(66,36,4,3),g(88,45,6,2.5),g(88,18,5,2),g(66,15,4,2.5)],
+ a:[74,91],b:[79,85],pass:r(1.8,[74,91],[77,88],[79,85]),sanctuary:[[77,76],[80,73],[89,74],[95,78],[96,83],[91,86],[84,86],[79,84]]},
+{id:'amber-hollow',name:'Amber Hollow',chapter:0,entry:[82,90],exitDirection:'southeast',description:'Explore the root terraces around the fern orchard. Find the ranger’s shelter and restore the apiary sluice to reach the northwestern Amberwood sanctuary.',
+ anchors:{'amber-hollow-exit':[91,84],arrival:[66,91],fork:[53,73],'amber-hollow-support':[17,72],'amber-hollow-puzzle':[61,43],'amber-hollow-guard':[85,25],'amber-hollow-cache':[91,24],'amber-hollow-boss':[24,11],'amber-hollow-secret':[33,12]},
+ paths:[r(2.6,[91,84],[87,88],[82,90],[73,92],[66,91],[62,86],[59,81],[57,76],[53,73],[47,69],[43,65],[40,60],[33,57],[29,50],[27,46],[24,42],[21,39],[18,37],[13,37],[10,33],[9,29],[8,25]),r(2.6,[53,73],[63,75],[69,72],[76,67],[82,62],[88,59],[94,56],[96,50],[96,44]),r(2.5,[76,67],[79,61],[79,55],[78,50],[77,47],[73,42],[68,37],[61,33],[55,30],[49,27],[43,24],[40,22]),r(2.2,[73,42],[68,43],[61,43]),r(2.2,[77,47],[76,41],[74,37],[74,34],[77,30],[79,27],[85,25],[91,24]),r(2.5,[43,65],[36,66],[31,69],[27,72],[22,74],[17,72],[11,73])],
+ clearings:[g(82,90,5,3),g(53,73,6,3),g(17,72,7,3),g(85,24,8,3.2),g(61,43,3.5,2),g(20,39,5,3),g(40,60,4,3)],
+ a:[40,22],b:[34,15],pass:r(1.7,[40,22],[37,19],[34,15]),sanctuary:[[17,8],[24,6],[34,8],[36,12],[34,15],[26,16],[18,14]]},
+{obstacles:[[[74,44],[79,44],[82,47],[81,51],[76,52],[74,49]]],id:'clockwork-garden',name:'Clockwork Conservatory',chapter:2,entry:[10,91],exitDirection:'southwest',description:'Explore the glasshouse terraces around the sunken water garden. The western workshop and eastern engine restore access to the upper clocktower wing.',
+ anchors:{'clockwork-garden-exit':[12,78],arrival:[14,82],fork:[20,65],'clockwork-garden-support':[20,19],'clockwork-garden-puzzle':[83,75],'clockwork-garden-guard':[86,46],'clockwork-garden-cache':[90,46],'clockwork-garden-boss':[77,23],'clockwork-garden-secret':[90,26]},
+ paths:[r(2.6,[10,91],[9,86],[12,83],[14,82],[17,78],[20,73],[20,65],[20,58],[16,53],[14,48],[14,44],[14,41],[12,38],[10,34],[9,32],[9,27],[10,22],[14,20],[20,19]),r(2,[12,83],[12,78]),r(2.5,[14,44],[20,42],[27,40],[31,39],[32,37],[38,36],[42,36]),r(2.2,[42,36],[50,36],[56,37],[61,35],[64,29]),r(2.4,[20,65],[24,71],[30,76],[37,80],[45,81],[53,78],[59,73],[65,69],[72,66],[78,67],[83,71],[83,75]),r(2.3,[65,69],[69,61],[71,56],[73,52],[73,48],[72,44],[71,40],[68,36],[64,34],[61,35]),r(2.3,[73,48],[73,52],[76,54],[82,54],[86,50],[86,46],[90,46])],
+ clearings:[g(10,89,5,3.5),g(20,19,7,3),g(14,44,4,3),g(39,80,6,2.5),g(83,75,6,3.5),g(87,47,5,2.5)],
+ a:[64,29],b:[69,23],pass:r(1.7,[64,29],[65,25],[69,23]),sanctuary:[[71,17],[79,17],[84,20],[92,23],[93,27],[86,29],[79,28],[74,27],[70,24]]},
+{id:'lantern-grotto',name:'Lantern Grotto',chapter:3,entry:[85,89],exitDirection:'southeast',description:'Follow the dry shore and harbor stairs around the tidal basin. Help the western quartermaster and restore the tide clock to open the northwestern shrine.',
+ anchors:{'lantern-grotto-exit':[94,85],arrival:[84,81],fork:[73,67],'lantern-grotto-support':[23,38],'lantern-grotto-puzzle':[91,45],'lantern-grotto-guard':[57,21],'lantern-grotto-cache':[64,23],'lantern-grotto-boss':[19,15],'lantern-grotto-secret':[26,15]},
+ paths:[r(2.8,[94,85],[90,88],[85,89],[82,87],[83,82],[84,77],[83,73],[78,69],[73,67],[63,68],[54,70],[46,73],[42,72],[46,68],[52,65],[59,61],[66,58],[74,56],[80,53],[81,48],[85,44],[87,40],[89,34],[91,28]),r(2.8,[85,44],[91,45],[95,45]),r(2,[91,28],[94,24],[95,20],[95,17],[90,15],[80,14],[70,12],[60,11],[50,11],[40,10],[34,10]),r(2,[50,11],[48,16],[46,20],[53,21],[57,21],[64,23],[68,23]),r(2.2,[85,44],[80,47],[74,45],[64,43],[54,40],[45,37],[38,35],[29,37],[23,38],[16,40],[10,39])],
+ clearings:[g(86,88,6,3.5),g(73,67,13,7),g(57,69,10,4),g(91,45,5,3),g(23,38,10,3),g(57,21,5,2.5)],
+ a:[34,10],b:[28,13],pass:r(1.7,[34,10],[31,11],[28,13]),sanctuary:[[10,12],[19,10],[28,11],[30,13],[29,16],[25,19],[16,19],[10,17]]}
+];
+})();
+
+
+
