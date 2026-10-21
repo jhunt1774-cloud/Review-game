@@ -17,7 +17,7 @@ const specs=[];for(let chapter=0;chapter<JOURNEY_CHAPTERS.length;chapter++)for(l
 }
 window.RoamingWorld={specs,actors:[],context:null,clock:0,
  defaults(c){const old=c.roaming||{};c.roaming={version:1,patrols:Object.fromEntries(specs.filter(s=>old.patrols?.[s.id]).map(s=>{const p=old.patrols[s.id];return [s.id,{x:Number.isFinite(p.x)&&p.x>0&&p.x<100?p.x:null,y:Number.isFinite(p.y)&&p.y>0&&p.y<100?p.y:null,graceUntil:Number.isFinite(p.graceUntil)?Math.min(p.graceUntil,Date.now()+15000):0}];}))};return c.roaming;},
- enabled(c){return !c.dungeon&&ForestWorld.active(c.viewChapter)&&!!window.OpenPaintedMaps?.enabled();},
+ enabled(c){return !(window.GamePlaytest?.active()&&c.playtest?.noFights===true)&&!c.dungeon&&ForestWorld.active(c.viewChapter)&&!!window.OpenPaintedMaps?.enabled();},
  clear(){this.context=null;this.actors=[];},
  barriers(c){return RegionGates.open(c.viewChapter,c.completed)?[]:[RegionGates.gate(c.viewChapter)];},
  line(a,b,c){return ForestWorld.stepClear(a,b,this.barriers(c));},
