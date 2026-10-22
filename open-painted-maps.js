@@ -8,7 +8,7 @@ const mapOrigins=new Map();
 composedFeatures['region-4']=[{"x":28,"y":45,"rx":8,"ry":11,"poly":[[25,36],[31,36],[35,43],[35,51],[31,54],[23,51],[22,43]]},{"x":48,"y":38,"rx":5,"ry":7,"poly":[[46,33],[50,32],[53,37],[52,42],[45,43],[43,38]]},{"x":75,"y":46,"rx":6,"ry":9,"poly":[[73,38],[78,39],[79,47],[78,53],[70,53],[69,45]]},{"x":32,"y":92,"rx":7,"ry":8,"poly":[[29,84],[34,85],[38,93],[37,99],[27,99],[26,91]]}];
 const solid=(p,o)=>{if(!o.poly)return Math.pow((p.x-o.x)/o.rx,2)+Math.pow((p.y-o.y)/o.ry,2)<1;let inside=false;for(let i=0,j=o.poly.length-1;i<o.poly.length;j=i++){const [x,y]=o.poly[i],[u,v]=o.poly[j];if(segment(p,{x,y},{x:u,y:v})<1.3)return true;if((y>p.y)!==(v>p.y)&&p.x<(u-x)*(p.y-y)/(v-y)+x)inside=!inside;}return inside;};
 
-window.OpenPaintedMaps={revision:12,layout:null,
+window.OpenPaintedMaps={revision:13,layout:null,
  key(){return DungeonRules.campaign?.dungeon?.id||'region-'+(ExploreRules.activeChapter||0);},
  theme(){const id=this.key();return id==='rootbound'?'crypt':id==='frostmine'?'mine':id==='amber-hollow'?'forest':id==='clockwork-garden'?'city':id==='lantern-grotto'?'coast':themes[ExploreRules.activeChapter||0];},
  enabled(){return ForestWorld.active(ExploreRules.activeChapter||0);},
@@ -26,7 +26,7 @@ window.OpenPaintedMaps={revision:12,layout:null,
  const protectedPoint=(p,r)=>nodes.some(n=>metric(p,n)<8)||metric(p,entry)<7||edges.some(([a,b])=>segment(p,a,b)<r*1.5+1)||islandDistance(p)<11;
  // Broad shared ground with several routes around small scenery groups.
  const ellipse=(p,x,y,rx,ry)=>Math.pow((p.x-x)/rx,2)+Math.pow((p.y-y)/ry,2)<1+.035*Math.sin(p.x*.45+p.y*.24);
- const floor=p=>{const traced=window.PaintedBoundaries?.terrain(layout.id,p);if(traced!==null&&traced!==undefined){if(layout.id==='rootbound'&&!window.SideGeography?.get(layout.id)&&!RootboundExplore.secret(c)&&metric(p,{x:18,y:31})<8)return 0;if(traced&&[[.17,.26],[-.17,.26],[.17,-.26],[-.17,-.26]].some(([dx,dy])=>!PaintedBoundaries.terrain(layout.id,{x:p.x+dx,y:p.y+dy})))return 0;return traced;}if(p.x<4||p.x>96||p.y<5||p.y>98)return 0;let base=p.x>5+Math.sin(p.y*.16)*1.5&&p.x<95+Math.sin(p.y*.14)*1.5&&p.y>7+Math.sin(p.x*.12)*2;
+ const floor=p=>{const traced=window.PaintedBoundaries?.terrain(layout.id,p);if(traced!==null&&traced!==undefined){if(layout.id==='rootbound'&&!window.SideGeography?.get(layout.id)&&!RootboundExplore.secret(c)&&metric(p,{x:18,y:31})<8)return 0;if(window.AuthoredFloors?.data[layout.id])return traced;if(traced&&[[.17,.26],[-.17,.26],[.17,-.26],[-.17,-.26]].some(([dx,dy])=>!PaintedBoundaries.terrain(layout.id,{x:p.x+dx,y:p.y+dy})))return 0;return traced;}if(p.x<4||p.x>96||p.y<5||p.y>98)return 0;let base=p.x>5+Math.sin(p.y*.16)*1.5&&p.x<95+Math.sin(p.y*.14)*1.5&&p.y>7+Math.sin(p.x*.12)*2;
  if(layout.id==='rootbound')base=ellipse(p,50,61,45,37)||ellipse(p,22,48,17,24)||ellipse(p,79,49,16,25);
  if(layout.id==='frostmine')base=ellipse(p,50,66,43,31)||ellipse(p,59,39,34,22)||ellipse(p,24,42,16,22);
  if(layout.id==='amber-hollow')base=ellipse(p,50,65,42,33)||ellipse(p,25,45,20,25)||ellipse(p,76,45,19,25);
@@ -83,5 +83,6 @@ const safePosition=RegionGates.safePosition;RegionGates.safePosition=function(ch
 RootboundExplore.fog=function(){};
 const decorate=DungeonRules.decorate;DungeonRules.decorate=function(c){decorate.call(this,c);if(OpenPaintedMaps.enabled()){const tip=document.getElementById('explore-tip');if(tip)tip.textContent=(tip.textContent||'').split(' Explore freely:')[0]+' Explore freely: arrows / WASD or click to walk. The marked bridge leads to the final area.';}};
 })();
+
 
 
