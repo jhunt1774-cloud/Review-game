@@ -332,4 +332,7 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 #battle>#enemy-defense #defense-title{font-size:12px}
 #battle #arena #attack-cue.scene-defense-cue{position:absolute;transform:translateX(-50%);width:245px;max-width:90%;padding:8px 12px;margin:0;z-index:25;pointer-events:none}
 
+/* Exploration is visual: no floating map labels or named waypoint buttons. */
+#forest-map #map-nodes{display:none!important}
+
 .region-loading{position:fixed;inset:35% auto auto 50%;transform:translateX(-50%);z-index:100;max-width:90%;padding:24px;background:#102a2cf5;color:#ffe7ae;border:2px solid #c4a477;border-radius:10px;text-align:center;box-shadow:0 0 0 100vmax #06141599;font:16px system-ui}
