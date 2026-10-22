@@ -13,7 +13,7 @@ function showHeroDefenseFeedback(index,result,damage=null){
 }
 function placeEnemyDefenseCue(){
  const arena=document.getElementById('arena'),enemy=document.getElementById('enemy-art'),cue=document.getElementById('attack-cue'),a=enemy.getBoundingClientRect(),b=arena.getBoundingClientRect();
- document.getElementById('enemy-defense').appendChild(cue);cue.className='';cue.style.left='';cue.style.top='';cue.hidden=false;
+ arena.appendChild(cue);cue.classList.add('scene-defense-cue');cue.style.left=Math.max(125,Math.min(b.width-125,a.left+a.width/2-b.left))+'px';cue.style.top=Math.max(110,a.top-b.top-95)+'px';cue.hidden=false;
 }
 (()=>{'use strict';
 const localStorage=window.ProgressStorage||window.localStorage;
@@ -170,7 +170,7 @@ document.addEventListener('visibilitychange',()=>{audio.visibility(document.hidd
 document.addEventListener('keydown',e=>{if(audio.enabled&&audio.ctx?.state==='suspended')audio.unlock();if($('battle').hidden)return;if(blockController.active)return;if(e.repeat)return;if(!busy&&['1','2','3','4'].includes(e.key))answer(+e.key-1);else if(e.key==='Enter'&&!$('next-question').hidden)$('next-question').click();});
 window.GameAppearance={refresh(){if(!state||busy||reviewPending||state.pendingEnemy)return;RosterSystem.apply(state);resume();}};
 window.GameModes={title,showTeacher(){show('teacher');},startTeacher(lesson){if(!window.validLesson(lesson))return;KEY='web-wizardry-teacher-save-v1';start(JSON.parse(JSON.stringify(lesson)));},startLinked(lesson,id){if(!window.validLesson(lesson)||!/^[a-f0-9]{64}$/.test(id))return;KEY='web-wizardry-assignment-'+id;start(JSON.parse(JSON.stringify(lesson)));},hasLinkedSave(id){if(!/^[a-f0-9]{64}$/.test(id))return false;const old=KEY;KEY='web-wizardry-assignment-'+id;const found=readSave();KEY=old;return !!found;},continueLinked(id){if(!/^[a-f0-9]{64}$/.test(id))return;KEY='web-wizardry-assignment-'+id;state=readSave();if(state)resume();}};title();
-$('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if($('game').requestFullscreen)await $('game').requestFullscreen();else $('save-status').textContent='Use your browser fullscreen shortcut (F11).';}catch{$('save-status').textContent='Fullscreen unavailable here. Open the game directly or use F11.';}};document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=document.fullscreenElement?'Exit fullscreen':'Fullscreen';$('fullscreen').setAttribute('aria-pressed',String(!!document.fullscreenElement));});
+$('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if($('game').requestFullscreen)await $('game').requestFullscreen();else $('save-status').textContent='Use your browser fullscreen shortcut (F11).';}catch{$('save-status').textContent='Fullscreen unavailable here. Open the game directly or use F11.';}};document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=document.fullscreenElement?'Exit fullscreen':'Fullscreen';$('fullscreen').setAttribute('aria-pressed',String(!!document.fullscreenElement));if(state?.phase==='world')updateWorldCamera();if(blockController.active)placeEnemyDefenseCue();});
 
 
 function enterAdventureFullscreen(){if(!document.fullscreenElement&&$('game').requestFullscreen){try{const pending=$('game').requestFullscreen();pending?.catch(()=>{});}catch{}}}
@@ -192,7 +192,7 @@ window.GameExploration={step:exploreStep,stop:stopExploration};
 
 
 function updateWorldCamera(){if(!state||state.phase!=='world')return;const viewport=document.getElementById('map-viewport').getBoundingClientRect(),width=viewport.width||window.innerWidth||1000,height=viewport.height||window.innerHeight||700,size=WorldCamera.size(state.campaign.viewChapter,width,height),p=coordinates(state.campaign.location),camera=WorldCamera.follow(p,size,{width,height}),map=$('forest-map');PartyTrail.spacing=5800/size.height;map.style.width=size.width+'px';map.style.height=size.height+'px';map.style.transform='translate('+(-camera.x)+'px,'+(-camera.y)+'px)';$('world-overview').style.backgroundImage='url("'+chapter().map+'")';const box=$('overview-view');box.style.left=camera.x/size.width*100+'%';box.style.top=camera.y/size.height*100+'%';box.style.width=width/size.width*100+'%';box.style.height=height/size.height*100+'%';positionDiscoveryNotice();RootboundExplore.reveal(p,state.campaign);ForestRenderer.render(p,state.campaign,walkingTime);}
-window.addEventListener?.('resize',()=>{if(state?.phase==='world')updateWorldCamera();});
+window.addEventListener?.('resize',()=>{if(state?.phase==='world')updateWorldCamera();if(blockController.active)placeEnemyDefenseCue();});
 
 
 function updateBossGate(){const chapter=state.campaign.viewChapter,gate=RegionGates.gate(chapter),el=$('boss-route-gate'),open=RegionGates.open(chapter,state.campaign.completed),remaining=RegionGates.remaining(chapter,state.campaign.completed);el.hidden=open;el.style.left=gate.x+'%';el.style.top=gate.y+'%';$('boss-gate-label').textContent='Sealed passage · '+remaining.length+' battles remain';if(!open&&ExploreRules.near(coordinates(state.campaign.location),gate,10))$('explore-tip').textContent='Clear the remaining battles to open this passage: '+remaining.map(n=>n.name).join(', ');}

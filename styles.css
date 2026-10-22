@@ -324,4 +324,12 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 @media(max-width:700px){#world-controls{grid-template-columns:auto minmax(0,1fr);gap:6px;padding:6px}#world-control-copy{grid-column:1/-1}#world-controls .map-toolbar{grid-template-columns:repeat(3,minmax(0,1fr))}#world-controls .map-toolbar button{font-size:10px;padding:6px 3px}#hero-menu-actions{grid-template-columns:repeat(2,minmax(0,1fr))}#hero-menu-actions button[data-action]{min-height:42px}#hero-menu-title{font-size:15px}}
 @media(max-height:600px) and (min-width:701px){#hero-menu-actions button[data-action]{min-height:40px;padding-top:4px;padding-bottom:4px}#hero-menu-actions{gap:4px}#hero-menu-note{margin-top:4px}}
 
+/* Restore edge-to-edge battle scenery; only the compact buttons sit at the bottom. */
+#game[data-scene=battle],#game:fullscreen[data-scene=battle]{width:100%;max-width:none;overflow-x:clip}
+#battle{display:block;width:100%;min-width:0;height:100dvh}
+#battle #arena,#battle:has(>#enemy-defense:not([hidden])) #arena{display:block;width:100%;max-width:none;height:100dvh;min-height:0}
+#battle>#enemy-defense{position:absolute;grid-row:auto;left:50%;right:auto;top:auto;bottom:8px;transform:translateX(-50%);width:min(94%,560px);min-height:0;margin:0;border:1px solid #a8b9c4;border-radius:9px;padding:8px 10px}
+#battle>#enemy-defense #defense-title{font-size:12px}
+#battle #arena #attack-cue.scene-defense-cue{position:absolute;transform:translateX(-50%);width:245px;max-width:90%;padding:8px 12px;margin:0;z-index:25;pointer-events:none}
+
 .region-loading{position:fixed;inset:35% auto auto 50%;transform:translateX(-50%);z-index:100;max-width:90%;padding:24px;background:#102a2cf5;color:#ffe7ae;border:2px solid #c4a477;border-radius:10px;text-align:center;box-shadow:0 0 0 100vmax #06141599;font:16px system-ui}
