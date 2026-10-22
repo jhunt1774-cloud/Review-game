@@ -335,4 +335,7 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 /* Exploration is visual: no floating map labels or named waypoint buttons. */
 #forest-map #map-nodes{display:none!important}
 
+/* The equipment preview uses the same registered outfit as travel and battles. */
+.equipped-appearance{grid-column:1/-1;max-width:320px;margin:16px auto;padding:12px;background:radial-gradient(ellipse at 50% 65%,#56764b,#20372b 72%);border:1px solid #827552;border-radius:12px;text-align:center}.equipped-appearance h4{margin:0}.equipped-appearance-actor{width:min(280px,65vw);height:min(280px,65vw);background-repeat:no-repeat;margin:auto}.equipped-appearance[aria-busy=true] .equipped-appearance-actor{opacity:.5}
+
 .region-loading{position:fixed;inset:35% auto auto 50%;transform:translateX(-50%);z-index:100;max-width:90%;padding:24px;background:#102a2cf5;color:#ffe7ae;border:2px solid #c4a477;border-radius:10px;text-align:center;box-shadow:0 0 0 100vmax #06141599;font:16px system-ui}
