@@ -8,7 +8,7 @@ const mapOrigins=new Map();
 composedFeatures['region-4']=[{"x":28,"y":45,"rx":8,"ry":11,"poly":[[25,36],[31,36],[35,43],[35,51],[31,54],[23,51],[22,43]]},{"x":48,"y":38,"rx":5,"ry":7,"poly":[[46,33],[50,32],[53,37],[52,42],[45,43],[43,38]]},{"x":75,"y":46,"rx":6,"ry":9,"poly":[[73,38],[78,39],[79,47],[78,53],[70,53],[69,45]]},{"x":32,"y":92,"rx":7,"ry":8,"poly":[[29,84],[34,85],[38,93],[37,99],[27,99],[26,91]]}];
 const solid=(p,o)=>{if(!o.poly)return Math.pow((p.x-o.x)/o.rx,2)+Math.pow((p.y-o.y)/o.ry,2)<1;let inside=false;for(let i=0,j=o.poly.length-1;i<o.poly.length;j=i++){const [x,y]=o.poly[i],[u,v]=o.poly[j];if(segment(p,{x,y},{x:u,y:v})<1.3)return true;if((y>p.y)!==(v>p.y)&&p.x<(u-x)*(p.y-y)/(v-y)+x)inside=!inside;}return inside;};
 
-window.OpenPaintedMaps={revision:13,layout:null,
+window.OpenPaintedMaps={revision:14,layout:null,
  key(){return DungeonRules.campaign?.dungeon?.id||'region-'+(ExploreRules.activeChapter||0);},
  theme(){const id=this.key();return id==='rootbound'?'crypt':id==='frostmine'?'mine':id==='amber-hollow'?'forest':id==='clockwork-garden'?'city':id==='lantern-grotto'?'coast':themes[ExploreRules.activeChapter||0];},
  enabled(){return ForestWorld.active(ExploreRules.activeChapter||0);},
