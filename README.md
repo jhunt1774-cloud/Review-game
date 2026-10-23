@@ -1,32 +1,39 @@
-# Forest Path — combined audio update
+# Forest Path / Web Wizardry — Suno soundtrack and combined audio upload
 
-This replaces the first-set ZIP: it includes all ten earlier generated effects, four new exploration effects, and the 24 retained physical Foley recordings. You only need this combined package.
+Seven music tracks are ready for review in music-preview.html. This package also retains the fourteen generated sound effects, twenty-four physical Foley recordings and exploration hooks from the previous combined audio update. It is an incremental game update, not a standalone game.
 
-## Upload
+## Soundtrack
 
-Extract the ZIP and upload game.js, recorded-audio.js, sound-data.js and the complete assets folder into the existing game repository root, replacing matching files. Keep existing music and other game files. Keep AUDIO-CREDITS.txt for original recording provenance. The preview, inventories, credit report, screenshot and game-audio-changes.json are reference files.
+| Scene | Track |
+| --- | --- |
+| Forest / title | Woodland Trail (existing user track) |
+| Mountains | Frostpeak Ascent |
+| Asterfall city | Asterfall Remembered |
+| Rootbound Crypt | Roots Beneath the Stone |
+| Coast | Tides of the Sunken Coast |
+| Regular battle | Steel and Resolve |
+| Chapter boss | Oath Against the Darkness |
 
-This is an incremental update for the inspected local ASTERFALL-PRODUCT-CONTENT recorded-audio build. game.js contains six targeted audio-hook edits to that snapshot; game-audio-changes.json lists them exactly. The latest deployed repository has not been verified. If your repository has newer gameplay changes, merge these edits into its game.js instead of overwriting that file. index.html is not replaced.
+Six new v6 requests created two candidates each. The first candidate of each theme is included for review. Woodland Trail was already present and was reused. Alternatives remain in the Suno account. The tracks were requested as instrumentals with the lyrics editor empty; no imitation of named artists or soundtracks was requested.
 
-After GitHub Pages finishes publishing, hard-refresh (Ctrl+Shift+R), then enable Sound. If old code persists, update the existing game.js, recorded-audio.js and sound-data.js script query values in your current index.html to ?v=audio-20261023-set2.
+## Install
 
-## New behavior
+If you already installed Forest-Path-Combined-Audio.zip: upload ONLY music-data.js, recorded-audio.js and assets/music-suno/ from this package to your repository root, replacing matching files. Your existing game.js, sound-data.js and effect files already contain the preceding update.
 
-- Footsteps play on actual free-exploration movement, at most once every 0.4 seconds. They stop when stationary and follow existing mute/hidden-tab/browser-audio rules. Grass/soil is used in the forest/coast; stone is used in mountain/city regions and dungeons. They are quiet relative to combat. Footsteps are not added to the separate road-travel animation.
-- Treasure nodes and cache loot play chest opening. Non-cache loot keeps the first set's reward chime.
-- A level earned through battle or loot plays the level-up cue in place of its usual victory/reward cue, avoiding overlapping celebrations. Ordinary victory and rewards retain their existing sounds.
-- First-set fire/ice/enemy-magic launch and impact, healing, victory, defeat, and reward effects remain integrated. Physical combat, music, reward calculations and save format are retained.
+If you have not installed that earlier package: also upload game.js, sound-data.js and the rest of this package's assets folder. Retain your existing other game files. game.js is the prior six-edit audio-hook version based on the local ASTERFALL-PRODUCT-CONTENT build; game-audio-changes.json lists those edits. If your deployed game.js is newer, merge those edits into it instead of overwriting newer gameplay.
 
-## Audio and generation
+After GitHub Pages finishes publishing, hard-refresh (Ctrl+Shift+R) and enable Sound. If scripts stay cached, update the existing music-data.js and recorded-audio.js query values in your current index.html to ?v=suno-20261023. If you also install the prior gameplay hooks, similarly refresh the game.js and sound-data.js query values. This package does not replace index.html, campaign.js, save data, assignments, or your site links.
 
-Four SFX v3 requests were made in this set with a displayed price of 28 credits each; the settled charge was 27 credits each, including four variations per request. Variation #1 from each is packaged; the remaining variations are available in ElevenLabs history. No retries or additional generations were made. Fixed duration 2 seconds, looping off, influence 30%, automatic prompt improvement on.
+## Integration and optimization
 
-The four new MP3s are mono 32 kHz / 96 kbps, peak-limited and attenuated for headroom. Footsteps are trimmed to 0.35 seconds with short fade-outs for responsive repetition. New generated effects are subject to the user's ElevenLabs terms; they are not CC0. AUDIO-CREDITS.txt concerns only retained existing recordings.
+Tracks live in assets/music-suno/ with content-hash URLs in music-data.js. Old music assets can stay in the repository; they are no longer referenced by this music map. The sole music-routing code change sends dungeon exploration to crypt instead of city. Battle/boss priority, scene crossfades, music/effects controls, hidden-tab silence and the prior two-buffer music cache remain in the existing engine.
 
-Open audio-preview.html after extracting to review all fourteen effects. Variation #1 is a first take, not a claim that it is the best of the four alternatives. Forest and crypt ambient loops remain future work and are not generated or integrated in this package.
+Seven game loops total 16,951,412 bytes (about 16.2 MiB). Each is stereo 32 kHz / 128 kbps MP3, with leading/trailing silence trimmed, a one-second equal-gain end-to-start crossfade rotated into the loop, and -19 LUFS / -2 dBTP normalization targets. Their duration, exact cuts, source links and hashes are in music-inventory.json. Loop editing reduces transition gaps; a subjective musical-loop listening review has not been completed. Tracks load on demand after sound is enabled, rather than all at page load. Device memory/performance has not been measured.
+
+Suno downloads are kept unchanged in the task's working files; this deliverable contains the processed game versions. All seven were obtained using the official Suno Unlock & Download action while the user account showed Pro. The Suno music and generated effects are not CC0. AUDIO-CREDITS.txt describes earlier CC0 assets; its old music listings are historical and do not describe these replacement Suno tracks. SUNO-CREDITS.md records current usage and provenance.
 
 ## Validation
 
-Passed: all four new MP3s decode to finite non-silent samples without full-scale clipping; syntax checks; 38 mapped asset paths; fourteen generated cue mappings; footstep surface choice and cadence limit; mute/hidden/suspended suppression; execution of the real patched win function for level-up versus ordinary victory. game.js has six explicit audio edits, recorded in game-audio-changes.json.
+Passed: all seven encoded tracks decode to finite non-silent samples with decoded mono peaks below full scale; JavaScript syntax; all seven real music scene routes; boss priority; no same-track restart; all seven music files and all 38 effect assets resolve locally; gameplay matches the prior combined audio package and only the dungeon music selector changed in recorded-audio.js.
 
-A full live-browser campaign regression, subjective listening review, and current GitHub-deployment verification were not performed.
+Live end-to-end gameplay, listening through a complete campaign and the latest deployed GitHub revision remain unverified. Use music-preview.html to review the loops and effects-preview.html for the existing generated effects before publishing.
