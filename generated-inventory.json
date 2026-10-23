@@ -108,5 +108,45 @@
     "variation": 1,
     "model": "ElevenLabs SFX v3",
     "origin": "Generated 2026-10-23 in user account"
+  },
+  {
+    "cue": "chest-open",
+    "path": "assets/audio-exploration/chest-open.mp3",
+    "bytes": 25100,
+    "seconds": 2.0,
+    "peak": 0.647520899772644,
+    "sha256": "390a2990e8159a9a3be354e4610787dd03cdbf0ece747ac5cb795dce91d385b8",
+    "variation": 1,
+    "origin": "ElevenLabs SFX v3, 2026-10-23"
+  },
+  {
+    "cue": "footstep-grass",
+    "path": "assets/audio-exploration/footstep-grass.mp3",
+    "bytes": 5228,
+    "seconds": 0.35,
+    "peak": 0.06598830223083496,
+    "sha256": "5757eb56f697e1c05c59dc45897dc425ec02f95b1e6768f9585fa15b9ac9bf29",
+    "variation": 1,
+    "origin": "ElevenLabs SFX v3, 2026-10-23"
+  },
+  {
+    "cue": "footstep-stone",
+    "path": "assets/audio-exploration/footstep-stone.mp3",
+    "bytes": 5228,
+    "seconds": 0.35,
+    "peak": 0.5067054033279419,
+    "sha256": "3c8e77eded9156573f4840921a9a7c76417c6437d8f19e8d3d0bee6c9ae9a480",
+    "variation": 1,
+    "origin": "ElevenLabs SFX v3, 2026-10-23"
+  },
+  {
+    "cue": "level-up",
+    "path": "assets/audio-exploration/level-up.mp3",
+    "bytes": 25100,
+    "seconds": 2.0,
+    "peak": 0.12455327808856964,
+    "sha256": "8f1a8137974f3b6d0a235058c126357472d96d5bf183d21d97f6e0d2bc330505",
+    "variation": 1,
+    "origin": "ElevenLabs SFX v3, 2026-10-23"
   }
 ]

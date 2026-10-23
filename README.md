@@ -1,15 +1,32 @@
-# Forest Path / Web Wizardry — first generated sound set
+# Forest Path — combined audio update
 
-Upload sound-data.js, recorded-audio.js and the entire assets folder from this package into the root of the existing recorded-audio game repository, replacing matching files. Keep all other game files and music. After GitHub Pages publishes, hard-refresh (Ctrl+Shift+R), then enable Sound. If an old script stays cached, change the existing sound-data.js and recorded-audio.js query values in your current index.html to ?v=day1-20261023. The package does not replace index.html or saved progress.
+This replaces the first-set ZIP: it includes all ten earlier generated effects, four new exploration effects, and the 24 retained physical Foley recordings. You only need this combined package.
 
-Ten new effects: fire launch/impact, ice launch/impact, enemy spell launch/impact, healing, victory, defeat and reward chime. Each is variation #1 of its request. The other three variations per request remain in the ElevenLabs sound-effect history. This set contains ten request groups / forty generated variations, with ten packaged files. No retries were made.
+## Upload
 
-The new effects replace the corresponding existing cue layers. Existing physical weapon/defense recordings and music routing are retained. Successful block uses the prior package's corrected wood/shield impact. The 24 existing CC0 WAVs are included for a complete asset mapping. Music is not included or modified.
+Extract the ZIP and upload game.js, recorded-audio.js, sound-data.js and the complete assets folder into the existing game repository root, replacing matching files. Keep existing music and other game files. Keep AUDIO-CREDITS.txt for original recording provenance. The preview, inventories, credit report, screenshot and game-audio-changes.json are reference files.
 
-Generation: ElevenLabs SFX v3 in the user's signed-in account, 2026-10-23 America/New_York. Fixed two-second duration, loop off, prompt influence 30%, automatic prompt improvement on. The connector's estimate-only request failed before generation; generation and original MP3 downloads were completed through ElevenLabs' browser interface.
+This is an incremental update for the inspected local ASTERFALL-PRODUCT-CONTENT recorded-audio build. game.js contains six targeted audio-hook edits to that snapshot; game-audio-changes.json lists them exactly. The latest deployed repository has not been verified. If your repository has newer gameplay changes, merge these edits into its game.js instead of overwriting that file. index.html is not replaced.
 
-The new MP3s were converted from stereo 48 kHz / 192 kbps to mono 32 kHz / 96 kbps and peak-limited to leave headroom. Total new encoded size: 251,000 bytes. This reduces transfer and decoded memory and lets the game's existing stereo panner position effects. Exact hashes, durations and decoded peaks are in generated-inventory.json.
+After GitHub Pages finishes publishing, hard-refresh (Ctrl+Shift+R), then enable Sound. If old code persists, update the existing game.js, recorded-audio.js and sound-data.js script query values in your current index.html to ?v=audio-20261023-set2.
 
-Open audio-preview.html to review the ten effects after extracting. These are first takes; no subjective claim that variation #1 is the best is made. The generated effects are not CC0 recordings; AUDIO-CREDITS.txt describes only the retained original project recordings. Generated audio is subject to the user's ElevenLabs account terms.
+## New behavior
 
-Validation passed: ten MP3s decoded to finite non-silent samples without full-scale clipping; JavaScript syntax; actual campaign audio class loaded with packaged integration in a mocked audio environment; all 34 asset paths; all ten new cue mappings; thirteen physical cue groups; block/missed-defense routing; mute, hidden-tab and suspended-context suppression. Live gameplay listening and current deployed GitHub revision remain unverified. Compatible with the inspected local ASTERFALL-PRODUCT-CONTENT / forest-path recorded-audio build; this is an incremental upload, not a standalone game.
+- Footsteps play on actual free-exploration movement, at most once every 0.4 seconds. They stop when stationary and follow existing mute/hidden-tab/browser-audio rules. Grass/soil is used in the forest/coast; stone is used in mountain/city regions and dungeons. They are quiet relative to combat. Footsteps are not added to the separate road-travel animation.
+- Treasure nodes and cache loot play chest opening. Non-cache loot keeps the first set's reward chime.
+- A level earned through battle or loot plays the level-up cue in place of its usual victory/reward cue, avoiding overlapping celebrations. Ordinary victory and rewards retain their existing sounds.
+- First-set fire/ice/enemy-magic launch and impact, healing, victory, defeat, and reward effects remain integrated. Physical combat, music, reward calculations and save format are retained.
+
+## Audio and generation
+
+Four SFX v3 requests were made in this set with a displayed price of 28 credits each; the settled charge was 27 credits each, including four variations per request. Variation #1 from each is packaged; the remaining variations are available in ElevenLabs history. No retries or additional generations were made. Fixed duration 2 seconds, looping off, influence 30%, automatic prompt improvement on.
+
+The four new MP3s are mono 32 kHz / 96 kbps, peak-limited and attenuated for headroom. Footsteps are trimmed to 0.35 seconds with short fade-outs for responsive repetition. New generated effects are subject to the user's ElevenLabs terms; they are not CC0. AUDIO-CREDITS.txt concerns only retained existing recordings.
+
+Open audio-preview.html after extracting to review all fourteen effects. Variation #1 is a first take, not a claim that it is the best of the four alternatives. Forest and crypt ambient loops remain future work and are not generated or integrated in this package.
+
+## Validation
+
+Passed: all four new MP3s decode to finite non-silent samples without full-scale clipping; syntax checks; 38 mapped asset paths; fourteen generated cue mappings; footstep surface choice and cadence limit; mute/hidden/suspended suppression; execution of the real patched win function for level-up versus ordinary victory. game.js has six explicit audio edits, recorded in game-audio-changes.json.
+
+A full live-browser campaign regression, subjective listening review, and current GitHub-deployment verification were not performed.

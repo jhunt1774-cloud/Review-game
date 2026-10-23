@@ -1,4 +1,4 @@
-// Existing CC0 Foley plus ElevenLabs SFX v3 generated 2026-10-23.
+// Existing CC0 physical Foley and fourteen generated ElevenLabs effects.
 window.RECORDED_FOLEY={
   "axe-swing-0": {
     "url": "assets/audio-v3/axe-swing-0.wav?v=3c765fed26",
@@ -135,5 +135,21 @@ window.RECORDED_FOLEY={
   "day1-chime": {
     "url": "assets/audio-day1/chime.mp3?v=3b3c0da1ec",
     "gain": 0.8
+  },
+  "explore-chest-open": {
+    "url": "assets/audio-exploration/chest-open.mp3?v=390a2990e8",
+    "gain": 0.7
+  },
+  "explore-footstep-grass": {
+    "url": "assets/audio-exploration/footstep-grass.mp3?v=5757eb56f6",
+    "gain": 0.28
+  },
+  "explore-footstep-stone": {
+    "url": "assets/audio-exploration/footstep-stone.mp3?v=3c8e77eded",
+    "gain": 0.28
+  },
+  "explore-level-up": {
+    "url": "assets/audio-exploration/level-up.mp3?v=8f1a813797",
+    "gain": 0.7
   }
 };

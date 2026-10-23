@@ -1,0 +1,26 @@
+[
+  {
+    "before": "function win(){",
+    "after": "function win(){const levelBeforeWin=state.level;"
+  },
+  {
+    "before": "audio.play('victory');renderers.forEach",
+    "after": "if(state.level>levelBeforeWin)audio.cue('level-up');else audio.play('victory');renderers.forEach"
+  },
+  {
+    "before": "const reward=LootRules.collect(state,n.id);",
+    "after": "const levelBeforeLoot=state.level,reward=LootRules.collect(state,n.id);"
+  },
+  {
+    "before": "audio.play('chime');discoveryNotice(reward.title,reward.message);",
+    "after": "audio.cue(state.level>levelBeforeLoot?'level-up':/cache/.test(n.id)?'chest-open':'chime');discoveryNotice(reward.title,reward.message);"
+  },
+  {
+    "before": "if(n.kind==='treasure'){state.campaign.potions",
+    "after": "if(n.kind==='treasure'){audio.cue('chest-open');state.campaign.potions"
+  },
+  {
+    "before": "moved=Math.hypot(q.x-p.x,q.y-p.y);state.campaign.explorePosition",
+    "after": "moved=Math.hypot(q.x-p.x,q.y-p.y);if(moved>0.001)audio.footstep(state.campaign.viewChapter,!!state.campaign.dungeon);state.campaign.explorePosition"
+  }
+]

@@ -1,15 +1,15 @@
 # Credit report — October 23, 2026
 
-- User-authorized daily task budget: 1,000 ElevenLabs credits.
-- Starting account balance: 39,866 credits.
-- Final refreshed account balance: 39,596 credits.
-- Total observed balance decrease for this set: **270 credits**.
-- Remaining within this task's daily budget: **730 credits**.
-- Ten generation requests, four variations per request: forty variations generated.
-- Ten variation-#1 files downloaded, optimized and integrated. Other variations remain in account history.
-- Retries: zero. Additional generations after these ten requests: zero.
-- Displayed reservation before each request: 28 credits (280 credits reserved across ten requests). Settled balance change was 27 credits per request, 270 total.
-- Connector estimate-only call failed without starting generation.
-- All generation used fixed two-second SFX v3 settings; no recurring job or account limit setting was created.
+Daily task budget: 1,000 credits.
 
-This report measures this session's observed account balance change. It does not claim to audit other account use earlier today. The original screenshot balance matched the starting balance. Final evidence: credit-balance-proof.png.
+| Set | Starting balance | Ending balance | Credits used |
+| --- | ---: | ---: | ---: |
+| First ten effect types | 39,866 | 39,596 | 270 |
+| Four exploration effect types | 39,596 | 39,488 | 108 |
+| Total today for this task | 39,866 | 39,488 | **378** |
+
+**622 credits remain** within today's authorized task budget. This task has not changed any account spending-limit setting or created recurring generation.
+
+This set: four requests, sixteen generated variations, four files integrated. Across both sets: fourteen requests, fifty-six variations, fourteen files integrated. No retries. The cost includes all returned variations. Displayed reservations were 28 credits per request; observed settled costs were 27 credits per request. This set reserved 112 and used 108.
+
+Amounts are verified against refreshed signed-in account balances. They measure this chat's generation sessions, not an audit of unrelated account activity. Final account balance: 39,488. Evidence: credit-balance-proof.png.
