@@ -1,39 +1,25 @@
-# Forest Path / Web Wizardry — Suno soundtrack and combined audio upload
+# Restore Teacher Playtest and current map walking
 
-Seven music tracks are ready for review in music-preview.html. This package also retains the fourteen generated sound effects, twenty-four physical Foley recordings and exploration hooks from the previous combined audio update. It is an incremental game update, not a standalone game.
+This repairs a regression from the earlier audio ZIP: it included an older October 18 game.js. The live repository still loads teacher-playtest.js, but that old controller has no GamePlaytest interface. It also lacks the current map movement, save and story integration. The restored game.js starts from the latest October 23 owner build and adds only the six sound hooks, with an optional footstep call so a stale audio script cannot break walking.
 
-## Soundtrack
+## Upload this correction
 
-| Scene | Track |
-| --- | --- |
-| Forest / title | Woodland Trail (existing user track) |
-| Mountains | Frostpeak Ascent |
-| Asterfall city | Asterfall Remembered |
-| Rootbound Crypt | Roots Beneath the Stone |
-| Coast | Tides of the Sunken Coast |
-| Regular battle | Steel and Resolve |
-| Chapter boss | Oath Against the Darkness |
+1. Extract Teacher-Testing-Restore.zip.
+2. Upload ALL SIX files inside to the existing Review-game repository root and replace matching files: index.html, game.js, teacher-playtest.js, music-data.js, sound-data.js and recorded-audio.js.
+3. Keep your current assets folders, map files, question banks and cloud files. This small patch relies on the sound/music assets already included in the prior soundtrack ZIP.
+4. Wait for GitHub Pages to publish, then reload the game. The included index.html is copied from the current live repository, retaining its script order and teacher/cloud modules; it updates only five script version values to fetch the corrected controller and current audio maps.
+5. Open Teacher mode, enter your existing teacher code, and select Open Teacher Playtest. Test an area in Map inspection mode first. Your normal adventure, assigned quests and playtest use their separate save slots again.
 
-Six new v6 requests created two candidates each. The first candidate of each theme is included for review. Woodland Trail was already present and was reused. Alternatives remain in the Suno account. The tracks were requested as instrumentals with the lyrics editor empty; no imitation of named artists or soundtracks was requested.
+No local saves were cleared or edited, and no remote files were published by this task. A corrected complete soundtrack ZIP is also available if you have not installed the audio assets yet. Do not re-upload an older downloaded copy of the previous ZIP: its old game.js caused this mismatch.
 
-## Install
+## Evidence and checks
 
-If you already installed Forest-Path-Combined-Audio.zip: upload ONLY music-data.js, recorded-audio.js and assets/music-suno/ from this package to your repository root, replacing matching files. Your existing game.js, sound-data.js and effect files already contain the preceding update.
+Confirmed against the live public repository: game.js contains the prior audio hook but no window.GamePlaytest; teacher-playtest.js still expects GamePlaytest. The live index references the newest owner controller hash, but the actual controller contents were replaced by the old audio file.
 
-If you have not installed that earlier package: also upload game.js, sound-data.js and the rest of this package's assets folder. Retain your existing other game files. game.js is the prior six-edit audio-hook version based on the local ASTERFALL-PRODUCT-CONTENT build; game-audio-changes.json lists those edits. If your deployed game.js is newer, merge those edits into it instead of overwriting newer gameplay.
+Checks passed using the existing game test harness with the corrected controller substituted into the latest owner build:
 
-After GitHub Pages finishes publishing, hard-refresh (Ctrl+Shift+R) and enable Sound. If scripts stay cached, update the existing music-data.js and recorded-audio.js query values in your current index.html to ?v=suno-20261023. If you also install the prior gameplay hooks, similarly refresh the game.js and sound-data.js query values. This package does not replace index.html, campaign.js, save data, assignments, or your site links.
+- Teacher-code gate; all ten world/dungeon areas; gate/puzzle toggles; every listed battle; party presets; healing; reset; continue; bug report; exit; separate normal/teacher/assignment saves.
+- All ten map navigation masks; closed/open boss routes; followers across bridges; blocked diagonal corners; teleport-trail reset.
+- JavaScript syntax for controller and teacher module.
 
-## Integration and optimization
-
-Tracks live in assets/music-suno/ with content-hash URLs in music-data.js. Old music assets can stay in the repository; they are no longer referenced by this music map. The sole music-routing code change sends dungeon exploration to crypt instead of city. Battle/boss priority, scene crossfades, music/effects controls, hidden-tab silence and the prior two-buffer music cache remain in the existing engine.
-
-Seven game loops total 16,951,412 bytes (about 16.2 MiB). Each is stereo 32 kHz / 128 kbps MP3, with leading/trailing silence trimmed, a one-second equal-gain end-to-start crossfade rotated into the loop, and -19 LUFS / -2 dBTP normalization targets. Their duration, exact cuts, source links and hashes are in music-inventory.json. Loop editing reduces transition gaps; a subjective musical-loop listening review has not been completed. Tracks load on demand after sound is enabled, rather than all at page load. Device memory/performance has not been measured.
-
-Suno downloads are kept unchanged in the task's working files; this deliverable contains the processed game versions. All seven were obtained using the official Suno Unlock & Download action while the user account showed Pro. The Suno music and generated effects are not CC0. AUDIO-CREDITS.txt describes earlier CC0 assets; its old music listings are historical and do not describe these replacement Suno tracks. SUNO-CREDITS.md records current usage and provenance.
-
-## Validation
-
-Passed: all seven encoded tracks decode to finite non-silent samples with decoded mono peaks below full scale; JavaScript syntax; all seven real music scene routes; boss priority; no same-track restart; all seven music files and all 38 effect assets resolve locally; gameplay matches the prior combined audio package and only the dungeon music selector changed in recorded-audio.js.
-
-Live end-to-end gameplay, listening through a complete campaign and the latest deployed GitHub revision remain unverified. Use music-preview.html to review the loops and effects-preview.html for the existing generated effects before publishing.
+These are automated simulated-DOM/navigation checks, not live browser or physical Chromebook testing. The public site has not yet been changed. If an area still walks incorrectly after this patch is uploaded, identify the area and location so that remaining ground issue can be checked against the current map.
