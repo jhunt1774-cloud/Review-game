@@ -1,38 +1,15 @@
-# Forest Path / Web Wizardry audio update
+# Forest Path / Web Wizardry — first generated sound set
 
-This is an incremental update for the existing recorded-audio version of the game. It contains 24 EXISTING CC0 recordings, not newly generated ElevenLabs sounds. ElevenLabs generation requests made by this task: 0. Credits spent by this task: 0.
+Upload sound-data.js, recorded-audio.js and the entire assets folder from this package into the root of the existing recorded-audio game repository, replacing matching files. Keep all other game files and music. After GitHub Pages publishes, hard-refresh (Ctrl+Shift+R), then enable Sound. If an old script stays cached, change the existing sound-data.js and recorded-audio.js query values in your current index.html to ?v=day1-20261023. The package does not replace index.html or saved progress.
 
-## Upload
+Ten new effects: fire launch/impact, ice launch/impact, enemy spell launch/impact, healing, victory, defeat and reward chime. Each is variation #1 of its request. The other three variations per request remain in the ElevenLabs sound-effect history. This set contains ten request groups / forty generated variations, with ten packaged files. No retries were made.
 
-1. Extract the zip.
-2. In your existing game repository, replace sound-data.js and recorded-audio.js with these files and upload the included assets/audio-v3 folder, preserving its folder structure. Keep your other game files and music.
-3. Retain AUDIO-CREDITS.txt for recording provenance. The inventory, plan, listening page and this README are optional reference files.
-4. After GitHub Pages finishes publishing, hard-refresh the game (Ctrl+Shift+R), then enable Sound. If cached audio code persists, update the existing recorded-audio.js script query in your current index.html to ?v=audio-20261023. This package deliberately does not replace your current index.html.
+The new effects replace the corresponding existing cue layers. Existing physical weapon/defense recordings and music routing are retained. Successful block uses the prior package's corrected wood/shield impact. The 24 existing CC0 WAVs are included for a complete asset mapping. Music is not included or modified.
 
-Compatibility: the inspected index loads campaign.js, sound-data.js, then recorded-audio.js. If your repository lacks that sequence or uses a newer audio engine, compare it before applying. The actual GitHub repository/latest deployed revision was not identified. This is not a complete standalone game.
+Generation: ElevenLabs SFX v3 in the user's signed-in account, 2026-10-23 America/New_York. Fixed two-second duration, loop off, prompt influence 30%, automatic prompt improvement on. The connector's estimate-only request failed before generation; generation and original MP3 downloads were completed through ElevenLabs' browser interface.
 
-## Changes and existing coverage
+The new MP3s were converted from stereo 48 kHz / 192 kbps to mono 32 kHz / 96 kbps and peak-limited to leave headroom. Total new encoded size: 251,000 bytes. This reduces transfer and decoded memory and lets the game's existing stereo panner position effects. Exact hashes, durations and decoded peaks are in generated-inventory.json.
 
-The audio mapping and all 24 short mono 24 kHz / 16-bit PCM WAVs are packaged together. These are already trimmed, normalized and faded by the prior project; total 605,948 bytes and 12.60 seconds. No additional lossy transcode was needed. Their IDs and hash-based audio URLs are retained, preserving existing cue integration and browser caching.
+Open audio-preview.html to review the ten effects after extracting. These are first takes; no subjective claim that variation #1 is the best is made. The generated effects are not CC0 recordings; AUDIO-CREDITS.txt describes only the retained original project recordings. Generated audio is subject to the user's ElevenLabs account terms.
 
-Successful block defense now routes to the existing block-impact wood recording instead of duck-impact cloth. Missed defenses, timing, save data, music scene routing and sound controls are unchanged by the one-line code change.
-
-Existing coverage: axe/blade swings, bow release, wood/body/metal impacts, parries, air/glass spell layers, cloth dodge/duck, jump, water healing, coins and wooden chimes. twigs-break is present in the mapping but is not called by the inspected recorded-audio cue groups.
-
-Open audio-preview.html to audition each original recording. It can be opened locally after extracting; use the published game to verify actual gameplay playback.
-
-## ElevenLabs connection and budget
-
-The connected tool successfully returned three pre-existing sword-effect library entries. This confirms read access to that library, not generation availability or quota. Available tools do not expose authenticated daily remaining usage, reset time, an enforceable daily cap or a reliable per-effect maximum charge. The capability request returned that no additional tool exists. Monthly credits must not be substituted for the user's daily allowance.
-
-Only temporary preview URLs were available for those three effects. They are not packaged as permanent production assets. No paid sound generation, retries or account setting changes were performed.
-
-generation-plan.json contains prioritized prompts and target durations for later work. P1 replaces the generic spell/heal layers; P2 improves outcome and reward cues; P3 adds exploration audio requiring additional game hooks. Durations are creative targets, not cost estimates. Do not run this plan until remaining daily allowance, maximum request cost and a reliable cap are verified. No automated generation script is included.
-
-## Verification
-
-Passed: JavaScript syntax; loading the actual campaign audio class with packaged mappings and integration in a mocked audio environment; all 24 mapped files exist; all WAVs parse as mono 24 kHz 16-bit PCM with nonzero data; all 23 cue groups emit mapped buffers; block/dodge/parry routing; missed-defense suppression; mute, hidden-tab and suspended-context suppression.
-
-No live-browser listening, end-to-end campaign test, actual Chromebook performance measurement or current deployed-repository verification was performed. Existing music is not included or changed.
-
-Source snapshot: C:/Users/jhunt/Documents/Codex/ASTERFALL-PRODUCT-CONTENT. sound-data.js matches the local outputs/forest-path copy (SHA256 8743f47e4a63a561a36a6072eb82d2cd0e4c3ee952739acf0fc96b857af3360b). Exact packaged WAV hashes and durations are in audio-inventory.json. Credits are copied from the existing project without re-auditing their external source pages.
+Validation passed: ten MP3s decoded to finite non-silent samples without full-scale clipping; JavaScript syntax; actual campaign audio class loaded with packaged integration in a mocked audio environment; all 34 asset paths; all ten new cue mappings; thirteen physical cue groups; block/missed-defense routing; mute, hidden-tab and suspended-context suppression. Live gameplay listening and current deployed GitHub revision remain unverified. Compatible with the inspected local ASTERFALL-PRODUCT-CONTENT / forest-path recorded-audio build; this is an incremental upload, not a standalone game.

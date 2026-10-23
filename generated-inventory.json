@@ -1,0 +1,112 @@
+[
+  {
+    "cue": "fireball-launch",
+    "path": "assets/audio-day1/fireball-launch.mp3",
+    "sha256": "0ae846107a058e500413e6b3a476f3898f9eff463a6c749128ec00c1f1ed624a",
+    "bytes": 25100,
+    "seconds": 2.0,
+    "peak": 0.4849831461906433,
+    "variation": 1,
+    "model": "ElevenLabs SFX v3",
+    "origin": "Generated 2026-10-23 in user account"
+  },
+  {
+    "cue": "fireball-impact",
+    "path": "assets/audio-day1/fireball-impact.mp3",
+    "sha256": "a7ee11d75eaf420ac0fd7aa1a82a4ccbba686853f0dd3c6e8deb26f1021d78fd",
+    "bytes": 25100,
+    "seconds": 2.0,
+    "peak": 0.9697823524475098,
+    "variation": 1,
+    "model": "ElevenLabs SFX v3",
+    "origin": "Generated 2026-10-23 in user account"
+  },
+  {
+    "cue": "ice-launch",
+    "path": "assets/audio-day1/ice-launch.mp3",
+    "sha256": "f53bed5bc3f49b352e048f7c6d7782f133b9041bf899a93cccee21248835424e",
+    "bytes": 25100,
+    "seconds": 2.0,
+    "peak": 0.6264224648475647,
+    "variation": 1,
+    "model": "ElevenLabs SFX v3",
+    "origin": "Generated 2026-10-23 in user account"
+  },
+  {
+    "cue": "ice-impact",
+    "path": "assets/audio-day1/ice-impact.mp3",
+    "sha256": "6d81dc0f2eadd17463379a9e8b2246a9e8b1da1a74aa9add77e3f7dbe7443939",
+    "bytes": 25100,
+    "seconds": 2.0,
+    "peak": 0.9645906686782837,
+    "variation": 1,
+    "model": "ElevenLabs SFX v3",
+    "origin": "Generated 2026-10-23 in user account"
+  },
+  {
+    "cue": "enemy-spell-launch",
+    "path": "assets/audio-day1/enemy-spell-launch.mp3",
+    "sha256": "9406e2a4098fa511d99bf3bd5f3a8a798bdc94ae1d4a72d19770197d8d9e5964",
+    "bytes": 25100,
+    "seconds": 2.0,
+    "peak": 0.7856597900390625,
+    "variation": 1,
+    "model": "ElevenLabs SFX v3",
+    "origin": "Generated 2026-10-23 in user account"
+  },
+  {
+    "cue": "enemy-spell-impact",
+    "path": "assets/audio-day1/enemy-spell-impact.mp3",
+    "sha256": "bc42fd32333365765455e5dd6e4de4f387fed11304e39ad5520bec0c4c02c680",
+    "bytes": 25100,
+    "seconds": 2.0,
+    "peak": 0.48066818714141846,
+    "variation": 1,
+    "model": "ElevenLabs SFX v3",
+    "origin": "Generated 2026-10-23 in user account"
+  },
+  {
+    "cue": "heal",
+    "path": "assets/audio-day1/heal.mp3",
+    "sha256": "7dd7f5185e225dfcea5c8f3b8ad227d45e8beb788e1ea7b9b5264f4ff7c55005",
+    "bytes": 25100,
+    "seconds": 2.0,
+    "peak": 0.17783808708190918,
+    "variation": 1,
+    "model": "ElevenLabs SFX v3",
+    "origin": "Generated 2026-10-23 in user account"
+  },
+  {
+    "cue": "victory",
+    "path": "assets/audio-day1/victory.mp3",
+    "sha256": "80ac36580b1efa4ef05715a1e991f1a877dfd50d45bb4380bcb2a5ca680ce4ea",
+    "bytes": 25100,
+    "seconds": 2.0,
+    "peak": 0.4724884033203125,
+    "variation": 1,
+    "model": "ElevenLabs SFX v3",
+    "origin": "Generated 2026-10-23 in user account"
+  },
+  {
+    "cue": "defeat",
+    "path": "assets/audio-day1/defeat.mp3",
+    "sha256": "d39896dfe437ead663ed5e13694f2bd53e42a89a931873b949e83e8052b73f44",
+    "bytes": 25100,
+    "seconds": 2.0,
+    "peak": 0.5272761583328247,
+    "variation": 1,
+    "model": "ElevenLabs SFX v3",
+    "origin": "Generated 2026-10-23 in user account"
+  },
+  {
+    "cue": "chime",
+    "path": "assets/audio-day1/chime.mp3",
+    "sha256": "3b3c0da1ecde54a75bf2112c9efb0571be4bacf70abba3cd9512b8bee69ee6e4",
+    "bytes": 25100,
+    "seconds": 2.0,
+    "peak": 0.4411197304725647,
+    "variation": 1,
+    "model": "ElevenLabs SFX v3",
+    "origin": "Generated 2026-10-23 in user account"
+  }
+]

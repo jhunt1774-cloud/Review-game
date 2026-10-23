@@ -1,4 +1,4 @@
-// Trimmed and normalized CC0 physical recordings.
+// Existing CC0 Foley plus ElevenLabs SFX v3 generated 2026-10-23.
 window.RECORDED_FOLEY={
   "axe-swing-0": {
     "url": "assets/audio-v3/axe-swing-0.wav?v=3c765fed26",
@@ -94,6 +94,46 @@ window.RECORDED_FOLEY={
   },
   "twigs-break": {
     "url": "assets/audio-v3/twigs-break.wav?v=5a4a5729d9",
+    "gain": 0.8
+  },
+  "day1-fireball-launch": {
+    "url": "assets/audio-day1/fireball-launch.mp3?v=0ae846107a",
+    "gain": 0.8
+  },
+  "day1-fireball-impact": {
+    "url": "assets/audio-day1/fireball-impact.mp3?v=a7ee11d75e",
+    "gain": 0.8
+  },
+  "day1-ice-launch": {
+    "url": "assets/audio-day1/ice-launch.mp3?v=f53bed5bc3",
+    "gain": 0.8
+  },
+  "day1-ice-impact": {
+    "url": "assets/audio-day1/ice-impact.mp3?v=6d81dc0f2e",
+    "gain": 0.8
+  },
+  "day1-enemy-spell-launch": {
+    "url": "assets/audio-day1/enemy-spell-launch.mp3?v=9406e2a409",
+    "gain": 0.8
+  },
+  "day1-enemy-spell-impact": {
+    "url": "assets/audio-day1/enemy-spell-impact.mp3?v=bc42fd3233",
+    "gain": 0.8
+  },
+  "day1-heal": {
+    "url": "assets/audio-day1/heal.mp3?v=7dd7f5185e",
+    "gain": 0.8
+  },
+  "day1-victory": {
+    "url": "assets/audio-day1/victory.mp3?v=80ac36580b",
+    "gain": 0.8
+  },
+  "day1-defeat": {
+    "url": "assets/audio-day1/defeat.mp3?v=d39896dfe4",
+    "gain": 0.8
+  },
+  "day1-chime": {
+    "url": "assets/audio-day1/chime.mp3?v=3b3c0da1ec",
     "gain": 0.8
   }
 };
