@@ -1,43 +1,38 @@
-# Independent Programming Skills
+# Forest Path / Web Wizardry audio update
 
-124 freshly authored questions in 31 skill sets. Import one Skill JSON file or Complete-Bank.json in Teacher Mode. CSV alternatives are included. Each item has four answer options, one marked answer, and an explanation. Review before classroom use.
+This is an incremental update for the existing recorded-audio version of the game. It contains 24 EXISTING CC0 recordings, not newly generated ElevenLabs sounds. ElevenLabs generation requests made by this task: 0. Credits spent by this task: 0.
 
-These assess general programming concepts using independent scenarios. They contain no official curriculum questions, puzzle solutions, screenshots, characters, or branded lesson titles. No affiliation or endorsement is claimed. Legacy numeric fields exist only for compatibility with the game.
+## Upload
 
-Saved teacher drafts and previously shared student links contain snapshots; importing or updating these banks does not rewrite those snapshots. Create and share a new assignment to use revised questions.
+1. Extract the zip.
+2. In your existing game repository, replace sound-data.js and recorded-audio.js with these files and upload the included assets/audio-v3 folder, preserving its folder structure. Keep your other game files and music.
+3. Retain AUDIO-CREDITS.txt for recording provenance. The inventory, plan, listening page and this README are optional reference files.
+4. After GitHub Pages finishes publishing, hard-refresh the game (Ctrl+Shift+R), then enable Sound. If cached audio code persists, update the existing recorded-audio.js script query in your current index.html to ?v=audio-20261023. This package deliberately does not replace your current index.html.
 
-This is an editorial originality review, not legal certification. Previous downloaded bank files should be replaced by this revision.
+Compatibility: the inspected index loads campaign.js, sound-data.js, then recorded-audio.js. If your repository lacks that sequence or uses a newer audio engine, compare it before applying. The actual GitHub repository/latest deployed revision was not identified. This is not a complete standalone game.
 
-- 01: Ordered instructions (Sequencing)
-- 02: Tracing and evidence (Debugging)
-- 03: Schedules and timing (Sequencing)
-- 04: Coordinates and directions (Graphics)
-- 05: Appearance and state (Sprites)
-- 06: Creating and selecting objects (Sprites)
-- 07: Interactive information (Design)
-- 08: Input handlers (Events)
-- 09: Interactive simulations (State)
-- 10: Timed changes (Events)
-- 11: Routing actions (Events)
-- 12: Fixed repetition (Loops)
-- 13: Repetition boundaries (Loops)
-- 14: Nested repetition (Loops)
-- 15: Pattern geometry (Graphics)
-- 16: Boolean decisions (Conditionals)
-- 17: Two-way branches (Conditionals)
-- 18: While conditions (Loops)
-- 19: Decision test cases (Conditionals)
-- 20: Stopping rules (Loops)
-- 21: Multiple decisions (Conditionals)
-- 22: Reusable tasks (Functions)
-- 23: Inputs and results (Functions)
-- 24: Decomposition and maintenance (Functions)
-- 25: Text input and output (Variables)
-- 26: Counters and initialization (Variables)
-- 27: Changing dimensions (Variables)
-- 28: Accumulation and updates (Variables)
-- 29: Ranges and steps (Counting loops)
-- 30: Bounds in generated patterns (Counting loops)
-- 31: Project planning and review (Design)
+## Changes and existing coverage
 
-The complete bank may exceed the student-link length limit. Share individual sets or smaller combinations.
+The audio mapping and all 24 short mono 24 kHz / 16-bit PCM WAVs are packaged together. These are already trimmed, normalized and faded by the prior project; total 605,948 bytes and 12.60 seconds. No additional lossy transcode was needed. Their IDs and hash-based audio URLs are retained, preserving existing cue integration and browser caching.
+
+Successful block defense now routes to the existing block-impact wood recording instead of duck-impact cloth. Missed defenses, timing, save data, music scene routing and sound controls are unchanged by the one-line code change.
+
+Existing coverage: axe/blade swings, bow release, wood/body/metal impacts, parries, air/glass spell layers, cloth dodge/duck, jump, water healing, coins and wooden chimes. twigs-break is present in the mapping but is not called by the inspected recorded-audio cue groups.
+
+Open audio-preview.html to audition each original recording. It can be opened locally after extracting; use the published game to verify actual gameplay playback.
+
+## ElevenLabs connection and budget
+
+The connected tool successfully returned three pre-existing sword-effect library entries. This confirms read access to that library, not generation availability or quota. Available tools do not expose authenticated daily remaining usage, reset time, an enforceable daily cap or a reliable per-effect maximum charge. The capability request returned that no additional tool exists. Monthly credits must not be substituted for the user's daily allowance.
+
+Only temporary preview URLs were available for those three effects. They are not packaged as permanent production assets. No paid sound generation, retries or account setting changes were performed.
+
+generation-plan.json contains prioritized prompts and target durations for later work. P1 replaces the generic spell/heal layers; P2 improves outcome and reward cues; P3 adds exploration audio requiring additional game hooks. Durations are creative targets, not cost estimates. Do not run this plan until remaining daily allowance, maximum request cost and a reliable cap are verified. No automated generation script is included.
+
+## Verification
+
+Passed: JavaScript syntax; loading the actual campaign audio class with packaged mappings and integration in a mocked audio environment; all 24 mapped files exist; all WAVs parse as mono 24 kHz 16-bit PCM with nonzero data; all 23 cue groups emit mapped buffers; block/dodge/parry routing; missed-defense suppression; mute, hidden-tab and suspended-context suppression.
+
+No live-browser listening, end-to-end campaign test, actual Chromebook performance measurement or current deployed-repository verification was performed. Existing music is not included or changed.
+
+Source snapshot: C:/Users/jhunt/Documents/Codex/ASTERFALL-PRODUCT-CONTENT. sound-data.js matches the local outputs/forest-path copy (SHA256 8743f47e4a63a561a36a6072eb82d2cd0e4c3ee952739acf0fc96b857af3360b). Exact packaged WAV hashes and durations are in audio-inventory.json. Credits are copied from the existing project without re-auditing their external source pages.

@@ -1,0 +1,97 @@
+{
+  "status": "NOT GENERATED: verified daily allowance unavailable",
+  "generation_requests_this_task": 0,
+  "credits_spent_this_task": 0,
+  "rules": [
+    "Verify remaining DAILY allowance and reset timezone, not merely monthly credits.",
+    "Require reliable maximum billed cost per request and enforceable cap; account for concurrent usage.",
+    "Recheck before each request; no automatic retries or variants. Stop when cost cannot be bounded.",
+    "P3 needs new gameplay hooks; do not map ambience to combat cues."
+  ],
+  "effects": [
+    {
+      "priority": "P1",
+      "cue": "fireball-launch",
+      "prompt": "Short controlled flame whoosh, immediate attack, dry close perspective, no voice or music.",
+      "target_seconds": 0.6,
+      "status": "planned only"
+    },
+    {
+      "priority": "P1",
+      "cue": "fireball-impact",
+      "prompt": "Single compact fiery burst, soft low impact, no debris tail or music.",
+      "target_seconds": 0.7,
+      "status": "planned only"
+    },
+    {
+      "priority": "P1",
+      "cue": "ice-impact",
+      "prompt": "Single crystalline ice spell shatter with a short sparkling decay, no music.",
+      "target_seconds": 0.8,
+      "status": "planned only"
+    },
+    {
+      "priority": "P1",
+      "cue": "enemy-spell-impact",
+      "prompt": "Dark arcane pulse impact, distinct from fire and ice, short dry tail, no voice.",
+      "target_seconds": 0.7,
+      "status": "planned only"
+    },
+    {
+      "priority": "P1",
+      "cue": "heal",
+      "prompt": "Warm restorative magical shimmer with a gentle water accent, no melody or voice.",
+      "target_seconds": 1.0,
+      "status": "planned only"
+    },
+    {
+      "priority": "P2",
+      "cue": "victory",
+      "prompt": "Brief bright magical success flourish, no speech, restrained volume.",
+      "target_seconds": 1.4,
+      "status": "planned only"
+    },
+    {
+      "priority": "P2",
+      "cue": "defeat",
+      "prompt": "Soft low descending magical sigh, brief and gentle, no speech.",
+      "target_seconds": 1.1,
+      "status": "planned only"
+    },
+    {
+      "priority": "P2",
+      "cue": "chime",
+      "prompt": "Single crisp reward coin sparkle, short dry tail, no music.",
+      "target_seconds": 0.5,
+      "status": "planned only"
+    },
+    {
+      "priority": "P3",
+      "cue": "forest-ambience",
+      "prompt": "Quiet forest breeze and sparse distant birds, seamless loop, no footsteps, voices or music.",
+      "target_seconds": 12,
+      "status": "planned only"
+    },
+    {
+      "priority": "P3",
+      "cue": "crypt-ambience",
+      "prompt": "Quiet stone chamber air and distant water drops, seamless loop, no sudden events or music.",
+      "target_seconds": 12,
+      "status": "planned only"
+    },
+    {
+      "priority": "P3",
+      "cue": "footstep-grass",
+      "prompt": "Single leather boot step on grass and soil, dry close perspective, no movement sequence.",
+      "target_seconds": 0.35,
+      "status": "planned only"
+    },
+    {
+      "priority": "P3",
+      "cue": "chest-open",
+      "prompt": "Single small wooden treasure chest opening with hinge creak and latch, no music.",
+      "target_seconds": 1,
+      "status": "planned only"
+    }
+  ]
+}
