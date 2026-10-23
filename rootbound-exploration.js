@@ -1,15 +1,15 @@
 // A hand-authored room dungeon. Floor, wall, furniture collision and exploration share one grid.
 (()=>{'use strict';
 const rooms=[
- {id:'entry',name:'Entrance gallery',x:38,y:79,w:24,h:16},
- {id:'hub',name:'Hall of branches',x:36,y:57,w:28,h:20},
- {id:'archive',name:'Buried archive',x:10,y:52,w:22,h:24},
+ {id:'entry',name:'Arrival terrace',x:38,y:79,w:24,h:16},
+ {id:'hub',name:'Court of branches',x:36,y:57,w:28,h:20},
+ {id:'archive',name:'Overgrown archive',x:10,y:52,w:22,h:24},
  {id:'roots',name:'Root garden',x:9,y:41,w:25,h:10},
  {id:'barracks',name:'Sentinel quarters',x:68,y:55,w:23,h:18},
  {id:'treasury',name:'Eastern reliquary',x:70,y:39,w:20,h:15},
- {id:'altar',name:'Three Lights chamber',x:36,y:35,w:28,h:15},
+ {id:'altar',name:'Three Lights court',x:36,y:35,w:28,h:15},
  {id:'sanctuary',name:'Rootbound sanctuary',x:32,y:6,w:36,h:17},
- {id:'secret',name:'Hidden name chamber',x:9,y:26,w:20,h:12}
+ {id:'secret',name:'Hidden memorial terrace',x:9,y:26,w:20,h:12}
 ];
 const graph=MapRoutes.build([
  [['crypt-exit',50,94],['entry',50,89],['hall',50,79],['fork',50,67]],
@@ -34,8 +34,8 @@ const searches=[
  {id:'crypt-shelves',name:'Dusty archive shelves',room:'archive',art:'archive',text:'Three names were rubbed out of the burial records. A surviving page names the first: Avel. Beneath it: “The root garden’s brass latch opens a passage that stone forgot.”',item:'Burial rubbing: Avel',xp:20},
  {id:'crypt-relief',name:'Weathered burial relief',room:'treasury',art:'altar',text:'Under the moss you uncover the second name: Maerin. Its carved branches point toward the sanctuary’s western urn.',item:'Burial rubbing: Maerin',xp:20},
  {id:'crypt-urn',name:'Sanctuary memorial urn',room:'sanctuary',art:'urn',text:'A small sealed slip preserves the third name: Orinell. The archive’s echo may finally remember those who rested here.',item:'Burial rubbing: Orinell',xp:25},
- {id:'crypt-rubble',name:'Abandoned explorer’s pack',room:'hub',art:'coffer',text:'An explorer left a tightly wrapped pouch beneath the broken stone. Search it for useful salvage.',item:'Recovered crypt salvage',xp:20},
- {id:'crypt-hidden-latch',name:'Brass latch among the roots',room:'roots',art:'roots',text:'A brass lever is hidden in the roots. Pulling it opens the western burial chamber. The sanctuary still needs the Three Lights.',item:'Western burial passage opened',xp:25},
+ {id:'crypt-rubble',name:'Abandoned explorer’s pack',room:'hub',art:'coffer',text:'An explorer left a tightly wrapped pouch beneath the broken stone. Search it for useful salvage.',item:'Recovered sanctuary salvage',xp:20},
+ {id:'crypt-hidden-latch',name:'Brass latch among the roots',room:'roots',art:'roots',text:'A brass lever is hidden in the roots. Pulling it opens the western memorial garden. The sanctuary still needs the Three Lights.',item:'Western burial passage opened',xp:25},
  {id:'crypt-winch',name:'Reliquary salvage winch',room:'treasury',art:'winch',text:'The rusted chain lifts a buried expedition box. Recover 3 ore and 2 leather from its sealed supplies.',item:'Reliquary supplies recovered',xp:25}
 ];const byId=new Map(searches.map(s=>[s.id,s]));
 for(const s of searches){const p=graph.points.get(s.id);FOREST_NODES.push({id:s.id,kind:'crypt-search',name:s.name,description:s.text,chapter:0,stage:0,hidden:true,dungeon:'rootbound',radius:2.1,x:p.x,y:p.y});}
@@ -78,7 +78,7 @@ DungeonRules.visible=function(n){if(!RootboundExplore.active())return visible.ca
 DungeonRules.allowed=function(c,n){if(RootboundExplore.active()&&n.kind==='crypt-search')return n.id==='crypt-echo'||!c.completed.includes(n.id);if(RootboundExplore.active()&&n.id==='crypt-secret')return RootboundExplore.secret(c)&&!c.completed.includes(n.id);return allowed.call(this,c,n);};
 DungeonRules.handles=function(n){return n.kind==='crypt-search'||handles.call(this,n);};
 DungeonRules.interact=function(s,n,ui){if(n.kind==='crypt-search')return RootboundExplore.nearby(s,n,ui);return interact.call(this,s,n,ui);};
-DungeonRules.decorate=function(c){decorate.call(this,c);if(!RootboundExplore.active())return;const data=RootboundExplore.defaults(c);document.getElementById('world-title').textContent='Rootbound Crypt · explore the buried halls';document.getElementById('world-objective').textContent=(data.echo==='accepted'?'Names in the stone: '+['crypt-shelves','crypt-relief','crypt-urn'].filter(id=>c.completed.includes(id)).length+'/3 recovered. Return to the archive’s echo. ':data.echo?'The lost names are remembered. ':'Search the rooms and speak to the archive’s echo. ')+(c.completed.includes('crypt-runes')?'The sanctuary is open.':'The Three Lights still seal the sanctuary.');document.getElementById('explore-tip').textContent='EXIT: return south to the entrance arch (marked EXIT). WASD / arrows or click to walk · E searches nearby objects.';};
+DungeonRules.decorate=function(c){decorate.call(this,c);if(!RootboundExplore.active())return;const data=RootboundExplore.defaults(c);document.getElementById('world-title').textContent='Rootbound Sanctuary · explore the buried halls';document.getElementById('world-objective').textContent=(data.echo==='accepted'?'Names in the stone: '+['crypt-shelves','crypt-relief','crypt-urn'].filter(id=>c.completed.includes(id)).length+'/3 recovered. Return to the archive’s echo. ':data.echo?'The lost names are remembered. ':'Search the rooms and speak to the archive’s echo. ')+(c.completed.includes('crypt-runes')?'The sanctuary is open.':'The Three Lights still seal the sanctuary.');document.getElementById('explore-tip').textContent='EXIT: return south to the entrance arch (marked EXIT). WASD / arrows or click to walk · E searches nearby objects.';};
 const resetWalkers=MapWalkers.reset;MapWalkers.reset=function(group,p,chapter){resetWalkers.call(this,group,p,chapter);if(RootboundExplore.active()){const route=ForestWorld.route(p,graph.points.get('entry'),!RegionGates.open(0,DungeonRules.campaign.completed));if(route){PartyTrail.history=[{x:p.x,y:p.y},...route.map(q=>({x:q.x,y:q.y}))];this.update(p,0,0,false,0);}}};
 const paint=ForestArt.paint;ForestArt.paint=function(c,w,h){return RootboundExplore.active()?RootboundExplore.paint(c,w,h):paint.call(this,c,w,h);};
 const landmark=ForestArt.landmark;ForestArt.landmark=function(c,n,at,done,time){if(RootboundExplore.active()){if(n.kind==='dungeon-exit'){const image=ForestRenderer.image('assets/map-crypt-entrance.webp?v=9daf7fd633');if(image.complete&&image.naturalWidth)ForestArt.fit(c,image,at.x,at.y,140,125);return true;}if(byId.has(n.id)||n.id==='crypt-echo')return RootboundExplore.landmark(c,n,at,done);return true;}return landmark.call(this,c,n,at,done,time);};
