@@ -1,31 +1,38 @@
-# Forest and crypt ambience — October 24, 2026
+# Complete ambience update — October 24, 2026
 
-Two new twelve-second looping ambience tracks. Both selected variation-#1 takes are saved in ElevenLabs Assets, verified through the connected library, and backed up unchanged in original-downloads/. Four variations per request remain in Sound Effects History. This task generated two request groups/eight variations, with no retries.
+This cumulative update includes forest, crypt, mountain and coast ambience. You can skip the earlier Forest-Crypt-Ambience ZIP; this includes its files and the two new loops. All four selected takes are saved in ElevenLabs Assets and backed up unchanged in original-downloads/. The optimized files are in assets/ambience/.
 
 ## Install
 
-Extract the ZIP. Upload recorded-audio.js, index.html and assets/ambience/ to the existing game repository root, replacing matching files. Keep all current gameplay, teacher, map, save and existing sound/music files. The other files in this ZIP are previews, backups and records; you may keep them locally.
+Extract the ZIP. Upload index.html, recorded-audio.js and the complete assets/ambience/ folder into the existing game repository root, replacing matching files. Keep the other files locally as backups and records. Wait for GitHub Pages to publish, then reload and enable Sound.
 
-index.html was taken from the live public repository at the time of this update; only the recorded-audio.js cache key was changed. recorded-audio.js retains the live audio integration and appends the ambience module. No game.js, movement masks, teacher scripts or save code are included or replaced. This update assumes the preceding corrected audio/game build is installed.
+The page is copied from the current live repository, with ONLY the recorded-audio.js version query changed. The live audio script is retained, with ONLY the ambience track list and region choice expanded. No game.js, teacher tools, walking code, collision data, question banks or save code is included or replaced.
 
-After GitHub Pages publishes, reload the game and enable Sound. Forest ambience plays during world exploration in region 0; crypt ambience plays during dungeon-world exploration, using the game's existing dungeon flag (so it also covers the other dungeon interiors). Neither plays during battles, road animations, title/result screens or other outdoor regions. Same-scene updates do not restart a loop.
+Forest plays in outdoor world region 0; mountain in regions 1 and 4 (Frostpeak and Highlands); coast in region 3. City region 2 has no added ambience. Dungeon-world scenes use the crypt loop through the existing dungeon flag. Battles, title/results and road animations stop ambience. Effects volume and the master Sound toggle control it. Music can be disabled while environmental effects continue. Hidden tabs/suspended audio stop it; returning or enabling sound restarts the proper loop. Same-scene updates do not restart playback. Loads are lazy after sound is enabled, and cancelled loads cannot start late. Failed files can retry after toggling sound. There are at most four cached ambience buffers, one per supplied environment (approximately 12 MB of decoded audio combined).
 
-Ambience is deliberately quiet and follows the existing Effects slider and master Sound toggle. It continues if only music is turned off. Hidden tabs and suspended audio are silenced; returning/re-enabling sound resumes the correct ambience. Assets load lazily only after sound is enabled. At most two ambience buffers are cached. Cancelled scene loads cannot start late; failed files can retry after toggling sound.
+All four optimized tracks are twelve-second looping stereo MP3s at 32 kHz / 96 kbps. Loudness target -25 LUFS, true-peak target -3 dBTP, mixed quietly at gain .18 into the Effects bus. Combined optimized size: 580,784 bytes. Open ambience-preview.html to hear the four loops. Their exact paths, durations and hashes are in ambience-inventory.json.
 
-The MP3s are stereo 32 kHz / 96 kbps and normalized to a -25 LUFS target with a -3 dBTP target. They keep the generator's loop cycle intact and total 290,392 bytes. Original downloads and optimized game versions are both retained. Their exact durations, hashes and paths are in ambience-inventory.json. These generated assets are subject to the user's ElevenLabs account terms; they are not CC0.
+## Spending and backups
 
-Open ambience-preview.html after extraction to listen to the game versions. No subjective listening review or full live-game campaign test is claimed.
+| Requests on October 24 | Credits |
+| --- | ---: |
+| Forest and crypt | 320 |
+| Mountain and coast | 320 |
+| Total today | **640** |
+| Remaining in 1,000-credit daily task budget | **360** |
 
-## Verified spending and saved assets
+Account balance: 39,488 before today's ambience work; 39,168 before this pair; 38,848 after it. Each request cost 160 credits and included four variations. Four request groups / sixteen generated variations today; selected variation #1 from each is saved to Assets, downloaded and integrated. No retries or additional generations. Other variations remain in Sound Effects History. No Suno credits were used.
 
-- Daily budget: 1,000 credits.
-- Starting balance: 39,488. Final observed balance: 39,168.
-- Used today in this chat: 320 credits (160 for each request, including its four variations).
-- Remaining within today's budget: 680 credits.
-- No Suno use, retries, paid extras or account setting changes.
-- Forest saved asset ID: r95PB1zZacdvG6f8eHrN. Name begins Quiet temperate forest ambience for a fantasy RPG.
-- Crypt saved asset ID: JqRGOLpQsjrvu8cFiEGk. Name begins Quiet ancient stone crypt ambience for a fantasy R.
+Verified saved Assets IDs:
+- Forest: r95PB1zZacdvG6f8eHrN
+- Crypt: JqRGOLpQsjrvu8cFiEGk
+- Mountain: d1iYzH95W0QQ1n8XM7q9
+- Coast: oX3cfq6BF48nNr4r7z0p
+
+Original downloaded MP3s are retained in original-downloads/. These generated sounds are subject to the user's ElevenLabs terms, not CC0.
 
 ## Checks
 
-Both optimized loops decode to finite, non-silent, unclipped stereo samples. Automated checks passed for enable-before-fetch, forest/crypt routing, Effects volume routing, same-scene deduplication, two-buffer cache, stopping in battle/title/other regions, mute/hidden/suspend/resume, cancellation races and failed-file retry. The test loads the actual campaign audio class with the new module. Existing live audio code is retained verbatim before the appended module. Teacher/game controller and collision code are untouched. Remote deployment has not been performed.
+Passed: both new game files decode to finite, non-silent, unclipped stereo samples; JavaScript syntax; all four ambience choices and Highlands routing; quiet Effects-bus connection; same-scene deduplication; bounded four-buffer cache; battle/title/city stop; mute/hidden/suspend/resume; cancelled-load race; failed-file retry. Regression checks passed for all fourteen existing generated effect cue mappings and all seven music routes using the actual campaign audio class. index.html differs from the live snapshot only in the recorded-audio.js version query.
+
+No live end-to-end gameplay or physical Chromebook test was performed, and no remote deployment was made. A subjective listening review of the first takes is not claimed. This is an incremental update over the corrected audio/game build; it is not a standalone game.

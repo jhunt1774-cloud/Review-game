@@ -24,5 +24,31 @@
     "loop_requested": true,
     "generated_date": "2026-10-24",
     "credits_for_request": 160
+  },
+  {
+    "id": "mountain",
+    "path": "assets/ambience/mountain.mp3",
+    "url": "assets/ambience/mountain.mp3?v=c4d8197170",
+    "sha256": "c4d8197170ba894c6ad126a2930928b7b9780fab133ca281b8c98f8939e31bf7",
+    "seconds": 12.0,
+    "bytes": 145196,
+    "decoded_stereo_peak": 0.5944545269012451,
+    "variation": 1,
+    "loop_requested": true,
+    "generated_date": "2026-10-24",
+    "credits_for_request": 160
+  },
+  {
+    "id": "coast",
+    "path": "assets/ambience/coast.mp3",
+    "url": "assets/ambience/coast.mp3?v=f78de89e20",
+    "sha256": "f78de89e20de51605f21b5244b4edbdc54aaf2599b2ed9c97fc398c44e589d8d",
+    "seconds": 12.0,
+    "bytes": 145196,
+    "decoded_stereo_peak": 0.26189473271369934,
+    "variation": 1,
+    "loop_requested": true,
+    "generated_date": "2026-10-24",
+    "credits_for_request": 160
   }
 ]

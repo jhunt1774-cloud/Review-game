@@ -30,7 +30,7 @@ const musicBuffer=proto.musicBuffer;proto.musicBuffer=function(id){const promise
 const proto=CombatAudio.prototype;
 if(proto._forestCryptAmbienceInstalled)return;
 proto._forestCryptAmbienceInstalled=true;
-const tracks={"forest": {"url": "assets/ambience/forest.mp3?v=ae08eee806", "gain": 0.18}, "crypt": {"url": "assets/ambience/crypt.mp3?v=18aee92157", "gain": 0.18}};
+const tracks={"forest": {"url": "assets/ambience/forest.mp3?v=ae08eee806", "gain": 0.18}, "crypt": {"url": "assets/ambience/crypt.mp3?v=18aee92157", "gain": 0.18}, "mountain": {"url": "assets/ambience/mountain.mp3?v=c4d8197170", "gain": 0.18}, "coast": {"url": "assets/ambience/coast.mp3?v=f78de89e20", "gain": 0.18}};
 proto.stopAmbience=function(immediate=true){
  this.ambienceToken=(this.ambienceToken||0)+1;this.ambienceLoading=null;
  const current=this.currentAmbience;this.currentAmbience=null;if(!current)return;
@@ -60,10 +60,11 @@ proto.syncAmbience=async function(){
 const setScene=proto.setScene,unlock=proto.unlock,toggle=proto.toggle,visibility=proto.visibility;
 proto.setScene=function(scene,region=0,context={}){
  setScene.call(this,scene,region,context);
- this.ambienceTarget=scene==='world'?(context.dungeon?'crypt':Number(region)===0?'forest':null):null;
+ this.ambienceTarget=scene==='world'?(context.dungeon?'crypt':({0:'forest',1:'mountain',3:'coast',4:'mountain'}[Number(region)]||null)):null;
  void this.syncAmbience();
 };
 proto.unlock=async function(...args){const ready=await unlock.apply(this,args);if(ready)void this.syncAmbience();else this.stopAmbience();return ready;};
 proto.toggle=async function(...args){if(this.enabled)this.stopAmbience();const result=await toggle.apply(this,args);void this.syncAmbience();return result;};
 proto.visibility=function(hidden){if(hidden)this.stopAmbience();return visibility.call(this,hidden);};
 })();
+
