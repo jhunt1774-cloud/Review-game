@@ -1,25 +1,31 @@
-# Restore Teacher Playtest and current map walking
+# Forest and crypt ambience — October 24, 2026
 
-This repairs a regression from the earlier audio ZIP: it included an older October 18 game.js. The live repository still loads teacher-playtest.js, but that old controller has no GamePlaytest interface. It also lacks the current map movement, save and story integration. The restored game.js starts from the latest October 23 owner build and adds only the six sound hooks, with an optional footstep call so a stale audio script cannot break walking.
+Two new twelve-second looping ambience tracks. Both selected variation-#1 takes are saved in ElevenLabs Assets, verified through the connected library, and backed up unchanged in original-downloads/. Four variations per request remain in Sound Effects History. This task generated two request groups/eight variations, with no retries.
 
-## Upload this correction
+## Install
 
-1. Extract Teacher-Testing-Restore.zip.
-2. Upload ALL SIX files inside to the existing Review-game repository root and replace matching files: index.html, game.js, teacher-playtest.js, music-data.js, sound-data.js and recorded-audio.js.
-3. Keep your current assets folders, map files, question banks and cloud files. This small patch relies on the sound/music assets already included in the prior soundtrack ZIP.
-4. Wait for GitHub Pages to publish, then reload the game. The included index.html is copied from the current live repository, retaining its script order and teacher/cloud modules; it updates only five script version values to fetch the corrected controller and current audio maps.
-5. Open Teacher mode, enter your existing teacher code, and select Open Teacher Playtest. Test an area in Map inspection mode first. Your normal adventure, assigned quests and playtest use their separate save slots again.
+Extract the ZIP. Upload recorded-audio.js, index.html and assets/ambience/ to the existing game repository root, replacing matching files. Keep all current gameplay, teacher, map, save and existing sound/music files. The other files in this ZIP are previews, backups and records; you may keep them locally.
 
-No local saves were cleared or edited, and no remote files were published by this task. A corrected complete soundtrack ZIP is also available if you have not installed the audio assets yet. Do not re-upload an older downloaded copy of the previous ZIP: its old game.js caused this mismatch.
+index.html was taken from the live public repository at the time of this update; only the recorded-audio.js cache key was changed. recorded-audio.js retains the live audio integration and appends the ambience module. No game.js, movement masks, teacher scripts or save code are included or replaced. This update assumes the preceding corrected audio/game build is installed.
 
-## Evidence and checks
+After GitHub Pages publishes, reload the game and enable Sound. Forest ambience plays during world exploration in region 0; crypt ambience plays during dungeon-world exploration, using the game's existing dungeon flag (so it also covers the other dungeon interiors). Neither plays during battles, road animations, title/result screens or other outdoor regions. Same-scene updates do not restart a loop.
 
-Confirmed against the live public repository: game.js contains the prior audio hook but no window.GamePlaytest; teacher-playtest.js still expects GamePlaytest. The live index references the newest owner controller hash, but the actual controller contents were replaced by the old audio file.
+Ambience is deliberately quiet and follows the existing Effects slider and master Sound toggle. It continues if only music is turned off. Hidden tabs and suspended audio are silenced; returning/re-enabling sound resumes the correct ambience. Assets load lazily only after sound is enabled. At most two ambience buffers are cached. Cancelled scene loads cannot start late; failed files can retry after toggling sound.
 
-Checks passed using the existing game test harness with the corrected controller substituted into the latest owner build:
+The MP3s are stereo 32 kHz / 96 kbps and normalized to a -25 LUFS target with a -3 dBTP target. They keep the generator's loop cycle intact and total 290,392 bytes. Original downloads and optimized game versions are both retained. Their exact durations, hashes and paths are in ambience-inventory.json. These generated assets are subject to the user's ElevenLabs account terms; they are not CC0.
 
-- Teacher-code gate; all ten world/dungeon areas; gate/puzzle toggles; every listed battle; party presets; healing; reset; continue; bug report; exit; separate normal/teacher/assignment saves.
-- All ten map navigation masks; closed/open boss routes; followers across bridges; blocked diagonal corners; teleport-trail reset.
-- JavaScript syntax for controller and teacher module.
+Open ambience-preview.html after extraction to listen to the game versions. No subjective listening review or full live-game campaign test is claimed.
 
-These are automated simulated-DOM/navigation checks, not live browser or physical Chromebook testing. The public site has not yet been changed. If an area still walks incorrectly after this patch is uploaded, identify the area and location so that remaining ground issue can be checked against the current map.
+## Verified spending and saved assets
+
+- Daily budget: 1,000 credits.
+- Starting balance: 39,488. Final observed balance: 39,168.
+- Used today in this chat: 320 credits (160 for each request, including its four variations).
+- Remaining within today's budget: 680 credits.
+- No Suno use, retries, paid extras or account setting changes.
+- Forest saved asset ID: r95PB1zZacdvG6f8eHrN. Name begins Quiet temperate forest ambience for a fantasy RPG.
+- Crypt saved asset ID: JqRGOLpQsjrvu8cFiEGk. Name begins Quiet ancient stone crypt ambience for a fantasy R.
+
+## Checks
+
+Both optimized loops decode to finite, non-silent, unclipped stereo samples. Automated checks passed for enable-before-fetch, forest/crypt routing, Effects volume routing, same-scene deduplication, two-buffer cache, stopping in battle/title/other regions, mute/hidden/suspend/resume, cancellation races and failed-file retry. The test loads the actual campaign audio class with the new module. Existing live audio code is retained verbatim before the appended module. Teacher/game controller and collision code are untouched. Remote deployment has not been performed.

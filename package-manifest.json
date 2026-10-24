@@ -1,0 +1,46 @@
+{
+  "ambience-inventory.json": {
+    "sha256": "9b49d93c43dbbdd54c651ed54991165cd6b9a83c2e3bf96293eda7ae99ae78d6",
+    "bytes": 849
+  },
+  "ambience-preview.html": {
+    "sha256": "5285e4f084246b9ee52c94328b27593949fe7a59b794ed2277a5861a6532fc01",
+    "bytes": 1024
+  },
+  "credit-balance-proof.png": {
+    "sha256": "e400acc1dc41f1c85b81fbbb85e42edfe934b5a15189138f22536cfe997ae81c",
+    "bytes": 83088
+  },
+  "index.html": {
+    "sha256": "29961601d1ef0097c7f4fe91feeacfa4e5a0bbd16019895f6569cb713fd6ed88",
+    "bytes": 25556
+  },
+  "README.md": {
+    "sha256": "618abc4f0d72ba84cb8dd9a03efb7ebc1fa6a70bc86f239aa07108d02ccadd11",
+    "bytes": 3590
+  },
+  "recorded-audio.js": {
+    "sha256": "3c39f41d802c60d1f89547e42cd0daf2146ee052a37d63084135cca3962b5b20",
+    "bytes": 7718
+  },
+  "saved-assets-proof.png": {
+    "sha256": "779a33b22b234572bf4681d5e2fa0572d95a434ac7c3ec9eb1caa89078833545",
+    "bytes": 38951
+  },
+  "original-downloads/crypt.mp3": {
+    "sha256": "3c523b72cbf4aea11ae2f9add6420c0ba88d263fcbc4346c4c9754caab76bc5d",
+    "bytes": 289197
+  },
+  "original-downloads/forest.mp3": {
+    "sha256": "24d70bcf523b77d31a29bd975d03bcb39f725972db44bebb883ea6065ec64fcd",
+    "bytes": 289197
+  },
+  "assets/ambience/crypt.mp3": {
+    "sha256": "18aee92157067d00bc4d72dc03ceeeed737db3175b70851160b9db4c53d4930a",
+    "bytes": 145196
+  },
+  "assets/ambience/forest.mp3": {
+    "sha256": "ae08eee806f11e602b2e49343b9461b3bbab69d505358d4167393dfbfb91038b",
+    "bytes": 145196
+  }
+}

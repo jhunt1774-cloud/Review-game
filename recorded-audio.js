@@ -23,3 +23,47 @@ proto.setScene=function(scene,region=0,context={}){this.region=Math.max(0,Math.m
 // Keep current and next decoded tracks, while browser HTTP caching handles revisits.
 const musicBuffer=proto.musicBuffer;proto.musicBuffer=function(id){const promise=musicBuffer.call(this,id);promise.then(()=>{for(const key of [...this.musicBuffers.keys()]){if(this.musicBuffers.size<=2)break;if(key!==id&&key!==this.currentMusic?.id)this.musicBuffers.delete(key);}},()=>{});return promise;};
 })();
+
+
+// Forest/crypt ambience: independent effects bus, lazy loading, no gameplay changes.
+(()=>{'use strict';
+const proto=CombatAudio.prototype;
+if(proto._forestCryptAmbienceInstalled)return;
+proto._forestCryptAmbienceInstalled=true;
+const tracks={"forest": {"url": "assets/ambience/forest.mp3?v=ae08eee806", "gain": 0.18}, "crypt": {"url": "assets/ambience/crypt.mp3?v=18aee92157", "gain": 0.18}};
+proto.stopAmbience=function(immediate=true){
+ this.ambienceToken=(this.ambienceToken||0)+1;this.ambienceLoading=null;
+ const current=this.currentAmbience;this.currentAmbience=null;if(!current)return;
+ try{const now=this.ctx.currentTime;current.level.gain.cancelScheduledValues(now);current.level.gain.setTargetAtTime(0,now,immediate?.008:.12);current.source.stop(now+(immediate?.035:.45));}catch{try{current.source.disconnect();current.level.disconnect();}catch{}}
+};
+proto.ambienceBuffer=function(id){
+ this.ambienceBuffers??=new Map();if(this.ambienceBuffers.has(id))return this.ambienceBuffers.get(id);
+ const track=tracks[id];if(!track)return Promise.reject(Error('Unknown ambience'));
+ const promise=fetch(track.url).then(r=>{if(!r.ok)throw Error('Ambience unavailable');return r.arrayBuffer();}).then(bytes=>this.ctx.decodeAudioData(bytes)).then(buffer=>{if(!buffer.duration)throw Error('Empty ambience');return buffer;}).catch(error=>{this.ambienceBuffers.delete(id);throw error;});
+ this.ambienceBuffers.set(id,promise);return promise;
+};
+proto.syncAmbience=async function(){
+ const id=this.ambienceTarget;
+ if(!id||!this.enabled||!this.ctx||this.hidden||this.ctx.state!=='running'){this.stopAmbience();return;}
+ if(this.currentAmbience?.id===id||this.ambienceLoading?.id===id)return;
+ this.stopAmbience(false);const token=this.ambienceToken;this.ambienceLoading={id,token};
+ try{
+  const buffer=await this.ambienceBuffer(id);
+  if(token!==this.ambienceToken||id!==this.ambienceTarget||!this.enabled||this.hidden||this.ctx.state!=='running')return;
+  const c=this.ctx,source=c.createBufferSource(),level=c.createGain();source.buffer=buffer;source.loop=true;source.connect(level);level.connect(this.fx);
+  level.gain.setValueAtTime(0,c.currentTime);level.gain.linearRampToValueAtTime(tracks[id].gain,c.currentTime+.65);
+  const current={id,source,level};source.onended=()=>{source.disconnect();level.disconnect();if(this.currentAmbience===current)this.currentAmbience=null;};
+  this.currentAmbience=current;source.start();this.ambienceError='';
+ }catch{if(token===this.ambienceToken)this.ambienceError='Background ambience could not load. Toggle sound to retry.';}
+ finally{if(this.ambienceLoading?.token===token)this.ambienceLoading=null;}
+};
+const setScene=proto.setScene,unlock=proto.unlock,toggle=proto.toggle,visibility=proto.visibility;
+proto.setScene=function(scene,region=0,context={}){
+ setScene.call(this,scene,region,context);
+ this.ambienceTarget=scene==='world'?(context.dungeon?'crypt':Number(region)===0?'forest':null):null;
+ void this.syncAmbience();
+};
+proto.unlock=async function(...args){const ready=await unlock.apply(this,args);if(ready)void this.syncAmbience();else this.stopAmbience();return ready;};
+proto.toggle=async function(...args){if(this.enabled)this.stopAmbience();const result=await toggle.apply(this,args);void this.syncAmbience();return result;};
+proto.visibility=function(hidden){if(hidden)this.stopAmbience();return visibility.call(this,hidden);};
+})();

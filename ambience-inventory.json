@@ -1,0 +1,28 @@
+[
+  {
+    "id": "forest",
+    "path": "assets/ambience/forest.mp3",
+    "url": "assets/ambience/forest.mp3?v=ae08eee806",
+    "sha256": "ae08eee806f11e602b2e49343b9461b3bbab69d505358d4167393dfbfb91038b",
+    "seconds": 12.0,
+    "bytes": 145196,
+    "decoded_stereo_peak": 0.2170991599559784,
+    "variation": 1,
+    "loop_requested": true,
+    "generated_date": "2026-10-24",
+    "credits_for_request": 160
+  },
+  {
+    "id": "crypt",
+    "path": "assets/ambience/crypt.mp3",
+    "url": "assets/ambience/crypt.mp3?v=18aee92157",
+    "sha256": "18aee92157067d00bc4d72dc03ceeeed737db3175b70851160b9db4c53d4930a",
+    "seconds": 12.0,
+    "bytes": 145196,
+    "decoded_stereo_peak": 0.32575276494026184,
+    "variation": 1,
+    "loop_requested": true,
+    "generated_date": "2026-10-24",
+    "credits_for_request": 160
+  }
+]
