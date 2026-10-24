@@ -7,7 +7,7 @@ const ready=OpenPaintedMaps.ready;OpenPaintedMaps.ready=function(){if(!Integrate
 const paint=OpenPaintedMaps.paint;OpenPaintedMaps.paint=function(c,w,h){if(!IntegratedMapArt.current())return paint.call(this,c,w,h);this.build();c.imageSmoothingEnabled=true;c.imageSmoothingQuality='high';c.fillStyle='#10201b';c.fillRect(0,0,w,h);const im=ForestRenderer.image(this.sceneAsset());if(im.complete&&im.naturalWidth)c.drawImage(im,0,0,w,h);};
 const landmark=ForestArt.landmark;ForestArt.landmark=function(c,n,at,done,time=0){const map=IntegratedMapArt.current();if(map&&n.kind==='dungeon-exit')return;if(!map?.features.some(f=>f.id===n.id))return landmark.call(this,c,n,at,done,time);};
 // Searchable small finds blend into the original vegetation until approached.
-const originals={"region-0":"assets/geography-forest.webp?v=1b2725db6d","region-1":"assets/geography-mountain-user-bridges.webp?v=ee1ce382c5","region-2":"assets/geography-city.webp?v=b19c399b5b","region-3":"assets/geography-coast-user-bridges.webp?v=a6746cb452","region-4":"assets/geography-highlands-upper-bridges.webp?v=adbfac1ef9","rootbound":"assets/side-geography-rootbound-user-bridges.webp?v=d5aedd500c","frostmine":"assets/side-geography-frostmine-user-bridges.webp?v=efad1a78ec","amber-hollow":"assets/amber-hollow-user-bridges.webp?v=b9165c136d","clockwork-garden":"assets/side-geography-clockwork-user-bridges.webp?v=bf30723cff","lantern-grotto":"assets/side-geography-lantern-grotto.webp?v=e3bbdb8085"},patches=new Map(),distance=(a,b)=>Math.hypot((a.x-b.x)*1.5,a.y-b.y);
+const originals={"region-0":"assets/geography-forest.webp?v=1b2725db6d","region-1":"assets/geography-mountain-user-bridges.webp?v=ee1ce382c5","region-2":"assets/asterfall-coherent-city.webp?v=20261024-1","region-3":"assets/geography-coast-user-bridges.webp?v=a6746cb452","region-4":"assets/geography-highlands-upper-bridges.webp?v=adbfac1ef9","rootbound":"assets/side-geography-rootbound-user-bridges.webp?v=d5aedd500c","frostmine":"assets/side-geography-frostmine-user-bridges.webp?v=efad1a78ec","amber-hollow":"assets/amber-hollow-user-bridges.webp?v=b9165c136d","clockwork-garden":"assets/side-geography-clockwork-user-bridges.webp?v=bf30723cff","lantern-grotto":"assets/side-geography-lantern-grotto.webp?v=e3bbdb8085"},patches=new Map(),distance=(a,b)=>Math.hypot((a.x-b.x)*1.5,a.y-b.y);
 Object.assign(IntegratedMapArt,{
  concealed(map){return map.features.filter(f=>(['loot','treasure','dungeon-cache','roam-cache'].includes(f.kind)||f.id==='ranger-hollow')&&!map.features.some(p=>['merchant','dungeon'].includes(p.kind)&&distance(p,f)<4));},
  opacity(p,n,visible=true){if(!visible)return 0;return Math.max(0,Math.min(1,(6-distance(p,n))/2));},
@@ -86,3 +86,52 @@ const patch=IntegratedMapArt.patch;IntegratedMapArt.patch=function(f,reveal){con
 // Retain concealment directly over the find, but let repaired walkways show around it.
 m.globalCompositeOperation='destination-out';m.beginPath();m.ellipse(140,125,55,80,0,0,Math.PI*2);m.fill();const c=canvas.getContext('2d');c.save();c.globalCompositeOperation='destination-out';c.drawImage(mask,0,0);c.restore();return canvas;};
 })();
+
+// Asterfall architecture follows the existing owner-authored walking ground.
+// Keep finds separate from terrain so proximity patches cannot restore the old walls.
+(()=>{'use strict';
+const id='region-2',asset='assets/asterfall-coherent-city.webp?v=20261024-1';
+IntegratedMapArt.maps[id].asset=asset;
+const patch=IntegratedMapArt.patch;
+IntegratedMapArt.patch=function(f,reveal){if(OpenPaintedMaps.key()===id)return null;return patch.call(this,f,reveal);};
+const reveal=IntegratedMapArt.reveal;
+IntegratedMapArt.reveal=function(c,list,toScreen,p){
+ if(OpenPaintedMaps.key()!==id)return reveal.call(this,c,list,toScreen,p);
+ const map=this.current(),campaign=DungeonRules.campaign;
+ for(const f of this.concealed(map)){
+  const n=FOREST_NODES.find(n=>n.id===f.id);
+  const alpha=this.opacity(p,f,!!n&&DungeonRules.visible(n));
+  if(!alpha)continue;
+  const at=toScreen(f.x,f.y),done=!!campaign?.completed.includes(f.id);
+  const image=ForestRenderer.image('assets/world-find-props.webp'),kind=ExplorationPolish.propKind(n);
+  if(kind===null||!image.complete||!image.naturalWidth)continue;
+  const rects=[[.025,.14,.44,.41],[.515,.15,.47,.40],[.015,.565,.47,.345],[.52,.60,.43,.30]],r=rects[kind],w=kind===1?54:kind===2?42:46,h=w*r[3]/r[2];
+  list.push({y:at.y,draw:()=>{c.save();c.globalAlpha=alpha*(done?.5:1);c.drawImage(image,r[0]*image.naturalWidth,r[1]*image.naturalHeight,r[2]*image.naturalWidth,r[3]*image.naturalHeight,at.x-w/2,at.y-h,w,h);c.restore();}});
+ }
+};
+// The previous map's foreground polygons describe walls removed by this repair.
+const foliage=LayeredFoliage.scene;
+LayeredFoliage.scene=function(...args){if(OpenPaintedMaps.key()!==id)return foliage.apply(this,args);};
+})();
+
+
+
+// Asterfall's destinations and progression gate use the surveyed new streets.
+(()=>{'use strict';
+const anchors=AuthoredFloors.data['region-2'].anchors,city=OutdoorGeography.get('region-2');
+city.entry=anchors.entry.slice();city.camp=anchors.merchant.slice();city.battles=[8,9,10,11].map(i=>anchors['m'+i].slice());
+city.a=anchors.c27.slice();city.b=anchors.c28.slice();city.pass={r:1.8,points:[city.a,city.b]};
+city.sanctuary=[[74.7,14.9],[78.9,12.7],[82.7,13.5],[87,16.5],[86,18.9],[82.5,20.6],[78.6,18.9]];
+ExplorationLayout.solids['region-2']=[];
+for(const f of IntegratedMapArt.maps['region-2'].features){const at=anchors[f.id];if(at){f.x=at[0];f.y=at[1];}}
+})();
+
+// Patrols fit the new streets; their finds follow their actual searchable nodes.
+(()=>{'use strict';
+const clearance=RoamingWorld.clearance;
+RoamingWorld.clearance=function(p,r=3){return clearance.call(this,p,OpenPaintedMaps.key()==='region-2'?Math.min(r,1.3):r);};
+const reveal=IntegratedMapArt.reveal;
+IntegratedMapArt.reveal=function(c,list,toScreen,p){if(OpenPaintedMaps.key()==='region-2')for(const f of this.maps['region-2'].features){const n=FOREST_NODES.find(n=>n.id===f.id);if(n?.roamCache){f.x=n.x;f.y=n.y;}}return reveal.call(this,c,list,toScreen,p);};
+})();
+
+
