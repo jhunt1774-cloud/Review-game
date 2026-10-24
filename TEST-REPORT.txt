@@ -1,0 +1,8 @@
+PASS: all ten maps walking masks, pre/post gate routes, follower travel, blocked corners and teleport reset.
+PASS: teacher code gate, ten areas, gate/puzzle toggles, battle choices, presets, heal/reset/continue/report and normal/teacher/assignment save isolation.
+PASS: all five dungeon quests, locks, one-time rewards, correct entries and outdoor returns, HP continuity.
+PASS: all five moved entrances far from spawn, reachable before region boss, no automatic entry, Enter interaction and cancel.
+PASS: compact battle Attack/Skills/Items, skill actions, potion access, four answers and full optional explanation with paused continuation.
+PASS: Clockwork pool/beds/machine/glass collision, engine seal, safe old-position recovery, 8,344 follower foot samples and navigation cache equality.
+PASS: syntax validation for changed JS, matching cache hashes and upload file inventory.
+LIMIT: simulated UI/storage tests and native image inspection; no live browser/Chromebook playtest.

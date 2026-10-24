@@ -7,7 +7,7 @@ const ready=OpenPaintedMaps.ready;OpenPaintedMaps.ready=function(){if(!Integrate
 const paint=OpenPaintedMaps.paint;OpenPaintedMaps.paint=function(c,w,h){if(!IntegratedMapArt.current())return paint.call(this,c,w,h);this.build();c.imageSmoothingEnabled=true;c.imageSmoothingQuality='high';c.fillStyle='#10201b';c.fillRect(0,0,w,h);const im=ForestRenderer.image(this.sceneAsset());if(im.complete&&im.naturalWidth)c.drawImage(im,0,0,w,h);};
 const landmark=ForestArt.landmark;ForestArt.landmark=function(c,n,at,done,time=0){const map=IntegratedMapArt.current();if(map&&n.kind==='dungeon-exit')return;if(!map?.features.some(f=>f.id===n.id))return landmark.call(this,c,n,at,done,time);};
 // Searchable small finds blend into the original vegetation until approached.
-const originals={"region-0":"assets/geography-forest.webp?v=1b2725db6d","region-1":"assets/geography-mountain-user-bridges.webp?v=ee1ce382c5","region-2":"assets/asterfall-coherent-city.webp?v=20261024-1","region-3":"assets/geography-coast-user-bridges.webp?v=a6746cb452","region-4":"assets/geography-highlands-upper-bridges.webp?v=adbfac1ef9","rootbound":"assets/side-geography-rootbound-user-bridges.webp?v=d5aedd500c","frostmine":"assets/side-geography-frostmine-user-bridges.webp?v=efad1a78ec","amber-hollow":"assets/amber-hollow-user-bridges.webp?v=b9165c136d","clockwork-garden":"assets/side-geography-clockwork-user-bridges.webp?v=bf30723cff","lantern-grotto":"assets/side-geography-lantern-grotto.webp?v=e3bbdb8085"},patches=new Map(),distance=(a,b)=>Math.hypot((a.x-b.x)*1.5,a.y-b.y);
+const originals={"region-0":"assets/geography-forest.webp?v=1b2725db6d","region-1":"assets/geography-mountain-user-bridges.webp?v=ee1ce382c5","region-2":"assets/asterfall-coherent-city.webp?v=20261024-1","region-3":"assets/geography-coast-user-bridges.webp?v=a6746cb452","region-4":"assets/geography-highlands-upper-bridges.webp?v=adbfac1ef9","rootbound":"assets/side-geography-rootbound-user-bridges.webp?v=d5aedd500c","frostmine":"assets/side-geography-frostmine-user-bridges.webp?v=efad1a78ec","amber-hollow":"assets/amber-hollow-user-bridges.webp?v=b9165c136d","clockwork-garden":"assets/clockwork-coherent-conservatory.webp?v=20261024-1","lantern-grotto":"assets/side-geography-lantern-grotto.webp?v=e3bbdb8085"},patches=new Map(),distance=(a,b)=>Math.hypot((a.x-b.x)*1.5,a.y-b.y);
 Object.assign(IntegratedMapArt,{
  concealed(map){return map.features.filter(f=>(['loot','treasure','dungeon-cache','roam-cache'].includes(f.kind)||f.id==='ranger-hollow')&&!map.features.some(p=>['merchant','dungeon'].includes(p.kind)&&distance(p,f)<4));},
  opacity(p,n,visible=true){if(!visible)return 0;return Math.max(0,Math.min(1,(6-distance(p,n))/2));},
@@ -134,4 +134,95 @@ const reveal=IntegratedMapArt.reveal;
 IntegratedMapArt.reveal=function(c,list,toScreen,p){if(OpenPaintedMaps.key()==='region-2')for(const f of this.maps['region-2'].features){const n=FOREST_NODES.find(n=>n.id===f.id);if(n?.roamCache){f.x=n.x;f.y=n.y;}}return reveal.call(this,c,list,toScreen,p);};
 })();
 
+
+
+
+// Clockwork Conservatory uses the replacement glasshouse floor.
+// Keep finds separate from terrain so proximity patches cannot restore the old walls.
+(()=>{'use strict';
+const id='clockwork-garden',asset='assets/clockwork-coherent-conservatory.webp?v=20261024-1';
+IntegratedMapArt.maps[id].asset=asset;
+const patch=IntegratedMapArt.patch;
+IntegratedMapArt.patch=function(f,reveal){if(OpenPaintedMaps.key()===id)return null;return patch.call(this,f,reveal);};
+const reveal=IntegratedMapArt.reveal;
+IntegratedMapArt.reveal=function(c,list,toScreen,p){
+ if(OpenPaintedMaps.key()!==id)return reveal.call(this,c,list,toScreen,p);
+ const map=this.current(),campaign=DungeonRules.campaign;
+ for(const f of this.concealed(map)){
+  const n=FOREST_NODES.find(n=>n.id===f.id);
+  const alpha=this.opacity(p,f,!!n&&DungeonRules.visible(n));
+  if(!alpha)continue;
+  const at=toScreen(f.x,f.y),done=!!campaign?.completed.includes(f.id);
+  const image=ForestRenderer.image('assets/world-find-props.webp'),kind=ExplorationPolish.propKind(n);
+  if(kind===null||!image.complete||!image.naturalWidth)continue;
+  const rects=[[.025,.14,.44,.41],[.515,.15,.47,.40],[.015,.565,.47,.345],[.52,.60,.43,.30]],r=rects[kind],w=kind===1?54:kind===2?42:46,h=w*r[3]/r[2];
+  list.push({y:at.y,draw:()=>{c.save();c.globalAlpha=alpha*(done?.5:1);c.drawImage(image,r[0]*image.naturalWidth,r[1]*image.naturalHeight,r[2]*image.naturalWidth,r[3]*image.naturalHeight,at.x-w/2,at.y-h,w,h);c.restore();}});
+ }
+};
+// The previous map's foreground polygons describe walls removed by this repair.
+const foliage=LayeredFoliage.scene;
+LayeredFoliage.scene=function(...args){if(OpenPaintedMaps.key()!==id)return foliage.apply(this,args);};
+})();
+
+
+
+
+// Match all existing story interactions and the sealed guardian approach to the new floor.
+(()=>{'use strict';
+const id='clockwork-garden',floor=AuthoredFloors.data[id],d=SideGeography.get(id),anchors=floor.anchors;
+d.entry=anchors.entry.slice();d.anchors=Object.fromEntries(Object.entries(anchors).map(([key,p])=>[key,p.slice()]));
+d.a=anchors['gate-a'].slice();d.b=anchors['gate-b'].slice();
+d.pass={r:1.9,points:[d.a,d.b]};d.sanctuary=[[68.03385416666667,14.0625],[91.796875,14.0625],[92.44791666666667,23.4375],[80.078125,26.26953125],[76.82291666666667,35.15625],[71.61458333333334,33.30078125],[73.56770833333334,24.4140625],[67.70833333333334,21.09375]];d.obstacles=[];d.paths=[];d.clearings=[];
+ExplorationLayout.solids[id]=[];
+for(const f of IntegratedMapArt.maps[id].features){const at=anchors[f.id];if(at){f.x=at[0];f.y=at[1];}}
+const destination=StoryDestinations[id];
+destination.route='Explore the ground-floor paths around the lily pool. Visit the western repair workshop, restart the southeastern engine, then climb the northeastern stair to the Glasswarden’s court.';
+const connection=StoryConnections['clockwork-garden-entrance'];
+connection.arrival='The garden walk brings the party through the conservatory’s southwest glasshouse entrance.';
+d.description=connection.arrival+' '+destination.story+' '+destination.route;
+})();
+
+
+// Destination routes are painted side branches; interaction is deliberate at each gateway.
+(()=>{'use strict';
+const regions=[{"id":"region-0","asset":"assets/routes-region-0.webp?v=20261024-1","cuts":[[350,395,230,220],[330,795,250,229],[590,90,240,285],[1340,535,196,210]],"branches":[{"id":"crypt-entrance","name":"Rootbound Sanctuary","join":[48,33],"points":[[47.833333333333336,32.75],[46,30],[44,26],[44,23.5]],"gate":[44,23.5]},{"id":"amber-hollow-entrance","name":"Amber Hollow","join":[93,60],"points":[[92.83333333333333,59.75],[95,61.5],[96.5,64]],"gate":[96.5,64]}]},{"id":"region-1","asset":"assets/routes-region-1.webp?v=20261024-1","cuts":[[960,345,220,205],[235,395,285,235]],"branches":[{"id":"frostmine-entrance","name":"Lost Expedition Works","join":[19,57],"points":[[18.833333333333332,56.75],[22,55],[26,53],[28.5,51.5]],"gate":[28.5,51.5]}]},{"id":"region-2","asset":"assets/routes-region-2.webp?v=20261024-1","cuts":[[900,770,255,254],[10,330,265,210]],"branches":[{"id":"clockwork-garden-entrance","name":"Clockwork Conservatory","join":[14,43],"points":[[13.833333333333334,42.75],[10,43],[7,44],[5,45]],"gate":[5,45]}]},{"id":"region-3","asset":"assets/routes-region-3.webp?v=20261024-1","cuts":[[440,665,220,205],[1330,350,206,220]],"branches":[{"id":"lantern-grotto-entrance","name":"Lantern Haven","join":[94,43],"points":[[94.16666666666667,43.25],[95.5,42.5],[97,42]],"gate":[97,42]}]}];
+window.DestinationRoutes={regions,entrances:regions.flatMap(r=>r.branches)};
+for(const r of regions){
+ IntegratedMapArt.maps[r.id].asset=r.asset;
+ const existing=CrossingRepairs.regions[r.id];
+ CrossingRepairs.regions[r.id]={asset:r.asset,cuts:[...(existing?.cuts||[]),...r.cuts]};
+ for(const branch of r.branches){
+  const f=IntegratedMapArt.maps[r.id].features.find(f=>f.id===branch.id);
+  if(f){f.x=branch.gate[0];f.y=branch.gate[1];}
+  const route=StoryConnections[branch.id];
+  if(route){route.outward='Follow the side trail to '+branch.name+'.';}
+  const node=FOREST_NODES.find(n=>n.id===branch.id);
+  if(node)node.description='Enter '+branch.name+'.';
+ }
+}
+})();
+/* Brief navigation copy keeps puzzle clues and choice consequences intact. */
+(()=>{
+ const modal=MineExpansion.modal;
+ MineExpansion.modal=function(title,text,choices,s,ui){
+  const isTravel=choices.some(c=>/^Travel there/.test(c.label));
+  return modal.call(this,title,isTravel?'Enter '+title+'?':text,choices,s,ui);
+ };
+ const decorate=DungeonRules.decorate;
+ DungeonRules.decorate=function(c){
+  decorate.call(this,c);
+  const tip=document.getElementById('explore-tip');
+  const direction=SideGeography.get(c.dungeon?.id)?.exitDirection;if(tip)tip.textContent='WASD / arrows · E to interact'+(direction?' · Exit '+direction:'');
+  if(!StoryPacing.brief())return;
+  const tasks={
+   rootbound:'Awaken the three-light altar. Face the Keeper.',
+   frostmine:'Restart the works. Defeat the Colossus and escort the miners.',
+   'amber-hollow':'Restore the sluice. Defeat the Amberwood Keeper.',
+   'clockwork-garden':'Restart the engine. Defeat the Glasswarden.',
+   'lantern-grotto':'Restore the tide clock. Defeat the Tidewarden.'
+  };
+  const objective=document.getElementById('world-objective');
+  if(objective)objective.textContent=c.dungeon?(tasks[c.dungeon.id]||StoryPacing.summary(objective.textContent,22)):StoryPacing.summary(objective.textContent,22);
+ };
+})();
 

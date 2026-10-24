@@ -339,3 +339,54 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 .equipped-appearance{grid-column:1/-1;max-width:320px;margin:16px auto;padding:12px;background:radial-gradient(ellipse at 50% 65%,#56764b,#20372b 72%);border:1px solid #827552;border-radius:12px;text-align:center}.equipped-appearance h4{margin:0}.equipped-appearance-actor{width:min(280px,65vw);height:min(280px,65vw);background-repeat:no-repeat;margin:auto}.equipped-appearance[aria-busy=true] .equipped-appearance-actor{opacity:.5}
 
 .region-loading{position:fixed;inset:35% auto auto 50%;transform:translateX(-50%);z-index:100;max-width:90%;padding:24px;background:#102a2cf5;color:#ffe7ae;border:2px solid #c4a477;border-radius:10px;text-align:center;box-shadow:0 0 0 100vmax #06141599;font:16px system-ui}
+
+/* Scenic battle HUD: compact commands, optional detail, readable corner status. */
+#game #battle #arena #hero-command-menu{top:auto!important;bottom:22px;left:20px;max-width:calc(100% - 40px);max-height:min(65dvh,470px);padding:12px;background:linear-gradient(100deg,#09161dee,#09161dc9);border:0;border-left:2px solid #ceb57d;border-radius:0;box-shadow:0 5px 18px #0005;scrollbar-gutter:auto}
+#hero-command-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:12px 0 6px}
+#hero-command-tabs button{min-height:44px;padding:9px 5px;font:600 14px system-ui;background:#1b303acc;border:1px solid #c9b57b66;border-radius:2px}
+#hero-command-tabs button[aria-pressed=true]{background:#63553b;color:#fff4d6}
+#game #hero-menu-actions{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+#game #hero-menu-actions button[hidden],#game #hero-action-guide[hidden]{display:none!important}
+#game #hero-menu-actions button[data-action=flee]{grid-column:1/-1;order:10;min-height:32px;padding:6px;background:transparent;border:0;text-align:left}
+#hero-menu-actions button[data-action=flee] small{display:none}
+#game #hero-menu-title{font:600 15px/1.3 system-ui}
+#game #hero-menu-note,#game #hero-menu-status{font:12px/1.3 system-ui;margin:4px 0}
+#game #hero-menu-close{padding:2px 8px;min-width:32px;min-height:32px;font:22px system-ui}
+#game #battle #arena #party,#game #battle #arena[data-question=visible] #party{position:absolute;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));left:auto;right:20px;top:auto;bottom:22px;width:min(310px,27%);margin:0;gap:5px;pointer-events:auto;z-index:21}
+#game #battle #arena #party .party-card{min-height:58px;text-align:left;padding:7px 9px;background:linear-gradient(100deg,#0b1720d9,#0b172099);border:0;border-left:2px solid #c6b17b55;border-radius:0;box-shadow:none;color:#dbe3df;font:11px system-ui}
+#game #battle #arena #party .party-card.active{border-left-color:#f2d48e;background:#283b43de}
+#game #battle #arena #party strong{font:600 13px system-ui}#game #battle #arena #party small{display:none}
+#game #battle #arena #party .bar{height:4px;margin:5px 0}
+#game #battle #arena #question-panel{left:20px;right:auto;bottom:22px;transform:none;width:min(620px,58%);max-height:43dvh;margin:0;padding:13px 16px;background:linear-gradient(100deg,#09161df5,#09161dd9);border:0;border-left:2px solid #ceb57d;border-radius:0;box-shadow:0 5px 18px #0005;color:#f7f3e7;color-scheme:dark}
+#game #battle #arena #question-panel:before,#game #battle #arena #question-panel:after{display:none}
+#game #battle #arena #question-panel #question{font:400 clamp(17px,1.65vw,21px)/1.35 system-ui;color:#fff6e4;text-align:left;text-shadow:none;margin:8px 0 12px}
+#game #battle #arena #question-panel .eyebrow,#game #battle #arena #question-panel #turn{color:#d6c79f;font:11px system-ui;letter-spacing:0}
+#game #battle #arena #answers{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+#game #battle #arena #answers button{min-height:44px;padding:9px 11px;font:14px/1.35 system-ui;background:#233944ed;color:#f8f6ec;border:1px solid #b3c2c36b;border-radius:2px;box-shadow:none;text-align:left}
+#game #battle #arena #answers button.correct{background:#24563f;border-color:#a1e7b8;opacity:1}
+#game #battle #arena #answers button.incorrect{background:#733a38;border-color:#ffc2ad;opacity:1}
+#game #battle #arena #feedback{font:13px/1.4 system-ui;color:#f5e7c5}
+#game #battle #arena #answer-explanation{font:13px/1.5 system-ui;margin:8px 0;color:#ebeee9}
+#answer-explanation summary{cursor:pointer;color:#f5d38a;min-height:30px}
+#game #battle #arena #enemy-read{left:auto;right:20px;top:64px;width:min(310px,30%);padding:8px 10px;border:0;border-left:2px solid #ceb57d88;border-radius:0;background:#0a1720bf;box-shadow:none;font:11px/1.4 system-ui}
+#game #battle #arena #enemy-read strong{font-size:12px}
+#game #battle #arena #enemy-read small{font-size:10px}
+#game #battle #arena #battle-plan,#game #battle #arena[data-enemy-behavior=true] #battle-plan,#game #battle #arena[data-question=visible] #battle-plan{left:20px;top:66px;bottom:auto;width:auto;max-width:48%;padding:6px 9px;background:#09161dbd;border:0;border-radius:0;font:12px/1.4 system-ui;text-align:left}
+#game #battle #arena #encounter-objective{max-width:260px;font:12px/1.4 system-ui;background:#09161dbd;border:0;border-radius:0}
+#game #battle>#enemy-defense{width:min(94%,460px);bottom:22px;background:#09161de8;border:0;border-left:2px solid #ceb57d;border-radius:0;box-shadow:none}
+#game #battle>#enemy-defense button{min-height:42px;font-size:12px}
+#game #battle #arena[data-question=visible] #heroes,#game #battle #arena[data-question=visible] #enemy{bottom:35%;height:42%}
+#game #discovery-notice{max-width:min(340px,90vw);font:13px/1.4 system-ui}
+#discovery-notice details{grid-column:1/-1}#discovery-notice summary{cursor:pointer;color:#f5d38a}#discovery-notice details p{margin:6px 0}
+@media(max-width:700px){
+ #game #battle #arena #party,#game #battle #arena[data-question=visible] #party{right:12px;left:12px;bottom:10px;width:auto;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px}
+ #game #battle #arena #party .party-card{min-height:54px;padding:5px;font-size:9px}#game #battle #arena #party strong{font-size:11px}
+ #game #battle #arena #hero-command-menu{left:12px!important;bottom:80px!important;max-height:54dvh;max-width:calc(100% - 24px)}
+ #game #battle #arena #question-panel{left:12px;bottom:80px;width:calc(100% - 24px);max-height:43dvh;padding:10px}
+ #game #battle #arena #question-panel #question{font-size:16px}#game #battle #arena #answers button{font-size:13px}
+ #game #battle #arena #enemy-read{right:12px;top:58px;width:42%;font-size:10px}
+ #game #battle #arena #battle-plan,#game #battle #arena[data-question=visible] #battle-plan{left:12px;top:58px;max-width:48%;font-size:10px}
+ #game #battle>#enemy-defense{bottom:78px}
+ #game #battle #arena[data-question=visible] #heroes,#game #battle #arena[data-question=visible] #enemy{bottom:48%;height:33%}
+}
+

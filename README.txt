@@ -1,27 +1,32 @@
-ASTERFALL MAP REPAIR — October 24, 2026
+VISIBLE ENTRANCES + STREAMLINED RPG — October 24, 2026
 
-UPLOAD
-Upload index.html, authored-floors.js, navigation-floors.js and integrated-map-art.js into the root of Review-game, replacing those four files together.
-Upload assets/asterfall-coherent-city.webp into the existing assets folder.
-Wait for GitHub Pages to publish, then refresh with Ctrl+F5.
-Asterfall-preview.png, ART-PROMPT.txt and this README are for your review; uploading them is optional.
+UPLOAD TO YOUR EXISTING Review-game REPOSITORY
+Unzip this package first. Replace the seven root game files together:
+  index.html
+  game.js
+  styles.css
+  story-pacing.js
+  authored-floors.js
+  navigation-floors.js
+  integrated-map-art.js
+Copy the six files inside assets into the repository existing assets folder. Keep the folder named assets. Do not replace or delete your other game files.
+Wait for GitHub Pages to finish publishing, then refresh with Ctrl+F5.
+Uploading just the ZIP to GitHub will not update the game.
 
 WHAT CHANGED
-Rebuilt Asterfall as a grounded city: connected streets, a sunken cistern, individual roofed buildings, and two raised courtyards with clear stair approaches.
-Resurveyed the walking ground and interaction positions to match the replacement artwork. The pool, roof and central garden are blocked; destinations connect along the streets.
-Retained all three optional patrols and their caches, the locked beacon precinct, and the conservatory entrance/return connection.
-Hidden finds draw from the existing prop artwork rather than pasting pieces of the obsolete city over the new map.
-Existing destination IDs, rewards and saved completion flags are retained. Old walking positions can snap to a nearby new street.
-The other nine maps' physical floor records are unchanged.
-Game controller, audio files and the prior smoothness fix are not replaced by this map-only update.
+Five painted gateway entrances, on side branches farther into each region. Approach a gateway and press E or click Enter. Passing it does not open a dungeon. Leaving a destination also requires E; a return spawn will not immediately send you back inside.
+Rootbound: flowered stone gateway; Amber Hollow: apiary gate; Lost Expedition Works: timber mine portal; Clockwork Conservatory: brass garden arch; Lantern Haven: lantern-lit coastal gateway.
+Clockwork has a coherent cutaway glasshouse, one main floor around a lily pool, a workshop and engine, and one raised guardian court with stairs. Includes the earlier Asterfall physical city repair.
+Battle commands are a small Attack / Skills / Items panel, with party HP in the corner. Skills, potions, flee, full questions and timing defenses remain available. Click a party status card to choose another hero.
+Shorter navigation and story copy. Longer loot descriptions open under Details; full answer teaching explanations open under Why? Opening Why? pauses automatic continuation. Full-story preference remains available.
+This update retains the current live controller audio hooks and camera smoothness changes. It does not generate, replace, or remove your sounds/music.
 
-VERIFIED
-JavaScript syntax.
-All ten maps: navigation, closed/open boss routes, follower travel, diagonal corner blocking and teleport reset.
-Teacher testing: all areas, battles, presets, heal/reset/continue/reports, normal/teacher/assignment save isolation.
-Asterfall: three active patrols and searchable caches; every pre-gate destination reachable; beacon still locked; water/roof/garden collision; safe nearby relocation from an old position; conservatory return anchor.
-Native canvas: real pickup prop rendering and distance fade; old wall patches omitted.
-Artwork and walking overlay inspected as images. Live browser/device playtesting remains to be done after upload.
+VERIFICATION
+Automated simulated game tests passed: all ten walking masks, closed/open boss routes, follower paths, teacher testing controls and isolated saves; all five destination quests/locks/rewards/returns/HP continuity; five deliberate entrance interactions; battle command categories, four-answer access and optional explanation; Clockwork obstacles, guardian seal and 8,344 follower foot samples. Native artwork previews were inspected.
+Browser gameplay and Chromebook visual/performance testing were not performed in this session. The battle layout still needs a live device visual check after upload. No deployment has been performed.
 
-ART
-Created with the built-in image-generation tool, then converted to browser-compatible WebP. The final prompt is saved in ART-PROMPT.txt. A first candidate was rejected because it retained confusing stacked terraces.
+REFERENCE
+Battle layout inspiration: https://news.xbox.com/en-us/2024/08/28/clair-obscur-expedition-33-combat-breakdown-preview/ . Reference screenshots reviewed; no Expedition 33 artwork is included.
+
+REVIEW ONLY
+Entrances-preview.png, Clockwork-preview.png, ART-PROMPTS.txt, TEST-REPORT.txt, README.txt and SHA256SUMS.txt do not need to be uploaded.
