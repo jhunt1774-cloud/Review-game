@@ -423,3 +423,21 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 #world-atlas .atlas-legend{font:11px/1.4 system-ui;color:#b8c7c8;margin:4px 0}
 @media(max-width:700px){#world-atlas{padding:10px;width:98vw;max-height:96dvh}#world-atlas h2{font-size:22px}#atlas-purpose,#atlas-selection{font-size:12px}.atlas-scroll{max-height:58dvh}#atlas-next{font-size:12px}#story-direction{width:30px;height:30px}#story-road-sign{font-size:11px;max-width:220px;white-space:normal}}
 
+
+/* Put the complete country on the opening screen without cropping its edges. */
+#game #title{display:grid;grid-template-columns:minmax(270px,360px) minmax(0,1fr);gap:12px 34px;align-content:center;justify-items:start;text-align:left;padding:88px 36px 34px;min-height:100dvh;background:radial-gradient(ellipse at 70% 50%,#243a33,#091a20 75%)}
+#game #title[hidden]{display:none}#title>*{grid-column:1;margin-top:0;margin-bottom:0}#title h1{font-size:clamp(44px,5vw,74px)}#title .subtitle{font-size:23px;letter-spacing:3px}#title .title-actions{margin:12px 0;justify-content:flex-start;flex-wrap:wrap}#title .teacher-entry{margin-top:10px}
+#title #title-world-map{grid-column:2;grid-row:1/span 12;width:100%;max-width:none;align-self:center;margin:0;padding:0}
+#title-world-map img{display:block;width:100%;height:auto;max-height:72dvh;object-fit:contain;border:1px solid #c9ad714d;border-radius:5px}
+#title-world-map figcaption{color:#d5c496;font:14px/1.5 system-ui;margin:10px 0}
+#title-world-map button{font-size:13px;padding:9px 14px;background:#263f43}
+.actor-portrait{display:block;position:absolute;left:50%;width:130%;max-width:none;height:120%;bottom:0;transform:translateX(-50%) translateY(4%);object-fit:contain}
+.story-hero .actor-portrait{width:150%}
+#forest-scene{opacity:1;filter:none}
+#boss-route-gate{display:none!important}
+@media(max-width:800px){#game #title{display:flex;align-items:center;text-align:center;padding:80px 18px 24px;gap:12px}#title #title-world-map{order:2;width:min(100%,850px)}#title .title-actions{order:1;justify-content:center;flex-direction:row}#title-world-map img{max-height:48dvh}#title .teacher-entry{order:3}#title #save-note{order:4}#title h1{font-size:48px}#title .subtitle{font-size:20px}}
+
+.actor-portrait{object-position:center bottom}.hero[data-portrait-width="440"] .actor-portrait,.story-hero[data-portrait-width="440"] .actor-portrait{width:159%}
+
+/* Teacher workspace: focused choices and a readable standards browser. */
+.teacher-workspace-nav{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}.teacher-workspace-nav button[aria-pressed="true"]{background:#315c59;color:#fff;border-color:#9cc9a9}.workspace-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.8rem;margin:1rem 0}.workspace-cards button{text-align:left;padding:1rem;min-height:94px}.workspace-cards small{display:block;font-weight:normal;line-height:1.5;margin-top:.3rem}.standards-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.7rem}#setup-ohio select,#setup-ohio input[type="search"]{width:100%;max-width:100%}#ohio-standard{height:15rem;white-space:normal}#workspace-home label,#workspace-results label{display:block;margin:.8rem 0}#workspace-class-sets{display:flex;flex-wrap:wrap;gap:.5rem;margin:.8rem 0}.results-table{overflow-x:auto}.results-table table{width:100%;border-collapse:collapse}.results-table th,.results-table td{padding:.65rem;text-align:left;border-bottom:1px solid #64756c}#practice-report-export{font-size:.8rem;margin:.4rem}#teacher [hidden]{display:none!important}@media(max-width:600px){.teacher-workspace-nav button{flex:1 1 42%}#ohio-standard{font-size:.85rem}.workspace-cards{grid-template-columns:1fr}}

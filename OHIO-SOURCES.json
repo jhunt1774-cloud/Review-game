@@ -1,0 +1,182 @@
+{
+  "checked": "2026-10-25",
+  "scope": "Source code index, not complete question coverage",
+  "sources": [
+    {
+      "id": "oh-math2017",
+      "subject": "Math",
+      "version": "2017",
+      "url": "https://education.ohio.gov/getattachment/Topics/Learning-in-Ohio/Mathematics/Ohio-s-Learning-Standards-in-Mathematics/MATH-Standards-2017.pdf.aspx?lang=en-US",
+      "sha256": "c856882ec60dfd9e332efc449714bb16d01489e7a69943df5eba7864775dc200",
+      "checked": "2026-10-25",
+      "status": "Current / transition",
+      "coverage": "Code index; see official document for complete wording",
+      "indexedCodes": 206
+    },
+    {
+      "id": "oh-ela2026",
+      "subject": "English language arts",
+      "version": "2026",
+      "url": "https://education.ohio.gov/getattachment/Topics/Learning-in-Ohio/English-Language-Art/English-Language-Arts-Standards/2026-Revised-ELA-Standards-K-12.pdf.aspx?lang=en-US",
+      "sha256": "47134ad5c37d8721966bb522ab34f11c8b7b12bd89e93cbd6ec0209c7624f8f5",
+      "checked": "2026-10-25",
+      "status": "Upcoming · implementation 2027–28",
+      "coverage": "Code index; see official document for complete wording",
+      "indexedCodes": 366
+    },
+    {
+      "id": "oh-science2018",
+      "subject": "Science",
+      "version": "2018",
+      "url": "https://education.ohio.gov/getattachment/Topics/Learning-in-Ohio/Science/Ohios-Learning-Standards-and-MC/SciFinalStandardsMC060719.pdf.aspx?lang=en-US",
+      "sha256": "1997adf3b9a49b770e461ee0ce2a3e07d925470824c0b686f4f3675529c6b067",
+      "checked": "2026-10-25",
+      "status": "Current / transition",
+      "coverage": "Code index; see official document for complete wording",
+      "indexedCodes": 68
+    },
+    {
+      "id": "oh-social2026",
+      "subject": "Social studies",
+      "version": "2026",
+      "url": "https://education.ohio.gov/getattachment/Topics/Learning-in-Ohio/Social-Studies/Ohio-s-Learning-Standards-for-Social-Studies/Ohio-s-Learning-Standards-for-Social-Studies_K-8-7-2026.pdf.aspx?lang=en-US",
+      "sha256": "0a70cfcaab109895435bd5bfeb0e9dc9044b09990b5ddc582b16387afdeeb29b",
+      "checked": "2026-10-25",
+      "status": "Upcoming · implementation 2027–28",
+      "coverage": "Code index; see official document for complete wording",
+      "indexedCodes": 129
+    },
+    {
+      "id": "oh-ela2017",
+      "subject": "English language arts",
+      "version": "2017",
+      "url": "https://education.ohio.gov/getattachment/Topics/Learning-in-Ohio/English-Language-Art/English-Language-Arts-Standards/ELA-Learning-Standards-2017.pdf.aspx?lang=en-US",
+      "sha256": "80154d6de8442b4ec95fd68df9acfdaf3cce821732741b613cd9bc9b9471d137",
+      "checked": "2026-10-25",
+      "status": "Current / transition",
+      "coverage": "Code index; see official document for complete wording",
+      "indexedCodes": 338
+    },
+    {
+      "id": "oh-social2018",
+      "subject": "Social studies",
+      "version": "2018",
+      "url": "https://education.ohio.gov/getattachment/Topics/Learning-in-Ohio/Social-Studies/Ohio-s-Learning-Standards-for-Social-Studies/Ohio-s-Learning-Standards-for-Social-Studies_01-2019.pdf.aspx?lang=en-US",
+      "sha256": "cc5ad09bb26f8d12bab37e5ed96b47ff28b73b554c8209e688017277b85e3fa5",
+      "checked": "2026-10-25",
+      "status": "Current / transition",
+      "coverage": "Code index; see official document for complete wording",
+      "indexedCodes": 154
+    },
+    {
+      "id": "oh-cs2022",
+      "subject": "Computer Science",
+      "version": "2022",
+      "url": "https://education.ohio.gov/getattachment/Topics/Learning-in-Ohio/Computer-Science/Ohio-s-Learning-Standards-in-Computer-Science/OCS_Adopted-2022.pdf.aspx?lang=en-US",
+      "sha256": "5f7322a5a521c330ecf299ee60e7b9be62c2d2423182d46ca6ff28388b6963e5",
+      "checked": "2026-10-25",
+      "status": "Current source",
+      "coverage": "Code index; full wording and classroom assessment remain in official source",
+      "indexedCodes": 300
+    },
+    {
+      "id": "oh-technology2025",
+      "subject": "Technology",
+      "version": "2025",
+      "url": "https://education.ohio.gov/getattachment/Topics/Learning-in-Ohio/Technology/Ohios-Learning-Standards-for-Technology/Ohio-s-Learning-Standards-for-Technology-2025-Final.pdf.aspx?lang=en-US",
+      "sha256": "39563202c3e1e6ac608084af7faede14089222d88f4f328e97c5109812e02de7",
+      "checked": "2026-10-25",
+      "status": "Current source",
+      "coverage": "Code index; full wording and classroom assessment remain in official source",
+      "indexedCodes": 85
+    },
+    {
+      "id": "oh-financial2018",
+      "subject": "Financial literacy",
+      "version": "2018",
+      "url": "https://education.ohio.gov/getattachment/Topics/Learning-in-Ohio/Financial-Literacy/Financial-Literacy-Standards/FLFinalStandards060518_July-2025.pdf.aspx?lang=en-US",
+      "sha256": "058c17a2d91937ca1d0938b50c1e15b18410b7d78523cffd9a873cc2dccdb7bd",
+      "checked": "2026-10-25",
+      "status": "Current source",
+      "coverage": "Code index; full wording and classroom assessment remain in official source",
+      "indexedCodes": 33
+    },
+    {
+      "id": "oh-sel2019",
+      "subject": "Social and emotional learning",
+      "version": "2019",
+      "url": "https://education.ohio.gov/getattachment/Topics/Learning-in-Ohio/Social-and-Emotional-Learning/SEL-Standards-K-12.pdf.aspx?lang=en-US",
+      "sha256": "e87fa01afc0f7f6ba514054afb95c9812c48823fa00f2fea5b633f74ca9022a5",
+      "checked": "2026-10-25",
+      "status": "Current source",
+      "coverage": "Code index; full wording and classroom assessment remain in official source",
+      "indexedCodes": 161
+    },
+    {
+      "id": "oh-arts-dance2024",
+      "subject": "Fine arts",
+      "version": "2024 · Dance",
+      "url": "https://education.ohio.gov/getattachment/Topics/Learning-in-Ohio/Fine-Arts/Fine-Arts-Standards/FA_Dance_2024_Final.pdf.aspx?lang=en-US",
+      "sha256": "671f0ec36907b82856b6a628c7be70e6747a1f4ba09263d7640b8846b47b78d3",
+      "checked": "2026-10-25",
+      "status": "Current source",
+      "coverage": "Code index; full wording and classroom assessment remain in official source",
+      "indexedCodes": 105
+    },
+    {
+      "id": "oh-arts-theatre2024",
+      "subject": "Fine arts",
+      "version": "2024 · Theatre",
+      "url": "https://education.ohio.gov/getattachment/Topics/Learning-in-Ohio/Fine-Arts/Fine-Arts-Standards/FA_Drama-Theatre_2024_Final.pdf.aspx?lang=en-US",
+      "sha256": "91121277bbdc50a91c827670c78b0dfe07c7822746fc11e9f978ccc99bc6f84f",
+      "checked": "2026-10-25",
+      "status": "Current source",
+      "coverage": "Code index; full wording and classroom assessment remain in official source",
+      "indexedCodes": 137
+    },
+    {
+      "id": "oh-arts-media2024",
+      "subject": "Fine arts",
+      "version": "2024 · Media",
+      "url": "https://education.ohio.gov/getattachment/Topics/Learning-in-Ohio/Fine-Arts/Fine-Arts-Standards/FA_Media_Arts_2024_Final.pdf.aspx?lang=en-US",
+      "sha256": "cb04fdfab6f2bcc2f4e2641882c3a8cd8b2c572bc0f1e47104cb61acf331530d",
+      "checked": "2026-10-25",
+      "status": "Current source",
+      "coverage": "Code index; full wording and classroom assessment remain in official source",
+      "indexedCodes": 120
+    },
+    {
+      "id": "oh-arts-music2024",
+      "subject": "Fine arts",
+      "version": "2024 · Music",
+      "url": "https://education.ohio.gov/getattachment/Topics/Learning-in-Ohio/Fine-Arts/Fine-Arts-Standards/FA_Music_2024_Final.pdf.aspx?lang=en-US",
+      "sha256": "7fd5fcee9177b58dd897ec53650c194d74d897df4b2a4e0e2e032743e94a5063",
+      "checked": "2026-10-25",
+      "status": "Current source",
+      "coverage": "Code index; full wording and classroom assessment remain in official source",
+      "indexedCodes": 169
+    },
+    {
+      "id": "oh-arts-visual2024",
+      "subject": "Fine arts",
+      "version": "2024 · Visual",
+      "url": "https://education.ohio.gov/getattachment/Topics/Learning-in-Ohio/Fine-Arts/Fine-Arts-Standards/FA_Visual-Arts_2024_Final.pdf.aspx?lang=en-US",
+      "sha256": "757dd427e08e24f92a444a77183425b34556982f9bbc999ae6086efee94e7ab8",
+      "checked": "2026-10-25",
+      "status": "Current source",
+      "coverage": "Code index; full wording and classroom assessment remain in official source",
+      "indexedCodes": 108
+    },
+    {
+      "id": "oh-pe2025",
+      "subject": "Physical education",
+      "version": "2025",
+      "url": "https://education.ohio.gov/getattachment/Topics/Learning-in-Ohio/Physical-Education/Academic-Content-Standards-and-Evaluation-Instrume/PE_K-12_Standards_Final.pdf.aspx?lang=en-US",
+      "sha256": "67a609b2690189ea456c1cda56096b6261211ab355c8e0e12edbfaaf4e4f0416",
+      "checked": "2026-10-25",
+      "status": "Current source",
+      "coverage": "Code index; full wording and classroom assessment remain in official source",
+      "indexedCodes": 268
+    }
+  ]
+}
