@@ -1,0 +1,502 @@
+{
+  "version": 1,
+  "name": "Code.org Express 2025 Lessons 4-13 Review",
+  "difficulty": "beginner",
+  "pace": "standard",
+  "questions": [
+    {
+      "id": 0,
+      "topic": "Programming",
+      "text": "V1. Which word means \"a plan made of ordered steps\"?",
+      "answers": [
+        "program",
+        "algorithm",
+        "sequence",
+        "sprite"
+      ],
+      "correct": 1,
+      "explanation": "Algorithm: A plan made of ordered steps."
+    },
+    {
+      "id": 1,
+      "topic": "Programming",
+      "text": "V2. Which word means \"instructions written so a computer can run them\"?",
+      "answers": [
+        "algorithm",
+        "sequence",
+        "sprite",
+        "program"
+      ],
+      "correct": 3,
+      "explanation": "Program: Instructions written so a computer can run them."
+    },
+    {
+      "id": 2,
+      "topic": "Programming",
+      "text": "V3. Which word means \"the order in which instructions run\"?",
+      "answers": [
+        "sequence",
+        "algorithm",
+        "program",
+        "sprite"
+      ],
+      "correct": 0,
+      "explanation": "Sequence: The order in which instructions run."
+    },
+    {
+      "id": 3,
+      "topic": "Programming",
+      "text": "V4. Which word means \"an object on screen with appearance, size, and location\"?",
+      "answers": [
+        "algorithm",
+        "program",
+        "sprite",
+        "sequence"
+      ],
+      "correct": 2,
+      "explanation": "Sprite: An object on screen with appearance, size, and location."
+    },
+    {
+      "id": 4,
+      "topic": "Programming",
+      "text": "V5. Which word means \"an action a sprite keeps doing until stopped\"?",
+      "answers": [
+        "algorithm",
+        "behavior",
+        "program",
+        "sequence"
+      ],
+      "correct": 1,
+      "explanation": "Behavior: An action a sprite keeps doing until stopped."
+    },
+    {
+      "id": 5,
+      "topic": "Programming",
+      "text": "V6. Which word means \"a trigger that causes instructions to run\"?",
+      "answers": [
+        "algorithm",
+        "program",
+        "sequence",
+        "event"
+      ],
+      "correct": 3,
+      "explanation": "Event: A trigger that causes instructions to run."
+    },
+    {
+      "id": 6,
+      "topic": "Programming",
+      "text": "V7. Which word means \"code that repeats instructions\"?",
+      "answers": [
+        "loop",
+        "algorithm",
+        "program",
+        "sequence"
+      ],
+      "correct": 0,
+      "explanation": "Loop: Code that repeats instructions."
+    },
+    {
+      "id": 7,
+      "topic": "Programming",
+      "text": "V8. Which word means \"finding and fixing errors in code\"?",
+      "answers": [
+        "algorithm",
+        "program",
+        "debugging",
+        "sequence"
+      ],
+      "correct": 2,
+      "explanation": "Debugging: Finding and fixing errors in code."
+    },
+    {
+      "id": 8,
+      "topic": "Programming",
+      "text": "4.1. The Artist faces right, moves 50 pixels, turns right 90 degrees, then moves 30 pixels. Which path results?",
+      "answers": [
+        "50 pixels right, then 30 up",
+        "50 pixels right, then 30 down",
+        "50 pixels down, then 30 right",
+        "30 pixels right, then 50 down"
+      ],
+      "correct": 1,
+      "explanation": "A right turn from facing right points down."
+    },
+    {
+      "id": 9,
+      "topic": "Programming",
+      "text": "4.2. Which code draws a square with 40 pixel sides?",
+      "answers": [
+        "Repeat 3 [move 40; turn right 90]",
+        "Repeat 4 [move 90; turn right 40]",
+        "Repeat 4 [move 40; turn right 180]",
+        "Repeat 4 [move 40; turn right 90]"
+      ],
+      "correct": 3,
+      "explanation": "Four equal sides and 90 degree turns make a square."
+    },
+    {
+      "id": 10,
+      "topic": "Programming",
+      "text": "4.3. Which turn should replace 60 degrees when drawing an equilateral triangle?",
+      "answers": [
+        "120 degrees",
+        "30 degrees",
+        "90 degrees",
+        "180 degrees"
+      ],
+      "correct": 0,
+      "explanation": "The outside turn is 360 divided by 3, or 120 degrees."
+    },
+    {
+      "id": 11,
+      "topic": "Programming",
+      "text": "5.1. A fish is small, blue, and near the top. Which describes its location?",
+      "answers": [
+        "Small",
+        "Blue",
+        "Near the top",
+        "Swimming"
+      ],
+      "correct": 2,
+      "explanation": "Location describes where a sprite is."
+    },
+    {
+      "id": 12,
+      "topic": "Programming",
+      "text": "5.2. A fish swims right and spins. Only spinning is stopped. What continues?",
+      "answers": [
+        "Spinning only",
+        "Swimming right",
+        "Both behaviors",
+        "Neither behavior"
+      ],
+      "correct": 1,
+      "explanation": "Stopping one behavior does not stop the other."
+    },
+    {
+      "id": 13,
+      "topic": "Programming",
+      "text": "5.3. Your tank should have a swimming fish and wandering turtle. Which is the best test?",
+      "answers": [
+        "Check only the background color",
+        "Check only the fish",
+        "Add sprites without running",
+        "Run and check both sprites against the plan"
+      ],
+      "correct": 3,
+      "explanation": "Test each sprite and its intended behavior."
+    },
+    {
+      "id": 14,
+      "topic": "Programming",
+      "text": "6.1. How are an algorithm and a program related?",
+      "answers": [
+        "An algorithm is a plan; a program is runnable instructions",
+        "An algorithm is a sprite; a program is its costume",
+        "An algorithm is an error; a program fixes all errors",
+        "An algorithm must use blocks; a program cannot"
+      ],
+      "correct": 0,
+      "explanation": "A program expresses a plan as computer instructions."
+    },
+    {
+      "id": 15,
+      "topic": "Programming",
+      "text": "6.2. Which order makes sense when building a spinning cat scene?",
+      "answers": [
+        "Add spinning to cat; create cat; run and check",
+        "Run and check; add spinning; create cat",
+        "Create cat; add spinning; run and check",
+        "Create cat; check finished result; add spinning"
+      ],
+      "correct": 2,
+      "explanation": "Create the sprite before starting its behavior, then test."
+    },
+    {
+      "id": 16,
+      "topic": "Programming",
+      "text": "6.3. You want a small cat to spin, but a large dog spins. What should you inspect?",
+      "answers": [
+        "Only the background color",
+        "The targeted sprite, its costume, and its size",
+        "Only the computer volume",
+        "Only the title"
+      ],
+      "correct": 1,
+      "explanation": "Check the target sprite and its properties against the plan."
+    },
+    {
+      "id": 17,
+      "topic": "Programming",
+      "text": "7.1. Which example shows a career using computer science?",
+      "answers": [
+        "A musician carries a case",
+        "A chef ties an apron",
+        "An artist sharpens a pencil",
+        "A musician edits recordings with software"
+      ],
+      "correct": 3,
+      "explanation": "Audio software uses computing to create and edit music."
+    },
+    {
+      "id": 18,
+      "topic": "Programming",
+      "text": "7.2. Which career scene includes a user event and a response?",
+      "answers": [
+        "Click a chef sprite and it explains recipe software",
+        "A chef stays still with no event code",
+        "A kitchen background has no sprites",
+        "The title contains the word chef"
+      ],
+      "correct": 0,
+      "explanation": "The click triggers the explanation."
+    },
+    {
+      "id": 19,
+      "topic": "Programming",
+      "text": "7.3. What should you do when remixing a classmate’s project?",
+      "answers": [
+        "Change the title and claim all the work",
+        "Ask permission only if someone notices",
+        "Get permission, credit the creator, and keep Remix in the title",
+        "Remove the creator’s name"
+      ],
+      "correct": 2,
+      "explanation": "The slides direct students to get permission and give credit."
+    },
+    {
+      "id": 20,
+      "topic": "Programming",
+      "text": "8.1. In “When Right is pressed, move the dog right,” what is the event trigger?",
+      "answers": [
+        "The dog moving right",
+        "Pressing Right",
+        "The dog’s costume",
+        "The dog’s size"
+      ],
+      "correct": 1,
+      "explanation": "The key press triggers the movement response."
+    },
+    {
+      "id": 21,
+      "topic": "Programming",
+      "text": "8.2. A bird wanders and spins. Space stops wandering only. What will it still do?",
+      "answers": [
+        "Wander only",
+        "Wander and spin",
+        "Stay still without spinning",
+        "Spin"
+      ],
+      "correct": 3,
+      "explanation": "Spinning has not been stopped."
+    },
+    {
+      "id": 22,
+      "topic": "Programming",
+      "text": "8.3. A sprite should jump on Up, but nothing happens. Which check is most useful?",
+      "answers": [
+        "Check the key event and its action for the intended sprite",
+        "Rename the project and assume it is fixed",
+        "Change the background and stop testing",
+        "Add a costume without checking the event"
+      ],
+      "correct": 0,
+      "explanation": "Check the trigger, connected response, and target sprite."
+    },
+    {
+      "id": 23,
+      "topic": "Programming",
+      "text": "9.1. Which plan gives a pet two different user interactions?",
+      "answers": [
+        "Create the pet; set its starting size",
+        "Choose a background; choose a title",
+        "Click it to say Hello; press Space to spin",
+        "Create the pet; set its starting location"
+      ],
+      "correct": 2,
+      "explanation": "Clicking and pressing Space are distinct user events."
+    },
+    {
+      "id": 24,
+      "topic": "Programming",
+      "text": "9.2. A spinning pet should rest without spinning when clicked. Which response works?",
+      "answers": [
+        "Change costume but leave spinning active",
+        "Stop spinning, then show a resting costume",
+        "Start spinning again and show a resting costume",
+        "Make it larger but leave spinning active"
+      ],
+      "correct": 1,
+      "explanation": "Changing a costume alone does not stop spinning."
+    },
+    {
+      "id": 25,
+      "topic": "Programming",
+      "text": "9.3. A partner cannot tell how to use your pet. What is the best improvement and test?",
+      "answers": [
+        "Add hidden controls and do not test",
+        "Change the title and assume it is clear",
+        "Remove all events and ask if it looks nice",
+        "Add controls instructions and ask the partner to try them"
+      ],
+      "correct": 3,
+      "explanation": "Clear instructions help the user trigger intended actions."
+    },
+    {
+      "id": 26,
+      "topic": "Programming",
+      "text": "10.1. A dance changes after four measures of four beats each. How many beats have passed?",
+      "answers": [
+        "16 beats",
+        "4 beats",
+        "8 beats",
+        "12 beats"
+      ],
+      "correct": 0,
+      "explanation": "4 measures times 4 beats equals 16 beats."
+    },
+    {
+      "id": 27,
+      "topic": "Programming",
+      "text": "10.2. A new move is under a Left arrow event. You click Run but press no arrow. What happens to that event?",
+      "answers": [
+        "Run triggers every key event",
+        "It runs after any key is pressed",
+        "It waits for Left to be pressed",
+        "It runs when the dancer grows"
+      ],
+      "correct": 2,
+      "explanation": "Clicking Run does not itself trigger the Left arrow event."
+    },
+    {
+      "id": 28,
+      "topic": "Programming",
+      "text": "10.3. Which pairs an appearance change with a movement event?",
+      "answers": [
+        "Make the dancer larger; change its color",
+        "Make the dancer larger; change its move on Right",
+        "Change moves on Right; change moves on Left",
+        "Rename the project; choose a song"
+      ],
+      "correct": 1,
+      "explanation": "Size affects appearance; a key event can change movement."
+    },
+    {
+      "id": 29,
+      "topic": "Programming",
+      "text": "11.1. Button 1 triggers drums. Button 2 triggers a bell. You press only Button 2. What is triggered?",
+      "answers": [
+        "The drums only",
+        "Both sounds",
+        "Neither sound",
+        "The bell only"
+      ],
+      "correct": 3,
+      "explanation": "Only the matching Button 2 event is triggered."
+    },
+    {
+      "id": 30,
+      "topic": "Programming",
+      "text": "11.2. Why use an event for a surprise sound that a player should control?",
+      "answers": [
+        "It lets the player choose when to trigger the sound",
+        "It forces the sound to play only at the start",
+        "It makes every sound play together",
+        "It removes the need for input"
+      ],
+      "correct": 0,
+      "explanation": "An event can wait for the player’s input."
+    },
+    {
+      "id": 31,
+      "topic": "Programming",
+      "text": "11.3. An echo is assigned to Button 1 for a mysterious scene. Which test checks the event and mood?",
+      "answers": [
+        "Run without pressing a button and assume it works",
+        "Press Button 2 and check the title",
+        "Run, press Button 1, and judge if the echo suits the scene",
+        "Check only the number of blocks"
+      ],
+      "correct": 2,
+      "explanation": "Trigger the assigned event and listen in context."
+    },
+    {
+      "id": 32,
+      "topic": "Programming",
+      "text": "12.1. Which loop repeats the whole chunk move forward; move forward; turn right three times?",
+      "answers": [
+        "Repeat 6 [move forward; turn right]",
+        "Repeat 3 [move forward; move forward; turn right]",
+        "Repeat 3 [move forward; turn right]",
+        "Repeat 2 [move forward; move forward; turn right]"
+      ],
+      "correct": 1,
+      "explanation": "All three commands belong inside the loop, repeated three times."
+    },
+    {
+      "id": 33,
+      "topic": "Programming",
+      "text": "12.2. Trace repeat 4 [move forward; move forward]; then turn left once. What happens?",
+      "answers": [
+        "4 forward moves and 1 left turn",
+        "8 forward moves and 4 left turns",
+        "4 forward moves and 4 left turns",
+        "8 forward moves and 1 left turn"
+      ],
+      "correct": 3,
+      "explanation": "Two forward moves repeat four times; the turn is outside."
+    },
+    {
+      "id": 34,
+      "topic": "Programming",
+      "text": "12.3. BB-8 needs six forward moves. Code says repeat 5 [move forward]. Which fix works?",
+      "answers": [
+        "Change the repeat count to 6",
+        "Change the repeat count to 4",
+        "Add a turn inside the loop",
+        "Stop after five moves"
+      ],
+      "correct": 0,
+      "explanation": "One forward move repeated six times gives six moves."
+    },
+    {
+      "id": 35,
+      "topic": "Programming",
+      "text": "13.1. Starting at position 0 facing right, trace repeat 4 [stamp; move forward 30]. Where are the stamps?",
+      "answers": [
+        "30, 60, 90, and 120 pixels",
+        "0, 30, 60, and 120 pixels",
+        "0, 30, 60, and 90 pixels",
+        "0, 0, 0, and 0 pixels"
+      ],
+      "correct": 2,
+      "explanation": "Stamping happens before each move, starting at 0."
+    },
+    {
+      "id": 36,
+      "topic": "Programming",
+      "text": "13.2. Starting at position 0 facing right, which code stamps stars at 0, 25, 50, 75, and 100 pixels?",
+      "answers": [
+        "Repeat 5 [move forward 25; stamp star]",
+        "Repeat 5 [stamp star; move forward 25]",
+        "Repeat 4 [stamp star; move forward 25]",
+        "Repeat 5 [stamp star]"
+      ],
+      "correct": 1,
+      "explanation": "Stamp first, then move, for five repetitions."
+    },
+    {
+      "id": 37,
+      "topic": "Programming",
+      "text": "13.3. All your repeated stamps land on one spot. Which instruction is probably missing?",
+      "answers": [
+        "Repeat the stamp without moving",
+        "Choose the same sticker again",
+        "Return to the starting spot before every stamp",
+        "Move to a new position between stamps"
+      ],
+      "correct": 3,
+      "explanation": "Movement or repositioning separates the stamps."
+    }
+  ]
+}
