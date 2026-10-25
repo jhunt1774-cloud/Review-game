@@ -15,7 +15,7 @@ const solids={
 window.ExplorationLayout={version:1,heroSize:50,enemySize:60,solids,
  active(){return !!(window.SideGeography?.get()||window.OutdoorGeography?.get());},
  distance(a,b){return Math.hypot((a.x-b.x)*1.5,a.y-b.y);},
- approach(c,p,n){if(!this.active())return ExploreRules.near(p,n,n.radius||(n.kind==='battle'?1.9:2.5));const radius=n.kind==='battle'?1.35:n.kind==='crypt-search'?1.5:1.1;if(this.distance(p,n)>radius)return false;const barriers=RegionGates.open(c.viewChapter,c.completed)?[]:[RegionGates.gate(c.viewChapter)];return ForestWorld.stepClear(p,n,barriers);}
+ approach(c,p,n){if(!this.active())return ExploreRules.near(p,n,n.radius||(n.kind==='battle'?1.9:2.5));const radius=n.kind==='battle'?2.8:n.kind==='crypt-search'?1.5:1.1;if(this.distance(p,n)>radius)return false;const barriers=RegionGates.open(c.viewChapter,c.completed)?[]:[RegionGates.gate(c.viewChapter)];return ForestWorld.stepClear(p,n,barriers);}
 };
 // Retain the distinctive paintings, but bring their movement scale closer to the old dungeons.
 PartyTrail.spacing=2.45;ExploreRules.speed=9.4;

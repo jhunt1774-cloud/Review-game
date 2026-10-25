@@ -1,9 +1,9 @@
-Teacher content clarity update
+FIRST MAP PROGRESS FIX + LATEST TEACHER SETUP
 
-Upload the five root game files and the complete question-sets folder to the EXISTING owner game repository. Merge with existing files; do not replace the whole repository. This is not the separate customer edition.
+Upload ALL contents of this folder to the existing owner game GitHub repository. Include the question-sets folder and choose to replace matching files. Do not delete other game files.
 
-Ready-made sets, bank questions, and generated practice are separate. Previews include answers and source labels. Generation does not add questions until you select them. Prepared sets are saved generated examples, not independently educator-reviewed questions.
+Forest Path: wider close-range encounter activation (2.8 world units, with clear walkable ground still required); nearby Enter encounter / E fallback; available map landmarks start path-following; fresh games/loaded saves reset stale discovery suppression. Completed battles, locked areas and paused map-inspection fights stay protected. Save progress is kept.
 
-Repeated formats are no longer padded to reach a requested count. The 80 standard sets and 15 mixed-skill units have been refreshed with distinct formats; units reuse the standard questions. Existing saved lessons, bank content and CS course sets remain. There are 28 new reasoning task formats across 14 standards. All 80 standards still provide partial-skill practice, not complete assessments. Teacher review remains necessary.
+This package also includes the latest teacher source browser, multi-set checkbox selection, question-level review, generators and all95 prepared math sets.
 
-Multi-set selection update: check several ready-made sets, including across grade/course filters. Preview selected sets combines them and removes duplicate questions. Choose individual questions from that preview before adding. Select all shown and Clear set selection are provided. Source labels stay attached to each question.
+Verification: simulated continuous Mossgate-to-Whispering Hollow walk and activation, outer approach activation, explicit E, clickable path, paused fights, all10 masks/gates/follower paths,25 story milestones/42 routes. No live browser/device playthrough. Existing physical ground masks were verified connected; no cliffs, rivers or locked boss passages were made walkable.
