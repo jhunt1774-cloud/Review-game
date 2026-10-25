@@ -1,9 +1,11 @@
-FIRST MAP PROGRESS FIX + LATEST TEACHER SETUP
+BATTLE + SOUND UPDATE (includes latest maps and teacher setup)
 
-Upload ALL contents of this folder to the existing owner game GitHub repository. Include the question-sets folder and choose to replace matching files. Do not delete other game files.
+Upload ALL contents of this folder to your EXISTING owner game GitHub repository, including assets/audio-victory and question-sets. Replace matching files; preserve everything else. This is not a complete replacement game or the separate customer edition.
 
-Forest Path: wider close-range encounter activation (2.8 world units, with clear walkable ground still required); nearby Enter encounter / E fallback; available map landmarks start path-following; fresh games/loaded saves reset stale discovery suppression. Completed battles, locked areas and paused map-inspection fights stay protected. Save progress is kept.
+Questions are bottom-center. HP/actors reserve space above the question. Defense results identify DUCK, JUMP, DODGE, PARRY, perfect timing and actual HP loss above each actor. Victory has a visible banner and lively staggered character movement, including in brief mode, with an animated result-screen party. Uses the current character artwork; no costume artwork changes. Fallen heroes do not celebrate; reduced motion uses a still celebration.
 
-This package also includes the latest teacher source browser, multi-set checkbox selection, question-level review, generators and all95 prepared math sets.
+Eight new audio cues: victory, boss victory, perfect parry, regular parry, duck, jump/landing, light damage, heavy damage. Damage audio plays only for actual HP loss; simultaneous party damage coalesces to one cue. Existing sound/music controls, mute and hidden-tab silence apply. No synthesis fallback. Optimized MP3 assets total212253bytes.
 
-Verification: simulated continuous Mossgate-to-Whispering Hollow walk and activation, outer approach activation, explicit E, clickable path, paused fights, all10 masks/gates/follower paths,25 story milestones/42 routes. No live browser/device playthrough. Existing physical ground masks were verified connected; no cliffs, rivers or locked boss passages were made walkable.
+This cumulative package keeps the first-map progress fix and teacher multi-set browser. The separate RPG-Sound-Library archive preserves all32 original variants, eight game-ready files and the credit report. Today229 of1000credits were used (771remain). Audio remains in the ElevenLabs webpage history.
+
+Automated DOM/audio/game checks passed. No live device layout/playback review was performed.
