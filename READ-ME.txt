@@ -1,0 +1,7 @@
+Temporary battle-test safeguard
+
+Upload index.html, game.js and teacher-playtest.js together to the existing owner game repository root. Preserve all other files.
+
+New playtests default to original outfits without equipment upgrades. Upgrade presets remain available explicitly and are labelled as needing fitting repairs. Continue test save keeps its gear. Normal adventure equipment, saves and teacher content are unchanged.
+
+This DOES NOT repair equipped armor/weapon fitting. The shared renderer still needs pose-specific artwork and alignment.

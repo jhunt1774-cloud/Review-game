@@ -1,6 +1,6 @@
 {
   "checked": "2026-10-25",
-  "scope": "Source code index, not complete question coverage",
+  "scope": "Source code index and partial-skill practice; deleted 7.SP.4 excluded",
   "sources": [
     {
       "id": "oh-math2017",
@@ -11,7 +11,7 @@
       "checked": "2026-10-25",
       "status": "Current / transition",
       "coverage": "Code index; see official document for complete wording",
-      "indexedCodes": 206
+      "indexedCodes": 205
     },
     {
       "id": "oh-ela2026",

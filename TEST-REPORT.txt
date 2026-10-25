@@ -1,19 +1,16 @@
-TEACHER UPGRADE VERIFICATION — October 25, 2026
+MIDDLE-SCHOOL EXPANSION — TEST REPORT
 
-PASS: owner original questions.js, cs-bank.js and express-sets.js match pre-upgrade SHA-256 backups. 164 CS questions and 31 course sets retained.
-PASS: teacher DOM workflow — content/source switches preserve draft, Ohio add preserves existing CS questions, classes save snapshots, old link serialization is byte-compatible, new links retain standard/version metadata.
-PASS: write the first question for a chosen standard, retaining its source and version.
-PASS: backup validation, cross-edition rejection, explicit restore and before-restore snapshot.
-PASS: report import and duplicate event detection; two attempts stay two when imported twice; standard accuracy 50%; playtests excluded.
-PASS: 2,747 code index records from 16 official documents; source hashes and links recorded. Reserved ELA codes excluded. PE Grades 6–8 band retained.
-PASS: 88 standards with partial practice available; 15,980 generated/starter question shape and metadata checks across support/practice/challenge.
-PASS: existing math generator — 36,720 independently recomputed samples across 68 K–8 concepts, equivalent fractions, bounds, duplicate avoidance, exhaustion, JSON import, mixed grades, assignment links and startup.
-PASS: legacy three-step teacher flow, CSV import and student-link round trip.
-PASS: navigation — all 10 areas, gate states, followers, corner blocking and teleport resets.
-PASS: Teacher Playtest — all 10 areas, listed battles, presets, heal/reset/continue/reports, and normal/teacher/assignment save isolation.
-PASS: connected journey — 25 milestones, 42 grounded routes, deliberate destination/region crossings, legacy recovery and atlas pause.
-PASS: customer release — owner bank/course wording, extras, owner PIN, owner cloud connection and owner standalone HTML excluded. Independent starter bank, Ohio tools, versioned links and fresh draft work.
-PASS: same-browser customer account storage uses separate school/teacher namespaces; demo storage is separate.
-PASS: private server — active license required for app files; hashed passwords; HttpOnly/SameSite sessions; origin checks; seat limits; school and colleague data isolation; account backups; logout; revoked/expired licenses; login rate limits.
+PASS: all 80 active Ohio Grades 6–8 math parent codes have generator plans; 7.SP.4 is excluded as deleted.
+PASS: 176 formats tested over support/practice/challenge with 100 seeded samples per format/level: 52,800 checks. 38,100 numerical/expression results independently recomputed; remaining fixed concept/metadata/shape checks also passed.
+PASS: 20 unique prepared questions per standard, with all formats represented. All 80 standards have 5 supported-number, 10 regular-number and 5 wider-number examples in the exported review sets.
+PASS: all 80 compressed assignment-link round trips preserve full standard/version/model metadata. Largest link token: 1,653 characters, below the existing 12,000-character limit.
+PASS: 15 grouped unit assignments stay within the 500-question limit; largest is 180. Visual-aware duplicate handling preserves questions sharing a prompt but using different data displays.
+PASS: 11 native model examples rendered and visually inspected: coordinate plots, tables, area models, dot/histogram/box plots, all three system types, right triangles and scatter plots. Invalid model types/segments and executable table markup rejected or displayed as plain text. Models are cleared between questions.
+PASS: actual teacher DOM workflows, Grades 6–8 selectors/defaults, old CS bank/course preservation (164 bank questions and 31 sets), legacy link compatibility, new metadata links, class folders, backup/restore and report deduplication.
+PASS: legacy teacher workflow, source separation, CSV import and student-link round trip.
+PASS: existing math generator compatibility: 36,720 independently recomputed samples across its 68 legacy concepts, imports, mixed drafts, exhaustion and assignment startup. This is an API/legacy fixture test; the live visible grade menus are intentionally narrowed to Grades 6–8 and separately tested.
+PASS: all ten navigation areas, gates, followers, corners and teleport reset.
+PASS: Teacher Playtest gate, all ten areas/battles, presets, heal/reset/continue/report and save-slot isolation.
+PASS: clean customer build excludes owner banks/course wording/PIN/cloud/standalone HTML and retains account namespace separation.
 
-Tests used a DOM implementation, simulated game/storage fixtures and an in-memory SQLite database. They are not live-browser visual testing, validated curriculum review, legal/commercial rights clearance, a production penetration test or a hosted deployment. No student-account workflow, billing checkout, password recovery email or automatic gradebook sync is claimed.
+No live browser/Chromebook layout or student pilot has been performed. These checks do not certify educational validity, complete standard mastery, commercial media rights or production account security. Teacher review of content and classroom tasks remains required. No game deployment, paid sound/music generation or billing change was performed.
