@@ -13,5 +13,3 @@ const C=window.BattleCelebration={
  clear(){token++;for(const motion of motions)motion.cancel?.();motions.clear();for(const r of portraits.splice(0))r.destroy();document.getElementById('victory-celebration')?.remove();const arena=document.getElementById('arena');if(arena)delete arena.dataset.celebrating;}
 };})();
 
-// Reserve the actual question height so the centered panel cannot cover HP or actors.
-(()=>{const panel=document.getElementById("question-panel"),arena=document.getElementById("arena");if(!panel||!arena||typeof ResizeObserver!=="function")return;const observer=new ResizeObserver(()=>{const height=panel.getBoundingClientRect().height;if(height>0)arena.style.setProperty("--question-height",Math.ceil(height)+"px");});observer.observe(panel);})();

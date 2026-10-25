@@ -1,11 +1,9 @@
-BATTLE + SOUND UPDATE (includes latest maps and teacher setup)
+BATTLE UI REDESIGN - CUMULATIVE OWNER UPDATE
 
-Upload ALL contents of this folder to your EXISTING owner game GitHub repository, including assets/audio-victory and question-sets. Replace matching files; preserve everything else. This is not a complete replacement game or the separate customer edition.
+Upload ALL contents of this folder to your existing owner GitHub game repository. Include assets/audio-victory and question-sets. Replace matching files, preserve all other game files.
 
-Questions are bottom-center. HP/actors reserve space above the question. Defense results identify DUCK, JUMP, DODGE, PARRY, perfect timing and actual HP loss above each actor. Victory has a visible banner and lively staggered character movement, including in brief mode, with an animated result-screen party. Uses the current character artwork; no costume artwork changes. Fallen heroes do not celebrate; reduced motion uses a still celebration.
+The battlefield and bottom question/defense dock are separate layout rows. Question visibility does not shift the party. HP cards are anchored above individual hero portraits. Compact Attack / Skills / Items controls rise near the selected hero and disappear when chosen; questions appear below the scene. During the committed attack both menus and questions stay hidden. Short landscape screens put commands in the bottom dock to preserve character space. Optional enemy details stay collapsible.
 
-Eight new audio cues: victory, boss victory, perfect parry, regular parry, duck, jump/landing, light damage, heavy damage. Damage audio plays only for actual HP loss; simultaneous party damage coalesces to one cue. Existing sound/music controls, mute and hidden-tab silence apply. No synthesis fallback. Optimized MP3 assets total212253bytes.
+This replaces the previous overlay/question-height workaround. Includes all latest map progression, teacher multi-set selection and eight generated sound cues. No new audio was generated for this UI release: October25 total remains229/1000credits. Original sound archive remains separate.
 
-This cumulative package keeps the first-map progress fix and teacher multi-set browser. The separate RPG-Sound-Library archive preserves all32 original variants, eight game-ready files and the credit report. Today229 of1000credits were used (771remain). Audio remains in the ElevenLabs webpage history.
-
-Automated DOM/audio/game checks passed. No live device layout/playback review was performed.
+Verification: actual simulated attack commit keeps menu/question hidden; victory/results/return/rewards work; independent DOM check moves question and defense outside arena;24HP-above-portrait geometry checks across six viewport sizes; menus remain in scene/dock; all10playtestareas and listed battles, save isolation and first-map progress checks passed. Native layout previews were inspected separately; these are not live browser screenshots. A real device/browser visual check is still needed.
