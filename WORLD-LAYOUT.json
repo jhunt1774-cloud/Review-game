@@ -1,0 +1,425 @@
+{
+  "revision": 1,
+  "coordinateSystem": "Atlas percentages; local level coordinates remain separate",
+  "arc": [
+    {
+      "name": "The living forest",
+      "purpose": "Carry the Emerald Heart toward Asterfall.",
+      "link": "The Emerald Heart lights the climb to Frostpeak.",
+      "steps": [
+        "m0",
+        "m1",
+        "rootbound",
+        "m2",
+        "amber-hollow",
+        "m3"
+      ]
+    },
+    {
+      "name": "The mountain key",
+      "purpose": "Win the Storm Key to open Asterfall.",
+      "link": "The Storm Key opens the road into Asterfall.",
+      "steps": [
+        "m4",
+        "m5",
+        "frostmine",
+        "m6",
+        "m7"
+      ]
+    },
+    {
+      "name": "The First Flame",
+      "purpose": "Restore the city machinery and relight the Beacon.",
+      "link": "The restored Beacon reveals the road to the coast.",
+      "steps": [
+        "m8",
+        "m9",
+        "clockwork-garden",
+        "m10",
+        "m11"
+      ]
+    },
+    {
+      "name": "The lantern road",
+      "purpose": "Restore the coastal lantern and clear the highland road.",
+      "link": "The lantern guides the supply road to the Sunforge.",
+      "steps": [
+        "m12",
+        "m13",
+        "lantern-grotto",
+        "m14",
+        "m15"
+      ]
+    },
+    {
+      "name": "The rebuilding fire",
+      "purpose": "Awaken the Sunforge to rebuild the scattered villages.",
+      "link": "The Sunforge burns. The rebuilding can begin.",
+      "steps": [
+        "m16",
+        "m17",
+        "m18",
+        "m19"
+      ]
+    }
+  ],
+  "purposes": {
+    "rootbound": "Renew the Keeper’s oath to protect the Heart.",
+    "amber-hollow": "Restore the water that sustains the forest.",
+    "frostmine": "Restore the prism works and bring the expedition home.",
+    "clockwork-garden": "Recover the living machinery needed to restore the Beacon.",
+    "lantern-grotto": "Restore the tide clock to guide the coastal road."
+  },
+  "zones": [
+    {
+      "id": "region-0",
+      "name": "Forest Path",
+      "chapter": 0,
+      "x": 17,
+      "y": 62,
+      "bounds": [
+        2,
+        36,
+        39,
+        48
+      ]
+    },
+    {
+      "id": "rootbound",
+      "name": "Rootbound Sanctuary",
+      "chapter": 0,
+      "x": 13,
+      "y": 42,
+      "bounds": [
+        5,
+        32,
+        17,
+        21
+      ]
+    },
+    {
+      "id": "amber-hollow",
+      "name": "Amber Hollow",
+      "chapter": 0,
+      "x": 33,
+      "y": 69,
+      "bounds": [
+        24,
+        61,
+        18,
+        17
+      ]
+    },
+    {
+      "id": "region-1",
+      "name": "Frostpeak Pass",
+      "chapter": 1,
+      "x": 43,
+      "y": 23,
+      "bounds": [
+        28,
+        3,
+        25,
+        30
+      ]
+    },
+    {
+      "id": "frostmine",
+      "name": "Expedition Works",
+      "chapter": 1,
+      "x": 23,
+      "y": 18,
+      "bounds": [
+        12,
+        10,
+        18,
+        18
+      ]
+    },
+    {
+      "id": "region-2",
+      "name": "Asterfall Beacon",
+      "chapter": 2,
+      "x": 57,
+      "y": 39,
+      "bounds": [
+        46,
+        29,
+        22,
+        18
+      ]
+    },
+    {
+      "id": "clockwork-garden",
+      "name": "Clockwork Conservatory",
+      "chapter": 2,
+      "x": 47,
+      "y": 51,
+      "bounds": [
+        39,
+        44,
+        18,
+        16
+      ]
+    },
+    {
+      "id": "region-3",
+      "name": "Sunken Coast",
+      "chapter": 3,
+      "x": 70,
+      "y": 68,
+      "bounds": [
+        62,
+        49,
+        24,
+        31
+      ]
+    },
+    {
+      "id": "lantern-grotto",
+      "name": "Lantern Haven",
+      "chapter": 3,
+      "x": 88,
+      "y": 73,
+      "bounds": [
+        80,
+        64,
+        17,
+        20
+      ]
+    },
+    {
+      "id": "region-4",
+      "name": "Ashen Highlands",
+      "chapter": 4,
+      "x": 92,
+      "y": 15,
+      "bounds": [
+        77,
+        4,
+        22,
+        38
+      ]
+    }
+  ],
+  "roads": [
+    {
+      "from": "region-0",
+      "to": "region-1",
+      "points": [
+        [
+          17,
+          62
+        ],
+        [
+          24,
+          52
+        ],
+        [
+          27,
+          44
+        ],
+        [
+          29,
+          36
+        ],
+        [
+          33,
+          29
+        ],
+        [
+          43,
+          23
+        ]
+      ]
+    },
+    {
+      "from": "region-1",
+      "to": "region-2",
+      "points": [
+        [
+          43,
+          23
+        ],
+        [
+          50,
+          28
+        ],
+        [
+          53,
+          33
+        ],
+        [
+          57,
+          39
+        ]
+      ]
+    },
+    {
+      "from": "region-2",
+      "to": "region-3",
+      "points": [
+        [
+          57,
+          39
+        ],
+        [
+          66,
+          44
+        ],
+        [
+          75,
+          49
+        ],
+        [
+          76,
+          55
+        ],
+        [
+          70,
+          68
+        ]
+      ]
+    },
+    {
+      "from": "region-3",
+      "to": "region-4",
+      "points": [
+        [
+          70,
+          68
+        ],
+        [
+          79,
+          59
+        ],
+        [
+          83,
+          47
+        ],
+        [
+          86,
+          35
+        ],
+        [
+          87,
+          25
+        ],
+        [
+          92,
+          15
+        ]
+      ]
+    },
+    {
+      "from": "region-0",
+      "to": "rootbound",
+      "points": [
+        [
+          17,
+          62
+        ],
+        [
+          22,
+          53
+        ],
+        [
+          20,
+          45
+        ],
+        [
+          13,
+          42
+        ]
+      ]
+    },
+    {
+      "from": "region-0",
+      "to": "amber-hollow",
+      "points": [
+        [
+          17,
+          62
+        ],
+        [
+          23,
+          65
+        ],
+        [
+          28,
+          66
+        ],
+        [
+          33,
+          69
+        ]
+      ]
+    },
+    {
+      "from": "region-1",
+      "to": "frostmine",
+      "points": [
+        [
+          43,
+          23
+        ],
+        [
+          35,
+          27
+        ],
+        [
+          29,
+          23
+        ],
+        [
+          23,
+          18
+        ]
+      ]
+    },
+    {
+      "from": "region-2",
+      "to": "clockwork-garden",
+      "points": [
+        [
+          57,
+          39
+        ],
+        [
+          54,
+          44
+        ],
+        [
+          50,
+          47
+        ],
+        [
+          47,
+          51
+        ]
+      ]
+    },
+    {
+      "from": "region-3",
+      "to": "lantern-grotto",
+      "points": [
+        [
+          70,
+          68
+        ],
+        [
+          78,
+          65
+        ],
+        [
+          84,
+          67
+        ],
+        [
+          88,
+          73
+        ]
+      ]
+    }
+  ]
+}

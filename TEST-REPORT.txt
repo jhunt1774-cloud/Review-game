@@ -1,8 +1,18 @@
-PASS: all ten maps walking masks, pre/post gate routes, follower travel, blocked corners and teleport reset.
-PASS: teacher code gate, ten areas, gate/puzzle toggles, battle choices, presets, heal/reset/continue/report and normal/teacher/assignment save isolation.
-PASS: all five dungeon quests, locks, one-time rewards, correct entries and outdoor returns, HP continuity.
-PASS: all five moved entrances far from spawn, reachable before region boss, no automatic entry, Enter interaction and cancel.
-PASS: compact battle Attack/Skills/Items, skill actions, potion access, four answers and full optional explanation with paused continuation.
-PASS: Clockwork pool/beds/machine/glass collision, engine seal, safe old-position recovery, 8,344 follower foot samples and navigation cache equality.
-PASS: syntax validation for changed JS, matching cache hashes and upload file inventory.
-LIMIT: simulated UI/storage tests and native image inspection; no live browser/Chromebook playtest.
+CONNECTED JOURNEY VERIFICATION
+
+PASS: five regions, 25 main/required milestones in order, future main fights inactive until their step, all previous completions retain credit.
+PASS: 42 reachable story routes; arrow waypoints use walkable ground and clear local segments rather than a straight bearing across obstacles.
+PASS: rootbound altar/keeper/return; expedition brace/rescue/lock/Colossus/escort return; Amber, Clockwork and Haven mechanisms/guardians/returns.
+PASS: optional elite fights do not seal regional gates.
+PASS: deliberate E crosses a destination directly; passing or standing at the exit does not auto-travel.
+PASS: physical onward road crosses to a valid saved arrival on the next map.
+PASS: old saves missing earlier milestones receive the earlier region return-road cue.
+PASS: interactive atlas has ten zones and nine connections; map viewing pauses movement.
+PASS: saved regional victory returns to its cleared trail with onward road available; HP and gold unchanged.
+PASS: all ten navigation masks, pre/post boss gate routes, followers, corner blocking and teleport trail reset.
+PASS: teacher code gate, all areas/battles, presets/heal/reset/continue/report and normal/teacher/assignment save isolation.
+PASS: all five destination quests, locks, one-time rewards, entries/returns and HP continuity.
+PASS: changed JS syntax, browser cache hashes, upload inventory and ZIP checks.
+
+VISUAL REVIEW: generated master painting and native labeled atlas preview inspected. Atlas preview is not a live gameplay screenshot.
+LIMIT: no browser/Chromebook gameplay or measured performance test. Transition checks wait for travel completion, not a fixed animation duration, since area preparation can take longer on slower devices.
