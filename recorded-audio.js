@@ -1,6 +1,8 @@
 // Recorded CC0 Foley plus licensed ElevenLabs celebration/defense cues; no synthesized fallback.
 (()=>{'use strict';const proto=CombatAudio.prototype,unlock=proto.unlock;
 const groups={
+ 'signature-0':[['battle-thorin-axe-skill']], 'signature-1':[['battle-brom-hammer-skill']], 'signature-2':[['battle-lira-arrow-skill']], 'signature-3':[['battle-seren-ice-skill']],
+ 'warning-quick':[['battle-warning-quick']], 'warning-heavy':[['battle-warning-heavy']], 'warning-spell':[['battle-warning-spell']], 'warning-boss':[['battle-warning-boss']],
  'slash-launch':[['axe-swing-0','axe-swing-1','axe-swing-2']], 'slash-impact':[['wood-hit-0','wood-hit-1'],['body-hit-0','body-hit-1']],
  'hammer-launch':[['axe-swing-1','axe-swing-2']], 'hammer-impact':[['metal-hit-0','metal-hit-1'],['body-hit-0','body-hit-1']],
  'arrow-launch':[['bow-release-0','bow-release-1','bow-release-2']], 'arrow-impact':[['wood-hit-0','wood-hit-1']],
@@ -23,3 +25,7 @@ const musicBuffer=proto.musicBuffer;proto.musicBuffer=function(id){const promise
 
 // One damage cue per contact, even when a boss strikes several heroes together.
 CombatAudio.prototype.damage=function(loss,maxHp){if(!Number.isFinite(loss)||loss<=0||!this.enabled||!this.ctx||this.hidden||this.ctx.state!=='running')return;const now=this.ctx.currentTime;if(this.lastDamageCue!==undefined&&now-this.lastDamageCue<.075)return;this.lastDamageCue=now;this.cue(loss>=Math.max(15,maxHp*.18)?'hero-hit-heavy':'hero-hit-light',-.2);};
+
+// Cue once at a signature release and once when each enemy defense beat starts.
+CombatAudio.prototype.signature=function(actor){if(Number.isInteger(actor)&&actor>=0&&actor<4)this.cue('signature-'+actor,-.2);};
+CombatAudio.prototype.warning=function(pending={}){this.cue(pending.boss?'warning-boss':pending.effect==='enemy-spell'?'warning-spell':pending.behavior?.heavy?'warning-heavy':'warning-quick',.2);};

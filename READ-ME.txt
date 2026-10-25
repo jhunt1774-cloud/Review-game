@@ -1,9 +1,11 @@
-BATTLE UI REDESIGN - CUMULATIVE OWNER UPDATE
+SKILL AND ENEMY WARNING SOUND UPDATE
 
-Upload ALL contents of this folder to your existing owner GitHub game repository. Include assets/audio-victory and question-sets. Replace matching files, preserve all other game files.
+Upload the contents of RPG Sound Update to the existing owner GitHub game repository. Preserve folder structure, replace matching files, and keep every other game file. No need to upload question sets again for this patch.
 
-The battlefield and bottom question/defense dock are separate layout rows. Question visibility does not shift the party. HP cards are anchored above individual hero portraits. Compact Attack / Skills / Items controls rise near the selected hero and disappear when chosen; questions appear below the scene. During the committed attack both menus and questions stay hidden. Short landscape screens put commands in the bottom dock to preserve character space. Optional enemy details stay collapsible.
+Changed: index.html, game.js, battle-refresh.js, recorded-audio.js, attack-styles.js, combat-telegraph.js. New: eightMP3files in assets/audio-skills/.
 
-This replaces the previous overlay/question-height workaround. Includes all latest map progression, teacher multi-set selection and eight generated sound cues. No new audio was generated for this UI release: October25 total remains229/1000credits. Original sound archive remains separate.
+Four named signature actions: Whirlwind cleave, Earthshatter, Triple volley and Frost lance. Each plays one combined release/impact cue; basic weapon attacks and other skills keep existing sounds. Enemy warnings distinguish quick, heavy, spell and boss attacks once per defense beat. Boss takes precedence over spell, spell over heavy. Existing visual defense cues remain. Existing sound volume/mute/hidden-tab controls apply. New layout, teacher sets, map fixes and saves preserved.
 
-Verification: actual simulated attack commit keeps menu/question hidden; victory/results/return/rewards work; independent DOM check moves question and defense outside arena;24HP-above-portrait geometry checks across six viewport sizes; menus remain in scene/dock; all10playtestareas and listed battles, save isolation and first-map progress checks passed. Native layout previews were inspected separately; these are not live browser screenshots. A real device/browser visual check is still needed.
+This batch160credits; today389of5000used,4611remaining. All40originalalternatives saved separately in the private sound library. No new music.
+
+Verified: all40sources and8optimizedclips decoded finite/nonzero; no clipping; signature cues once even for multiple arrows/swings; basic audio unchanged; warnings once across repeated animation updates; WebAudio routing/mute/hidden/retry; actual simulated victory/return/nextobjective; teacherplaytests across10areas. Real browser playback and subjective listening review remain to be done.
