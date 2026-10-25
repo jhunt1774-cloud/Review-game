@@ -5,3 +5,5 @@ Upload the five root game files and the complete question-sets folder to the EXI
 Ready-made sets, bank questions, and generated practice are separate. Previews include answers and source labels. Generation does not add questions until you select them. Prepared sets are saved generated examples, not independently educator-reviewed questions.
 
 Repeated formats are no longer padded to reach a requested count. The 80 standard sets and 15 mixed-skill units have been refreshed with distinct formats; units reuse the standard questions. Existing saved lessons, bank content and CS course sets remain. There are 28 new reasoning task formats across 14 standards. All 80 standards still provide partial-skill practice, not complete assessments. Teacher review remains necessary.
+
+Multi-set selection update: check several ready-made sets, including across grade/course filters. Preview selected sets combines them and removes duplicate questions. Choose individual questions from that preview before adding. Select all shown and Clear set selection are provided. Source labels stay attached to each question.
