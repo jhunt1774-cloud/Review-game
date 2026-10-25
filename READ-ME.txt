@@ -1,7 +1,7 @@
-Temporary battle-test safeguard
+Teacher content clarity update
 
-Upload index.html, game.js and teacher-playtest.js together to the existing owner game repository root. Preserve all other files.
+Upload the five root game files and the complete question-sets folder to the EXISTING owner game repository. Merge with existing files; do not replace the whole repository. This is not the separate customer edition.
 
-New playtests default to original outfits without equipment upgrades. Upgrade presets remain available explicitly and are labelled as needing fitting repairs. Continue test save keeps its gear. Normal adventure equipment, saves and teacher content are unchanged.
+Ready-made sets, bank questions, and generated practice are separate. Previews include answers and source labels. Generation does not add questions until you select them. Prepared sets are saved generated examples, not independently educator-reviewed questions.
 
-This DOES NOT repair equipped armor/weapon fitting. The shared renderer still needs pose-specific artwork and alignment.
+Repeated formats are no longer padded to reach a requested count. The 80 standard sets and 15 mixed-skill units have been refreshed with distinct formats; units reuse the standard questions. Existing saved lessons, bank content and CS course sets remain. There are 28 new reasoning task formats across 14 standards. All 80 standards still provide partial-skill practice, not complete assessments. Teacher review remains necessary.
