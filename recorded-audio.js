@@ -2,9 +2,9 @@
 (()=>{'use strict';const proto=CombatAudio.prototype,unlock=proto.unlock;
 const groups={
  'level-up':[['reward-level-up']], 'chest-open':[['reward-treasure-chest']], 'rare-item':[['reward-rare-item']], 'quest-complete':[['reward-quest-complete']], 'area-unlocked':[['reward-area-unlocked']],
- 'signature-0':[['battle-thorin-axe-skill']], 'signature-1':[['battle-brom-hammer-skill']], 'signature-2':[['battle-lira-arrow-skill']], 'signature-3':[['battle-seren-ice-skill']],
+ 'signature-0':[['battle-axe-release']], 'signature-1':[['battle-brom-hammer-skill']], 'signature-2':[['battle-lira-arrow-skill']], 'signature-3':[['battle-seren-ice-skill']],
  'warning-quick':[['battle-warning-quick']], 'warning-heavy':[['battle-warning-heavy']], 'warning-spell':[['battle-warning-spell']], 'warning-boss':[['battle-warning-boss']],
- 'slash-launch':[['axe-swing-0','axe-swing-1','axe-swing-2']], 'slash-impact':[['wood-hit-0','wood-hit-1'],['body-hit-0','body-hit-1']],
+ 'slash-launch':[['battle-axe-release']], 'slash-impact':[['battle-axe-contact']],
  'hammer-launch':[['axe-swing-1','axe-swing-2']], 'hammer-impact':[['metal-hit-0','metal-hit-1'],['body-hit-0','body-hit-1']],
  'arrow-launch':[['bow-release-0','bow-release-1','bow-release-2']], 'arrow-impact':[['wood-hit-0','wood-hit-1']],
  'claw-launch':[['blade-swing-0','blade-swing-1']], 'claw-impact':[['body-hit-0','body-hit-1']],
