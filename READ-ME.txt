@@ -1,11 +1,11 @@
-SKILL AND ENEMY WARNING SOUND UPDATE
+RPG REWARD SOUND UPDATE - OWNER GITHUB UPLOAD
 
-Upload the contents of RPG Sound Update to the existing owner GitHub game repository. Preserve folder structure, replace matching files, and keep every other game file. No need to upload question sets again for this patch.
+Extract and upload ALL CONTENTS to your existing owner game repository. Preserve assets folders; replace matching files; keep other game files. No question sets need uploading again. This patch also INCLUDES the preceding eight skill/enemy-warning sounds, so it can be uploaded directly after the Battle UI Redesign.
 
-Changed: index.html, game.js, battle-refresh.js, recorded-audio.js, attack-styles.js, combat-telegraph.js. New: eightMP3files in assets/audio-skills/.
+Scripts: index.html,game.js,battle-refresh.js,recorded-audio.js,attack-styles.js,combat-telegraph.js. Audio: assets/audio-skills (8MP3s) and assets/audio-rewards (5newMP3s).
 
-Four named signature actions: Whirlwind cleave, Earthshatter, Triple volley and Frost lance. Each plays one combined release/impact cue; basic weapon attacks and other skills keep existing sounds. Enemy warnings distinguish quick, heavy, spell and boss attacks once per defense beat. Boss takes precedence over spell, spell over heavy. Existing visual defense cues remain. Existing sound volume/mute/hidden-tab controls apply. New layout, teacher sets, map fixes and saves preserved.
+New cues: level-up; chest opening; rare-item reveal; quest completed; new area. Chest/level-up names previously had no recorded mapping. Relic sites use rare reveal, caches use chest opening, loot level increases follow the discovery cue. New battle level-up and rare/epic/legendary equipment drops play at results, after the victory fanfare, consumed once. Camp quest reward claims/courier turn-in use quest completion; accepting/pinning is silent. First entry into a new journey region uses area discovery; returning there stays silent. Sequences cancel when leaving the screen. Existing mute/effects volume/hidden-tab behavior applies.
 
-This batch160credits; today389of5000used,4611remaining. All40originalalternatives saved separately in the private sound library. No new music.
+This batch135actualcredits; today524of5000used;4476remaining. All20alternatives saved separately in private reward library.
 
-Verified: all40sources and8optimizedclips decoded finite/nonzero; no clipping; signature cues once even for multiple arrows/swings; basic audio unchanged; warnings once across repeated animation updates; WebAudio routing/mute/hidden/retry; actual simulated victory/return/nextobjective; teacherplaytests across10areas. Real browser playback and subjective listening review remain to be done.
+Checks passed:45recordedeffectpreload/mappings; sequentialrewardtimingafterfanfare; duplicatesremoved; cancellation; mute/hidden/retry; firstregion/revisits; questclaim/level; battlewinlevel/rare/newrewardsonly; actualsimulatedvictory->results->trailnextobjective. Audio files decoded finite/nonzero and belowclipping. No independent listening/live device review.
