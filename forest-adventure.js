@@ -27,6 +27,10 @@
   },
   complete(c) { return steps.every(id => c.completed.includes(id)); },
   next(c) { return steps.find(id => !c.completed.includes(id)); },
+  optionalTarget(c) {
+   const focus=this.optionalFocus;
+   return focus?.campaign===c&&this.available(c,node(focus.id))?node(focus.id):null;
+  },
   visible(c, n) { return n.id === 'merchant' || steps.includes(n.id) || c.completed.includes('m0') && sites.some(s => s.id === n.id); },
   available(c, n) {
    if (!this.active(c)) return false;
@@ -59,11 +63,11 @@
    };
    const choices = n.id === 'forest-ranger' ? [
     {label:'Cut the roots · learn the Guardian’s weaknesses',act:()=>{if(!this.available(c,n))return false;q.ranger=true;return finish('Ranger rescued! Guardian: axe, then hammer, then fire. Start its battle with 2 focus.');}},
-    {label:'Share 1 potion · rescue the ranger and heal the party',act:()=>{
-     if(!this.available(c,n)||c.potions<1)return false;
+    {label:s.hp.every((hp,i)=>hp>=api.maxHp(i))?'Party already healthy · rescue for free above':'Share 1 potion · rescue the ranger and heal the party',act:()=>{
+     if(!this.available(c,n)||c.potions<1||s.hp.every((hp,i)=>hp>=api.maxHp(i)))return false;
      c.potions--;s.hp=s.hp.map((hp,i)=>Math.min(api.maxHp(i),hp+Math.ceil(api.maxHp(i)*.4)));q.ranger=true;
      return finish('Ranger rescued! Party healed 40%. Guardian: axe → hammer → fire. Start with 2 focus.');
-    },disabled:c.potions<1}
+    },disabled:c.potions<1||s.hp.every((hp,i)=>hp>=api.maxHp(i))}
    ] : [{label:n.id==='forest-supplies'?'Take supplies · +2 healing potions':'Free the spirit · shield the first Guardian strike',act:()=>{
     if(!this.available(c,n))return false;
     q.boon=n.id==='forest-supplies'?'supplies':'spirit';
@@ -84,6 +88,10 @@
    panel.setAttribute('aria-label','Forest quest route and preparations');
    panel.innerHTML='<strong id="forest-trail-heading">The Emerald Heart</strong><div id="forest-route-steps"></div><p id="forest-preparations"></p><div class="forest-trail-actions"><button id="forest-follow">Follow gold trail</button><button id="forest-camp">Return to camp</button><button id="forest-return" hidden>Return to trail</button><button id="forest-canopy" hidden>Use canopy shortcut</button><button id="forest-recap" hidden>Quest recap</button></div><p class="forest-legend">◆ Gold: next goal · ✦ Blue: optional help · ✓ Green: completed</p>';
    $('world').append(panel);
+   const preparations=document.createElement('details');preparations.id='forest-optional-paths';
+   preparations.innerHTML='<summary id="forest-optional-heading">Optional preparations</summary><p>Choose supplies OR a spirit blessing. Rescuing the ranger is a separate choice.</p><div id="forest-optional-buttons"></div>';
+   panel.insertBefore(preparations,$('forest-preparations').nextSibling);
+   const status=document.createElement('p');status.id='forest-route-status';status.setAttribute('role','status');status.setAttribute('aria-live','polite');panel.insertBefore(status,panel.querySelector('.forest-legend'));
    $('forest-follow').onclick=()=>api.follow();
    $('forest-camp').onclick=()=>api.camp();
    $('forest-return').onclick=()=>api.returnToTrail();
@@ -105,7 +113,7 @@
     const previous=api.hasSave();
     if(previous && !button.dataset.confirm){
      button.dataset.confirm='yes';button.textContent='Confirm new forest quest';
-     $('forest-quest-note').textContent='A forest quest is already saved. Continue it, or click Play again to replace only that quest.';
+     $('forest-quest-note').textContent='A forest quest is already saved. Continue it, or click Confirm new forest quest to replace only that quest.';
      // Teacher starts use the same visible confirmation, with their reviewed set retained.
      this.pendingLesson=lesson||null;
      if($('game').dataset.scene==='teacher')api.title();
@@ -118,7 +126,17 @@
    } catch(error){$('forest-quest-note').textContent=error.message;window.GameDiagnostics?.report(error);}
    finally {button.disabled=false;this.starting=false;}
   },
-  refreshTitle() { if(!api)return;$('forest-quest-continue').disabled=!api.hasSave(); },
+  refreshTitle() {
+   if(!api)return;const summary=api.summary();$('forest-quest-continue').disabled=!summary;
+   if($('forest-quest-start').dataset.confirm)return;
+   $('forest-quest-note').textContent=summary?(summary.complete?'Your forest is restored. Continue to explore or revisit your recap.':'Saved forest quest · '+summary.cleared+'/4 encounters cleared.')+(summary.lesson?' Practice: '+summary.lesson+'.':''):'Designed for a short classroom session. Saved separately from the full campaign.';
+  },
+  nearby(offer) {
+   if(!this.active(current))return;
+   const focused=this.optionalTarget(current),status=$('forest-route-status');
+   const text=offer?.forestFind?'Here: '+offer.name+' · Press E or choose Search.':focused?'Following the blue trail to '+focused.name+'.':'';
+   if(status.textContent!==text)status.textContent=text;
+  },
   prologue(s) {
    const active=this.active(s);
    $('prologue').querySelector('h1').textContent=active?'Wake the Emerald Heart':'The Last Light of Asterfall';
@@ -139,6 +157,21 @@
    $('world').dataset.forestQuest=String(active);$('world').dataset.forestRestored=String(active&&this.complete(s.campaign));
    if(!active)return;
    const c=s.campaign,q=c.forestQuest,next=this.next(c);
+   const optional=this.optionalTarget(c),unlocked=c.completed.includes('m0')&&!this.complete(c),details=$('forest-optional-paths');
+   details.hidden=!unlocked;
+   if(unlocked&&this.preparationsCampaign!==c){details.open=!q.boon&&!q.ranger&&window.innerWidth>=1000;this.preparationsCampaign=c;}
+   $('forest-optional-heading').textContent='Optional preparations · '+(Number(!!q.boon)+Number(q.ranger))+'/2 ready';
+   const options=$('forest-optional-buttons');options.replaceChildren();
+   for(const site of sites){
+    const b=document.createElement('button'),done=c.completed.includes(site.id),available=this.available(c,site);
+    b.type='button';b.dataset.site=site.id;b.dataset.done=String(done);b.disabled=!available;b.title=site.description;
+    b.textContent=done?'✓ '+(site.id==='forest-ranger'?'Ranger rescued':site.id==='forest-supplies'?'Supplies packed':'Spirit freed'):!available?'— '+(site.id==='forest-spirit'?'Spirit blessing declined':'Supply cache declined'):site.id==='forest-supplies'?'Supplies · +2 potions':site.id==='forest-spirit'?'Spirit · shield first boss strike':'Rescue ranger · 2 boss focus + clues';
+    b.onclick=()=>{api.follow(site.id);details.open=false;$('forest-follow').focus();};options.append(b);
+    // Focus moves to the resume button after selection; consume Enter before its
+    // default activation can be redirected to that newly focused button.
+    b.onkeydown=event=>{if(event.key==='Enter'){event.preventDefault();if(!event.repeat)b.click();}};
+   }
+   $('forest-follow').textContent=optional?'Resume main trail':'Follow gold trail';
    $('world-title').textContent=this.complete(c)?'Forest Path · Restored':'Forest Path · The Emerald Heart';
    $('progress').textContent='FOREST QUEST · '+steps.filter(id=>c.completed.includes(id)).length+' / 4 ENCOUNTERS';
    $('chapter-picker').disabled=true;
@@ -167,7 +200,7 @@
     $('result-eyebrow').textContent='THE EMERALD HEART AWAKENS';$('result-title').textContent='You brought the forest back';
     $('result-copy').textContent='Light returns to the ancient tree. The roots release the river, and the ranger’s trail is safe again. Your four heroes made it happen.';
     const recap=document.createElement('section');recap.className='forest-finish';recap.innerHTML='<h3>Your forest story</h3>';
-    const choices=[q.boon==='supplies'?'You packed healing supplies.':q.boon==='spirit'?'You freed the Moonwell spirit.':'You faced the forest without a blessing.',q.ranger?'You rescued the ranger and learned the Guardian’s weaknesses.':'You defeated the Guardian without the ranger’s scouting.',q.shortcut?'You restored and used the canopy shortcut.':'The canopy shortcut is now open.',s.correct+' correct answers · '+s.wrong+' mistakes · '+c.completed.filter(id=>steps.includes(id)).length+'/4 encounters cleared'];
+    const choices=[q.boon==='supplies'?'You packed healing supplies.':q.boon==='spirit'?'You freed the Moonwell spirit.':'You faced the forest without a blessing.',q.ranger?'You rescued the ranger and learned the Guardian’s weaknesses.':'You defeated the Guardian without the ranger’s scouting.',q.shortcut?'You restored and used the canopy shortcut.':'The canopy shortcut is now open.',s.correct+' correct '+(s.correct===1?'answer':'answers')+' · '+s.wrong+' '+(s.wrong===1?'mistake':'mistakes')+' · '+c.completed.filter(id=>steps.includes(id)).length+'/4 encounters cleared'];
     for(const text of choices){const p=document.createElement('p');p.textContent=text;recap.append(p);}
     $('reward').append(recap);$('advance').textContent='Explore the restored forest →';
    } else if(s.phase==='victory'){
@@ -181,6 +214,7 @@
  // These changes are scoped to the short quest; the full campaign keeps its rules.
  const bind=DungeonRules.bind;
  DungeonRules.bind=function(c){
+  if(Q.optionalFocus?.campaign!==c)Q.optionalFocus=null;
   current=c;const active=Q.active(c);if(active!==mode){mode=active;OpenPaintedMaps.revision++;ForestWorld.cells=null;if(ForestRenderer.terrain){ForestRenderer.terrain.remove();ForestRenderer.overlay?.remove();ForestRenderer.terrain=null;}OpenPaintedMaps.layout=null;}
   return bind.call(this,c);
  };
@@ -192,8 +226,8 @@
  const bossReady=RequiredStory.bossReady;
  RequiredStory.bossReady=function(c,chapter){return Q.active(c)?chapter===0&&steps.slice(0,3).every(id=>c.completed.includes(id)):bossReady.call(this,c,chapter);};
  const target=JourneyGuide.target,goalLine=JourneyGuide.goalLine,guideAllowed=JourneyGuide.allowed;
- JourneyGuide.target=function(c){return Q.active(c)?node(Q.next(c))||null:target.call(this,c);};
- JourneyGuide.goalLine=function(c){return Q.active(c)?Q.complete(c)?'Forest restored · celebrate at camp':'Next · '+(node(Q.next(c))?.name||'Forest Guardian'):goalLine.call(this,c);};
+ JourneyGuide.target=function(c){return Q.active(c)?Q.optionalTarget(c)||node(Q.next(c))||null:target.call(this,c);};
+ JourneyGuide.goalLine=function(c){return Q.active(c)?Q.complete(c)?'Forest restored · celebrate at camp':Q.optionalTarget(c)?'Optional · '+Q.optionalTarget(c).name:'Next · '+(node(Q.next(c))?.name||'Forest Guardian'):goalLine.call(this,c);};
  JourneyGuide.allowed=function(c,n){return Q.active(c)?Q.available(c,n):guideAllowed.call(this,c,n);};
  const regions=JourneyGuide.regionComplete;JourneyGuide.regionComplete=function(c,i){return Q.active(c)?i===0&&Q.complete(c):regions.call(this,c,i);};
  const build=OpenPaintedMaps.build;
@@ -228,6 +262,7 @@
   let svg=$('quest-route-overlay');
   if(!svg){svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.id='quest-route-overlay';svg.setAttribute('aria-hidden','true');svg.innerHTML='<path class="quest-route-shadow"/><path class="quest-route-line"/>';$('map-viewport').append(svg);}
   const route=this.routeCache?.points,next=this.target(s.campaign);
+  svg.dataset.optional=String(!!next?.forestFind);if(this.ui?.goal)this.ui.goal.dataset.optional=String(!!next?.forestFind);if(this.ui?.arrow)this.ui.arrow.dataset.optional=String(!!next?.forestFind);
    const hidden=!next||!route?.length||this.ui.dialog.open;svg.toggleAttribute('hidden',hidden);
    if(hidden)return;
   svg.setAttribute('viewBox','0 0 '+frame.width+' '+frame.height);
@@ -239,7 +274,7 @@
  };
  const marker=ExplorationPolish.marker;
  ExplorationPolish.marker=function(c,n,at,done){
-  const campaign=DungeonRules.campaign,target=campaign&&JourneyGuide.target(campaign),main=target?.id===n.id;
+  const campaign=DungeonRules.campaign,target=campaign&&JourneyGuide.target(campaign),main=target?.id===n.id&&!n.forestFind;
   const questBattle=Q.active(campaign)&&steps.includes(n.id);
   if(!n.forestFind&&!main&&!questBattle)return marker.call(this,c,n,at,done);
   const unavailable=(n.forestFind||questBattle)&&Q.active(campaign)&&!Q.available(campaign,n)&&!done;

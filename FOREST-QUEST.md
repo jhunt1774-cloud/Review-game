@@ -14,6 +14,14 @@ This update adds a complete forest quest to the existing game. Choose **Play for
 - The Guardian victory includes a forest-specific conclusion and a recap of choices and question results. Players can explore the warmer, restored forest and glowing ancient tree or reopen their recap. The full campaign remains available from the title screen.
 - Camp goals and shop dialogue stay focused on this quest. Full campaign contracts and the missing-courier task are not offered in short-quest camp UI. Existing equipment, upgrades, skills, healing, audio controls and reward systems remain available.
 
+## Forest polish pass
+
+The route panel now lists optional preparations with their exact benefits and a 0/2 readiness count. Choose one to follow a blue side trail; **Resume main trail** returns guidance to the gold story route. Arrival prompts explain E / Search, claimed and declined choices are labelled, and optional preparation navigation never grants a reward by itself. Keyboard Enter activation is protected against accidentally triggering the newly focused resume button.
+
+The title card shows saved encounter progress, the practice set name when applicable, and a restored-forest message after completion. The ranger healing option is disabled when the party is already healthy, so a potion cannot be wasted for no healing.
+
+`node tools/forest-polish-smoke.cjs` checks keyboard route selection, contextual E interaction, readiness/choice labels, potion protection, save-note persistence, and the expanded route panel on a smaller screen. The full forest smoke check also navigates through these controls and tests returning to the main route.
+
 ## Questions and saves
 
 The default quest uses the existing HTML/CSS questions. In Teacher mode, review a valid set and choose **Play forest quest with this set**. When an assignment link is open, the title-screen forest quest uses that assignment’s questions. Unrecognized imported questions keep their wording and correct answer; existing answer shuffling is retained.
