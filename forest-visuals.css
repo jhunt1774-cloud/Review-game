@@ -39,3 +39,4 @@
 #game[data-forest-visuals=true] #battle #arena #battle-insight{top:128px}
 #game[data-forest-visuals=true] #battle #arena #boss-status{top:168px}
 @media(max-width:800px){#game[data-forest-visuals=true] #battle #arena #battle-insight{top:120px}#game[data-forest-visuals=true] #battle #arena #boss-status{top:158px}}
+#forest-map-key{margin-top:8px;border-top:1px solid #b9c49b50;padding-top:6px;font:11px/1.5 system-ui;color:#d4e4cf}#forest-map-key summary{cursor:pointer;color:#e8d7a9}#forest-map-key p{margin:5px 0 0;max-width:32em}

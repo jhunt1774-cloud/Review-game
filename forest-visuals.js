@@ -14,6 +14,7 @@
    $('game').dataset.forestMotion=MotionPreference.reduced()?'still':'full';
    if(!this.enabled||s.phase!=='battle')this.clear();
    if(!this.enabled)return;
+   if(!$('forest-map-key')){const key=document.createElement('details');key.id='forest-map-key';const title=document.createElement('summary');title.textContent='Map symbols';const text=document.createElement('p');text.textContent='1–4: encounters in order · 4: Guardian · C: camp · +: supplies · ◇: spirit · R: ranger. Gold: next encounter · blue: optional · lock: unavailable · ✓: cleared. Follow a blue trail to choose an optional stop.';key.append(title,text);$('forest-trail-board').append(key);}
    if(!$('forest-battle-atmosphere')){const shade=document.createElement('div');shade.id='forest-battle-atmosphere';shade.setAttribute('aria-hidden','true');$('arena').prepend(shade);}
    if(!$('forest-enemy-ground')){const ground=document.createElement('span');ground.id='forest-enemy-ground';ground.setAttribute('aria-hidden','true');$('enemy').prepend(ground);}
    HEROES.forEach((hero,i)=>{
@@ -23,6 +24,24 @@
    });
   },
   clear(){for(const [node,motion]of this.nodes){motion.cancel();node.remove();}this.nodes.clear();},
+  mapBadge(n,c,done){
+   const labels={m0:'1',m1:'2',m2:'3',m3:'4',merchant:'C','forest-supplies':'+','forest-spirit':'◇','forest-ranger':'R'};
+   if(!Q.active(c)||!Object.hasOwn(labels,n.id))return null;
+   const available=Q.available(c,n),target=Q.optionalTarget(c)?.id||Q.next(c);
+   return {id:n.id,label:done?'✓':labels[n.id],state:done?'cleared':!available?'locked':!n.forestFind&&n.id===target?'next':'optional',boss:n.id==='m3'};
+  },
+  badgeArt(info){
+   this.badges??=new Map();const key=info.id+':'+info.state;
+   if(this.badges.has(key))return this.badges.get(key);
+   const canvas=document.createElement('canvas');canvas.width=80;canvas.height=88;const c=canvas.getContext('2d');
+   const color={cleared:'#a9e4b0',locked:'#a8b2ad',next:'#ffe0a0',optional:'#9ce5ed'}[info.state];
+   c.fillStyle='#0b2925f5';c.strokeStyle=color;c.lineWidth=3;
+   c.beginPath();if(info.boss){c.moveTo(40,5);c.lineTo(70,23);c.lineTo(65,60);c.lineTo(40,77);c.lineTo(15,60);c.lineTo(10,23);c.closePath();}else c.roundRect(12,8,56,60,14);c.fill();c.stroke();
+   c.beginPath();c.moveTo(32,70);c.lineTo(40,84);c.lineTo(48,70);c.fill();
+   c.fillStyle=color;c.font='bold 32px system-ui';c.textAlign='center';c.textBaseline='middle';c.fillText(info.label,40,39);
+   if(info.state==='locked'){c.lineWidth=2;c.beginPath();c.arc(61,17,7,Math.PI,0);c.stroke();c.fillStyle=color;c.fillRect(52,17,18,12);}
+   this.badges.set(key,canvas);return canvas;
+  },
   mapHero(c,hero,at){
    if(hero.index===MapWalkers.leader){c.strokeStyle='#f2dea0';c.fillStyle='#e8d69b24';c.lineWidth=1.4;c.beginPath();c.ellipse(at.x,at.y,14,5,0,0,Math.PI*2);c.fill();c.stroke();}
    c.shadowColor='#03160ddd';c.shadowBlur=2;c.shadowOffsetY=2;
@@ -60,6 +79,12 @@
   try{await work;}finally{this.pending.delete(work);}
  };
  document.addEventListener('visibilitychange',()=>{if(document.hidden)V.clear();});
+ const mapMarker=ExplorationPolish.marker;
+ ExplorationPolish.marker=function(c,n,at,done){
+  const result=mapMarker.call(this,c,n,at,done),info=V.mapBadge(n,DungeonRules.campaign,done);
+  if(info){c.save();c.globalAlpha=info.state==='locked'?.75:1;c.drawImage(V.badgeArt(info),at.x-(Q.steps.includes(n.id)?53:20),at.y-48,40,44);c.restore();}
+  return result;
+ };
  const art=ForestArt.landmark;
  ForestArt.landmark=function(c,n,at,done,time){
   const result=art.call(this,c,n,at,done,time),campaign=DungeonRules.campaign;

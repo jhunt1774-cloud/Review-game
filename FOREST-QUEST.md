@@ -74,3 +74,9 @@ Lanterns at the first three landmarks light when cleared. The restored Guardian 
 `forest-visuals.js` and `forest-visuals.css` contain this presentation layer; a small drawing hook in `forest-renderer.js` adds the map hero highlight. The changes are scoped to the short forest quest.
 
 `node tools/forest-visuals-smoke.cjs` checks one real attack causes exactly one hit, all five added effect styles, bounded elements and cleanup, reduced-motion/Light/hidden-tab behavior, reward details, cached cleared-landmark artwork and original campaign isolation. The tactical and complete-adventure browser checks also cover rewards, save/reload and traversal with the visual layer loaded. These checks do not replace a physical older-Chromebook performance trial.
+
+## Recognizable map destinations
+
+The short quest now shows cached map badges: encounters 1–4, a shield-shaped Guardian marker, C for camp, + for supplies, a diamond for the spirit and R for the ranger. Cleared sites receive a check; unavailable encounters retain their number and gain a lock. Gold identifies the next main encounter and blue identifies optional stops. The existing names, navigation trails and interactions remain in place. A collapsible Map symbols key explains the symbols without covering more of the map by default.
+
+The badges reuse small canvas artwork cached by destination and state; they add no downloads or animation loops. Original campaign markers are unchanged. `node tools/forest-map-smoke.cjs` checks state mapping, original campaign isolation, cache reuse, actual world rendering and the expanded key's panel bounds at 768×600. Desktop and smaller-screen screenshots were inspected.
