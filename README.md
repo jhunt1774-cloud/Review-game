@@ -1,3 +1,13 @@
+# Asterfall · Forest Path browser RPG
+
+Open the repository-root `index.html` from a static web server. **Play forest quest** starts Wake the Emerald Heart, the focused four-encounter adventure; **Start full campaign** keeps the expanded Asterfall journey available. Their local saves are separate.
+
+See [FOREST-QUEST.md](FOREST-QUEST.md) for the new route, meaningful preparations, shortcuts, teacher question sets and verification commands. The legacy `forest-path/` copy and standalone export are separate, unchanged versions.
+
+The notes below document the earlier ambience delivery.
+
+---
+
 # Complete ambience update — October 24, 2026
 
 This cumulative update includes forest, crypt, mountain and coast ambience. You can skip the earlier Forest-Crypt-Ambience ZIP; this includes its files and the two new loops. All four selected takes are saved in ElevenLabs Assets and backed up unchanged in original-downloads/. The optimized files are in assets/ambience/.
