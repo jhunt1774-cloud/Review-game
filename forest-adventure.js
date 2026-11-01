@@ -31,6 +31,27 @@
    const focus=this.optionalFocus;
    return focus?.campaign===c&&this.available(c,node(focus.id))?node(focus.id):null;
   },
+  health(s) {
+   const heroes=s.hp.map((hp,i)=>({name:HEROES[i].name,hp,max:api.maxHp(i),index:i}));
+   const total=heroes.reduce((sum,h)=>sum+Math.min(h.max,h.hp),0),max=heroes.reduce((sum,h)=>sum+h.max,0);
+   const lowest=heroes.reduce((a,b)=>b.hp/b.max<a.hp/a.max?b:a);
+   return {heroes,lowest,percent:Math.round(total/max*100),hurt:heroes.some(h=>h.hp<h.max),down:heroes.filter(h=>h.hp===0).length};
+  },
+  partyStatus(s) {
+   const h=this.health(s),c=s.campaign;
+   $('forest-health-text').textContent=(h.down?h.down+' '+(h.down===1?'hero down':'heroes down')+' · ':h.hurt?'Party health '+h.percent+'% · ':'Party healthy · ')+c.potions+' '+(c.potions===1?'potion':'potions');
+   $('forest-health').dataset.hurt=String(h.hurt);$('forest-health').dataset.down=String(h.down>0);
+   const potion=$('forest-heal');potion.disabled=!h.hurt||c.potions<1;
+   potion.textContent=h.hurt?'Heal '+h.lowest.name+' · 1 potion':'Party fully healed';
+   potion.title=!h.hurt?'Everyone is at full health.':c.potions<1?'No healing potions left. Rest at camp.':'Restore up to 60% of '+h.lowest.name+'’s maximum HP.';
+   const atCamp=api.atCamp(),restUsed=c.campStage===steps.filter(id=>c.completed.includes(id)).length;
+   $('forest-camp-welcome').hidden=!atCamp;
+   $('forest-camp-copy').textContent=!h.hurt?'Your party is fully healed. Equip your rewards before returning to the trail.':restUsed?'Your next free camp rest unlocks after the next victory. Potions are still available.':'Equip your rewards, then rest to restore all four heroes without a potion. One rest is available after each cleared encounter.';
+   $('forest-camp-rest').disabled=!h.hurt||restUsed;
+   $('forest-camp-rest').textContent=!h.hurt?'Party fully healed':restUsed?'Rest used · win an encounter to refresh':'Rest here · heal the whole party';
+   $('forest-boss-readiness').hidden=this.next(c)!=='m3';
+   $('forest-boss-readiness').textContent='Guardian ahead · '+(h.hurt?'Visit camp to heal, or keep going with '+h.percent+'% party health.':'Your party is healthy. Equip your rewards, then take the canopy shortcut.');
+  },
   visible(c, n) { return n.id === 'merchant' || steps.includes(n.id) || c.completed.includes('m0') && sites.some(s => s.id === n.id); },
   available(c, n) {
    if (!this.active(c)) return false;
@@ -88,6 +109,13 @@
    panel.setAttribute('aria-label','Forest quest route and preparations');
    panel.innerHTML='<strong id="forest-trail-heading">The Emerald Heart</strong><div id="forest-route-steps"></div><p id="forest-preparations"></p><div class="forest-trail-actions"><button id="forest-follow">Follow gold trail</button><button id="forest-camp">Return to camp</button><button id="forest-return" hidden>Return to trail</button><button id="forest-canopy" hidden>Use canopy shortcut</button><button id="forest-recap" hidden>Quest recap</button></div><p class="forest-legend">◆ Gold: next goal · ✦ Blue: optional help · ✓ Green: completed</p>';
    $('world').append(panel);
+   const health=document.createElement('div');health.id='forest-health';health.innerHTML='<span id="forest-health-text"></span><button id="forest-heal" type="button">Use a potion</button>';
+   panel.insertBefore(health,$('forest-preparations'));$('forest-heal').onclick=()=>api.heal();
+   const boss=document.createElement('p');boss.id='forest-boss-readiness';boss.hidden=true;panel.insertBefore(boss,panel.querySelector('.forest-legend'));
+   const camp=document.createElement('section');camp.id='forest-camp-welcome';camp.hidden=true;camp.innerHTML='<h3>Catch your breath at camp</h3><p id="forest-camp-copy"></p><button id="forest-camp-rest" type="button">Rest here · heal the whole party</button>';
+   $('map-party-panel').insertBefore(camp,$('camp-quest-board'));$('forest-camp-rest').onclick=()=>api.restCamp();
+   const readiness=document.createElement('section');readiness.id='forest-arrival-readiness';readiness.hidden=true;readiness.setAttribute('aria-label','Party readiness for the Guardian');$('arrival-danger').before(readiness);
+   const retreat=document.createElement('button');retreat.id='forest-arrival-camp';retreat.type='button';retreat.hidden=true;retreat.textContent='Visit camp before the Guardian';retreat.onclick=()=>api.campBeforeBoss();$('begin-encounter').after(retreat);
    const preparations=document.createElement('details');preparations.id='forest-optional-paths';
    preparations.innerHTML='<summary id="forest-optional-heading">Optional preparations</summary><p>Choose supplies OR a spirit blessing. Rescuing the ranger is a separate choice.</p><div id="forest-optional-buttons"></div>';
    panel.insertBefore(preparations,$('forest-preparations').nextSibling);
@@ -143,10 +171,17 @@
    $('begin-chapter').textContent=active?'Enter the forest →':'Begin the Emerald Road →';
   },
   arrival(s) {
+   const boss=this.active(s)&&s.encounter===3;
+   $('forest-arrival-readiness').hidden=!boss;$('forest-arrival-camp').hidden=!boss;
    if(!this.active(s))return;
    if(s.encounter===2){$('arrival-title').textContent='The bridge sentinel';$('arrival-narration').textContent='The sentinel guards the river crossing. Break its armor to reopen the bridge and the old canopy shortcut.';}
    if(s.encounter===3){
     const q=s.campaign.forestQuest;
+    const health=this.health(s),box=$('forest-arrival-readiness');box.replaceChildren();
+    const title=document.createElement('strong');title.textContent='Your party · '+health.percent+'% health · '+s.campaign.potions+' healing potions';box.append(title);
+    const list=document.createElement('div');list.className='forest-health-roster';
+    for(const hero of health.heroes){const row=document.createElement('span');row.textContent=hero.name+' · '+hero.hp+' / '+hero.max+' HP';row.dataset.hurt=String(hero.hp<hero.max);list.append(row);}box.append(list);
+    const note=document.createElement('p');note.textContent=health.hurt?'You can visit camp before starting. Your bridge victory and shortcut stay unlocked.':'Everyone is healthy. You can face the Guardian or visit camp to change equipment.';box.append(note);
     $('arrival-narration').textContent='The ancient tree is bound in thorn roots. Awaken the Emerald Heart and let the forest breathe again.';
     $('arrival-danger').textContent=(q.ranger?'Ranger’s scouting: axe → hammer → fire as the Guardian changes phases. Start with 2 focus. ':'Watch for changing weaknesses and interrupt its charged attack. ')+(q.boon==='spirit'?'The freed spirit shields the first strike.':q.boon==='supplies'?'Your extra healing potions are ready in Items.':'You face the Guardian with your party’s own strength.');
    }
@@ -155,6 +190,7 @@
    const active=this.active(s),board=$('forest-trail-board');board.hidden=!active;
    board.dataset.complete=String(active&&this.complete(s.campaign));
    $('world').dataset.forestQuest=String(active);$('world').dataset.forestRestored=String(active&&this.complete(s.campaign));
+   if(!active)$('forest-camp-welcome').hidden=true;
    if(!active)return;
    const c=s.campaign,q=c.forestQuest,next=this.next(c);
    const optional=this.optionalTarget(c),unlocked=c.completed.includes('m0')&&!this.complete(c),details=$('forest-optional-paths');
@@ -188,6 +224,7 @@
    $('forest-recap').hidden=!this.complete(c);$('forest-follow').hidden=this.complete(c);
    $('pack-summary').textContent=c.potions+' healing potions · '+c.runes+' forge runes · '+(q.ranger?'Guardian phases: axe → hammer → fire':'The ranger knows how to break the Guardian’s defenses.');
    $('explore-tip').textContent=this.complete(c)?'The river runs clear. Visit camp or open your quest recap.':'Follow gold · Blue markers: optional help · E or Search to interact.';
+   this.partyStatus(s);
   },
   result(s) {
    const active=this.active(s),forge=$('rune-forge');$('result').dataset.forestQuest=String(active);

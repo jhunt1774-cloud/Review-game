@@ -284,7 +284,10 @@ const playtestGateOpen=RegionGates.open;RegionGates.open=function(chapter,comple
 
 // Narrow callbacks keep short-quest travel and saving in the existing game controller.
 ForestAdventure.attach({
- maxHp,
+ maxHp,atCamp:atRosterCamp,
+ heal(){if(!forestCanAct())return;potion();},
+ restCamp(){if(!ForestAdventure.active(state)||state.phase!=='world'||busy||mapVisitPending||!atRosterCamp()||$('mine-choice')?.open||JourneyGuide.ui?.dialog.open||state.campaign.campStage===stage()||state.hp.every((hp,i)=>hp>=maxHp(i)))return;rest();rosterUI();mapOverlay(null,null,true);},
+ campBeforeBoss(){if(!ForestAdventure.active(state)||state.phase!=='arrival'||busy||state.campaign.battleNode!=='m3'||!state.campaign.completed.includes('m2'))return;const c=state.campaign,point=ForestWorld.nearest({x:28,y:25},4);if(!point)return;c.forestQuest.returnPoint={x:point.x,y:point.y,chapter:0};const at=MapRoutes.graphs[0].points.get('merchant');c.location='merchant';c.explorePosition={x:at.x,y:at.y,chapter:0};world();rosterUI();mapOverlay(null,null,true);},
  hasSave(){const old=KEY;try{KEY=ForestAdventure.slot;return !!readSave();}finally{KEY=old;}},
  summary(){const old=KEY;try{KEY=ForestAdventure.slot;const s=readSave();return s?{cleared:ForestAdventure.steps.filter(id=>s.campaign.completed.includes(id)).length,complete:ForestAdventure.complete(s.campaign),lesson:s.lesson?.name||null}:null;}finally{KEY=old;}},
  start(lesson){KEY=ForestAdventure.slot;start(lesson?JSON.parse(JSON.stringify(lesson)):null,true);},

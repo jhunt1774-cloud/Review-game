@@ -22,6 +22,14 @@ The title card shows saved encounter progress, the practice set name when applic
 
 `node tools/forest-polish-smoke.cjs` checks keyboard route selection, contextual E interaction, readiness/choice labels, potion protection, save-note persistence, and the expanded route panel on a smaller screen. The full forest smoke check also navigates through these controls and tests returning to the main route.
 
+## Recovery and Guardian readiness
+
+The map now shows party health, fallen allies and available potions. **Heal [hero] · 1 potion** targets the ally with the lowest percentage of health, reusing the existing potion amount and cost. It is disabled when everyone is healthy or no potions remain.
+
+Camp recovery appears prominently above the party controls. Rest heals all four heroes without spending a potion and still respects the existing limit of one rest per cleared encounter. Equip rewards before resting. The route panel gives a readiness reminder after the bridge, and the Guardian arrival screen shows each hero’s HP. **Visit camp before the Guardian** lets you heal and change equipment, then return to a safe approach without losing bridge progress or triggering the battle immediately. No new save fields are required.
+
+`node tools/forest-recovery-smoke.cjs` checks exact potion cost and targeting, fallen-hero recovery, full-health protection, rest limits and refresh, smaller-screen panel bounds, Guardian readiness across reload, a safe camp round trip, retained boss bonuses and unchanged full-campaign UI.
+
 ## Questions and saves
 
 The default quest uses the existing HTML/CSS questions. In Teacher mode, review a valid set and choose **Play forest quest with this set**. When an assignment link is open, the title-screen forest quest uses that assignment’s questions. Unrecognized imported questions keep their wording and correct answer; existing answer shuffling is retained.
