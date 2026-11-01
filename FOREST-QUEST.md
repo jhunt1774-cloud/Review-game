@@ -30,6 +30,16 @@ Camp recovery appears prominently above the party controls. Rest heals all four 
 
 `node tools/forest-recovery-smoke.cjs` checks exact potion cost and targeting, fallen-hero recovery, full-health protection, rest limits and refresh, smaller-screen panel bounds, Guardian readiness across reload, a safe camp round trip, retained boss bonuses and unchanged full-campaign UI.
 
+## Optional battle goals and useful victory rewards
+
+The four fights now offer different optional tactical goals: exploit Mossgate’s magic weakness, use a skill on the wolf’s weakness, answer correctly with a guarding strike against the sentinel, and interrupt the Guardian’s charged rootfire. Each goal grants one extra rune when that encounter is won. Skipping a goal does not block victory or remove any ordinary reward. Goals do not require perfect timing, so assisted defense remains usable.
+
+The battle goal is a collapsible hint in the battlefield. It starts compact on smaller screens. Progress survives a battle reload, resets for a fresh attempt or defeat retry, and can pay only once. Existing saves without a goal field remain valid; completed encounters do not receive retroactive bonuses.
+
+After the first three victories, suggested upgrades explain the next enemy’s weakness and offer a relevant hero’s Power upgrade or a Vitality upgrade. These spend existing runes using the original increasing costs and rank-three cap. They do not grant extra XP, gold or duplicate loot. Continue appears before the larger optional forge so the next step stays visible. The full forge remains available, and the final recap acknowledges an interrupted Guardian charge when its bonus was earned.
+
+`node tools/forest-tactics-smoke.cjs` checks actual magic, skill, guard and interrupt actions; wrong answers; once-only payouts; save/reload and retry behavior; rune and upgrade caps; maximum-HP changes; unchanged XP/gold; compact battle hints; visible Continue controls; and unchanged original-campaign rewards and forge behavior. It uses controlled encounter states for these focused checks, while the full adventure smoke check covers normal traversal and victories with goals left optional.
+
 ## Questions and saves
 
 The default quest uses the existing HTML/CSS questions. In Teacher mode, review a valid set and choose **Play forest quest with this set**. When an assignment link is open, the title-screen forest quest uses that assignment’s questions. Unrecognized imported questions keep their wording and correct answer; existing answer shuffling is retained.

@@ -15,11 +15,12 @@
  const Q = window.ForestAdventure = {
   steps, sites, slot:'web-wizardry-forest-v1',
   active(value = current) { return !!(value?.campaign ? value.adventure === 'forest-quest' : value?.forestQuest?.version === 1); },
-  defaults() { return {version:1,boon:null,ranger:false,bossPrepared:false,shortcut:false,returnPoint:null,walkingSeconds:0}; },
+  defaults() { return {version:1,boon:null,ranger:false,bossPrepared:false,shortcut:false,returnPoint:null,walkingSeconds:0,challenge:null}; },
   valid(s) {
    if (s.adventure === undefined) return !s.campaign?.forestQuest;
    const q = s.campaign?.forestQuest;
-   return s.adventure === 'forest-quest' && q?.version === 1 && s.campaign.viewChapter === 0 && !s.campaign.dungeon &&
+   const challenge=q?.challenge;
+   return s.adventure === 'forest-quest' && q?.version === 1 && (challenge==null || typeof challenge==='object'&&!Array.isArray(challenge)&&challenge.version===1&&steps.includes(challenge.node)&&typeof challenge.complete==='boolean'&&typeof challenge.paid==='boolean'&&(!challenge.paid||challenge.complete)&&[undefined,0,1].includes(challenge.gain)) && s.campaign.viewChapter === 0 && !s.campaign.dungeon &&
     [null,'supplies','spirit'].includes(q.boon) && ['ranger','bossPrepared','shortcut'].every(k => typeof q[k] === 'boolean') &&
     Number.isFinite(q.walkingSeconds) && q.walkingSeconds >= 0 && (!q.returnPoint ||
      Number.isFinite(q.returnPoint.x) && Number.isFinite(q.returnPoint.y) && q.returnPoint.chapter === 0 &&
@@ -65,9 +66,64 @@
    // Keep the boss's three phases; trim repeated questions in the opening fights.
    return {...e,hp:Math.round(e.hp * (s.encounter === 3 ? .85 : .78)),damage:Math.round(e.damage * .9)};
   },
+  challengeInfo(s) {
+   return {
+    m0:{title:'Break the briar hide',hint:'Use '+HEROES[3].name+'’s magic to exploit the briar weakness.'},
+    m1:{title:'Exploit a weakness with a skill',hint:'Build 2 focus, then try '+HEROES[2].name+'’s piercing skill against the wolf.'},
+    m2:{title:'Raise a shield with a guarding strike',hint:'Choose Guarding strike in Skills, then answer correctly.'},
+    m3:{title:'Interrupt the Guardian’s rootfire',hint:'While it charges, hit its current weakness to interrupt the eruption.'}
+   }[s.campaign.battleNode];
+  },
+  beginEncounter(s) {
+   if(!this.active(s))return;
+   s.campaign.forestQuest.challenge={version:1,node:s.campaign.battleNode,complete:false,paid:false};
+   if(s.campaign.battleNode==='m3')s.campaign.forestQuest.bossPrepared=false;
+  },
+  markChallenge(c,id) {
+   const goal=c.forestQuest?.challenge;
+   if(this.active(c)&&goal?.node===id&&!goal.paid)goal.complete=true;
+  },
+  noteHit(s,{weakness,useSkill,action}) {
+   if(!this.active(s))return;
+   const id=s.campaign.battleNode;
+   if(id==='m0'&&weakness||id==='m1'&&weakness&&useSkill||id==='m2'&&action==='guard')this.markChallenge(s.campaign,id);
+  },
+  rewardChallenge(s) {
+   if(!this.active(s))return 0;
+   const c=s.campaign,goal=c.forestQuest.challenge;
+   if(!goal?.complete||goal.paid||goal.node!==c.battleNode||!c.completed.includes(goal.node))return 0;
+   goal.paid=true;goal.gain=c.runes<999?1:0;c.runes=Math.min(999,c.runes+goal.gain);return goal.gain;
+  },
+  presentChallenge(s) {
+   const panel=$('forest-battle-goal'),active=this.active(s)&&s.phase==='battle',info=active&&this.challengeInfo(s);
+   panel.hidden=!info;if(!info)return;
+   const goal=s.campaign.forestQuest.challenge;
+   panel.dataset.complete=String(!!goal?.complete);
+   $('forest-goal-title').textContent=info.title;$('forest-goal-hint').textContent=info.hint;
+   const text=goal?.complete?'✓ Goal ready · win to earn +1 rune':'Optional · +1 bonus rune on victory';
+   if($('forest-goal-status').textContent!==text)$('forest-goal-status').textContent=text;
+  },
+  upgradeSuggestions(s) {
+   const box=$('forest-reward-upgrades');box.replaceChildren();box.hidden=s.phase==='defeat'||s.phase==='complete';if(box.hidden)return;
+   const c=s.campaign,heading=document.createElement('strong'),copy=document.createElement('p'),buttons=document.createElement('div');
+   heading.textContent='Put your runes to work · '+c.runes+' available';
+   const next=this.next(c),role=next==='m1'?2:next==='m2'?1:0,health=this.health(s),defender=health.hurt?health.lowest.index:c.playerHero.role;
+   copy.textContent=next==='m1'?'Next: the wolf is weak to piercing attacks.':next==='m2'?'Next: hammer blows crack the bridge sentinel’s armor.':next==='m3'?'Next: axe strikes open the Guardian’s first shell.':'Keep improving your heroes for a return to the forest.';
+   for(const [actor,kind] of [[role,'power'],[defender,'vitality']]){
+    const rank=c.runeLevels[actor][kind],cost=rank+1,b=document.createElement('button');b.type='button';b.dataset.hero=String(actor);b.dataset.kind=kind;
+    b.textContent=HEROES[actor].name+' · '+(kind==='power'?'+3 damage':'+8 maximum HP')+' · '+(rank>=3?'max rank':cost+' '+(cost===1?'rune':'runes'));
+    b.title='Current '+kind+' rank: '+rank+'/3. '+(kind==='power'?'Power adds attack damage.':'Vitality increases maximum HP; it does not revive a fallen hero.');
+    b.disabled=rank>=3||c.runes<cost;b.onclick=()=>api.upgrade(actor,kind);buttons.append(b);
+   }
+   box.append(heading,copy,buttons);
+   const goal=c.forestQuest.challenge;
+   if(goal?.node===c.battleNode&&goal.complete&&goal.paid){const bonus=document.createElement('p');bonus.className='forest-goal-reward';bonus.textContent=goal.gain?'✓ Tactical goal completed · +1 bonus rune':'✓ Tactical goal completed · rune pouch is full';box.append(bonus);}
+  },
   prepareBattle(s, retry = false) {
-   if (!this.active(s) || s.campaign.battleNode !== 'm3') return;
+   if (!this.active(s)) return;
    const q = s.campaign.forestQuest;
+   if(retry||!q.challenge||q.challenge.node!==s.campaign.battleNode)this.beginEncounter(s);
+   if(s.campaign.battleNode!=='m3')return;
    if (q.bossPrepared && !retry) return;
    q.bossPrepared = true;
    if (q.boon === 'spirit') s.campaign.shield = 1;
@@ -114,6 +170,11 @@
    const boss=document.createElement('p');boss.id='forest-boss-readiness';boss.hidden=true;panel.insertBefore(boss,panel.querySelector('.forest-legend'));
    const camp=document.createElement('section');camp.id='forest-camp-welcome';camp.hidden=true;camp.innerHTML='<h3>Catch your breath at camp</h3><p id="forest-camp-copy"></p><button id="forest-camp-rest" type="button">Rest here · heal the whole party</button>';
    $('map-party-panel').insertBefore(camp,$('camp-quest-board'));$('forest-camp-rest').onclick=()=>api.restCamp();
+   const goal=document.createElement('details');goal.id='forest-battle-goal';goal.hidden=true;goal.open=window.innerWidth>=900&&window.innerHeight>=600;
+   goal.innerHTML='<summary>Optional battle goal · +1 rune</summary><strong id="forest-goal-title"></strong><p id="forest-goal-hint"></p><span id="forest-goal-status" role="status" aria-live="polite"></span>';$('arena').append(goal);
+   let compactGoal=window.innerWidth<900||window.innerHeight<600;
+   window.addEventListener('resize',()=>{const compact=window.innerWidth<900||window.innerHeight<600;if(compact&&!compactGoal)goal.open=false;compactGoal=compact;});
+   const upgrades=document.createElement('section');upgrades.id='forest-reward-upgrades';upgrades.hidden=true;$('rune-forge').before(upgrades);
    const readiness=document.createElement('section');readiness.id='forest-arrival-readiness';readiness.hidden=true;readiness.setAttribute('aria-label','Party readiness for the Guardian');$('arrival-danger').before(readiness);
    const retreat=document.createElement('button');retreat.id='forest-arrival-camp';retreat.type='button';retreat.hidden=true;retreat.textContent='Visit camp before the Guardian';retreat.onclick=()=>api.campBeforeBoss();$('begin-encounter').after(retreat);
    const preparations=document.createElement('details');preparations.id='forest-optional-paths';
@@ -174,6 +235,7 @@
    const boss=this.active(s)&&s.encounter===3;
    $('forest-arrival-readiness').hidden=!boss;$('forest-arrival-camp').hidden=!boss;
    if(!this.active(s))return;
+   const goal=this.challengeInfo(s);if(goal&&s.encounter!==3)$('arrival-danger').textContent+=' Optional bonus: '+goal.hint;
    if(s.encounter===2){$('arrival-title').textContent='The bridge sentinel';$('arrival-narration').textContent='The sentinel guards the river crossing. Break its armor to reopen the bridge and the old canopy shortcut.';}
    if(s.encounter===3){
     const q=s.campaign.forestQuest;
@@ -228,16 +290,21 @@
   },
   result(s) {
    const active=this.active(s),forge=$('rune-forge');$('result').dataset.forestQuest=String(active);
-   if(!active){if(this.forgeDetails){const content=[...this.forgeDetails.childNodes].filter(n=>n.tagName!=='SUMMARY');forge.replaceChildren(...content);this.forgeDetails=null;}return;}
+   $('forest-reward-upgrades').hidden=!active;
+   if(!active){forge.after($('advance'),$('menu'));if(this.forgeDetails){const content=[...this.forgeDetails.childNodes].filter(n=>n.tagName!=='SUMMARY');forge.replaceChildren(...content);this.forgeDetails=null;}return;}
    if(!this.forgeDetails){const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent='Spend your earned runes · optional upgrades';details.append(summary,...forge.childNodes);forge.append(details);this.forgeDetails=details;}
    this.forgeDetails.open=false;
    const c=s.campaign,q=c.forestQuest;
    $('progress').textContent='FOREST QUEST · '+steps.filter(id=>c.completed.includes(id)).length+' / 4 ENCOUNTERS';
+   this.upgradeSuggestions(s);
+   forge.before($('advance'),$('menu'));
+   $('rune-balance').textContent=c.runes+' runes available · earned through victories, defenses and optional battle goals';
    if(s.phase==='complete'){
     $('result-eyebrow').textContent='THE EMERALD HEART AWAKENS';$('result-title').textContent='You brought the forest back';
     $('result-copy').textContent='Light returns to the ancient tree. The roots release the river, and the ranger’s trail is safe again. Your four heroes made it happen.';
     const recap=document.createElement('section');recap.className='forest-finish';recap.innerHTML='<h3>Your forest story</h3>';
     const choices=[q.boon==='supplies'?'You packed healing supplies.':q.boon==='spirit'?'You freed the Moonwell spirit.':'You faced the forest without a blessing.',q.ranger?'You rescued the ranger and learned the Guardian’s weaknesses.':'You defeated the Guardian without the ranger’s scouting.',q.shortcut?'You restored and used the canopy shortcut.':'The canopy shortcut is now open.',s.correct+' correct '+(s.correct===1?'answer':'answers')+' · '+s.wrong+' '+(s.wrong===1?'mistake':'mistakes')+' · '+c.completed.filter(id=>steps.includes(id)).length+'/4 encounters cleared'];
+    if(q.challenge?.node==='m3'&&q.challenge.paid&&q.challenge.gain)choices.push('You interrupted the Guardian’s rootfire and earned a bonus rune.');
     for(const text of choices){const p=document.createElement('p');p.textContent=text;recap.append(p);}
     $('reward').append(recap);$('advance').textContent='Explore the restored forest →';
    } else if(s.phase==='victory'){
@@ -284,6 +351,7 @@
  const roamingEnabled=RoamingWorld.enabled;RoamingWorld.enabled=function(c){return !Q.active(c)&&roamingEnabled.call(this,c);};
  const roaming=RoamingWorld.update;RoamingWorld.update=function(c,...args){return Q.active(c)?null:roaming.call(this,c,...args);};
  const roads=RoadRules.available;RoadRules.available=function(c,...args){return Q.active(c)?false:roads.call(this,c,...args);};
+ const interrupt=BossRules.interrupt;BossRules.interrupt=function(c,weakness){const hit=interrupt.call(this,c,weakness);if(hit)Q.markChallenge(c,'m3');return hit;};
  const questBoard=QuestBoard.render;
  QuestBoard.render=function(parent,s,...args){
   if(!Q.active(s))return questBoard.call(this,parent,s,...args);
