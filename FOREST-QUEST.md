@@ -62,3 +62,15 @@ The automated runs use still poses, assisted defense and programmatically select
 ## Implementation
 
 `forest-adventure.js` contains the mode, map presentation, interactions and scoped rule adapters; `forest-adventure.css` provides the new route and ending UI. Small controller hooks in `game.js` handle the separate slot, mode validation, encounter setup, movement, shortcuts and ending. `index.html` loads the new module before the game controller. Mode changes invalidate cached terrain and restore campaign anchors, which is covered by the browser playthrough.
+
+## Forest visual polish
+
+The short quest reuses the existing character and environment art with stronger actor edges, ground shadows, a gold active-hero highlight and small weapon/role icons. Forest battle panels share dark teal materials and readable gold accents. The enemy name and health have a dark backing. Existing answer feedback and combat rules are preserved.
+
+Five short contact effects distinguish axe, hammer, arrow, fire and ice attacks. Extra effects are capped at twelve elements, cleaned after animation and cancelled when the tab is hidden. They are skipped with reduced motion, still poses or Light mode. No extra animation loop or new bitmap downloads were added.
+
+Lanterns at the first three landmarks light when cleared. The restored Guardian landmark has four subtle fireflies. Lantern images use two cached small canvases. Reward cards show the existing item's rarity, name and benefit, with a brief reveal when motion is enabled and a reminder to equip at camp. No item is automatically equipped and rewards are unchanged.
+
+`forest-visuals.js` and `forest-visuals.css` contain this presentation layer; a small drawing hook in `forest-renderer.js` adds the map hero highlight. The changes are scoped to the short forest quest.
+
+`node tools/forest-visuals-smoke.cjs` checks one real attack causes exactly one hit, all five added effect styles, bounded elements and cleanup, reduced-motion/Light/hidden-tab behavior, reward details, cached cleared-landmark artwork and original campaign isolation. The tactical and complete-adventure browser checks also cover rewards, save/reload and traversal with the visual layer loaded. These checks do not replace a physical older-Chromebook performance trial.

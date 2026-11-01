@@ -1,0 +1,41 @@
+/* Consistent forest materials, static actor contrast and short bounded impacts. */
+#game[data-forest-visuals=true]{--forest-panel:#102d2beF;--forest-line:#b9c4a266;--forest-gold:#efd69d}
+#game[data-forest-visuals=true] #forest-battle-atmosphere{position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(180deg,#08221c38,transparent 32%,#071c143b 74%,#04171375)}
+#game[data-forest-visuals=false] #forest-battle-atmosphere,#game[data-forest-visuals=false] #forest-enemy-ground{display:none}
+#game[data-forest-visuals=true] #heroes .hero::before{z-index:0;left:18%;right:18%;bottom:1%;height:7%;filter:none;background:radial-gradient(ellipse,#03150dc9,transparent 72%);border:1px solid #d0c5a51f;box-shadow:none}
+#game[data-forest-visuals=true] #heroes .hero[data-visual-active=true]::before{background:radial-gradient(ellipse,#ffe9a84a,#d5b86f1a 58%,transparent 72%);border:2px solid #f5dfa1;box-shadow:0 0 9px #f3da8f66}
+#game[data-forest-visuals=true] #heroes .hero>svg,#game[data-forest-visuals=true] #heroes .hero>canvas,#game[data-forest-visuals=true] #heroes .hero .actor-portrait{position:relative;z-index:1;filter:drop-shadow(0 2px 2px #03150de0) drop-shadow(0 0 1px #f4e5b09e)}
+#game[data-forest-visuals=true] #heroes .hero[data-visual-active=true]>svg,#game[data-forest-visuals=true] #heroes .hero[data-visual-active=true] .actor-portrait{filter:drop-shadow(0 2px 3px #03150def) drop-shadow(0 0 2px #f5e4a4bb)}
+#game[data-forest-visuals=true] #heroes .hero[data-visual-fallen=true]>svg,#game[data-forest-visuals=true] #heroes .hero[data-visual-fallen=true] .actor-portrait{filter:drop-shadow(0 2px 2px #03150d) saturate(.6)}
+#game[data-forest-visuals=true] #enemy-art>svg,#game[data-forest-visuals=true] #enemy-art>canvas,#game[data-forest-visuals=true] #enemy-art .actor-portrait{filter:drop-shadow(0 3px 3px #041810e8) drop-shadow(0 0 1px #f0df9b75)}
+#forest-enemy-ground{position:absolute;left:15%;right:15%;bottom:1%;height:7%;border-radius:50%;background:radial-gradient(ellipse,#06170dd9,transparent 72%);pointer-events:none}
+#game[data-forest-visuals=true] #hero-command-menu,#game[data-forest-visuals=true] #battle-dock,#game[data-forest-visuals=true] #forest-battle-goal,#game[data-forest-visuals=true] #battle-insight,#game[data-forest-visuals=true] #boss-status{background:linear-gradient(145deg,#163b35f5,#0b211ff5);border:1px solid var(--forest-line);border-radius:10px;box-shadow:0 5px 14px #03130d50;color:#f0eed9}
+#game[data-forest-visuals=true] #hero-command-menu button{border-radius:7px;border-color:#bbcaad59;background:#21453e;color:#faf1d5;box-shadow:none}
+#game[data-forest-visuals=true] #hero-command-menu button:hover:not(:disabled){background:#315a49;border-color:#e7d198}
+#game[data-forest-visuals=true] #hero-command-menu button:focus-visible,#game[data-forest-visuals=true] #answers button:focus-visible{outline:2px solid #a8e4df;outline-offset:2px}
+#game[data-forest-visuals=true] #party .party-card{border:1px solid #b3c3a885;border-radius:7px;background:linear-gradient(#12332df5,#0b201df5);box-shadow:0 3px 7px #0005;color:#f4edda}
+#game[data-forest-visuals=true] #party .party-card[data-visual-active=true]{border-color:#f2d69a;box-shadow:0 0 0 1px #f2d69a3d,0 3px 9px #0007}
+#game[data-forest-visuals=true] #battle #arena .battle-enemy-status{padding:6px 10px;border:1px solid #c2c3a184;border-radius:9px;background:linear-gradient(#14362fef,#0b231eeb);box-shadow:0 3px 10px #03140b66;color:#fff0d2}#game[data-forest-visuals=true] #battle #arena .battle-enemy-status strong{text-shadow:0 1px 2px #000;font-size:16px}#game[data-forest-visuals=true] #boss-status{top:152px}
+.forest-role-mark{display:inline-block;width:12px;height:12px;margin-right:4px;vertical-align:-1px;fill:none;stroke:#e8d3a5;stroke-width:1.4;stroke-linejoin:round;stroke-linecap:round}
+#game[data-forest-visuals=true] #heroes .hero[data-turn=true]::after{background:#11352ff2;border:1px solid #f4dda0;border-radius:8px;color:#fff0c8;box-shadow:0 3px 8px #0007}
+#game[data-forest-visuals=true] #heroes .hero[data-turn=true]:not([data-boss-target=true])::after{content:'YOUR TURN'}
+#game[data-forest-visuals=true] #answers button{background:linear-gradient(135deg,#21463e,#17332f);border:1px solid #bac9ae85;border-radius:7px;color:#fbf3df;line-height:1.4}
+#game[data-forest-visuals=true] #answers button.correct{background:#25563e;border-color:#a5e0ae;color:#efffed}#game[data-forest-visuals=true] #answers button.incorrect{background:#663e37;border-color:#efb69f;color:#fff1e7}
+#game[data-forest-visuals=true] #question,#game[data-forest-visuals=true] #feedback{line-height:1.45;text-shadow:0 1px 1px #0005}
+#game[data-forest-visuals=true] #forest-trail-board{background:linear-gradient(150deg,#153a30f5,#0b251ff2);border-color:#b9c49b9c;box-shadow:0 6px 18px #06180c75}
+.forest-impact{position:absolute;z-index:19;pointer-events:none;transform-origin:center;color:#e3eec1}.forest-impact svg{width:100%;height:100%;display:block;fill:none;stroke:currentColor;stroke-width:2}
+.forest-impact-slash{width:130px;height:5px;border-radius:50%;background:linear-gradient(90deg,transparent,#fff4c6 25%,#ffe1a4 70%,transparent);box-shadow:0 0 6px #f0d48c}
+.forest-impact-hammer{width:135px;height:34px;border:2px solid #ebcd97;border-radius:50%;background:radial-gradient(ellipse,#dfbf7b1f,transparent 65%)}
+.forest-impact-arrow{width:52px;height:52px;color:#d4f2b9}.forest-impact-fireball,.forest-impact-ice{width:88px;height:88px;color:#ffce8a}.forest-impact-ice{color:#b2f2ff}
+#game[data-forest-visuals=true][data-forest-motion=full] .combat-projectile.arrow::before{content:'';position:absolute;right:70%;top:7px;width:64px;height:3px;background:linear-gradient(90deg,transparent,#d5edb799);border-radius:50%}
+#game[data-forest-visuals=true] .item-reward-art[data-forest-loot=true]{--loot-color:#a9cfb1;display:grid;grid-template-columns:64px minmax(0,1fr);gap:12px;text-align:left;padding:9px 14px;max-width:600px;margin:8px auto;border:1px solid #b6c5a769;border-left:3px solid var(--loot-color);background:linear-gradient(110deg,#173b32,#102820c9);border-radius:11px;animation:none}
+#game[data-forest-visuals=true] .item-reward-art[data-rarity=rare]{--loot-color:#a0d4ee}#game[data-forest-visuals=true] .item-reward-art[data-rarity=epic]{--loot-color:#d4b5ee}#game[data-forest-visuals=true] .item-reward-art[data-rarity=legendary]{--loot-color:#f2d18d}
+#game[data-forest-visuals=true] .item-reward-art strong{display:block;max-width:none;font:600 16px/1.35 Georgia;color:#f6e6b9}.forest-loot-rarity{display:block;font:700 10px/1.4 system-ui;letter-spacing:.12em;text-transform:uppercase;color:var(--loot-color)}#game[data-forest-visuals=true] .item-reward-art small{display:block;margin-top:3px;font:11px/1.4 system-ui;color:#c8dfcb}
+#game[data-forest-visuals=true] #result #victory-party{height:100px}
+#game[data-forest-visuals=true][data-forest-motion=full] .item-reward-art.forest-item-new{animation:forest-loot-reveal .24s ease-out}
+@keyframes forest-loot-reveal{from{opacity:.3;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){#game .item-reward-art.forest-item-new{animation:none!important}}
+@media(max-width:800px){#game[data-forest-visuals=true] #battle #arena .battle-enemy-status{padding:4px 7px}#game[data-forest-visuals=true] #battle #arena .battle-enemy-status strong{font-size:13px}#game[data-forest-visuals=true] #boss-status{top:142px;font-size:10px}}
+#game[data-forest-visuals=true] #battle #arena #battle-insight{top:128px}
+#game[data-forest-visuals=true] #battle #arena #boss-status{top:168px}
+@media(max-width:800px){#game[data-forest-visuals=true] #battle #arena #battle-insight{top:120px}#game[data-forest-visuals=true] #battle #arena #boss-status{top:158px}}
