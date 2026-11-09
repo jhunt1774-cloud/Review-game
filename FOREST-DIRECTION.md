@@ -18,7 +18,7 @@ The briefing is positioned in the upper clear area rather than over the enemy. I
 
 ## Story and visuals
 
-The short quest now has its own complete story: a stopped river leads the companions through a frightened creature, a cornered hunter and a sentinel whose protective command has been corrupted. The Guardian has been containing the corruption, and the finale frees it while returning the Emerald Heart to the tree. Companion names respect the existing custom-hero substitution. The larger Beacon campaign's story is unchanged.
+The short quest has a complete story, revised against the painted map: the west-bank paths lead the companions through a frightened creature, a cornered hunter and a sentinel whose protective command has been corrupted. The Guardian has been containing the corruption, and the finale frees it while returning the Emerald Heart to the tree. Companion names respect the existing custom-hero substitution. The larger Beacon campaign's story is unchanged.
 
 Preparations explain the existing exclusive choice: take the stranded scouts' spare medicine, or leave the kit with them and carry the spirit's ward. The ranger remains a separate rescue. The ending acknowledges whether the ranger was rescued without claiming an unearned reward.
 

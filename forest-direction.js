@@ -8,16 +8,16 @@
    danger:'Fire cuts through its briar hide. A correct attack succeeds, then the surviving enemy responds. A mistake strengthens that response.',
    victory:'The imp breaks apart into dry leaves. Beneath the gate, a strand of black root recoils from the light. Lira follows it toward the hollow: the same growth has closed every path to the river.'},
   m1:{title:'Whispering Hollow · a cornered hunter',speaker:1,
-   arrival:'Thornfang stands over a spring choked with black roots. Brom lowers his hammer. “It has nowhere left to drink.” The wolf lunges before they can reach the water.',
+   arrival:'Thornfang blocks the circular stone landing above the western camp. Black roots cling to the ruined pillars. Brom keeps his hammer low. “Give it room.” The wolf lunges as they approach the stairs.',
    danger:'The wolf hunts the most injured ally. Brom’s skill draws its next attack; piercing hits disrupt its committed pounce. Healing can change whom it targets.',
-   victory:'The wolf retreats as clear water rises through the broken roots. Brom leaves a shallow pool beside the trail. Across the river, an old warning bell begins to ring. Someone is still at the crossing.'},
+   victory:'The wolf withdraws between the broken pillars. Lira points east, toward the river bridge. A sentinel holds the crossing at the west-bank approach. The path there winds around the central ruins.'},
   m2:{title:'Ancient Crossing · the broken oath',speaker:3,
-   arrival:'The sentinel strikes its own bridge, splitting the stones it was built to protect. Seren reads the surviving inscription: “Hold the crossing. Shelter the lost.” Black roots have twisted the command.',
+   arrival:'The sentinel bars the west-bank approach to the timber bridge. Seren reads a stone beside the landing: “Hold the crossing. Shelter the lost.” Black roots have twisted a protective oath into a command to turn everyone away.',
    danger:'Its armor reduces non-hammer damage by 25%. A correct Guarding strike opens the armor for the next two damaging hits: +25% damage and no arrow resistance. Hammer weakness still applies.',
-   victory:'The sentinel lowers its arms. Seren restores the missing rune, and the bridge settles back into place. Beyond it, black roots converge on the ancient tree. The Guardian has been holding the corruption inside itself.'},
+   victory:'The sentinel lowers its arms. The bridge leads east to the ruins and Amber Hollow, but the Guardian is on this bank. Turn back toward the Moonwell and follow the northern stone stairs to the grove above it.'},
   m3:{title:'The Emerald Heart · a protector bound',speaker:0,
-   arrival:'The Guardian’s branches hold the last living light above the river. Black roots tighten whenever it tries to speak. “We see what you are protecting,” Thorin says. “Let us carry the weight.”',
-   victory:'The last binding breaks. The Guardian lowers its branches, and the Emerald Heart settles back into the tree. Water moves beneath the crossing; the hollow answers with birdsong. The forest keeps its protector.'}
+   arrival:'Above the Moonwell stairs, the Guardian stands in the northwestern grove beneath the ancient tree. Black roots tighten around the Emerald Heart. “We see what you are protecting,” Thorin says. “Let us carry the weight.”',
+   victory:'The last binding breaks. The Guardian lowers its branches, and the Emerald Heart settles back into the ancient tree. From the grove, the companions can trace the reopened west-bank paths down to camp and the river bridge. The forest keeps its protector.'}
  };
  const D=window.ForestDirection={state:null,
   actionAllowed(s,id){return !Q.active(s)||id!=='channel'||s.campaign.focus<3;},
@@ -46,6 +46,7 @@
    if(!box){box=document.createElement('details');box.id='forest-battle-read';box.innerHTML='<summary><strong></strong><span></span></summary><p class="forest-read-opportunity"></p><p class="forest-read-resources"></p><p class="forest-read-rule">Predicted HP shows correct / incorrect answer damage before defense. Targets and damage can change with your action. Shared focus caps at 3; each living hero acts once per round.</p>';$('arena').append(box);}
    box.hidden=!Q.active(s)||s.phase!=='battle';if(box.hidden)return;
    const model=this.read(s,plan),c=s.campaign;
+   const scene=scenes[c.battleNode];if(scene)$('battle-narration').textContent=RosterSystem.story(scene.arrival)+' '+(scene.danger||'Break the Guardian’s bindings by exploiting its changing weaknesses.');
    const title=(model.committed?'Incoming · ':'Enemy intent · ')+model.response;
    if(box.querySelector('strong').textContent!==title)box.querySelector('strong').textContent=title;
    box.querySelector('summary span').textContent=model.armor||(model.phase===null?'':'Binding '+(model.phase+1)+'/3 · ')+'Weakness: '+model.weak+' · Focus '+c.focus+'/3 · inspect tactics';
@@ -70,13 +71,13 @@
  for(const method of ['prepareBattle','prologue','arrival','world','result','presentChallenge']){
   const original=Q[method];Q[method]=function(s,...args){D.state=s;const result=original.call(this,s,...args),active=this.active(s);if(!active){if($('forest-battle-read'))$('forest-battle-read').hidden=true;return result;}
    const scene=scenes[s.campaign.battleNode];
-   if(method==='prologue'){$('prologue-text').replaceChildren();for(const text of ['The river has stopped. Black roots bind the crossings, and the forest’s protector has fallen silent. Four companions follow the dying water toward the Emerald Heart.','Open the road, find the source of the corruption, and free the Guardian. What you choose to carry—and whom you stop to help—will shape the final encounter.']){const p=document.createElement('p');p.textContent=text;$('prologue-text').append(p);}}
+   if(method==='prologue'){$('prologue-text').replaceChildren();for(const text of ['The river divides the forest. Mossgate, camp and the Moonwell stairs lie on the west bank; a timber bridge reaches the eastern terraces. Black roots bind the Guardian in the northwestern grove.','Clear Mossgate and the western hollow, confront the sentinel at the bridge approach, then return up the northern stairs to free the Guardian. Your preparations and the ranger’s scouting can help you break its bindings.']){const p=document.createElement('p');p.textContent=text;$('prologue-text').append(p);}}
    if(method==='arrival'&&scene){$('arrival-title').textContent=scene.title;$('arrival-speaker').textContent=HEROES[scene.speaker].name;$('arrival-narration').textContent=RosterSystem.story(scene.arrival);if(scene.danger)$('arrival-danger').textContent=scene.danger;}
    if(method==='result'&&scene&&['victory','complete'].includes(s.phase)){
     $('result-copy').textContent=RosterSystem.story(scene.victory)+(s.phase==='complete'?(s.campaign.forestQuest.ranger?' The rescued ranger returns to mark a safe route for the villages.':' The companions mark the reopened road for those who will follow.'):'');
     $('result-copy').after($('advance'),$('menu'));
    }
-   if(method==='world'){$('world').dataset.forestRecovery=String(Q.steps.filter(id=>s.campaign.completed.includes(id)).length);const recovered=['The river is silent. Follow the black roots from Mossgate.','Light reaches Mossgate. The roots still choke the hollow.','The spring flows again. A warning bell sounds at the crossing.','The bridge stands. The last bindings converge on the Guardian.','The river runs clear. The forest keeps its protector.'];$('explore-tip').textContent=recovered[Number($('world').dataset.forestRecovery)]+(Q.complete(s.campaign)?'':' · Follow gold · E / Search to interact.');}
+   if(method==='world'){$('world').dataset.forestRecovery=String(Q.steps.filter(id=>s.campaign.completed.includes(id)).length);const recovered=['Mossgate stands above the southwest entrance. Follow the west-bank path.','Mossgate is open. Follow the stairs above camp to Whispering Hollow.','The western landing is clear. Follow the central path east to the bridge approach.','The bridge leads east. For the Guardian, return west and climb the Moonwell stairs.','The northwestern grove is free. Camp and the crossing are open below.'];$('explore-tip').textContent=recovered[Number($('world').dataset.forestRecovery)]+(Q.complete(s.campaign)?'':' · Follow gold · E / Search to interact.');}
    if(method==='presentChallenge')D.present(s,args[0]);
    return result;
   };

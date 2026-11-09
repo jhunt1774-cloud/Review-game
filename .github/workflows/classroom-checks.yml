@@ -27,3 +27,9 @@ jobs:
             node $test.FullName
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           }
+
+      - name: All painted maps and connection routes
+        env:
+          SITE_ROOT: work/site
+          SITE_PREFIX: /Review-game/
+        run: node tools/map-traversal-smoke.cjs

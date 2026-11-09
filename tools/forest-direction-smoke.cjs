@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root})=>{
  await e(`MotionPreference.set('still');document.querySelector('#defense-mode').value='assisted';document.querySelector('#forest-quest-start').click()`);
- assert.ok(await e(`document.querySelector('#prologue-text').textContent.includes('river has stopped')`));
+ assert.ok(await e(`document.querySelector('#prologue-text').textContent.includes('northwestern grove')`));
  const base=await e(`GameProgress.exportData()`),saved=()=>e(`JSON.parse(localStorage.getItem('web-wizardry-forest-v1'))`);
  async function fixture(id='m2',focus=0){
   await e(`(()=>{const f=${JSON.stringify(base)},s=f.data,c=s.campaign;s.phase='battle';s.encounter=Number('${id}'.slice(1));s.enemyHp=200;s.actor=0;c.battleNode='${id}';c.completed=['m0','m1'].slice(0,s.encounter);c.focus=${focus};c.forestQuest.sentinelOpening=0;GameProgress.restoreData(f);})()`);

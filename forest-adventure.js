@@ -51,7 +51,7 @@
    $('forest-camp-rest').disabled=!h.hurt||restUsed;
    $('forest-camp-rest').textContent=!h.hurt?'Party fully healed':restUsed?'Rest used · win an encounter to refresh':'Rest here · heal the whole party';
    $('forest-boss-readiness').hidden=this.next(c)!=='m3';
-   $('forest-boss-readiness').textContent='Guardian ahead · '+(h.hurt?'Visit camp to heal, or keep going with '+h.percent+'% party health.':'Your party is healthy. Equip your rewards, then take the canopy shortcut.');
+   $('forest-boss-readiness').textContent='Guardian ahead · '+(h.hurt?'Visit camp to heal, or keep going with '+h.percent+'% party health.':'Your party is healthy. Equip your rewards, then take the Moonwell stair shortcut.');
   },
   visible(c, n) { return n.id === 'merchant' || steps.includes(n.id) || c.completed.includes('m0') && sites.some(s => s.id === n.id); },
   available(c, n) {
@@ -169,7 +169,7 @@
    $('forest-quest-continue').onclick=()=>{delete $('forest-quest-start').dataset.confirm;this.pendingLesson=null;$('forest-quest-start').textContent='Play forest quest →';api.continue();};
    const panel=document.createElement('section');panel.id='forest-trail-board';panel.hidden=true;
    panel.setAttribute('aria-label','Forest quest route and preparations');
-   panel.innerHTML='<strong id="forest-trail-heading">The Emerald Heart</strong><div id="forest-route-steps"></div><p id="forest-preparations"></p><div class="forest-trail-actions"><button id="forest-follow">Follow gold trail</button><button id="forest-camp">Return to camp</button><button id="forest-return" hidden>Return to trail</button><button id="forest-canopy" hidden>Use canopy shortcut</button><button id="forest-recap" hidden>Quest recap</button></div><p class="forest-legend">◆ Gold: next goal · ✦ Blue: optional help · ✓ Green: completed</p>';
+   panel.innerHTML='<strong id="forest-trail-heading">The Emerald Heart</strong><div id="forest-route-steps"></div><p id="forest-preparations"></p><div class="forest-trail-actions"><button id="forest-follow">Follow gold trail</button><button id="forest-camp">Return to camp</button><button id="forest-return" hidden>Return to trail</button><button id="forest-canopy" hidden>Use Moonwell stair shortcut</button><button id="forest-recap" hidden>Quest recap</button></div><p class="forest-legend">◆ Gold: next goal · ✦ Blue: optional help · ✓ Green: completed</p>';
    $('world').append(panel);
    const health=document.createElement('div');health.id='forest-health';health.innerHTML='<span id="forest-health-text"></span><button id="forest-heal" type="button">Use a potion</button>';
    panel.insertBefore(health,$('forest-preparations'));$('forest-heal').onclick=()=>api.heal();
@@ -242,7 +242,7 @@
    $('forest-arrival-readiness').hidden=!boss;$('forest-arrival-camp').hidden=!boss;
    if(!this.active(s))return;
    const goal=this.challengeInfo(s);if(goal&&s.encounter!==3)$('arrival-danger').textContent+=' Optional bonus: '+goal.hint;
-   if(s.encounter===2){$('arrival-title').textContent='The bridge sentinel';$('arrival-narration').textContent='The sentinel guards the river crossing. Break its armor to reopen the bridge and the old canopy shortcut.';}
+   if(s.encounter===2){$('arrival-title').textContent='The bridge sentinel';$('arrival-narration').textContent='The sentinel guards the river crossing. Break its armor to reopen the bridge and the old Moonwell stair shortcut.';}
    if(s.encounter===3){
     const q=s.campaign.forestQuest;
     const health=this.health(s),box=$('forest-arrival-readiness');box.replaceChildren();
@@ -307,15 +307,15 @@
    $('rune-balance').textContent=c.runes+' runes available · earned through victories, defenses and optional battle goals';
    if(s.phase==='complete'){
     $('result-eyebrow').textContent='THE EMERALD HEART AWAKENS';$('result-title').textContent='You brought the forest back';
-    $('result-copy').textContent='Light returns to the ancient tree. The roots release the river, and the ranger’s trail is safe again. Your four heroes made it happen.';
+    $('result-copy').textContent='Light returns to the ancient tree. The northern stairs are clear, and the ranger’s trail is safe again. Your four heroes made it happen.';
     const recap=document.createElement('section');recap.className='forest-finish';recap.innerHTML='<h3>Your forest story</h3>';
-    const choices=[q.boon==='supplies'?'You packed healing supplies.':q.boon==='spirit'?'You freed the Moonwell spirit.':'You faced the forest without a blessing.',q.ranger?'You rescued the ranger and learned the Guardian’s weaknesses.':'You defeated the Guardian without the ranger’s scouting.',q.shortcut?'You restored and used the canopy shortcut.':'The canopy shortcut is now open.',s.correct+' correct '+(s.correct===1?'answer':'answers')+' · '+s.wrong+' '+(s.wrong===1?'mistake':'mistakes')+' · '+c.completed.filter(id=>steps.includes(id)).length+'/4 encounters cleared'];
+    const choices=[q.boon==='supplies'?'You packed healing supplies.':q.boon==='spirit'?'You freed the Moonwell spirit.':'You faced the forest without a blessing.',q.ranger?'You rescued the ranger and learned the Guardian’s weaknesses.':'You defeated the Guardian without the ranger’s scouting.',q.shortcut?'You restored and used the Moonwell stair shortcut.':'The Moonwell stair shortcut is now open.',s.correct+' correct '+(s.correct===1?'answer':'answers')+' · '+s.wrong+' '+(s.wrong===1?'mistake':'mistakes')+' · '+c.completed.filter(id=>steps.includes(id)).length+'/4 encounters cleared'];
     if(q.challenge?.node==='m3'&&q.challenge.paid&&q.challenge.gain)choices.push('You interrupted the Guardian’s rootfire and earned a bonus rune.');
     for(const text of choices){const p=document.createElement('p');p.textContent=text;recap.append(p);}
     $('reward').append(recap);$('advance').textContent='Explore the restored forest →';
    } else if(s.phase==='victory'){
     const next=node(this.next(c));
-    $('result-copy').textContent=s.encounter===2?'The sentinel yields. The bridge and canopy trail reopen. Return to camp to prepare, or take the shortcut to the ancient tree.':s.encounter===0?'Mossgate is safe. Ahead: choose healing supplies or the spirit’s protection, then seek Whispering Hollow.':'Whispering Hollow is quiet. Your camp shortcut is open. A trapped ranger waits along the route to the bridge.';
+    $('result-copy').textContent=s.encounter===2?'The sentinel yields. The bridge and Moonwell stair route reopen. Return to camp to prepare, or take the shortcut to the ancient tree.':s.encounter===0?'Mossgate is safe. Ahead: choose healing supplies or the spirit’s protection, then seek Whispering Hollow.':'Whispering Hollow is quiet. Your camp shortcut is open. A trapped ranger waits along the route to the bridge.';
     $('advance').textContent=next?'Continue to '+(next.id==='m2'?'the bridge':next.name)+' →':'Return to forest →';
    }
   }

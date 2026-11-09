@@ -1,4 +1,8 @@
 .forest-quest-card{width:min(680px,100%);padding:22px;margin:15px auto;background:#092b25ed;border:1px solid #e7c682;border-radius:16px;box-shadow:0 12px 40px #0006}
+#forest-panel-toggle{display:block;margin:0 0 8px auto;padding:4px 8px;min-height:30px;font:11px system-ui}
+#forest-trail-board[data-compact=true]{width:auto;max-width:calc(100% - 32px);padding:7px 10px}
+#forest-trail-board[data-compact=true]>:not(#forest-panel-toggle):not(#forest-trail-heading){display:none!important}
+#forest-trail-board[data-compact=true] #forest-panel-toggle{margin:0 0 4px}
 .forest-quest-card h2{font-size:clamp(25px,4vw,38px);margin:8px 0;color:#ffe5ab}.forest-quest-card p{line-height:1.5;margin:10px auto}
 .forest-quest-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 html,body{overflow-x:hidden}
