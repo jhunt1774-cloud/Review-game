@@ -1,5 +1,7 @@
 # Forest Path: Web Wizardry
 
+Character update: [Rowan, Ilyth, portrait scenes and camp appearances](FOREST-CHARACTER-UPDATE.md). Reward update: [equip newly earned gear after victory](FOREST-REWARD-UPDATE.md).
+
 Adventure update: [encounter twists, teamwork, the ranger and the Guardian rescue](FOREST-ADVENTURE-UPDATE.md), plus visible chosen walking routes and a Stop Walking control.
 
 Map update: [painted maps, story connections and traversal](MAP-TRAVERSAL-AUDIT.md) covers clear-path boundaries, safer stair controls, entrance/exit checks and map-aligned narration.

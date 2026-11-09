@@ -23,14 +23,14 @@ require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing})=>{
  await fixture();await answer(false);s=await saved();assert.equal(s.enemyHp,200);assert.equal(s.wrong,1);assert.equal(s.correct,0);assert.ok(s.pendingEnemy.damage>0);
  const before=s.hp.reduce((a,b)=>a+b,0),index=s.qIndex;
  // Closing in answer review must preserve the incoming strike without another answer.
- await send('Page.reload');await wait(`!!window.ForestAdventure && !document.querySelector('#forest-quest-continue').disabled`);
+ await send('Page.reload');await wait(`!!window.ForestAdventure && document.querySelector('#forest-quest-continue')?.disabled===false`);
  await e(`document.querySelector('#defense-mode').value='assisted';document.querySelector('#forest-quest-continue').click()`);
  await wait(`!document.querySelector('#enemy-defense').hidden`);
  await e(`document.querySelector('#take-hit').click()`);
  await wait(`!document.querySelector('#hero-command-menu').hidden`);
  s=await saved();assert.ok(s.hp.reduce((a,b)=>a+b,0)<before);assert.equal(s.enemyHp,200);assert.equal(s.qIndex,index);assert.equal(s.wrong,1);assert.ok(!s.pendingEnemy);
  const after=s.hp;
- await send('Page.reload');await wait(`!!window.ForestAdventure && !document.querySelector('#forest-quest-continue').disabled`);await e(`document.querySelector('#forest-quest-continue').click()`);await wait(`!document.querySelector('#hero-command-menu').hidden`);
+ await send('Page.reload');await wait(`!!window.ForestAdventure && document.querySelector('#forest-quest-continue')?.disabled===false`);await e(`document.querySelector('#forest-quest-continue').click()`);await wait(`!document.querySelector('#hero-command-menu').hidden`);
  assert.deepEqual((await saved()).hp,after,'Resolved enemy damage must not repeat on reload');
  assert.deepEqual(errors,[]);assert.deepEqual(missing.filter(p=>p!=='/favicon.ico'),[]);
  console.log('PASS classroom: local-only startup, PDF/Word readers at project path, four-encounter HUD, correct-answer damage, wrong-answer HP loss, pending-strike reload and no duplicate damage.');
