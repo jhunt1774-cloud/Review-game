@@ -1,5 +1,7 @@
 # Forest Path: Web Wizardry
 
+Adventure update: [encounter twists, teamwork, the ranger and the Guardian rescue](FOREST-ADVENTURE-UPDATE.md), plus visible chosen walking routes and a Stop Walking control.
+
 Map update: [painted maps, story connections and traversal](MAP-TRAVERSAL-AUDIT.md) covers clear-path boundaries, safer stair controls, entrance/exit checks and map-aligned narration.
 
 Latest development: [forest tactics, story and visual direction](FOREST-DIRECTION.md) describes the sentinel's armor-opening mechanic, enemy-intent briefing, connected river story and restoration visuals.

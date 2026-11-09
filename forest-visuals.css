@@ -40,6 +40,8 @@
 #game[data-forest-visuals=true] #battle #arena #boss-status{top:168px}
 @media(max-width:800px){#game[data-forest-visuals=true] #battle #arena #battle-insight{top:120px}#game[data-forest-visuals=true] #battle #arena #boss-status{top:158px}}
 #forest-map-key{margin-top:8px;border-top:1px solid #b9c49b50;padding-top:6px;font:11px/1.5 system-ui;color:#d4e4cf}#forest-map-key summary{cursor:pointer;color:#e8d7a9}#forest-map-key p{margin:5px 0 0;max-width:32em}
+/* The dock fills the stage for positioning; only its cards should have a panel fill. */
+#game[data-forest-visuals=true] #battle-dock{background:none;border:0;box-shadow:none}
 /* Replace the forest's secondary insight panel with a compact, persistent intent. */
 #game[data-forest-visuals=true] #battle-insight{display:none}
 #forest-battle-read{position:absolute;left:27%;top:60px;z-index:26;width:36%;max-height:18%;overflow:auto;margin:0;padding:9px 13px;border:1px solid #b6b78c80;border-left:3px solid #d9c18a;background:#102a27f5;color:#e9eadb;border-radius:5px;font:12px/1.45 system-ui;text-align:left}
@@ -58,6 +60,24 @@
 #forest-binding-veil{display:none;position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;fill:none;stroke-linecap:round;stroke-linejoin:round}
 #game[data-forest-visuals=true] #arena:is([data-forest-binding=shell],[data-forest-binding=bark],[data-forest-binding=heart]) #forest-binding-veil{display:block}
 #forest-binding-veil .binding-roots{stroke:#192a27;stroke-width:3;opacity:.9}#forest-binding-veil .binding-cracks{stroke:#e5c28b;stroke-width:1;opacity:0}#forest-binding-veil .binding-heart{stroke:#b4f0d4;stroke-width:1;opacity:0}
+#forest-payoff-event{position:absolute;z-index:39;left:50%;top:45%;transform:translate(-50%,-50%);width:max-content;max-width:75%;padding:10px 18px;border:1px solid #b3ddd2;border-left:3px solid #a5dfcc;background:#102e2bf2;border-radius:5px;text-align:center;pointer-events:none;font:12px/1.4 system-ui;color:#e7f2dd}
+#forest-payoff-event[hidden]{display:none!important}#forest-payoff-event strong{display:block;font:700 15px/1.5 system-ui;letter-spacing:.08em;color:#f1d6a0}#forest-payoff-event span{display:block;max-width:52ch}#forest-payoff-event[data-kind=ally]{border-left-color:#9cd7ee}
+#game[data-forest-visuals=true] #heroes .hero[data-forest-combo=true]::before{border:2px solid #b0e8ef;box-shadow:0 0 14px #89d1dc80}
+#game[data-forest-visuals=true] #arena[data-forest-twist=m0] #forest-enemy-ground{border:2px dashed #dfbd7b;background:radial-gradient(ellipse,#dba05d55,transparent 72%)}
+#game[data-forest-visuals=true] #arena[data-forest-twist=m1] #forest-enemy-ground{border:2px solid #d7af91;background:radial-gradient(ellipse,#c4876044,transparent 72%)}
+#game[data-forest-visuals=true] #arena[data-forest-freed=true] #forest-binding-veil .binding-roots,#game[data-forest-visuals=true] #arena[data-forest-freed=true] #forest-binding-veil .binding-cracks{opacity:0}
+#game[data-forest-visuals=true] #arena[data-forest-freed=true] #forest-binding-veil .binding-heart{opacity:1;fill:#b5ecc62a;stroke:#e4f8bd}
+#game[data-forest-visuals=true] #arena[data-forest-freed=true] #enemy-art{opacity:1;filter:drop-shadow(0 0 14px #a8e5b86b)}
+#game[data-forest-visuals=true] #arena[data-forest-freed=true] #forest-battle-atmosphere{background:radial-gradient(ellipse at 78% 38%,#b1ebb833,transparent 45%)}
+#game[data-forest-visuals=true] #arena[data-forest-freed=true] .battle-enemy-status .bar,#game[data-forest-visuals=true] #arena[data-forest-freed=true] #enemy-hp{display:none}
+#game[data-forest-visuals=true] #arena[data-forest-freed=true] .battle-enemy-status,#game[data-forest-visuals=true] #arena[data-forest-freed=true] #boss-status,#game[data-forest-visuals=true] #arena[data-forest-freed=true] #boss-phase-announcement{display:none}
+#game[data-forest-visuals=true] #arena[data-forest-freed=true] #victory-celebration{top:62px;width:min(700px,calc(100% - 24px));padding:10px 14px;background:linear-gradient(#082b25ed,#0c2d26cf);border:1px solid #b7d6ae80;border-radius:8px}
+#game[data-forest-visuals=true] #arena[data-forest-freed=true] .hero[data-turn=true]::after{display:none}
+#game[data-forest-visuals=true] #arena[data-forest-freed=true] #victory-celebration strong{font-size:clamp(24px,4vw,40px);letter-spacing:.05em}
+#game[data-forest-visuals=true] #arena[data-forest-freed=true] #victory-celebration span{font:13px/1.4 system-ui;margin-top:8px}
+#arena[data-forest-release-motion=true] #forest-binding-veil .binding-roots,#arena[data-forest-release-motion=true] #forest-binding-veil .binding-cracks{transition:opacity .55s ease-out}
+.forest-reward-tactic{display:block;margin-top:7px;color:#d6e7d1;font:11px/1.45 system-ui}
+@media(max-width:800px){#forest-payoff-event{font-size:11px;padding:7px 11px;max-width:85%;top:44%}#forest-payoff-event strong{font-size:12px}}
 #arena[data-forest-binding=bark] #forest-binding-veil .binding-roots{opacity:.5}#arena[data-forest-binding=bark] #forest-binding-veil .binding-cracks{opacity:.85}
 #arena[data-forest-binding=heart] #forest-binding-veil .binding-roots{opacity:.15}#arena[data-forest-binding=heart] #forest-binding-veil .binding-heart{opacity:.8;fill:#ace6ca15}
 @media(max-width:800px){#forest-battle-read{left:12px;top:88px;width:56%;font-size:11px;padding:7px 10px;max-height:20%}#forest-battle-read summary strong{font-size:11px}.forest-read-rule{font-size:10px}}

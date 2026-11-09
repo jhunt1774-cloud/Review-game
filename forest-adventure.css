@@ -1,5 +1,7 @@
 .forest-quest-card{width:min(680px,100%);padding:22px;margin:15px auto;background:#092b25ed;border:1px solid #e7c682;border-radius:16px;box-shadow:0 12px 40px #0006}
 #forest-panel-toggle{display:block;margin:0 0 8px auto;padding:4px 8px;min-height:30px;font:11px system-ui}
+#world-controls #stop-walking{border-color:#a6dce6;color:#c3eef4}
+#world-controls #map-travel-status:empty{display:none}
 #forest-trail-board[data-compact=true]{width:auto;max-width:calc(100% - 32px);padding:7px 10px}
 #forest-trail-board[data-compact=true]>:not(#forest-panel-toggle):not(#forest-trail-heading){display:none!important}
 #forest-trail-board[data-compact=true] #forest-panel-toggle{margin:0 0 4px}
