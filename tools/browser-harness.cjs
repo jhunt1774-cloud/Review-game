@@ -15,5 +15,12 @@ module.exports=async function withBrowser(run){
   const wait=async(expression,ms=15000)=>{const until=Date.now()+ms;while(Date.now()<until){const result=await evaluate(expression);if(result)return result;await new Promise(r=>setTimeout(r,100));}throw Error('Timed out waiting for '+expression.slice(0,150));};
   await send('Runtime.enable');await send('Page.enable');await send('Page.navigate',{url:'http://127.0.0.1:8138'+prefix});await wait('!!window.TeacherContent && !!window.GameProgress && !!window.ForestAdventure');
   await run({evaluate,send,wait,errors,missing,root});
- }finally{socket?.close();chrome.kill();server.closeAllConnections();server.close();}
+ }finally{
+  socket?.close();server.closeAllConnections();server.close();
+  const exited=new Promise(resolve=>{if(chrome.exitCode!==null||chrome.signalCode!==null)return resolve();chrome.once('exit',resolve);setTimeout(resolve,3000).unref();});
+  chrome.kill();await exited;
+  // mkdtemp creates a disposable profile directly inside this project's work directory.
+  if(path.dirname(profile)!==path.resolve(root,'..')||!/^forest-browser-[A-Za-z0-9]{6}$/.test(path.basename(profile)))throw Error('Unexpected browser profile location');
+  try{fs.rmSync(profile,{recursive:true,force:true,maxRetries:5,retryDelay:150});}catch(error){console.warn('Temporary browser profile remains locked:',error.code);}
+ }
 };
