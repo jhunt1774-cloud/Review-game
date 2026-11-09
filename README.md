@@ -1,5 +1,7 @@
 # Forest Path: Web Wizardry
 
+Latest development: [forest tactics, story and visual direction](FOREST-DIRECTION.md) describes the sentinel's armor-opening mechanic, enemy-intent briefing, connected river story and restoration visuals.
+
 A single-player educational review RPG for middle school. The active version is the repository-root **index.html**, titled *The Last Light of Asterfall*. Choose **Play forest quest** for the four-encounter classroom adventure, or **Start full campaign** for the longer journey. The `forest-path/` folder and standalone exports are older versions, retained for compatibility.
 
 ## Classroom quick start

@@ -17,6 +17,7 @@
    if(!$('forest-map-key')){const key=document.createElement('details');key.id='forest-map-key';const title=document.createElement('summary');title.textContent='Map symbols';const text=document.createElement('p');text.textContent='1–4: encounters in order · 4: Guardian · C: camp · +: supplies · ◇: spirit · R: ranger. Gold: next encounter · blue: optional · lock: unavailable · ✓: cleared. Follow a blue trail to choose an optional stop.';key.append(title,text);$('forest-trail-board').append(key);}
    if(!$('forest-battle-atmosphere')){const shade=document.createElement('div');shade.id='forest-battle-atmosphere';shade.setAttribute('aria-hidden','true');$('arena').prepend(shade);}
    if(!$('forest-enemy-ground')){const ground=document.createElement('span');ground.id='forest-enemy-ground';ground.setAttribute('aria-hidden','true');$('enemy').prepend(ground);}
+   if(!$('forest-binding-veil')){const veil=document.createElementNS('http://www.w3.org/2000/svg','svg');veil.id='forest-binding-veil';veil.setAttribute('viewBox','0 0 100 120');veil.setAttribute('aria-hidden','true');veil.innerHTML='<g class="binding-roots"><path d="M8 118Q27 96 12 71T27 18M92 118Q72 94 88 69T73 18M7 89l18-7-5-14m74 15-17-7 6-13M13 55l17-7M87 51l-15-8"/></g><g class="binding-cracks"><path d="m30 31 8 13-7 12 11 10-5 15m33-50-8 13 7 12-11 10 5 15"/></g><circle class="binding-heart" cx="50" cy="65" r="17"/>';$('enemy').append(veil);}
    HEROES.forEach((hero,i)=>{
     const actor=$('hero-'+i),card=$('party')?.children[i];
     if(actor){actor.dataset.visualActive=String(i===s.actor&&s.hp[i]>0);actor.dataset.visualFallen=String(s.hp[i]===0);}
@@ -67,6 +68,14 @@
    const canvas=document.createElement('canvas');canvas.width=64;canvas.height=96;const c=canvas.getContext('2d');
    if(lit){const glow=c.createRadialGradient(32,36,1,32,36,30);glow.addColorStop(0,'#ffe4a0a0');glow.addColorStop(1,'#f1c56c00');c.fillStyle=glow;c.fillRect(0,4,64,64);}
    c.fillStyle='#493c2a';c.fillRect(29,25,5,62);c.fillRect(22,22,22,4);c.fillStyle=lit?'#ffe4a0':'#49554b';c.fillRect(36,29,10,15);c.strokeStyle='#c5a873';c.lineWidth=2;c.strokeRect(35,27,12,18);c.beginPath();c.moveTo(36,27);c.lineTo(41,21);c.lineTo(46,27);c.stroke();this[key]=canvas;return canvas;
+  },
+  restoration(id){
+   this.recoveryArt??=new Map();if(this.recoveryArt.has(id))return this.recoveryArt.get(id);
+   const canvas=document.createElement('canvas');canvas.width=160;canvas.height=70;const c=canvas.getContext('2d');
+   const glow=c.createRadialGradient(80,42,2,80,42,75);glow.addColorStop(0,'#c1e5a529');glow.addColorStop(1,'#9bd39b00');c.fillStyle=glow;c.fillRect(0,0,160,70);
+   if(id==='m1'||id==='m2'){c.strokeStyle='#a9e3e8a0';c.lineWidth=2;for(let i=0;i<3;i++){c.beginPath();c.ellipse(80,48,25+i*12,3+i*2,0,0,Math.PI*2);c.stroke();}}
+   c.strokeStyle='#c2d3a5';c.lineWidth=1.5;for(let i=0;i<6;i++){const x=20+i*24,y=40+(i%2)*12;c.beginPath();c.moveTo(x,y);c.quadraticCurveTo(x-4,y-9,x+2,y-15);c.stroke();c.fillStyle=i%2?'#a4c88b':'#688e65';c.beginPath();c.ellipse(x-2,y-8,6,2.5,.5,0,Math.PI*2);c.fill();}
+   this.recoveryArt.set(id,canvas);return canvas;
   }
  };
  for(const method of ['prologue','world','arrival','result','presentChallenge']){
@@ -89,7 +98,7 @@
  ForestArt.landmark=function(c,n,at,done,time){
   const result=art.call(this,c,n,at,done,time),campaign=DungeonRules.campaign;
   if(!Q.active(campaign))return result;
-  if(['m0','m1','m2'].includes(n.id))c.drawImage(V.lantern(done),at.x+18,at.y-60,44,66);
+  if(['m0','m1','m2'].includes(n.id)){if(done)c.drawImage(V.restoration(n.id),at.x-80,at.y-10,160,70);c.drawImage(V.lantern(done),at.x+18,at.y-60,44,66);}
   if(n.id==='m3'&&done){
    c.save();c.fillStyle='#fff0b4';
    for(let i=0;i<4;i++){const phase=MotionPreference.reduced()?0:Math.sin(time*.7+i);c.globalAlpha=.45+phase*.15;const x=at.x-42+i*28,y=at.y-72-(i%2)*24+phase*3;c.beginPath();c.moveTo(x,y-4);c.lineTo(x+2,y);c.lineTo(x,y+4);c.lineTo(x-2,y);c.closePath();c.fill();}c.restore();
