@@ -159,6 +159,7 @@
    }}];
    MineExpansion.modal(n.name,n.description,choices,s,{...ui,world(){ui.world();if(messageAfter)ui.notice(n.name,messageAfter);}});
   },
+  equipReward(role,id) { return api?.equipReward(role,id)||false; },
   attach(game) {
    api=game;
    const card=document.createElement('section');card.id='forest-quest-card';card.className='forest-quest-card';

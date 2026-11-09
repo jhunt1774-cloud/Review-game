@@ -286,6 +286,7 @@ const playtestGateOpen=RegionGates.open;RegionGates.open=function(chapter,comple
 // Narrow callbacks keep short-quest travel and saving in the existing game controller.
 ForestAdventure.attach({
  maxHp,atCamp:atRosterCamp,
+ equipReward(role,id){if(!ForestAdventure.active(state)||state.phase!=='victory'||busy)return false;const c=state.campaign,item=EquipmentLoot.get(id);if(!item||item.source!==c.battleNode||!c.completed.includes(item.source)||c.equipmentLoot.loadouts.some(l=>l[item.slot]===id))return false;if(!EquipmentLoot.equip({...state,phase:'world'},role,id,true))return false;state.hp=state.hp.map((hp,i)=>Math.min(hp,maxHp(i)));save();result();return true;},
  upgrade(hero,kind){if(ForestAdventure.active(state)&&spendRune(hero,kind))result();},
  heal(){if(!forestCanAct())return;potion();},
  restCamp(){if(!ForestAdventure.active(state)||state.phase!=='world'||busy||mapVisitPending||!atRosterCamp()||$('mine-choice')?.open||JourneyGuide.ui?.dialog.open||state.campaign.campStage===stage()||state.hp.every((hp,i)=>hp>=maxHp(i)))return;rest();rosterUI();mapOverlay(null,null,true);},

@@ -44,8 +44,15 @@
     const hints={m0:'Mossbite rewards a finishing blow when the enemy is at or below 40% health.',m1:'Trailmark sets up a teammate’s weakness hit. Lira can mark the sentinel for Brom’s hammer.',m2:'Bridgeguard’s ward survives a perfect defense. It protects the first hit that actually deals damage.'},card=$('item-reward-art');
     if(card&&hints[s.campaign.battleNode]){const p=document.createElement('small');p.className='forest-reward-tactic';p.textContent=RosterSystem.story(hints[s.campaign.battleNode]);(card.querySelector('div')||card).append(p);}
    }
+   if(method==='result'&&this.active(s)&&s.phase==='victory')rewardChoice(s);
    return result;
   };
+ }
+ function rewardChoice(s){
+  const card=$('item-reward-art'),item=EquipmentLoot.catalog.find(i=>i.source===s.campaign.battleNode&&s.campaign.equipmentLoot.owned.includes(i.id));if(!card||!item)return;
+  const choices=document.createElement('section');choices.className='forest-reward-equip';choices.setAttribute('aria-label','Equip earned reward');
+  const owner=s.campaign.equipmentLoot.loadouts.findIndex(l=>l[item.slot]===item.id),note=document.createElement('p');note.textContent=owner>=0?RosterSystem.story('Equipped on '+HEROES[owner].name+'.'):'Use this reward now, or keep it in your pack for camp.';note.setAttribute('role','status');choices.append(note);
+  if(owner<0)for(let role=0;role<4;role++){if(item.role!==null&&item.role!==role)continue;const button=document.createElement('button');button.type='button';button.textContent=RosterSystem.story('Equip on '+HEROES[role].name)+' \u00b7 '+EquipmentLoot.comparison(s.campaign,role,item);button.onclick=()=>{if(Q.equipReward(role,item.id))$('advance')?.focus();};choices.append(button);}card.append(choices);
  }
  // The imp flares when wounded; the wolf changes whom it pursues. Damage is not raised.
  const enemyPlan=EnemyBehavior.plan;EnemyBehavior.plan=function(s,e,p,...args){const next=enemyPlan.call(this,s,e,p,...args);if(!Q.active(s)||!next.behavior||s.enemyHp>e.hp/2)return next;

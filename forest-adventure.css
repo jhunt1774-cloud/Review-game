@@ -30,3 +30,4 @@ html,body{overflow-x:hidden}
 @media(max-height:600px),(max-width:800px){#forest-battle-goal{top:54px;padding:6px 9px;font-size:11px}#forest-battle-goal strong{font-size:12px}#forest-battle-goal p{font-size:10px}#forest-battle-goal summary{margin:0}}
 #forest-battle-goal{max-height:110px;overflow-y:auto;overscroll-behavior:contain}
 @media(max-width:700px){#forest-trail-board{top:64px;width:min(340px,calc(100% - 24px));right:12px;padding:9px;font-size:11px}#forest-preparations{margin:7px 0}.forest-legend{display:none}#forest-route-steps button{font-size:10px}#world[data-forest-quest=true] #world-objective{bottom:90px;max-width:65%}.forest-quest-card{padding:14px}.forest-trail-actions button{font-size:11px}}
+.forest-reward-equip{display:flex;flex-wrap:wrap;gap:8px;width:100%;padding-top:10px;border-top:1px solid #617d65}.forest-reward-equip p{flex-basis:100%;margin:0}.forest-reward-equip button{white-space:normal;text-align:left;min-height:44px;flex:1 1 220px}
