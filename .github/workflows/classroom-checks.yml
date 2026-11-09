@@ -1,0 +1,29 @@
+name: Classroom regression checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  classroom:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: node tools/audit-checks.cjs
+      - run: node tools/build-pages.cjs
+      - name: Original campaign, imports and progress recovery
+        run: node tools/browser-smoke.cjs
+      - name: Forest regression checks against the published package
+        env:
+          SITE_ROOT: work/site
+          SITE_PREFIX: /Review-game/
+        shell: pwsh
+        run: |
+          foreach ($test in Get-ChildItem tools/forest-*-smoke.cjs) {
+            node $test.FullName
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }

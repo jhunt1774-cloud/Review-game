@@ -95,6 +95,12 @@
    goal.paid=true;goal.gain=c.runes<999?1:0;c.runes=Math.min(999,c.runes+goal.gain);return goal.gain;
   },
   presentChallenge(s) {
+   if(this.active(s)){
+    const number=steps.indexOf(s.campaign.battleNode)+1;
+    $('battle-chapter').textContent='FOREST PATH · ENCOUNTER '+number+' OF 4';
+    $('progress').textContent='FOREST PATH · WAKE THE EMERALD HEART';
+    $('trail').textContent='Forest quest · '+number+' of 4 · '+(node(s.campaign.battleNode)?.name||'Forest Guardian');
+   }
    const panel=$('forest-battle-goal'),active=this.active(s)&&s.phase==='battle',info=active&&this.challengeInfo(s);
    panel.hidden=!info;if(!info)return;
    const goal=s.campaign.forestQuest.challenge;

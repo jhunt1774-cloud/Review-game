@@ -1,48 +1,49 @@
-# Asterfall · Forest Path browser RPG
+# Forest Path: Web Wizardry
 
-Open the repository-root `index.html` from a static web server. **Play forest quest** starts Wake the Emerald Heart, the focused four-encounter adventure; **Start full campaign** keeps the expanded Asterfall journey available. Their local saves are separate.
+A single-player educational review RPG for middle school. The active version is the repository-root **index.html**, titled *The Last Light of Asterfall*. Choose **Play forest quest** for the four-encounter classroom adventure, or **Start full campaign** for the longer journey. The `forest-path/` folder and standalone exports are older versions, retained for compatibility.
 
-See [FOREST-QUEST.md](FOREST-QUEST.md) for the new route, meaningful preparations, shortcuts, teacher question sets and verification commands. The legacy `forest-path/` copy and standalone export are separate, unchanged versions.
+## Classroom quick start
 
-The notes below document the earlier ambience delivery.
+1. Open https://jhunt1774-cloud.github.io/Review-game/ in Chrome.
+2. Choose **Play forest quest**. Follow the gold trail; blue stops offer optional preparations. Clear three dangers, prepare at camp, then face the Forest Guardian.
+3. Choose an action, then answer with a click or **1–4**. Correct damaging actions hit enemies. Incorrect answers cause no hero attack and strengthen the incoming strike. Correct answers can still be followed by the existing enemy counterattack. Read the explanation, then click **Next question** or press **Enter**.
+4. Use the displayed arrow/button to defend. Settings offers **Assisted practice · no timer**, still poses and audio controls. Sound is opt-in.
+5. **Continue forest quest** resumes on the same browser profile. Settings → **Progress backup & restore** downloads/restores progress files.
 
----
+The forest quest targets 10–15 minutes. Automated completion is not a student timing study; reading, mistakes and exploration affect duration. A timed classroom trial remains necessary.
 
-# Complete ambience update — October 24, 2026
+## Teacher questions and difficulty
 
-This cumulative update includes forest, crypt, mountain and coast ambience. You can skip the earlier Forest-Crypt-Ambience ZIP; this includes its files and the two new loops. All four selected takes are saved in ElevenLabs Assets and backed up unchanged in original-downloads/. The optimized files are in assets/ambience/.
+Open **Teacher mode**. Select banks and depth, review the draft, choose battle difficulty, then **Play forest quest with this set**. Existing campaign level/playtest selection and teacher tools remain available.
 
-## Install
+Import CSV/JSON sets, or extract readable PDF, DOCX and text documents using the review step. Download the CSV template for its exact format. CSV/JSON imports replace the draft; review every correct answer before assigning. Scanned PDFs need OCR elsewhere. Downloaded assignments and assigned-quest links remain supported. One separate forest save slot is available; replacing it requires confirmation.
 
-Extract the ZIP. Upload index.html, recorded-audio.js and the complete assets/ambience/ folder into the existing game repository root, replacing matching files. Keep the other files locally as backups and records. Wait for GitHub Pages to publish, then reload and enable Sound.
+No account or backend is required. Saves belong to the device, browser profile and website origin; school data cleanup can remove them. Download backups before switching devices. The entry point no longer loads the old optional cloud adapter; historical source remains unused.
 
-The page is copied from the current live repository, with ONLY the recorded-audio.js version query changed. The live audio script is retained, with ONLY the ambience track list and region choice expanded. No game.js, teacher tools, walking code, collision data, question banks or save code is included or replaced.
+## GitHub Pages
 
-Forest plays in outdoor world region 0; mountain in regions 1 and 4 (Frostpeak and Highlands); coast in region 3. City region 2 has no added ambience. Dungeon-world scenes use the crypt loop through the existing dungeon flag. Battles, title/results and road animations stop ambience. Effects volume and the master Sound toggle control it. Music can be disabled while environmental effects continue. Hidden tabs/suspended audio stop it; returning or enabling sound restarts the proper loop. Same-scene updates do not restart playback. Loads are lazy after sound is enabled, and cancelled loads cannot start late. Failed files can retry after toggling sound. There are at most four cached ambience buffers, one per supplied environment (approximately 12 MB of decoded audio combined).
+`node tools/build-pages.cjs` packages the existing game in `work/site/`, including artwork, audio, question sets and local PDF/Word readers. It excludes developer tools, browser profiles, Git data and original-download backups. No bundler or server is required to play.
 
-All four optimized tracks are twelve-second looping stereo MP3s at 32 kHz / 96 kbps. Loudness target -25 LUFS, true-peak target -3 dBTP, mixed quietly at gain .18 into the Effects bus. Combined optimized size: 580,784 bytes. Open ambience-preview.html to hear the four loops. Their exact paths, durations and hashes are in ambience-inventory.json.
+Set repository **Settings → Pages → Source** to **GitHub Actions**. Regression checks run on pushes and pull requests. After successful checks for a push to `main`, the Pages workflow deploys that exact tested commit. Feature branches never deploy automatically. Existing branch-based publishing can continue until the source is switched.
 
-## Spending and backups
+The workflow follows GitHub's [custom Pages guidance](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages). School filters must allow the site. Test through its HTTPS address including `/Review-game/`.
 
-| Requests on October 24 | Credits |
-| --- | ---: |
-| Forest and crypt | 320 |
-| Mountain and coast | 320 |
-| Total today | **640** |
-| Remaining in 1,000-credit daily task budget | **360** |
+## Verification
 
-Account balance: 39,488 before today's ambience work; 39,168 before this pair; 38,848 after it. Each request cost 160 credits and included four variations. Four request groups / sixteen generated variations today; selected variation #1 from each is saved to Assets, downloaded and integrated. No retries or additional generations. Other variations remain in Sound Effects History. No Suno credits were used.
+Use Node 24 and Google Chrome on Windows; no npm packages are needed. Run browser checks sequentially. They use temporary profiles and loopback ports 8137/9237 or 8138/9238. Set `CHROME_PATH` if Chrome is installed elsewhere.
 
-Verified saved Assets IDs:
-- Forest: r95PB1zZacdvG6f8eHrN
-- Crypt: JqRGOLpQsjrvu8cFiEGk
-- Mountain: d1iYzH95W0QQ1n8XM7q9
-- Coast: oX3cfq6BF48nNr4r7z0p
+```powershell
+node tools/audit-checks.cjs
+node tools/build-pages.cjs
+node tools/browser-smoke.cjs
+$env:SITE_ROOT='work/site'
+$env:SITE_PREFIX='/Review-game/'
+foreach ($test in Get-ChildItem tools/forest-*-smoke.cjs) {
+  node $test.FullName
+  if ($LASTEXITCODE) { throw 'Check failed' }
+}
+```
 
-Original downloaded MP3s are retained in original-downloads/. These generated sounds are subject to the user's ElevenLabs terms, not CC0.
+Published-package checks use the project URL prefix to catch broken asset paths. They cover the full quest, teacher imports, wrong answers, saves/reload, choices, camp healing, upgrades, tactical goals, markers and smaller-screen bounds.
 
-## Checks
-
-Passed: both new game files decode to finite, non-silent, unclipped stereo samples; JavaScript syntax; all four ambience choices and Highlands routing; quiet Effects-bus connection; same-scene deduplication; bounded four-buffer cache; battle/title/city stop; mute/hidden/suspend/resume; cancelled-load race; failed-file retry. Regression checks passed for all fourteen existing generated effect cue mappings and all seven music routes using the actual campaign audio class. index.html differs from the live snapshot only in the recorded-audio.js version query.
-
-No live end-to-end gameplay or physical Chromebook test was performed, and no remote deployment was made. A subjective listening review of the first takes is not claimed. This is an incremental update over the corrected audio/game build; it is not a standalone game.
+See [FOREST-QUEST.md](FOREST-QUEST.md) for mechanics, [CHROMEBOOK-TRIAL.md](CHROMEBOOK-TRIAL.md) for physical-device checks, and [AUDIT-2026-11-09.md](AUDIT-2026-11-09.md) for current results and remaining work. The old audio README is preserved in [AMBIENCE-UPDATE-2026-10-24.md](AMBIENCE-UPDATE-2026-10-24.md).
