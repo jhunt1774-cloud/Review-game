@@ -26,6 +26,7 @@ jobs:
         with:
           path: work/site
   deploy:
+    timeout-minutes: 35
     needs: build
     permissions:
       pages: write
@@ -38,3 +39,6 @@ jobs:
       - name: Deploy tested game
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          # Allow painted-art releases more time to finish Pages file sync.
+          timeout: 1800000
