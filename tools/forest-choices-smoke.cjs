@@ -1,5 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root})=>{
+ // Retain coverage of the optional full-story flow; fast play has its own suite.
+ await e(`StoryPacing.set('full')`);
  assert.equal(await e(`document.querySelector('#startup-error-detail').textContent`),'');
  await e(`MotionPreference.set('still');document.querySelector('#defense-mode').value='assisted';document.querySelector('#forest-quest-start').click()`);await wait(`document.querySelector('#game').dataset.scene==='prologue'`);
  await e(`window.choiceBase=GameProgress.exportData();choiceBase.data.phase='world';choiceBase.data.campaign.completed=['m0'];choiceBase.data.campaign.explorePosition={x:22,y:68,chapter:0};GameProgress.restoreData(JSON.parse(JSON.stringify(choiceBase)))`);
@@ -22,7 +24,7 @@ require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root
  await e(`document.querySelector('#forest-quest-start').click()`);await wait(`document.querySelector('#forest-quest-start').dataset.confirm==='yes'`);await e(`document.querySelector('#forest-quest-start').click()`);await wait(`document.querySelector('#game').dataset.scene==='prologue'`);assert.equal(await e(`GameProgress.exportData().data.lesson.name`),'Exact classroom wording');
  await send('Runtime.evaluate',{expression:`document.querySelector('#sound').click()`,userGesture:true});await wait(`!document.querySelector('#sound').disabled`,20000);assert.equal(await e(`document.querySelector('#sound').textContent`),'Sound on');
  await e(`document.querySelector('#begin-chapter').click()`);await wait(`document.querySelector('#game').dataset.scene==='world'`);
- const d=await e(`({roam:RoamingWorld.actors.length,gate:!RegionGates.open(0,GameProgress.exportData().data.campaign.completed),board:!document.querySelector('#forest-trail-board').hidden})`);assert.equal(d.roam,0);assert.ok(d.gate&&d.board);
+ const d=await e(`({roam:RoamingWorld.actors.length,gate:!RegionGates.open(0,GameProgress.exportData().data.campaign.completed),board:!document.querySelector('#forest-trail-board').hidden})`);assert.ok(d.roam>0);assert.ok(d.gate&&d.board);
  await send('Emulation.setDeviceMetricsOverride',{width:768,height:600,deviceScaleFactor:1,mobile:false});
  await new Promise(r=>setTimeout(r,800));fs.writeFileSync(path.resolve(root,'../forest-small-screen.png'),Buffer.from((await send('Page.captureScreenshot',{format:'png'})).data,'base64'));
  const box=await e(`(()=>{const r=document.querySelector('#forest-trail-board').getBoundingClientRect();return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:innerWidth,height:innerHeight};})()`);assert.ok(box.left>=0&&box.right<=box.width&&box.bottom<box.height);

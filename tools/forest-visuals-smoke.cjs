@@ -1,5 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root})=>{
+ // Retain coverage of the optional full-story flow; fast play has its own suite.
+ await e(`StoryPacing.set('full')`);
  await e(`MotionPreference.set('full');document.querySelector('#forest-quest-start').click()`);await wait(`document.querySelector('#game').dataset.scene==='prologue'`);const base=await e(`GameProgress.exportData()`);
  async function battle(hp=100){await e(`(()=>{const f=${JSON.stringify(base)};f.data.phase='battle';f.data.enemyHp=${hp};GameProgress.restoreData(f);})()`);await wait(`!document.querySelector('#hero-command-menu').hidden`);}
  await battle();assert.equal(await e(`document.querySelector('#game').dataset.forestVisuals`),'true');assert.equal(await e(`document.querySelectorAll('#party .forest-role-mark').length`),4);assert.equal(await e(`document.querySelectorAll('#heroes [data-visual-active=true]').length`),1);

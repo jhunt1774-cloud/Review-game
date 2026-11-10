@@ -1,5 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root})=>{
+ // Retain coverage of the optional full-story flow; fast play has its own suite.
+ await e(`StoryPacing.set('full')`);
  const slot='web-wizardry-forest-v1';
  const state=()=>e(`JSON.parse(localStorage.getItem('${slot}'))`);
  await e(`MotionPreference.set('still');document.querySelector('#defense-mode').value='assisted';document.querySelector('#start').click()`);

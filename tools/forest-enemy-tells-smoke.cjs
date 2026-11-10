@@ -1,5 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root})=>{
+ // Retain coverage of the optional full-story flow; fast play has its own suite.
+ await e(`StoryPacing.set('full')`);
  await e(`MotionPreference.set('still');document.querySelector('#defense-mode').value='assisted';document.querySelector('#forest-quest-start').click()`);const base=await e(`GameProgress.exportData()`),saved=()=>e(`JSON.parse(localStorage.getItem('web-wizardry-forest-v1'))`);
  async function fixture(id,ratio=1,actor=0,turn=1,extra=''){await e(`(()=>{const f=${JSON.stringify(base)},s=f.data,c=s.campaign;s.phase='battle';s.encounter=Number('${id}'.slice(1));c.battleNode='${id}';c.completed=Array.from({length:s.encounter},(_,i)=>'m'+i);s.enemyHp=Math.round(ForestAdventure.encounter(s,FOREST_ENCOUNTERS[s.encounter]).hp*${ratio});s.actor=${actor};s.turn=${turn};${extra};GameProgress.restoreData(f);})()`);await wait(`!document.querySelector('#hero-command-menu').hidden&&!!document.querySelector('#forest-attack-tell')`);}
  async function attack(good=true){const s=await saved();await e(`document.querySelector('#hero-menu-actions [data-action=attack]').click();document.querySelectorAll('#answers button')[${good?s.practice.question.correct:(s.practice.question.correct+1)%4}].click()`);}

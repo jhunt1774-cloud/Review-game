@@ -1,5 +1,7 @@
 const assert=require('node:assert/strict');
 require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing})=>{
+ // Retain coverage of the optional full-story flow; fast play has its own suite.
+ await e(`StoryPacing.set('full')`);
  assert.equal(await e(`!!document.querySelector('script[src*="cloud-saves"],script[src*="cloud-config"]')`),false);
  assert.equal(await e(`performance.getEntriesByType('resource').some(r=>!r.name.startsWith(location.origin))`),false);
  // Exercise the shipped document-reader modules with project-relative paths.

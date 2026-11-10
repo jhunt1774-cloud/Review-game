@@ -1,5 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root})=>{
+ // Retain coverage of the optional full-story flow; fast play has its own suite.
+ await e(`StoryPacing.set('full')`);
  await e(`MotionPreference.set('still');document.querySelector('#forest-quest-start').click()`);await wait(`document.querySelectorAll('#hero-creation .forest-role-choice').length===4`);
  await wait(`Array.from(document.querySelectorAll('#hero-creation .forest-hero-portrait')).every(i=>i.complete&&i.naturalWidth>0)`);
  assert.equal(await e(`document.querySelector('#player-hero-role').closest('label').hidden`),true);assert.equal(await e(`document.querySelector('#hero-creation .forest-role-choice[aria-pressed=true]').dataset.role`),'0');

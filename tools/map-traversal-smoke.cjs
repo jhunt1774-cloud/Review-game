@@ -1,5 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root})=>{
+ // Verify retained map/story alignment in the optional full-story view.
+ await e(`StoryPacing.set('full')`);
  assert.ok(await e(`document.querySelector('#map-ground-view').closest('.audio-panel')`));
  assert.match(await e(`StoryConnections['frostmine-entrance'].landmark`),/northwestern cave/);
  assert.equal(await e(`FOREST_NODES.find(n=>n.id==='m13').name`),'Tideglass Landing');

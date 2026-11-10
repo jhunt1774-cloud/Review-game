@@ -1,5 +1,7 @@
 const assert=require('node:assert/strict');
 require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing})=>{
+ // Retain coverage of the optional full-story flow; fast play has its own suite.
+ await e(`StoryPacing.set('full')`);
  await e(`MotionPreference.set('still');document.querySelector('#forest-quest-start').click()`);
  const base=await e(`GameProgress.exportData()`);
  async function reward(id){await e(`(()=>{const f=${JSON.stringify(base)},s=f.data,c=s.campaign;s.phase='victory';s.encounter=Number('${id}'.slice(1));s.enemyHp=0;c.battleNode='${id}';c.completed=Array.from({length:s.encounter+1},(_,i)=>'m'+i);EquipmentLoot.defaults(c);c.lastEquipmentDrop=EquipmentLoot.catalog.find(i=>i.source==='${id}').name;GameProgress.restoreData(f);})()`);await wait(`!!document.querySelector('.forest-reward-equip')`);}

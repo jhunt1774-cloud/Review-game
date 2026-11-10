@@ -1,5 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root})=>{
+ // Retain coverage of the optional full-story flow; fast play has its own suite.
+ await e(`StoryPacing.set('full')`);
  await e(`MotionPreference.set('still');document.querySelector('#forest-quest-start').click()`);await wait(`document.querySelector('#game').dataset.scene==='prologue'`);const base=await e(`GameProgress.exportData()`);
  const states=await e(`(()=>{const c=GameProgress.exportData().data.campaign,n=id=>FOREST_NODES.find(n=>n.id===id);return {first:ForestVisuals.mapBadge(n('m0'),c,false),boss:ForestVisuals.mapBadge(n('m3'),c,false),normal:ForestVisuals.mapBadge(n('m0'),{},false),done:ForestVisuals.mapBadge(n('m0'),c,true)};})()`);
  assert.equal(states.first.state,'next');assert.equal(states.boss.state,'locked');assert.equal(states.boss.boss,true);assert.equal(states.normal,null);assert.equal(states.done.label,'✓');

@@ -159,6 +159,7 @@
    }}];
    MineExpansion.modal(n.name,n.description,choices,s,{...ui,world(){ui.world();if(messageAfter)ui.notice(n.name,messageAfter);}});
   },
+  walkTo(id) { return api.walkTo(id); },
   equipReward(role,id) { return api?.equipReward(role,id)||false; },
   attach(game) {
    api=game;
@@ -355,8 +356,8 @@
  ExploreRules.move=function(...args){return brisk(move.bind(this),args);};
  MouseNavigation.advance=function(...args){return brisk(advance.bind(this),args);};
  const size=WorldCamera.size;WorldCamera.size=function(chapter,w,h){if(!Q.active(current))return size.call(this,chapter,w,h);const width=Math.max(w,1900);return {width,height:width/1.5};};
- const roamingEnabled=RoamingWorld.enabled;RoamingWorld.enabled=function(c){return !Q.active(c)&&roamingEnabled.call(this,c);};
- const roaming=RoamingWorld.update;RoamingWorld.update=function(c,...args){return Q.active(c)?null:roaming.call(this,c,...args);};
+ const roamingEnabled=RoamingWorld.enabled;RoamingWorld.enabled=function(c){return roamingEnabled.call(this,c);};
+ const roaming=RoamingWorld.update;RoamingWorld.update=function(c,...args){return roaming.call(this,c,...args);};
  const roads=RoadRules.available;RoadRules.available=function(c,...args){return Q.active(c)?false:roads.call(this,c,...args);};
  const interrupt=BossRules.interrupt;BossRules.interrupt=function(c,weakness){const hit=interrupt.call(this,c,weakness);if(hit)Q.markChallenge(c,'m3');return hit;};
  const questBoard=QuestBoard.render;

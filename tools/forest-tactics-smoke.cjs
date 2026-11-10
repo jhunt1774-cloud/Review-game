@@ -1,5 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root})=>{
+ // Retain coverage of the optional full-story flow; fast play has its own suite.
+ await e(`StoryPacing.set('full')`);
  await e(`MotionPreference.set('still');document.querySelector('#defense-mode').value='assisted';document.querySelector('#forest-quest-start').click()`);await wait(`document.querySelector('#game').dataset.scene==='prologue'`);const base=await e(`GameProgress.exportData()`);
  const saved=()=>e(`JSON.parse(localStorage.getItem('web-wizardry-forest-v1'))`);
  async function fixture(id,actor,focus=0,hp=1,charge=false,phase='battle'){

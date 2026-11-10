@@ -1,5 +1,7 @@
 # Forest Path: Web Wizardry
 
+Pacing update: [fast play, compact destination map and restored patrols](FOREST-FAST-PLAY-UPDATE.md).
+
 Enemy update: [attack tells and Guardian binding transitions](FOREST-ENEMY-TELLS-UPDATE.md).
 
 Hero update: [illustrated role selection, portraits and companion voices](FOREST-HERO-UPDATE.md).
@@ -19,7 +21,7 @@ A single-player educational review RPG for middle school. The active version is 
 ## Classroom quick start
 
 1. Open https://jhunt1774-cloud.github.io/Review-game/ in Chrome.
-2. Choose **Play forest quest**. Follow the gold trail; blue stops offer optional preparations. Clear three dangers, prepare at camp, then face the Forest Guardian.
+2. Choose **Play forest quest**. Fast play uses one short opening, a clickable location map at the bottom left, and direct encounters. The imp and wolf patrol their clearings. Use WASD/arrows or select a destination; Party contains skills, equipment, quests and upgrades. Full story remains available in Settings.
 3. Choose an action, then answer with a click or **1–4**. Correct damaging actions hit enemies. Incorrect answers cause no hero attack and strengthen the incoming strike. Correct answers can still be followed by the existing enemy counterattack. Read the explanation, then click **Next question** or press **Enter**.
 4. Use the displayed arrow/button to defend. Settings offers **Assisted practice · no timer**, still poses and audio controls. Sound is opt-in.
 5. **Continue forest quest** resumes on the same browser profile. Settings → **Progress backup & restore** downloads/restores progress files.

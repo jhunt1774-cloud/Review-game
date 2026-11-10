@@ -1,5 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root})=>{
+ // Retain coverage of the optional full-story flow; fast play has its own suite.
+ await e(`StoryPacing.set('full')`);
  await e(`MotionPreference.set('still');document.querySelector('#forest-quest-start').click()`);const base=await e(`GameProgress.exportData()`);
  async function world(done,point){await e(`(()=>{const f=${JSON.stringify(base)},s=f.data;s.phase='world';s.campaign.completed=${JSON.stringify(done)};s.campaign.explorePosition=${JSON.stringify({...point,chapter:0})};GameProgress.restoreData(f);})()`);await wait(`document.querySelector('#forest-map').dataset.canvasActors==='true'&&ForestAtmosphere.cache`);}
  await world(['m0','m1'],{x:28,y:25});assert.equal(await e(`ForestAtmosphere.active()`),true);assert.ok(await e(`document.querySelector('#forest-atmosphere').closest('.audio-panel')`));

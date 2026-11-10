@@ -1,5 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root})=>{
+ // Retain coverage of the optional full-story flow; fast play has its own suite.
+ await e(`StoryPacing.set('full')`);
  await e(`MotionPreference.set('still');document.querySelector('#forest-quest-start').click()`);const base=await e(`GameProgress.exportData()`);
  async function world(id){const point=id==='forest-ranger'?{x:40,y:61,chapter:0}:{x:33,y:63,chapter:0};await e(`(()=>{const f=${JSON.stringify(base)},s=f.data;s.phase='world';s.campaign.completed=['m0','m1'];s.campaign.explorePosition=${JSON.stringify(point)};GameProgress.restoreData(f);})()`);await wait(`!document.querySelector('#crypt-interact').hidden`);await e(`document.querySelector('#crypt-interact').click()`);await wait(`document.querySelector('#mine-choice').open`);}
  async function images(){await wait(`Array.from(document.querySelectorAll('.forest-character-card img')).filter(i=>i.getClientRects().length).every(i=>i.complete&&i.naturalWidth>0)`);}

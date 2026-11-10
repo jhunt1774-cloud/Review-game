@@ -1,5 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root})=>{
+ // Retain coverage of the optional full-story flow; fast play has its own suite.
+ await e(`StoryPacing.set('full')`);
  await e(`MotionPreference.set('still');document.querySelector('#forest-quest-start').click()`);await wait(`document.querySelector('#game').dataset.scene==='prologue'`);
  await e(`(()=>{const f=GameProgress.exportData();f.data.phase='world';f.data.campaign.completed=['m0'];f.data.xp=60;f.data.gold=25;f.data.campaign.explorePosition={x:25,y:66,chapter:0};GameProgress.restoreData(f);})()`);
  assert.equal(await e(`document.querySelector('#forest-optional-heading').textContent`),'Optional preparations · 0/2 ready');
