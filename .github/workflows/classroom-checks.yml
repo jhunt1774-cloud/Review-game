@@ -33,3 +33,9 @@ jobs:
           SITE_ROOT: work/site
           SITE_PREFIX: /Review-game/
         run: node tools/map-traversal-smoke.cjs
+
+      - name: Opt-in built map and isolated saves
+        env:
+          SITE_ROOT: work/site
+          SITE_PREFIX: /Review-game/
+        run: node tools/built-map-smoke.cjs
