@@ -1,5 +1,7 @@
 # Forest Path: Web Wizardry
 
+Enemy update: [attack tells and Guardian binding transitions](FOREST-ENEMY-TELLS-UPDATE.md).
+
 Hero update: [illustrated role selection, portraits and companion voices](FOREST-HERO-UPDATE.md).
 
 Scenery update: [forest atmosphere and Moonwell stair landmarks](FOREST-ATMOSPHERE-UPDATE.md).
