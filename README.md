@@ -1,5 +1,7 @@
 # Forest Path: Web Wizardry
 
+Hero update: [illustrated role selection, portraits and companion voices](FOREST-HERO-UPDATE.md).
+
 Scenery update: [forest atmosphere and Moonwell stair landmarks](FOREST-ATMOSPHERE-UPDATE.md).
 
 Character update: [Rowan, Ilyth, portrait scenes and camp appearances](FOREST-CHARACTER-UPDATE.md). Reward update: [equip newly earned gear after victory](FOREST-REWARD-UPDATE.md).
