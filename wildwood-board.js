@@ -7,7 +7,7 @@ const L=WildwoodLayout,positions=L.positions;
 const P=window.WildwoodBoard={
  active(){return ForestAdventure.active()&&!DungeonRules.campaign?.dungeon&&(ExploreRules.activeChapter||0)===0;},
  objects:[],
- assets:{hollow:'assets/map-detail-0.webp',stump:'assets/map-detail-1.webp',tower:'assets/map-detail-3.webp',shelter:'assets/map-detail-2.webp',roots:'assets/crypt-layered-overgrowth.webp',watermill:'assets/wildwood-watermill.webp',willow:'assets/wildwood-willow.webp',waterfall:'assets/wildwood-waterfall.webp',library:'assets/map-city-library.webp',wall:'assets/map-city-wall.webp'},
+ assets:{grass:'assets/wildwood-forest-floor.webp',hollow:'assets/map-detail-0.webp',stump:'assets/map-detail-1.webp',tower:'assets/map-detail-3.webp',shelter:'assets/map-detail-2.webp',roots:'assets/crypt-layered-overgrowth.webp',watermill:'assets/wildwood-watermill.webp',willow:'assets/wildwood-willow.webp',waterfall:'assets/wildwood-waterfall.webp',library:'assets/map-city-library.webp',wall:'assets/map-city-wall.webp'},
  trails:L.trails,bridges:[{y:44,width:6.4,depth:2.2},{y:25,width:6.4,depth:2.2}],
  river(y){return 64+4*Math.sin((y-44)*.07)+1.8*Math.sin((y-44)*.17);},
  riverWidth(y){return 1.8+.3*Math.sin(y*.11);},
@@ -59,7 +59,7 @@ const P=window.WildwoodBoard={
  },
  paint(c,w,h){
   this.build();c.imageSmoothingEnabled=true;c.imageSmoothingQuality='high';
-  const grass=this.image('grass');c.fillStyle=grass.complete&&grass.naturalWidth?c.createPattern(grass,'repeat'):'#446044';c.fillRect(0,0,w,h);c.fillStyle='#314c2926';c.fillRect(0,0,w,h);
+  const grass=this.image('grass');c.fillStyle=grass.complete&&grass.naturalWidth?c.createPattern(grass,'repeat'):'#446044';c.fillRect(0,0,w,h);c.fillStyle='#314c2909';c.fillRect(0,0,w,h);
   for(const [x,y]of Object.values(positions)){const light=c.createRadialGradient(x*w/100,y*h/100,0,x*w/100,y*h/100,w*.065);light.addColorStop(0,'#efdf9e24');light.addColorStop(1,'#efdf9e00');c.fillStyle=light;c.fillRect(x*w/100-w*.07,y*h/100-w*.07,w*.14,w*.14);}
   // Real terrain water, not a river painted into a background picture.
   const waterPath=new Path2D();for(let y=0;y<=100;y+=.3){const x=(this.river(y)-this.riverWidth(y))*w/100;if(!y)waterPath.moveTo(x,y*h/100);else waterPath.lineTo(x,y*h/100);}for(let y=100;y>=0;y-=.3)waterPath.lineTo((this.river(y)+this.riverWidth(y))*w/100,y*h/100);waterPath.closePath();
@@ -67,7 +67,11 @@ const P=window.WildwoodBoard={
   c.save();c.shadowColor='#173d3b88';c.shadowBlur=10;c.strokeStyle='#76845a';c.lineWidth=w*.003;c.stroke(waterPath);c.restore();c.save();c.clip(waterPath);const water=this.image('water');c.fillStyle=water.complete&&water.naturalWidth?c.createPattern(water,'repeat'):'#347d89';c.fillRect(0,0,w,h);c.fillStyle='#1b565d38';c.fillRect(0,0,w,h);c.restore();
   // Trails suggest destinations. Every unblocked grass cell is still walkable.
   const layer=document.createElement('canvas');layer.width=w;layer.height=h;const t=layer.getContext('2d');t.lineCap='round';t.lineJoin='round';const texture=this.image('path');
-  for(const points of this.trails){this.curve(t,points,w,h);t.strokeStyle='#8b875a60';t.lineWidth=w*.019;t.filter='blur(7px)';t.stroke();t.filter='blur(2px)';t.strokeStyle=texture.complete&&texture.naturalWidth?t.createPattern(texture,'repeat'):'#b1a477';t.lineWidth=w*.012;t.stroke();}
+  for(const points of this.trails){this.curve(t,points,w,h);t.strokeStyle='#8b875a60';t.lineWidth=w*.019;t.filter='blur(4px)';t.stroke();t.filter='blur(3px)';t.strokeStyle=texture.complete&&texture.naturalWidth?t.createPattern(texture,'repeat'):'#b1a477';t.lineWidth=w*.012;t.stroke();}
+  t.filter='none';
+  // Small irregular earth and stone patches break up the road edges at world scale.
+  const noise=n=>{const v=Math.sin(n*127.13)*43758.54;return v-Math.floor(v);};
+  for(let i=0;i<18000;i++){const x=noise(i+1)*100,y=noise(i+22001)*100,d=this.trailDistance({x,y});if(d>1.5||this.water({x,y}))continue;const edge=d>.65;t.fillStyle=edge?(i%3?'#758b3d88':'#c7be7b88'):(i%3?'#ead6a155':'#695a3b44');t.beginPath();t.ellipse(x*w/100,y*h/100,(1+noise(i+40001)*3)*w/4500,(.7+noise(i+50001)*2)*h/3000,noise(i)*3,0,Math.PI*2);t.fill();}
   // Do not paint trails over water between the two actual crossings.
   t.globalCompositeOperation='destination-out';t.fillStyle='#fff';t.fill(waterPath);c.drawImage(layer,0,0);
   for(const b of this.bridges){const x=this.river(b.y)*w/100,y=b.y*h/100,dw=b.width*w/100,dh=b.depth*h/100;c.save();c.shadowColor='#102d2c99';c.shadowBlur=10;const wood=this.image('wood');c.fillStyle=wood.complete&&wood.naturalWidth?c.createPattern(wood,'repeat'):'#a88c5b';c.fillRect(x-dw/2,y-dh/2,dw,dh);c.shadowBlur=0;c.strokeStyle='#4b3825';c.lineWidth=2;for(let dx=-dw/2;dx<dw/2;dx+=w*.003){c.beginPath();c.moveTo(x+dx,y-dh/2);c.lineTo(x+dx,y+dh/2);c.stroke();}c.restore();}
@@ -89,7 +93,7 @@ const build=M.build;M.build=function(){return P.active()?P.build():build.call(th
 const gate=RegionGates.gate;RegionGates.gate=function(chapter){if(P.active()&&chapter===0){const [a,b]=this.edges[0];return {a,b,x:64,y:44,radius:4};}return gate.call(this,chapter);};
 const blocked=W.blocked;W.blocked=function(a,b,barriers=[]){return P.active()?!!barriers.length&&P.bank(a)!==P.bank(b):blocked.call(this,a,b,barriers);};
 const size=WorldCamera.size;WorldCamera.size=function(chapter,w,h){return P.active()?{width:Math.max(w,L.width),height:Math.max(w,L.width)/1.5}:size.call(this,chapter,w,h);};
-const ensure=ForestRenderer.ensure;ForestRenderer.ensure=function(){const ok=ensure.call(this);if(ok&&P.active()&&this._wildwoodCanvas!==this.terrain){this.terrain.width=3072;this.terrain.height=2048;this._wildwoodCanvas=this.terrain;this._openLayout=null;this._openReady=false;}return ok;};
+const ensure=ForestRenderer.ensure;ForestRenderer.ensure=function(){const ok=ensure.call(this);if(ok&&P.active()&&this._wildwoodCanvas!==this.terrain){this.terrain.width=4500;this.terrain.height=3000;this._wildwoodCanvas=this.terrain;this._openLayout=null;this._openReady=false;}return ok;};
 const bind=DungeonRules.bind;DungeonRules.bind=function(...args){const result=bind.apply(this,args);if(P.active()){ExploreRules.speed=L.speed;PartyTrail.spacing=.85;}return result;};
 const paint=M.paint;M.paint=function(c,w,h){return P.active()?P.paint(c,w,h):paint.call(this,c,w,h);};
 const scene=M.scene;M.scene=function(...args){return P.active()?P.scene(...args):scene.apply(this,args);};
