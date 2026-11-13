@@ -24,3 +24,6 @@ Built-in image generation. First asset: forest ruined courtyard surround, style 
 
 ## First playable landmark
 Forest courtyard generated with the built-in image tool from battle-forest-ruins-hd.webp; source assets/forest-courtyard-v2.png, optimized assets/forest-courtyard-v2.webp. Alpha checked: center fully transparent, approximately 58% fully clear pixels. Placed in the eastern Wildwood ruin with independent wall footprints and open entrances. All existing quest/cache route probes pass; no browser runtime errors. This is an initial integration, not completion of the world conversion. Courtyard camera framing and full collision traversal still require refinement.
+
+## Recovered bridge integration
+The bridge geometry is sourced from C:/AI Workspace/lowpolly forest.blend. A separate headless Blender process renders the plank, post and railing objects using a new procedural weathered timber material; the source blend is never saved or modified. The game consumes assets/recovered-timber-bridge.png. This uses an actual recovered mesh through a lightweight pre-rendered asset, not runtime 3D. The low-poly scene trees were visually reviewed and rejected as a poor match for the requested battle art. Unreal-only packs are not yet exported or integrated. Physical Chromebook verification remains outstanding.
