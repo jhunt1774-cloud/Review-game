@@ -7,7 +7,7 @@ const L=WildwoodLayout,positions=L.positions;
 const P=window.WildwoodBoard={
  active(){return ForestAdventure.active()&&!DungeonRules.campaign?.dungeon&&(ExploreRules.activeChapter||0)===0;},
  objects:[],
- assets:{grass:'assets/wildwood-forest-floor.webp',hollow:'assets/map-detail-0.webp',stump:'assets/map-detail-1.webp',tower:'assets/map-detail-3.webp',shelter:'assets/map-detail-2.webp',roots:'assets/crypt-layered-overgrowth.webp',watermill:'assets/wildwood-watermill.webp',willow:'assets/wildwood-willow.webp',waterfall:'assets/wildwood-waterfall.webp',library:'assets/map-city-library.webp',wall:'assets/map-city-wall.webp'},
+ assets:{courtyard:'assets/forest-courtyard-v2.webp',grass:'assets/wildwood-forest-floor.webp',hollow:'assets/map-detail-0.webp',stump:'assets/map-detail-1.webp',tower:'assets/map-detail-3.webp',shelter:'assets/map-detail-2.webp',roots:'assets/crypt-layered-overgrowth.webp',watermill:'assets/wildwood-watermill.webp',willow:'assets/wildwood-willow.webp',waterfall:'assets/wildwood-waterfall.webp',library:'assets/map-city-library.webp',wall:'assets/map-city-wall.webp'},
  trails:L.trails,bridges:[{y:44,width:6.4,depth:2.2},{y:25,width:6.4,depth:2.2}],
  river(y){return 64+4*Math.sin((y-44)*.07)+1.8*Math.sin((y-44)*.17);},
  riverWidth(y){return 1.8+.3*Math.sin(y*.11);},
@@ -97,7 +97,7 @@ const ensure=ForestRenderer.ensure;ForestRenderer.ensure=function(){const ok=ens
 const bind=DungeonRules.bind;DungeonRules.bind=function(...args){const result=bind.apply(this,args);if(P.active()){ExploreRules.speed=L.speed;PartyTrail.spacing=.85;}return result;};
 const paint=M.paint;M.paint=function(c,w,h){return P.active()?P.paint(c,w,h):paint.call(this,c,w,h);};
 const scene=M.scene;M.scene=function(...args){return P.active()?P.scene(...args):scene.apply(this,args);};
-const ready=M.ready;M.ready=function(){if(!P.active())return ready.call(this);this.build();return ['grass','oak','pine','gate','camp','hollow','ancient','moonwell','tower','roots','stump','ferns','rocks','rune','path','water','wood','watermill','willow','waterfall','library','wall','shelter','closed','open'].every(key=>{const im=P.image(key);return im.complete&&im.naturalWidth;});};
+const ready=M.ready;M.ready=function(){if(!P.active())return ready.call(this);this.build();return ['courtyard','grass','oak','pine','gate','camp','hollow','ancient','moonwell','tower','roots','stump','ferns','rocks','rune','path','water','wood','watermill','willow','waterfall','library','wall','shelter','closed','open'].every(key=>{const im=P.image(key);return im.complete&&im.naturalWidth;});};
 for(const owner of [LayeredFoliage,ScenicSeals]){const old=owner.scene;owner.scene=function(...args){if(!P.active())return old.apply(this,args);};}
 const landmark=ForestArt.landmark;ForestArt.landmark=function(c,n,at,done,time){if(P.active()&&n.wildwood)return;if(P.active()&&['merchant','m0','m1','m3','forest-spirit'].includes(n.id)){if(n.id==='merchant'&&DungeonRules.campaign?.forestQuest?.ranger)return landmark.call(this,c,n,at,done,time);return;}return landmark.call(this,c,n,at,done,time);};
 // The small location map must show this terrain, not the original painting.
