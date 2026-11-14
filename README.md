@@ -1,5 +1,9 @@
 # Forest Path: Web Wizardry
 
+Development: [current stabilization audit and roadmap](AUDIT-2026-11-14.md),
+[review/release workflow](DEVELOPMENT-WORKFLOW.md), and
+[completion report template](DEVELOPMENT-COMPLETION-REPORT.md).
+
 Pacing update: [fast play, compact destination map and restored patrols](FOREST-FAST-PLAY-UPDATE.md).
 
 Enemy update: [attack tells and Guardian binding transitions](FOREST-ENEMY-TELLS-UPDATE.md).
