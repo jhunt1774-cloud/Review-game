@@ -546,3 +546,14 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 #game #battle #arena #attack-cue[data-chosen=miss] #attack-cue-action{background:#a4483d;color:#fff0da}
 
 #game #battle #arena #attack-cue:focus-visible{outline:2px dashed #b5d9df;outline-offset:5px}
+
+.set-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+#sets-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px;margin-block:16px}
+#sets-list>article,#sets-current,#sets-preview{padding:16px;border:1px solid #65716a;border-radius:10px;overflow-wrap:anywhere}
+#sets-list label{display:flex;align-items:flex-start;gap:8px}
+#sets-current-list>div{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-block:8px}
+#sets-preview-questions{max-height:480px;overflow:auto}
+#sets-preview details{padding:10px;border-bottom:1px solid #65716a}
+#sets-delete-dialog{max-width:min(520px,90vw)}
+
+#teacher-set-manager{padding:16px;background:#10231ff5;border:1px solid #65716a;border-radius:10px}

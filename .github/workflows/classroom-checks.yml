@@ -15,6 +15,8 @@ jobs:
           node-version: 24
       - run: node tools/audit-checks.cjs
       - run: node tools/build-pages.cjs
+      - name: Teacher question-set management
+        run: node tools/teacher-sets-smoke.cjs
       - name: Original campaign, imports and progress recovery
         run: node tools/browser-smoke.cjs
       - name: Forest regression checks against the published package
