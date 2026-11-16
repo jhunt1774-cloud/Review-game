@@ -34,7 +34,8 @@ require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root
  async function finishBattle(wrong=false){let attempted=-1,usedWrong=false,wrongHp=null,enemyBefore=null;const until=Date.now()+120000;
   while(Date.now()<until){const s=await e(`GameProgress.exportData().data`);if(['victory','complete','defeat'].includes(s.phase)){assert.notEqual(s.phase,'defeat');return s;}
    const ui=await e(`({review:!document.querySelector('#next-question').hidden,defense:!document.querySelector('#enemy-defense').hidden,menu:!document.querySelector('#hero-command-menu').hidden})`);
-   if(ui.defense){await e(`document.querySelector('#take-hit').click()`);if(wrongHp!==null){await wait(`!document.querySelector('#hero-command-menu').hidden`);const next=await e(`GameProgress.exportData().data`);assert.ok(next.hp.reduce((a,b)=>a+b,0)<wrongHp);assert.equal(next.enemyHp,enemyBefore);wrongHp=null;}}
+   // The wrong-answer case deliberately takes damage; the full quest uses assisted defense.
+   if(ui.defense){await e(wrong ? `document.querySelector('#take-hit').click()` : `document.querySelector('#attack-cue').click()`);if(wrongHp!==null){await wait(`!document.querySelector('#hero-command-menu').hidden`);const next=await e(`GameProgress.exportData().data`);assert.ok(next.hp.reduce((a,b)=>a+b,0)<wrongHp);assert.equal(next.enemyHp,enemyBefore);wrongHp=null;}}
    else if(ui.review)await e(`document.querySelector('#next-question').click()`);
    else if(ui.menu&&s.practice&&attempted!==s.qIndex){attempted=s.qIndex;const miss=wrong&&!usedWrong,answer=miss?(s.practice.question.correct+1)%4:s.practice.question.correct;if(miss){usedWrong=true;wrongHp=s.hp.reduce((a,b)=>a+b,0);enemyBefore=s.enemyHp;}await e(`document.querySelector('#hero-menu-actions [data-action=attack]').click();document.querySelectorAll('#answers button')[${answer}].click()`);}
    await new Promise(r=>setTimeout(r,70));
