@@ -52,7 +52,7 @@ window.CharacterRenderer=class {
   let image=images.get(c.image);if(!image){image=new Image();images.set(c.image,image);image.src=window.RegionAssetManifest?.[c.image]||c.image;while(images.size>32)images.delete(images.keys().next().value);}
   if(!image.complete||!image.naturalWidth){const expected=this.state;image.addEventListener?.('load',()=>{if(this.state===expected&&this.portrait&&this.asset===c.image)this.drawIsolated(c,this.frame);},{once:true});return true;}
   const r=c.frameRects?.[f]||{x:f%(c.columns||1)*w,y:Math.floor(f/(c.columns||1))*h,w,h,dx:0,dy:0,scale:1},sx=image.naturalWidth/(c.sheetWidth||(c.columns||1)*w),sy=image.naturalHeight/(c.sheetHeight||(c.rows||1)*h),scale=r.scale||1;
-  context.imageSmoothingEnabled=true;context.imageSmoothingQuality='high';context.drawImage(image,r.x*sx,r.y*sy,r.w*sx,r.h*sy,r.dx,r.dy,r.w*scale,r.h*scale);return true;
+  context.imageSmoothingEnabled=true;context.imageSmoothingQuality='high';context.drawImage(image,r.x*sx,r.y*sy,r.w*sx,r.h*sy,r.dx,r.dy,r.w*scale,r.h*scale);window.BattleBodyMotion?.capture(this,canvas);return true;
  };
 })();
 

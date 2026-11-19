@@ -1,6 +1,6 @@
 # Forest Path: Web Wizardry
 
-Human vanguard development preview and [combat animation pipeline](HUMAN-WARRIOR-ANIMATION.md).
+[Shared party and enemy motion](SHARED-COMBAT-MOTION.md) and [the Human vanguard animation pipeline](HUMAN-WARRIOR-ANIMATION.md).
 
 Pacing update: [fast play, compact destination map and restored patrols](FOREST-FAST-PLAY-UPDATE.md).
 
