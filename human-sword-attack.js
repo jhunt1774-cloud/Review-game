@@ -4,7 +4,7 @@
  const directory = 'assets/warrior/human-warrior-';
  const battleImage = directory + 'battle.webp?v=1';
  const travelImage = directory + 'travel.webp?v=1';
- const swordImage = directory + 'sword.webp?v=1';
+ const swordImage = directory + 'sword.webp?v=2';
  const member = 'human-warrior';
  const frameRects = Array.from({length:16}, (_, frame) => ({
   x:frame % 4 * 240, y:Math.floor(frame / 4) * 240, w:240, h:240, dx:0, dy:0, scale:1.5
@@ -31,11 +31,15 @@
  };
 
  const cell = 240;
+ const columns = 5;
+ const rows = 6;
  const step = 32;
  const release = 8 * step;
  const contact = 10 * step;
  const duration = 23 * step;
+ const walkStart = 23;
  let atlas;
+ let loading;
  let ready = false;
 
  window.HumanSwordAttack = {
@@ -44,12 +48,17 @@
   },
 
   preload(renderer) {
-   if (atlas || MotionPreference.reduced() || !this.supports(renderer) || typeof Image !== 'function') return;
+   if (MotionPreference.reduced() || !this.supports(renderer) || typeof Image !== 'function') return;
+   if (loading) return loading;
    const image = new Image();
    image.decoding = 'async';
    image.src = swordImage;
    atlas = image;
-   image.decode().then(() => {ready = image.naturalWidth === 1200 && image.naturalHeight === 1200;}, () => {});
+   loading = image.decode?.().then(() => {
+    ready = image.naturalWidth === columns * cell && image.naturalHeight === rows * cell;
+    return ready;
+   }, () => false);
+   return loading;
   },
 
   async play({renderer,target,audio,onImpact,valid}) {
@@ -68,37 +77,59 @@
    const actorBox = portrait.getBoundingClientRect();
    const enemyBox = target.getBoundingClientRect();
    const side = Math.min(actorBox.width,actorBox.height);
+   if (side <= 0) return false;
    const reach = (237 / cell - .5) * side;
    const distance = Math.max(0, enemyBox.left + enemyBox.width * .31 - actorBox.left - actorBox.width / 2 - reach);
+   const lunge = Math.min(distance,side * .16);
+   const approach = distance - lunge;
+   const travelTime = approach > 0 ? Math.min(360,Math.max(150,approach / side * 165)) : 0;
    const saved = {translate:origin.style.translate, zIndex:origin.style.zIndex, visibility:portrait.style.visibility};
    let lastFrame = -1;
    let released = false;
    let hit = false;
    let started;
    const nextFrame = () => new Promise(resolve => requestAnimationFrame(resolve));
+   const draw = frame => {
+    if(frame === lastFrame) return;
+    context.clearRect(0,0,cell,cell);
+    context.drawImage(atlas,frame % columns * cell,Math.floor(frame / columns) * cell,cell,cell,0,0,cell,cell);
+    lastFrame = frame;
+   };
 
    try {
     origin.append(canvas);
     portrait.style.visibility = 'hidden';
     origin.style.zIndex = '4';
-    origin.dataset.swordPhase = 'windup';
+    origin.dataset.swordPhase = travelTime ? 'approach' : 'windup';
     while (valid() && origin.isConnected) {
      const now = await nextFrame();
      if (!valid() || !origin.isConnected) break;
      started ??= now;
-     const elapsed = Math.min(now - started, duration);
-     // Keep the release and contact frames visible even when rendering misses a frame.
-     const time = !released && elapsed >= release ? release : !hit && elapsed >= contact ? contact : elapsed;
-     const frame = Math.min(22, Math.floor(time / step));
-     if (frame !== lastFrame) {
-      context.clearRect(0,0,cell,cell);
-      context.drawImage(atlas,frame % 5 * cell,Math.floor(frame / 5) * cell,cell,cell,0,0,cell,cell);
-      lastFrame = frame;
+     const elapsed = now - started;
+     if (elapsed < travelTime) {
+      draw(walkStart + Math.floor(elapsed / 65) % 4);
+      origin.style.translate = approach * elapsed / travelTime + 'px';
+      continue;
      }
+
+     const attackTime = Math.min(elapsed - travelTime,duration);
+     // Keep the release and contact frames visible even when rendering misses a frame.
+     const time = !released && attackTime >= release ? release : !hit && attackTime >= contact ? contact : attackTime;
+     if (time === duration && travelTime) {
+      const retreat = Math.min(travelTime,elapsed - travelTime - duration);
+      if (origin.dataset.swordPhase !== 'retreat') origin.dataset.swordPhase = 'retreat';
+      draw(walkStart + (4 - Math.floor(retreat / 65) % 4) % 4);
+      origin.style.translate = approach * (1 - retreat / travelTime) + 'px';
+      if (retreat === travelTime) break;
+      continue;
+     }
+
+     draw(Math.min(walkStart - 1,Math.floor(time / step)));
+     if (origin.dataset.swordPhase === 'approach') origin.dataset.swordPhase = 'windup';
      const progress = time < contact ? Math.max(0,(time-96)/(contact-96)) :
       Math.max(0,1-(time-contact-76)/(duration-contact-76));
      const slide = Math.min(1,progress);
-     origin.style.translate = distance * slide * slide * (3-2*slide) + 'px';
+     origin.style.translate = approach + lunge * slide * slide * (3-2*slide) + 'px';
      if (!released && time === release) {
       released = true;
       origin.dataset.swordPhase = 'swing';
@@ -109,7 +140,7 @@
       origin.dataset.swordPhase = 'impact';
       audio?.impact('sword',.25);
       await onImpact?.();
-     } else if (hit) origin.dataset.swordPhase = 'recovery';
+     } else if (origin.dataset.swordPhase === 'impact') origin.dataset.swordPhase = 'recovery';
      if (time === duration) break;
     }
     return hit;
