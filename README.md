@@ -1,5 +1,7 @@
 # Forest Path: Web Wizardry
 
+Human vanguard development preview and [combat animation pipeline](HUMAN-WARRIOR-ANIMATION.md).
+
 Pacing update: [fast play, compact destination map and restored patrols](FOREST-FAST-PLAY-UPDATE.md).
 
 Enemy update: [attack tells and Guardian binding transitions](FOREST-ENEMY-TELLS-UPDATE.md).
