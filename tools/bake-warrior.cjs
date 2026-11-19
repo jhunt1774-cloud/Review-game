@@ -47,7 +47,10 @@ document.querySelector('pre').textContent=JSON.stringify({
  'human-warrior-body':sheet(4,4,(c,f)=>drawWarrior(c,battlePose(f),true)),
  'human-warrior-travel':sheet(4,4,(c,f)=>walk(c,f,false)),
  'human-warrior-travel-body':sheet(4,4,(c,f)=>walk(c,f,true)),
- 'human-warrior-sword':sheet(5,5,(c,f)=>{if(f<23){const time=f===10?330:f*32;drawTrail(c,time);drawWarrior(c,poseAt(time));}})
+ 'human-warrior-sword':sheet(5,6,(c,f)=>{
+  if(f<23){const time=f===10?330:f*32;drawTrail(c,time);drawWarrior(c,poseAt(time));}
+  else if(f<27)walk(c,f-23,false);
+ })
 });
 </script>`);
 try {

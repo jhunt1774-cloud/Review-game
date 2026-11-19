@@ -38,6 +38,9 @@ require('./browser-harness.cjs')(async ({evaluate,send,wait,errors,missing}) => 
   data.data.campaign.activeRoster[0] = member;
   await evaluate(`MotionPreference.set('${motion}');strikeLog.length=0;GameProgress.restoreData(${JSON.stringify(data)});`);
   await wait(`!document.querySelector('#hero-command-menu').hidden`);
+  await evaluate(`(()=>{window.phaseLog=[];const hero=document.querySelector('#hero-0');
+   new MutationObserver(()=>{if(hero.dataset.swordPhase)phaseLog.push(hero.dataset.swordPhase);})
+    .observe(hero,{attributeFilter:['data-sword-phase']});})()`);
  }
  async function answer(correct=true) {
   const question = (await saved()).practice.question;
@@ -55,7 +58,7 @@ require('./browser-harness.cjs')(async ({evaluate,send,wait,errors,missing}) => 
  assert.ok(expectedDamage > 0);
 
  await fixture();
- await wait(`performance.getEntriesByType('resource').some(entry=>entry.name.includes('human-warrior-sword.webp'))`);
+ assert.equal(await evaluate('HumanSwordAttack.preload({config:HEROES[0]})'),true);
  const full = await answer();
  assert.equal(full.enemyHp,control.enemyHp);
  assert.equal(full.correct,1);
@@ -63,6 +66,7 @@ require('./browser-harness.cjs')(async ({evaluate,send,wait,errors,missing}) => 
  assert.equal(full.pendingEnemy.damage,control.pendingEnemy.damage);
  const strike = await evaluate('strikeLog');
  assert.deepEqual(strike,['launch','impact',{phase:'impact',recoil:'hurt',damage:expectedDamage,sprite:true}]);
+ assert.deepEqual(await evaluate('[...new Set(phaseLog)]'),['approach','windup','swing','impact','recovery','retreat']);
  assert.equal(await evaluate(`document.querySelector('#hero-0').querySelectorAll('canvas').length`),1);
  assert.equal(await evaluate(`document.querySelector('#hero-0').style.translate`),'');
 
