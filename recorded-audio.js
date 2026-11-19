@@ -5,7 +5,6 @@ const groups={
  'signature-0':[['battle-axe-release']], 'signature-1':[['battle-brom-hammer-skill']], 'signature-2':[['battle-lira-arrow-skill']], 'signature-3':[['battle-seren-ice-skill']],
  'warning-quick':[['battle-warning-quick']], 'warning-heavy':[['battle-warning-heavy']], 'warning-spell':[['battle-warning-spell']], 'warning-boss':[['battle-warning-boss']],
  'slash-launch':[['battle-axe-release']], 'slash-impact':[['battle-axe-contact']],
- 'sword-launch':[['blade-swing-0','blade-swing-1']], 'sword-impact':[['metal-hit-0','metal-hit-1'],['body-hit-0','body-hit-1']],
  'hammer-launch':[['axe-swing-1','axe-swing-2']], 'hammer-impact':[['metal-hit-0','metal-hit-1'],['body-hit-0','body-hit-1']],
  'arrow-launch':[['bow-release-0','bow-release-1','bow-release-2']], 'arrow-impact':[['wood-hit-0','wood-hit-1']],
  'claw-launch':[['blade-swing-0','blade-swing-1']], 'claw-impact':[['body-hit-0','body-hit-1']],

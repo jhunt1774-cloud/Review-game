@@ -19,18 +19,14 @@ window.CombatPresentation={pending:new Set(),
   }finally{motions.forEach(m=>m.cancel?.());nodes.forEach(n=>n.remove());}})();this.pending.add(work);try{await work;}finally{this.pending.delete(work);}
  },
  async finish(){await Promise.allSettled([...this.pending]);},
- async basic({type,renderer,target,arena,layer,audio,onImpact,valid=()=>true}){
-  const sword=type==='slash'&&window.HumanSwordAttack?.supports(renderer);
-  if(sword&&await HumanSwordAttack.play({renderer,target,audio,onImpact,valid})){await this.finish();return;}
-  if(!valid())return;
-  const sound=sword?'sword':type;
+ async basic({type,renderer,target,arena,layer,audio,onImpact}){
   const reduced=MotionPreference.reduced(),actor=renderer.el,melee=['slash','hammer'].includes(type),motions=[],nodes=[];let advance=0,landed=false;
   const move=async(el,frames,ms,fill)=>{const m=el.animate(frames,{duration:reduced?60:ms,easing:'ease-out',...(fill?{fill}:{} )});motions.push(m);await m.finished;};
-  const strike=async()=>{if(landed)return;landed=true;audio?.impact(sound,.25);await onImpact?.();};
+  const strike=async()=>{if(landed)return;landed=true;audio?.impact(type,.25);await onImpact?.();};
   try{
    const start=this.point(actor,arena),end=this.point(target,arena);
    if(melee&&!reduced){advance=Math.max(0,end.x-start.x-95);renderer.setState('walk');await move(actor,[{translate:'0px'},{translate:advance+'px'}],210,'forwards');}
-   await CombatTiming.release(renderer);audio?.launch(sound,-.25);
+   await CombatTiming.release(renderer);audio?.launch(type,-.25);
    if(!melee){const a=this.point(actor,arena,.46),b=this.point(target,arena),dx=b.x-a.x,dy=b.y-a.y,angle=Math.atan2(dy,dx)*180/Math.PI,p=document.createElement('div');p.className='combat-fx combat-projectile '+type;p.style.left=a.x+'px';p.style.top=a.y+'px';
     if(type==='arrow')p.innerHTML='<svg viewBox="0 0 110 18"><path d="M2 9H101M88 2L106 9L88 16" fill="none" stroke="#ffeac4" stroke-width="3"/><path d="M2 2L15 9L2 16" fill="none" stroke="#b6d6a1" stroke-width="3"/></svg>';
     layer.appendChild(p);nodes.push(p);await move(p,[{transform:'translate(-50%,-50%) rotate('+angle+'deg)',opacity:1},{transform:'translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px)) rotate('+angle+'deg)',opacity:1}],Math.max(220,Math.min(420,Math.hypot(dx,dy)*.65)));p.hidden=true;

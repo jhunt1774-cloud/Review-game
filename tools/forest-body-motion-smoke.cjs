@@ -1,6 +1,7 @@
 const assert = require('node:assert/strict');
 
 require('./browser-harness.cjs')(async ({evaluate,errors,missing}) => {
+ assert.equal(await evaluate(`RosterSystem.defaults({completed:[],activeRoster:['human-warrior'],playerHero:{role:0,name:'My Hero',chosen:true}}).activeRoster[0]`),'thorin');
  const results = await evaluate(`(async () => {
   MotionPreference.set('full');
   const arena = document.querySelector('#arena');
