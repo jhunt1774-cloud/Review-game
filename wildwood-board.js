@@ -1,6 +1,7 @@
 /* Opt-in built-map experiment. The normal game never enters this adapter. */
 (()=>{'use strict';
-if(new URLSearchParams(location.search).get('map')!=='wildwood')return;
+const options=new URLSearchParams(location.search),relief=options.get('terrain')==='relief';
+if(options.get('map')!=='wildwood')return;
 ForestAdventure.slot='web-wizardry-wildwood-v1';
 const W=ForestWorld,M=OpenPaintedMaps,metric=(a,b)=>Math.hypot((a.x-b.x)*1.5,a.y-b.y);
 const L=WildwoodLayout,positions=L.positions;
@@ -16,6 +17,40 @@ const P=window.WildwoodBoard={
  lakes(){return [[44,76,5,4.5],[20,24,3.5,3],[this.river(14),15,2.8,2.3]];},
  lakeRadius(a){return 1+.065*Math.sin(a*5)+.035*Math.cos(a*9);},
  water(p){return Math.abs(p.x-this.river(p.y))<this.riverWidth(p.y)||this.lakes().some(([x,y,rx,ry])=>{const dx=(p.x-x)/rx,dy=(p.y-y)/ry;return Math.hypot(dx,dy)<this.lakeRadius(Math.atan2(dy,dx));});},
+ raised(){return relief&&this.active();},
+ projectY(x,y){
+  if(!this.raised())return y;
+  // Feather the mesh into the rest of Wildwood beyond the camp-to-crossing study.
+  const smooth=t=>{t=Math.max(0,Math.min(1,t));return t*t*(3-2*t);};
+  const extent=smooth((x-9)/12)*smooth((69-x)/12)*smooth((y-24)/12)*smooth((92-y)/10);
+  return y-.34*this.heightAt(x,y)*extent;
+ },
+ unproject(x,y){
+  if(!this.raised())return {x,y};
+  let low=0,high=100;
+  for(let i=0;i<15;i++){const mid=(low+high)/2;if(this.projectY(x,mid)<y)low=mid;else high=mid;}
+  return {x,y:(low+high)/2};
+ },
+ projectTerrain(c,w,h){
+  if(!this.raised())return;
+  // Orthographic projection of the height surface into the cached terrain.
+  // Small columns keep the warp smooth without adding work on animation frames.
+  const left=Math.floor(w*.09),right=Math.ceil(w*.69),topEdge=Math.floor(h*.20),bottomEdge=Math.ceil(h*.94);
+  const source=document.createElement('canvas');source.width=right-left;source.height=bottomEdge-topEdge;
+  source.getContext('2d').drawImage(c.canvas,left,topEdge,source.width,source.height,0,0,source.width,source.height);
+  const step=20,rows=56;
+  c.clearRect(left,topEdge,source.width,source.height);
+  for(let x=left;x<right;x+=step){
+   const width=Math.min(step,right-x),cx=100*(x+width/2)/w;
+   let top=topEdge;
+   for(let row=0;row<rows;row++){
+    const y0=source.height*row/rows,y1=source.height*(row+1)/rows,bottom=this.projectY(cx,(topEdge+y1)*100/h)*h/100;
+    c.drawImage(source,x-left,y0,width,y1-y0,x,top,width,bottom-top+.25);
+    top=bottom;
+   }
+  }
+  source.width=source.height=0;
+ },
  heightAt(x,y){
   const distance=Math.abs(x-this.river(y))/11;
   const t=Math.min(1,distance);
@@ -237,7 +272,7 @@ const P=window.WildwoodBoard={
  },
  navigate(goal){const c=DungeonRules.campaign,closed=!RegionGates.open(0,c.completed),reachable=M.reachable(closed),cell=W.cell(goal);let target=null,best=1.6;for(let y=Math.max(0,cell.y-4);y<=Math.min(W.height-1,cell.y+4);y++)for(let x=Math.max(0,cell.x-4);x<=Math.min(W.width-1,cell.x+4);x++){if(!reachable[y*W.width+x])continue;const p=W.point(x,y),d=metric(p,goal);if(d<best){best=d;target=p;}}if(!target)return false;const route=MouseNavigation.route(0,c.explorePosition||M.layout.entry,target,closed);if(!route)return false;MouseNavigation.path=route;return true;},
  scene(c,list,toScreen,p){
-  for(const o of this.objects){const at=toScreen(o.x,o.y),a=toScreen(o.x+o.width,o.y),height=toScreen(o.x,o.y+o.height).y-at.y,width=a.x-at.x;
+  for(const o of this.objects){const at=toScreen(o.x,o.y),measure=toScreen.flat||toScreen,base=measure(o.x,o.y),a=measure(o.x+o.width,o.y),height=measure(o.x,o.y+o.height).y-base.y,width=a.x-base.x;
    if(at.x<-width||at.x>c.canvas.width+width||at.y<-30||at.y>c.canvas.height+height)continue;
    list.push({y:at.y+(o.solid===false?-1:0),draw:()=>{c.save();if(/^rock[1-6]$/.test(o.art)){const stones=this.image('stoneDetails');if(stones.complete&&stones.naturalWidth)this.stampStone(c,stones,(Number(o.art.slice(-1))-1)%3,at.x,at.y-height*.12,width);else ForestArt.fit(c,this.image('rocks'),at.x,at.y,width,height);c.restore();return;}if(o.art==='ferns')c.filter='brightness(.93) saturate(.85)';const party=[p,...(window.PartyTrail?.formation?.()||[])];if(o.tree&&party.some(q=>Math.abs(q.x-o.x)<o.width*.65&&q.y<o.y+1&&q.y>o.y-o.height))c.globalAlpha=.2;else if(o.solid!==false&&metric(p,o)<2&&p.y<o.y)c.globalAlpha=.45;if(o.flip){c.translate(at.x*2,0);c.scale(-1,1);}const im=this.image(o.cache&&DungeonRules.campaign?.completed.includes(o.cache)?'open':o.art);if(o.cell!==undefined&&im.complete&&im.naturalWidth){const sw=im.naturalWidth/4,sh=im.naturalHeight/3,scale=Math.min(width/sw,height/sh);const inset=Math.min(sw,sh)*.065;c.drawImage(im,o.cell%4*sw+inset,Math.floor(o.cell/4)*sh+inset,sw-inset*2,sh-inset*2,at.x-sw*scale/2,at.y-sh*scale,sw*scale,sh*scale);}else if(o.art==='camp'&&im.complete&&im.naturalWidth){const sh=im.naturalHeight*.965,scale=Math.min(width/im.naturalWidth,height/sh);c.drawImage(im,0,0,im.naturalWidth,sh,at.x-im.naturalWidth*scale/2,at.y-sh*scale,im.naturalWidth*scale,sh*scale);}else ForestArt.fit(c,im,at.x,at.y,width,height);c.restore();}});
   }
@@ -254,6 +289,7 @@ W.advance=function(p,seconds,barriers){
  const goal=P.active()?MouseNavigation.path[0]:null;
  return advance.call(this,p,goal?P.slopeTime(p,goal.x-p.x,goal.y-p.y,seconds):seconds,barriers);
 };
+const follow=WorldCamera.follow;WorldCamera.follow=function(p,world,viewport){return follow.call(this,P.raised()?{...p,y:P.projectY(p.x,p.y)}:p,world,viewport);};
 const size=WorldCamera.size;WorldCamera.size=function(chapter,w,h){return P.active()?{width:Math.max(w,L.width),height:Math.max(w,L.width)/1.5}:size.call(this,chapter,w,h);};
 const ensure=ForestRenderer.ensure;ForestRenderer.ensure=function(){const ok=ensure.call(this);if(ok&&P.active()&&this._wildwoodCanvas!==this.terrain){this.terrain.width=4500;this.terrain.height=3000;this._wildwoodCanvas=this.terrain;this._openLayout=null;this._openReady=false;}return ok;};
 const bind=DungeonRules.bind;DungeonRules.bind=function(...args){const result=bind.apply(this,args);if(P.active()){ExploreRules.speed=L.speed;PartyTrail.spacing=.85;}return result;};
@@ -264,7 +300,7 @@ for(const owner of [LayeredFoliage,ScenicSeals]){const old=owner.scene;owner.sce
 const landmark=ForestArt.landmark;ForestArt.landmark=function(c,n,at,done,time){if(P.active()&&(n.wildwood||n.id==='crypt-entrance'))return;if(P.active()&&['merchant','m0','m1','m3','forest-spirit'].includes(n.id)){if(n.id==='merchant'&&DungeonRules.campaign?.forestQuest?.ranger)return landmark.call(this,c,n,at,done,time);return;}return landmark.call(this,c,n,at,done,time);};
 // The small location map must show this terrain, not the original painting.
 const mini=ForestFastPlay.map;ForestFastPlay.map=function(c,p){if(P.active()&&ForestRenderer.terrain&&M.ready()&&ForestRenderer._openLayout===M.layout.key&&ForestRenderer._openReady){
- const key=M.layout.key+':'+c.completed.join(',');if(P.minimap?.key!==key){const canvas=document.createElement('canvas');canvas.width=360;canvas.height=240;const context=canvas.getContext('2d');context.drawImage(ForestRenderer.terrain,0,0,360,240);const objects=[];P.scene(context,objects,(x,y)=>({x:x*3.6,y:y*2.4}),{x:-100,y:200});objects.sort((a,b)=>a.y-b.y).forEach(o=>o.draw());P.minimap={key,image:canvas.toDataURL('image/webp',.8)};ForestRenderer.minimap=P.minimap.image;}
+ const key=M.layout.key+':'+c.completed.join(',');if(P.minimap?.key!==key){const canvas=document.createElement('canvas');canvas.width=360;canvas.height=240;const context=canvas.getContext('2d');context.drawImage(ForestRenderer.terrain,0,0,360,240);const objects=[],project=(x,y)=>({x:x*3.6,y:P.projectY(x,y)*2.4});project.flat=(x,y)=>({x:x*3.6,y:y*2.4});P.scene(context,objects,project,{x:-100,y:200});objects.sort((a,b)=>a.y-b.y).forEach(o=>o.draw());P.minimap={key,image:canvas.toDataURL('image/webp',.8)};ForestRenderer.minimap=P.minimap.image;}
  const background='url("'+P.minimap.image+'")';if(document.getElementById('world-overview').style.backgroundImage!==background)document.getElementById('world-overview').style.backgroundImage=background;
 }const result=mini.call(this,c,p);
  const ground=document.getElementById('forest-mini-ground');
@@ -279,6 +315,10 @@ const mini=ForestFastPlay.map;ForestFastPlay.map=function(c,p){if(P.active()&&Fo
    ground.append(link);
   }
   link.hidden=false;
+  if(P.raised()){
+   for(const marker of ground.querySelectorAll('[data-place]')){const point=FOREST_NODES.find(n=>n.id===marker.dataset.place);if(point){const [x,y]=positions[point.id]||[point.x,point.y];marker.style.top=P.projectY(x,y)+'%';}}
+   const party=document.getElementById('forest-mini-party');if(party)party.style.top=P.projectY(p.x,p.y)+'%';
+  }
  }
  return result;
 };
@@ -317,8 +357,8 @@ const refresh=ForestAdventure.refreshTitle;ForestAdventure.refreshTitle=function
 const attach=ForestAdventure.attach;ForestAdventure.attach=function(...args){const result=attach.apply(this,args);window.addEventListener('load',()=>{const button=document.getElementById('teacher-forest-quest');if(button)button.textContent='Play Wildwood with this set';});const card=document.getElementById('forest-quest-start').closest('section');if(card){card.querySelector('h2').textContent='Explore Wildwood';const copy=card.querySelector('p');if(copy)copy.textContent='A large open forest board. Follow four quest encounters, or roam for caches, ruins and optional patrols. Saved separately from your other games.';}return result;};
 const sync=ForestFastPlay.sync;ForestFastPlay.sync=function(s){const result=sync.call(this,s);if(P.active()){
  let stats=document.getElementById('wildwood-discoveries');if(!stats){stats=document.createElement('small');stats.id='wildwood-discoveries';document.getElementById('forest-mini-body').append(stats);}stats.textContent='Caches '+L.caches.filter(n=>s.campaign.completed.includes(n.id)).length+'/'+L.caches.length+' · click map ground to walk';
- const mini=document.getElementById('forest-mini-ground');if(!mini._wildwoodClick){mini._wildwoodClick=true;mini.addEventListener('click',event=>{if(event.target.closest('button')||ForestFastPlay.state?.phase!=='world'||document.getElementById('map-dialog').open)return;event.stopPropagation();const rect=mini.getBoundingClientRect(),goal={x:(event.clientX-rect.left)/rect.width*100,y:(event.clientY-rect.top)/rect.height*100};P.navigate(goal);});}
+ const mini=document.getElementById('forest-mini-ground');if(!mini._wildwoodClick){mini._wildwoodClick=true;mini.addEventListener('click',event=>{if(event.target.closest('button')||ForestFastPlay.state?.phase!=='world'||document.getElementById('map-dialog').open)return;event.stopPropagation();const rect=mini.getBoundingClientRect(),goal={x:(event.clientX-rect.left)/rect.width*100,y:(event.clientY-rect.top)/rect.height*100};P.navigate(P.unproject(goal.x,goal.y));});}
  }return result;};
 const style=document.createElement('style');style.textContent='#start,#continue,#visual-trial-start,#load-lesson,#continue-teacher,#title-world-map-open,#launch-lesson{display:none!important}#wildwood-discoveries{display:block;padding:5px 7px;font:11px/1.3 system-ui;color:#d9d5b0}';document.head.append(style);
-const label=document.createElement('p');label.style.cssText='position:fixed;top:0;left:50%;transform:translateX(-50%);z-index:1000;margin:0;padding:5px 14px;background:#18352e;color:#fff4ce;font:13px system-ui;border-radius:0 0 8px 8px';label.innerHTML='Wildwood · progress saved separately · <a href="index.html" style="color:#ffe09a">Original game</a>';document.body.append(label);
+const label=document.createElement('p');label.style.cssText='position:fixed;top:0;left:50%;transform:translateX(-50%);z-index:1000;margin:0;padding:5px 14px;background:#18352e;color:#fff4ce;font:13px system-ui;border-radius:0 0 8px 8px';label.innerHTML=(options.get('terrain')==='relief'?'Wildwood terrain study':'Wildwood')+' · progress saved separately · <a href="index.html" style="color:#ffe09a">Original game</a>';document.body.append(label);
 })();

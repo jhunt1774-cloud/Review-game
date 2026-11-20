@@ -2,7 +2,8 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
 require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root})=>{
  assert.equal(await e(`!!window.WildwoodBoard`),false);
  await e(`localStorage.setItem('web-wizardry-forest-v1','original-forest-sentinel');localStorage.setItem('web-wizardry-teacher-save-v1','original-teacher-sentinel')`);
- await send('Page.navigate',{url:'http://127.0.0.1:8138'+(process.env.SITE_PREFIX||'/')+'wildwood.html'});await wait(`!!window.TeacherContent&&!!window.WildwoodBoard`);
+ const map=process.env.WILDWOOD_RELIEF==='1'?'index.html?map=wildwood&terrain=relief':'wildwood.html';
+ await send('Page.navigate',{url:'http://127.0.0.1:8138'+(process.env.SITE_PREFIX||'/')+map});await wait(`!!window.TeacherContent&&!!window.WildwoodBoard`);
  await e(`MotionPreference.set('still');document.querySelector('#defense-mode').value='assisted';document.querySelector('#forest-quest-start').click();document.querySelector('#begin-chapter').click()`);
  await wait(`OpenPaintedMaps.ready()&&document.querySelector('#forest-map').dataset.canvasActors==='true'`,30000);
  const base=await e(`GameProgress.exportData()`);assert.equal(base.slot,'web-wizardry-wildwood-v1');assert.equal(await e(`localStorage.getItem('web-wizardry-forest-v1')`),'original-forest-sentinel');
@@ -37,6 +38,17 @@ require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root
  })()`);
  assert.deepEqual(terrain,{hollowAboveCamp:true,heartAboveCrossing:true,clearKnoll:true,route:true});
  console.log('Checked rolling terrain progression, unobstructed knoll, and level river');
+ if(process.env.WILDWOOD_RELIEF==='1'){
+  assert.ok(await e(`(()=>{
+   const p=WildwoodBoard;
+   if(!p.raised()||p.projectY(39,43)>=42.6)return false;
+   for(let x=8;x<=70;x+=2)for(let y=22;y<95;y+=1){
+    const screen=p.projectY(x,y);
+    if(p.projectY(x,y+1)<=screen||Math.abs(p.unproject(x,screen).y-y)>.01)return false;
+   }
+   return p.projectY(83,25)===25;
+  })()`),'Projected terrain stays invertible and the eastern map stays in place');
+ }
 
  // Walk on clear grass away from every suggested trail using actual keyboard input.
  const grass=await e(`(()=>{for(let y=10;y<90;y+=2)for(let x=10;x<55;x+=2){const p={x,y},q={x:x+3,y};if(WildwoodBoard.trailDistance(p)>4&&ForestWorld.stepClear(p,q,[])&&WildwoodLayout.patrols.every(a=>Math.hypot((x-a.home[0])*1.5,y-a.home[1])>17))return p;}return null;})()`);assert.ok(grass);

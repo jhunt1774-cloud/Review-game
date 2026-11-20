@@ -86,6 +86,14 @@ The crossing at the Ancient Crossing encounter uses a local art kit based on a g
 
 The river and bridge lie at the low point of a continuous terrain profile. The trail starts on the lower forest floor at camp, bends through the western foothills, descends to the crossing, then rises into the eastern slopes toward the Guardian. Hill shading is based on the same terrain profile that modestly adjusts travel speed on slopes. The overlook cache remains on a walkable knoll reached by a trail spur. Water, solid scenery, and quest gates still drive collision.
 
+## Projected terrain study
+
+Open `index.html?map=wildwood&terrain=relief` to try the camp-to-crossing study. The terrain cache is projected once from the rolling height surface; the party, scenery, camera, and minimap share that projection, and pointer clicks convert back to the existing walkable ground. The projection fades back to the normal view outside the study area. Both Wildwood views use the same save and quest rules.
+
+The study adds no image downloads or 3D renderer. It is an orthographic height-surface prototype using the existing painted art. On desktop Chrome at 1024 × 600 with 4× simulated CPU throttling, both the standard and study views sampled about 16.7 ms median and 33 ms at the 95th percentile after terrain loaded. This is a short frame-interval sample, with physical Chromebook testing still pending.
+
+Run the full projected-board smoke test with `WILDWOOD_RELIEF=1`.
+
 ## Verification and limits
 
 `tools/wildwood-smoke.cjs` checks free-grass keyboard movement, minimap navigation,
