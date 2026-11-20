@@ -70,7 +70,13 @@ Generate one reusable isolated woodland waterfall and mossy cliff object for a h
 
 Both crossings use an original, generated ivy-covered limestone bridge with a continuous flagstone deck. Six additional transparent stamps add riverbank rocks, reeds and worn flagstones. The art references were the game's Mossgate battle background and, for the bridge, the illustrated world overview. The prompt specified an isolated horizontal bridge from an elevated overhead angle, with pale weathered limestone and light from above left. The stamp prompt specified six isolated overhead patches in a 3 × 2 grid, with riverbank stones on top and worn paving on the bottom.
 
-The bridge and stamps are `assets/wildwood-stone-bridge.webp` and `assets/wildwood-stone-details.webp`. Together they add roughly 414 KiB. They are composited into the existing terrain cache with warm clearings, grove shadows and shallower-looking shoreline water. Existing painted roots mark the sealed crossings. Bridge, shore and path locations still follow the original board geometry.
+The bridge and stamps are `assets/wildwood-stone-bridge.webp` and `assets/wildwood-stone-details.webp`. Together they add roughly 414 KiB. They are composited into the existing terrain cache with warm clearings, grove shadows and shallower-looking shoreline water. The bridge decks stay visually clear while the quest still controls the crossings. Bridge, shore and path locations still follow the original board geometry.
+
+## Mossgate woodland and sanctuary
+
+Wildwood uses three original tree cutouts and a low-contrast overhead moss, ivy, and earth texture generated from the Mossgate battle painting as a style reference. The tree prompt specifies a conifer, a broad oak, and a pale-barked sycamore, with a shared elevated camera, natural bark and roots, matching gold-green light and transparent margins. Conifers concentrate in the northern groves. Oaks and sycamores are more common around the river and clearings.
+
+Whispering Hollow is marked with a large oak. The cave opening off the western trail is the entrance to the existing Rootbound Sanctuary side quest. It supports entering, saving inside, and returning to Wildwood.
 
 ## Verification and limits
 

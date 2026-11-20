@@ -11,6 +11,22 @@ require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root
  assert.equal(await e(`ForestWorld.route(OpenPaintedMaps.layout.entry,FOREST_NODES.find(n=>n.id==='m3'),true)`),null);
  for(const y of [25,44])assert.equal(await e(`!!ForestWorld.route({x:WildwoodBoard.river(${y})-4,y:${y}},{x:WildwoodBoard.river(${y})+4,y:${y}},true)`),false,'Both crossings stay sealed');
  assert.ok(await e(`WildwoodBoard.objects.filter(o=>o.solid!==false).every(o=>(o.footprints||[o]).every(f=>!ForestWorld.walkable(f)))`),'Visible solid footprints block movement');
+ assert.deepEqual(await e(`[...new Set(WildwoodBoard.objects.filter(o=>o.tree).map(o=>o.art))].sort()`),['canopy-conifer','canopy-oak','canopy-sycamore']);
+ const standAt=async id=>e(`(()=>{const node=FOREST_NODES.find(n=>n.id===${JSON.stringify(id)}),f=GameProgress.exportData();f.data.campaign.explorePosition={x:node.x,y:node.y,chapter:0};GameProgress.restoreData(f);})()`);
+ await standAt('crypt-entrance');
+ await wait(`!document.querySelector('#crypt-interact').hidden&&/Sanctuary/.test(document.querySelector('#crypt-interact').textContent)`);
+ await e(`document.querySelector('#crypt-interact').click()`);
+ await wait(`DungeonRules.campaign?.dungeon?.id==='rootbound'`);
+ assert.equal(await e(`GameProgress.exportData().data.campaign.dungeon.id`),'rootbound');
+ await send('Page.reload');await wait(`!!window.WildwoodBoard&&document.querySelector('#forest-quest-continue')?.disabled===false`);
+ await e(`document.querySelector('#forest-quest-continue').click()`);
+ await wait(`DungeonRules.campaign?.dungeon?.id==='rootbound'`);
+ await standAt('crypt-exit');
+ await wait(`!document.querySelector('#crypt-interact').hidden`);
+ await e(`document.querySelector('#crypt-interact').click()`);
+ await wait(`WildwoodBoard.active()&&OpenPaintedMaps.ready()`);
+ await e(`GameProgress.restoreData(${JSON.stringify(base)})`);
+ console.log('Checked sanctuary entry, reload and return');
  // Walk on clear grass away from every suggested trail using actual keyboard input.
  const grass=await e(`(()=>{for(let y=10;y<90;y+=2)for(let x=10;x<55;x+=2){const p={x,y},q={x:x+3,y};if(WildwoodBoard.trailDistance(p)>4&&ForestWorld.stepClear(p,q,[])&&WildwoodLayout.patrols.every(a=>Math.hypot((x-a.home[0])*1.5,y-a.home[1])>17))return p;}return null;})()`);assert.ok(grass);
  await e(`(()=>{const f=GameProgress.exportData();f.data.campaign.explorePosition={x:${grass.x},y:${grass.y},chapter:0};GameProgress.restoreData(f);})()`);
