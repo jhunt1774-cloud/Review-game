@@ -2,7 +2,8 @@
 (()=>{'use strict';
 const options=new URLSearchParams(location.search),relief=options.get('terrain')==='relief';
 if(options.get('map')!=='wildwood')return;
-ForestAdventure.slot='web-wizardry-wildwood-v1';
+const valley=window.WildwoodValley;
+ForestAdventure.slot=valley?'web-wizardry-wildwood-valley-v1':'web-wizardry-wildwood-v1';
 const W=ForestWorld,M=OpenPaintedMaps,metric=(a,b)=>Math.hypot((a.x-b.x)*1.5,a.y-b.y);
 const L=WildwoodLayout,positions=L.positions;
 const treeFallback={'canopy-conifer':'pine','canopy-oak':'oak','canopy-sycamore':'oak'};
@@ -13,7 +14,7 @@ const P=window.WildwoodBoard={
  trails:L.trails,bridges:[{y:44,width:6.4,depth:2.2},{y:25,width:6.4,depth:2.2}],
  river(y){return 64+4*Math.sin((y-44)*.07)+1.8*Math.sin((y-44)*.17);},
  riverWidth(y){return 1.8+.3*Math.sin(y*.11);},
- bank(p){return Number(p.x>this.river(p.y));},
+ bank(p){if(valley)return valley.bank(p);return Number(p.x>this.river(p.y));},
  lakes(){return [[44,76,5,4.5],[20,24,3.5,3],[this.river(14),15,2.8,2.3]];},
  lakeRadius(a){return 1+.065*Math.sin(a*5)+.035*Math.cos(a*9);},
  water(p){return Math.abs(p.x-this.river(p.y))<this.riverWidth(p.y)||this.lakes().some(([x,y,rx,ry])=>{const dx=(p.x-x)/rx,dy=(p.y-y)/ry;return Math.hypot(dx,dy)<this.lakeRadius(Math.atan2(dy,dx));});},
@@ -69,12 +70,13 @@ const P=window.WildwoodBoard={
   return height*valley;
  },
  slopeTime(p,dx,dy,seconds){
+  if(valley)return seconds;
   const length=Math.hypot(dx*1.5,dy);
   if(!length)return seconds;
   const climb=this.heightAt(p.x+dx/length,p.y+dy/length)-this.heightAt(p.x,p.y);
   return seconds*Math.max(.86,Math.min(1.06,1-climb*.095));
  },
- ground(p){if(p.x<3||p.x>97||p.y<4||p.y>97)return 0;if(this.water(p))return this.bridges.some(b=>Math.abs(p.y-b.y)<b.depth/2&&Math.abs(p.x-this.river(b.y))<b.width/2)?3:2;return 1;},
+ ground(p){if(valley)return valley.ground(p);if(p.x<3||p.x>97||p.y<4||p.y>97)return 0;if(this.water(p))return this.bridges.some(b=>Math.abs(p.y-b.y)<b.depth/2&&Math.abs(p.x-this.river(b.y))<b.width/2)?3:2;return 1;},
  image(key){
   const image=this.assets[key]?ForestRenderer.image(this.assets[key]):ForestArt.image(key);
   return treeFallback[key]&&image.complete&&!image.naturalWidth?ForestArt.image(treeFallback[key]):image;
@@ -83,14 +85,28 @@ const P=window.WildwoodBoard={
  trailDistance(p){let best=Infinity;for(const trail of this.trails)for(let i=1;i<trail.length;i++){const a=trail[i-1],b=trail[i],dx=(b[0]-a[0])*1.5,dy=b[1]-a[1],t=Math.max(0,Math.min(1,((p.x-a[0])*1.5*dx+(p.y-a[1])*dy)/(dx*dx+dy*dy)));best=Math.min(best,Math.hypot((p.x-a[0])*1.5-dx*t,p.y-a[1]-dy*t));}return best;},
  curve(c,points,w,h){const p=points.map(([x,y])=>[x*w/100,y*h/100]);c.beginPath();c.moveTo(...p[0]);for(let i=0;i<p.length-1;i++){const a=p[Math.max(0,i-1)],b=p[i],d=p[i+1],e=p[Math.min(p.length-1,i+2)];c.bezierCurveTo(b[0]+(d[0]-a[0])/6,b[1]+(d[1]-a[1])/6,d[0]-(e[0]-b[0])/6,d[1]-(e[1]-b[1])/6,...d);}},
  build(){
-  const c=DungeonRules.campaign,q=c.forestQuest,key='wildwood-v1:'+q.ranger;
+  const c=DungeonRules.campaign,q=c.forestQuest,key=ForestAdventure.slot+':'+q.ranger;
   if(M.layout?.key===key&&W._openKey===key&&W.cells)return;
   const graph=MapRoutes.graphs[0];
   for(const [id,[x,y]]of Object.entries(positions)){const n=FOREST_NODES.find(n=>n.id===id),p=graph.points.get(id);if(n)Object.assign(n,{x,y});if(p)Object.assign(p,{x,y});}
   for(const n of L.caches)Object.assign(FOREST_NODES.find(p=>p.id===n.id),n);
   JOURNEY_CHAPTERS[0].camp=positions.merchant.slice();const gate=RegionGates.gate(0);
-  Object.assign(graph.points.get(gate.a),{x:61,y:44});Object.assign(graph.points.get(gate.b),{x:67,y:44});
-  const props=[],rand=(i,j)=>{const n=Math.sin(i*127.1+j*311.7)*43758.5453;return n-Math.floor(n);};
+  Object.assign(graph.points.get(gate.a),valley?.west||{x:61,y:44});Object.assign(graph.points.get(gate.b),valley?.east||{x:67,y:44});
+  const props=[];
+  if(!valley)this.woodlandProps(props);
+  const roots=valley?.roots||{x:51,y:54.6};
+  if(!q.ranger)props.push({x:roots.x,y:roots.y+.9,art:'roots',width:3.7,height:5,roots:true,footprints:[{...roots,rx:1.1,ry:.65}]});
+  for(const n of L.caches)props.push({x:n.x,y:n.y,art:'closed',width:valley?1.75:1.1,height:valley?2.75:1.7,solid:false,cache:n.id});
+  this.objects=props;this.buckets=new Map();
+  // Navigation uses the same object footprints that appear above the ground.
+  for(const o of props.filter(o=>o.solid!==false))for(const f of o.footprints||[o])for(let y=Math.floor((f.y-f.ry-.3)/4);y<=Math.floor((f.y+f.ry+.3)/4);y++)for(let x=Math.floor((f.x-f.rx-.2)/4);x<=Math.floor((f.x+f.rx+.2)/4);x++){const k=x+':'+y;if(!this.buckets.has(k))this.buckets.set(k,[]);this.buckets.get(k).push(f);}
+  W.chapter=0;W.cells=new Uint8Array(W.width*W.height);W._openKey=key;
+  for(let y=0;y<W.height;y++)for(let x=0;x<W.width;x++){const p=W.point(x,y);let cell=this.ground(p);if(cell===1&&(this.buckets.get(Math.floor(p.x/4)+':'+Math.floor(p.y/4))||[]).some(f=>(Math.max(0,Math.abs(p.x-f.x)-.17)/f.rx)**2+(Math.max(0,Math.abs(p.y-f.y)-.25)/f.ry)**2<=1))cell=0;W.cells[y*W.width+x]=cell;}
+  const entry=graph.points.get('entry'),nodes=FOREST_NODES.filter(n=>n.chapter===0&&!n.dungeon&&!n.global);
+  M.layout={key,id:'region-0',chapter:0,theme:'forest',dungeon:false,entry,originalEntry:entry,gate,graph,nodes,props:[],features:[],edges:[],islandEdges:[],islandPoints:[graph.points.get('m3')],islandIds:new Set(['m3']),a:graph.points.get(gate.a),b:graph.points.get(gate.b),ready:true,traversalClean:true,floor:p=>this.ground(p)};
+ },
+ woodlandProps(props){
+  const rand=(i,j)=>{const n=Math.sin(i*127.1+j*311.7)*43758.5453;return n-Math.floor(n);};
   const keepClear=p=>Object.values(positions).every(([x,y])=>metric(p,{x,y})>3.6)&&L.caches.every(n=>metric(p,n)>2.4)&&L.patrols.every(n=>metric(p,{x:n.home[0],y:n.home[1]})>2.7)&&this.trailDistance(p)>1.5&&!this.water(p)&&this.bridges.every(b=>Math.abs(p.y-b.y)>2||Math.abs(p.x-this.river(b.y))>5);
   // Dense authored groves, with open meadows and freely traversable grass between them.
   for(const [group,[cx,cy,rx,ry]]of L.groves.entries())for(let i=0;i<150;i++){
@@ -109,15 +125,6 @@ const P=window.WildwoodBoard={
    props.push({...p,art:i%11===0?'rock'+(i%6+1):i%43===0?'stump':'ferns',width:.8+rand(i,82)*1.2,height:2.9,solid:false});
   }
   for(let y=8;y<96;y+=2.1)for(const side of [-1,1]){if(this.bridges.some(b=>Math.abs(y-b.y)<2.5))continue;if(rand(y,side+5)<.18)continue;const py=y+(rand(y,side+8)-.5)*.9,x=this.river(py)+side*(this.riverWidth(py)+.15+rand(y,side+2)*.7);props.push({x,y:py,art:rand(y,side+11)>.4?'ferns':'rock'+(Math.floor(y)%6+1),width:.8+rand(y,side)*1.2,height:2.2,solid:false});}
-  if(!q.ranger)props.push({x:51,y:55.5,art:'roots',width:3.7,height:5,roots:true,footprints:[{x:51,y:54.6,rx:1.1,ry:.65}]});
-  for(const n of L.caches)props.push({x:n.x,y:n.y,art:'closed',width:1.1,height:1.7,solid:false,cache:n.id});
-  this.objects=props;this.buckets=new Map();
-  // Navigation uses the same object footprints that appear above the ground.
-  for(const o of props.filter(o=>o.solid!==false))for(const f of o.footprints||[o])for(let y=Math.floor((f.y-f.ry-.3)/4);y<=Math.floor((f.y+f.ry+.3)/4);y++)for(let x=Math.floor((f.x-f.rx-.2)/4);x<=Math.floor((f.x+f.rx+.2)/4);x++){const k=x+':'+y;if(!this.buckets.has(k))this.buckets.set(k,[]);this.buckets.get(k).push(f);}
-  W.chapter=0;W.cells=new Uint8Array(W.width*W.height);W._openKey=key;
-  for(let y=0;y<W.height;y++)for(let x=0;x<W.width;x++){const p=W.point(x,y);let cell=this.ground(p);if(cell===1&&(this.buckets.get(Math.floor(p.x/4)+':'+Math.floor(p.y/4))||[]).some(f=>(Math.max(0,Math.abs(p.x-f.x)-.17)/f.rx)**2+(Math.max(0,Math.abs(p.y-f.y)-.25)/f.ry)**2<=1))cell=0;W.cells[y*W.width+x]=cell;}
-  const entry=graph.points.get('entry'),nodes=FOREST_NODES.filter(n=>n.chapter===0&&!n.dungeon&&!n.global);
-  M.layout={key,id:'region-0',chapter:0,theme:'forest',dungeon:false,entry,originalEntry:entry,gate,graph,nodes,props:[],features:[],edges:[],islandEdges:[],islandPoints:[graph.points.get('m3')],islandIds:new Set(['m3']),a:graph.points.get(gate.a),b:graph.points.get(gate.b),ready:true,traversalClean:true,floor:p=>this.ground(p)};
  },
  stampStone(c,image,cell,x,y,width,angle=0){
   if(!image.complete||!image.naturalWidth)return;
@@ -207,7 +214,7 @@ const P=window.WildwoodBoard={
   for(const tree of nearby)draw(0,tree.x,tree.y-.1,tree.width*.96);
  },
  paint(c,w,h){
-  this.build();c.imageSmoothingEnabled=true;c.imageSmoothingQuality='high';
+  this.build();if(valley)return valley.paint(c,w,h);c.imageSmoothingEnabled=true;c.imageSmoothingQuality='high';
   const grass=this.image('grass');c.fillStyle=grass.complete&&grass.naturalWidth?c.createPattern(grass,'repeat'):'#446044';c.fillRect(0,0,w,h);c.fillStyle='#314c2909';c.fillRect(0,0,w,h);
   const painted=this.image('paintedGround');
   if(painted.complete&&painted.naturalWidth){
@@ -309,16 +316,17 @@ const P=window.WildwoodBoard={
  },
  navigate(goal){const c=DungeonRules.campaign,closed=!RegionGates.open(0,c.completed),reachable=M.reachable(closed),cell=W.cell(goal);let target=null,best=1.6;for(let y=Math.max(0,cell.y-4);y<=Math.min(W.height-1,cell.y+4);y++)for(let x=Math.max(0,cell.x-4);x<=Math.min(W.width-1,cell.x+4);x++){if(!reachable[y*W.width+x])continue;const p=W.point(x,y),d=metric(p,goal);if(d<best){best=d;target=p;}}if(!target)return false;const route=MouseNavigation.route(0,c.explorePosition||M.layout.entry,target,closed);if(!route)return false;MouseNavigation.path=route;return true;},
  scene(c,list,toScreen,p){
+  if(valley)valley.foreground(c,list,toScreen);
   for(const o of this.objects){const at=toScreen(o.x,o.y),measure=toScreen.flat||toScreen,base=measure(o.x,o.y),a=measure(o.x+o.width,o.y),height=measure(o.x,o.y+o.height).y-base.y,width=a.x-base.x;
    if(at.x<-width||at.x>c.canvas.width+width||at.y<-30||at.y>c.canvas.height+height)continue;
    list.push({y:at.y+(o.solid===false?-1:0),draw:()=>{c.save();if(/^rock[1-6]$/.test(o.art)){const stones=this.image('stoneDetails');if(stones.complete&&stones.naturalWidth)this.stampStone(c,stones,(Number(o.art.slice(-1))-1)%3,at.x,at.y-height*.12,width);else ForestArt.fit(c,this.image('rocks'),at.x,at.y,width,height);c.restore();return;}if(o.art==='ferns')c.filter='brightness(.93) saturate(.85)';const party=[p,...(window.PartyTrail?.formation?.()||[])];if(o.tree&&party.some(q=>Math.abs(q.x-o.x)<o.width*.65&&q.y<o.y+1&&q.y>o.y-o.height))c.globalAlpha=.2;else if(o.solid!==false&&metric(p,o)<2&&p.y<o.y)c.globalAlpha=.45;if(o.flip){c.translate(at.x*2,0);c.scale(-1,1);}const im=this.image(o.cache&&DungeonRules.campaign?.completed.includes(o.cache)?'open':o.art);if(o.cell!==undefined&&im.complete&&im.naturalWidth){const sw=im.naturalWidth/4,sh=im.naturalHeight/3,scale=Math.min(width/sw,height/sh);const inset=Math.min(sw,sh)*.065;c.drawImage(im,o.cell%4*sw+inset,Math.floor(o.cell/4)*sh+inset,sw-inset*2,sh-inset*2,at.x-sw*scale/2,at.y-sh*scale,sw*scale,sh*scale);}else if(o.art==='camp'&&im.complete&&im.naturalWidth){const sh=im.naturalHeight*.965,scale=Math.min(width/im.naturalWidth,height/sh);c.drawImage(im,0,0,im.naturalWidth,sh,at.x-im.naturalWidth*scale/2,at.y-sh*scale,im.naturalWidth*scale,sh*scale);}else ForestArt.fit(c,im,at.x,at.y,width,height);c.restore();}});
   }
-  if(DungeonRules.campaign?.completed.includes('m3')){const at=toScreen(83,24);list.push({y:-Infinity,draw:()=>{c.save();const glow=c.createRadialGradient(at.x,at.y,4,at.x,at.y,100);glow.addColorStop(0,'#bef9c588');glow.addColorStop(1,'#88e7b400');c.fillStyle=glow;c.fillRect(at.x-100,at.y-100,200,200);c.restore();}});}
+  if(DungeonRules.campaign?.completed.includes('m3')){const at=toScreen(...(valley?positions.m3:[83,24]));list.push({y:-Infinity,draw:()=>{c.save();const glow=c.createRadialGradient(at.x,at.y,4,at.x,at.y,100);glow.addColorStop(0,'#bef9c588');glow.addColorStop(1,'#88e7b400');c.fillStyle=glow;c.fillRect(at.x-100,at.y-100,200,200);c.restore();}});}
 
  },
 };
 const build=M.build;M.build=function(){return P.active()?P.build():build.call(this);};
-const gate=RegionGates.gate;RegionGates.gate=function(chapter){if(P.active()&&chapter===0){const [a,b]=this.edges[0];return {a,b,x:64,y:44,radius:4};}return gate.call(this,chapter);};
+const gate=RegionGates.gate;RegionGates.gate=function(chapter){if(P.active()&&chapter===0){const [a,b]=this.edges[0];return {a,b,...(valley?.gate||{x:64,y:44}),radius:4};}return gate.call(this,chapter);};
 const blocked=W.blocked;W.blocked=function(a,b,barriers=[]){return P.active()?!!barriers.length&&P.bank(a)!==P.bank(b):blocked.call(this,a,b,barriers);};
 const move=W.move,advance=W.advance;
 W.move=function(p,dx,dy,seconds,barriers){return move.call(this,p,dx,dy,P.active()?P.slopeTime(p,dx,dy,seconds):seconds,barriers);};
@@ -328,11 +336,11 @@ W.advance=function(p,seconds,barriers){
 };
 const follow=WorldCamera.follow;WorldCamera.follow=function(p,world,viewport){return follow.call(this,P.raised()?{...p,y:P.projectY(p.x,p.y)}:p,world,viewport);};
 const size=WorldCamera.size;WorldCamera.size=function(chapter,w,h){return P.active()?{width:Math.max(w,L.width),height:Math.max(w,L.width)/1.5}:size.call(this,chapter,w,h);};
-const ensure=ForestRenderer.ensure;ForestRenderer.ensure=function(){const ok=ensure.call(this);if(ok&&P.active()&&this._wildwoodCanvas!==this.terrain){this.terrain.width=4500;this.terrain.height=3000;this._wildwoodCanvas=this.terrain;this._openLayout=null;this._openReady=false;}return ok;};
+const ensure=ForestRenderer.ensure;ForestRenderer.ensure=function(){const ok=ensure.call(this);if(ok&&P.active()&&this._wildwoodCanvas!==this.terrain){this.terrain.width=valley?1536:4500;this.terrain.height=valley?1024:3000;this._wildwoodCanvas=this.terrain;this._openLayout=null;this._openReady=false;}return ok;};
 const bind=DungeonRules.bind;DungeonRules.bind=function(...args){const result=bind.apply(this,args);if(P.active()){ExploreRules.speed=L.speed;PartyTrail.spacing=.85;}return result;};
 const paint=M.paint;M.paint=function(c,w,h){return P.active()?P.paint(c,w,h):paint.call(this,c,w,h);};
 const scene=M.scene;M.scene=function(...args){return P.active()?P.scene(...args):scene.apply(this,args);};
-const ready=M.ready;M.ready=function(){if(!P.active())return ready.call(this);this.build();return ['stoneBridge','stoneDetails','paintedGround','crossingKit','hillside'].every(key=>P.image(key).complete)&&['soil','mud','bridge','courtyard','grass','canopy-conifer','canopy-oak','canopy-sycamore','gate','camp','cave','ancient','moonwell','tower','roots','stump','ferns','rocks','rune','path','water','wood','watermill','library','wall','shelter','closed','open'].every(key=>{const im=P.image(key);return im.complete&&im.naturalWidth;});};
+const ready=M.ready;M.ready=function(){if(!P.active())return ready.call(this);this.build();if(valley)return valley.ready()&&['closed','open','roots'].every(key=>P.image(key).naturalWidth);return ['stoneBridge','stoneDetails','paintedGround','crossingKit','hillside'].every(key=>P.image(key).complete)&&['soil','mud','bridge','courtyard','grass','canopy-conifer','canopy-oak','canopy-sycamore','gate','camp','cave','ancient','moonwell','tower','roots','stump','ferns','rocks','rune','path','water','wood','watermill','library','wall','shelter','closed','open'].every(key=>{const im=P.image(key);return im.complete&&im.naturalWidth;});};
 for(const owner of [LayeredFoliage,ScenicSeals]){const old=owner.scene;owner.scene=function(...args){if(!P.active())return old.apply(this,args);};}
 const landmark=ForestArt.landmark;ForestArt.landmark=function(c,n,at,done,time){if(P.active()&&(n.wildwood||n.id==='crypt-entrance'))return;if(P.active()&&['merchant','m0','m1','m3','forest-spirit'].includes(n.id)){if(n.id==='merchant'&&DungeonRules.campaign?.forestQuest?.ranger)return landmark.call(this,c,n,at,done,time);return;}return landmark.call(this,c,n,at,done,time);};
 // The small location map must show this terrain, not the original painting.
@@ -363,7 +371,7 @@ for(const method of ['prologue','arrival','world','result']){const old=ForestAdv
  if(method==='prologue')document.getElementById('prologue-text').innerHTML='<p>Roam Wildwood, recover hidden supplies, and free the forest’s Guardian. Start in the low forest near camp, wind through the western hills, then descend to the Ancient Crossing. Reopen the bridge to climb the wooded slopes to the Heart. The mill, ruins and riverhead are yours to explore along the way.</p>';
  if(method==='arrival'&&s.phase==='arrival')document.getElementById('arrival-narration').textContent=['A briar imp patrols Mossgate. Clear the road into the forest.','A root-bound wolf prowls where the trail curves between the western hills. Defeat it to secure the descent to the river.','The sentinel guards the bridge. Break its armor to cross the river.','From the river, the eastern trail climbs through wooded slopes to the Guardian’s grove.'][s.encounter];
  if(method==='world'){document.getElementById('forest-canopy').textContent='Take the cleared bridge trail';document.getElementById('forest-canopy').onclick=()=>{const dialog=document.getElementById('map-dialog');if(dialog.open)document.getElementById('close-map-dialog').click();ForestAdventure.walkTo('m3');};const note=document.getElementById('forest-boss-readiness');if(note)note.textContent='Guardian ahead · cross the bridge and follow the eastern trail north.';}
- if(method==='result'&&s.phase==='victory')document.getElementById('result-copy').textContent=['Mossgate is clear. Choose supplies or a spirit shield, then find the hollow.','The hollow is safe. Find the ranger and head east to the bridge.','Both crossings are open. Explore the eastern ruins or follow the river north to the Guardian.'][s.encounter]||'The path is clear.';
+ if(method==='result'&&s.phase==='victory')document.getElementById('result-copy').textContent=['Mossgate is clear. Choose supplies or a spirit shield, then find the hollow.','The hollow is safe. Find the ranger and head east to the bridge.',valley?'The bridge is open. Follow the bank down to the mill or climb to the Guardian’s grove.':'Both crossings are open. Explore the eastern ruins or follow the river north to the Guardian.'][s.encounter]||'The path is clear.';
 }return result;};}
 // Discoveries use ordinary completed-node flags, so rewards and progress survive reload.
 for(const n of L.caches)FOREST_NODES.push({...n,chapter:0,stage:0,kind:'forest-find',forestFind:true,wildwood:true,hidden:true,optional:true});
@@ -376,7 +384,15 @@ ForestAdventure.active=function(value){
 const visible=ForestAdventure.visible,available=ForestAdventure.available,interact=ForestAdventure.interact;
 ForestAdventure.visible=function(c,n){return P.active()&&(n.wildwood||n.id==='crypt-entrance')?true:visible.call(this,c,n);};
 ForestAdventure.available=function(c,n){if(P.active()&&n.id==='crypt-entrance')return true;if(P.active()&&(n.wildwood||['roam-0-2','roam-0-3'].includes(n.id)))return !c.completed.includes(n.id);return available.call(this,c,n);};
-ForestAdventure.interact=function(s,n,ui){if(!P.active()||!n.wildwood)return interact.call(this,s,n,ui);if(s.campaign.completed.includes(n.id))return;if(DungeonRules.reward(s,n.id,35,20,1,1,n.name)){ui.save();ui.world();ui.reward?.(['chest-open']);ui.notice(n.name,'+1 potion · +1 rune · +20 gold. Keep exploring or return to the main quest.');}};
+ForestAdventure.interact=function(s,n,ui){
+ if(!P.active()||!n.wildwood)return interact.call(this,s,n,ui);
+ if(!DungeonRules.reward(s,n.id,35,20,1,1,n.name))return;
+ const equipment=valley&&EquipmentLoot.catalog.find(item=>item.source===n.id);
+ if(equipment)EquipmentLoot.collect(s.campaign,n.id);
+ ui.save();ui.world();ui.reward?.(['chest-open']);
+ const supplies='+1 potion · +1 rune · +20 gold.';
+ ui.notice(n.name,equipment?equipment.name+' recovered. Equip it at camp. '+supplies:supplies+' Keep exploring or return to the main quest.');
+};
 const challenge=ForestAdventure.beginEncounter;ForestAdventure.beginEncounter=function(s){if(P.active()&&['roam-0-2','roam-0-3'].includes(s.campaign.battleNode)){s.campaign.forestQuest.challenge=null;return;}return challenge.call(this,s);};
 const present=ForestAdventure.presentChallenge;ForestAdventure.presentChallenge=function(s){const result=present.call(this,s);if(P.active()&&['roam-0-2','roam-0-3'].includes(s.campaign.battleNode)){document.getElementById('battle-chapter').textContent='WILDWOOD · OPTIONAL PATROL';document.getElementById('trail').textContent='Optional encounter · victory does not change the main quest order';}return result;};
 const forestResult=ForestAdventure.result;ForestAdventure.result=function(s,...args){const result=forestResult.call(this,s,...args);if(P.active()&&s.phase==='complete')document.getElementById('result-copy').textContent='The Heart is free. Wildwood is safe again. Explore for any caches you missed, or return to camp.';if(P.active()&&s.phase==='victory'&&['roam-0-2','roam-0-3'].includes(s.campaign.battleNode)){document.getElementById('result-copy').textContent='Patrol cleared. Its territory stays safe for this adventure. Explore for supplies or return to your next quest encounter.';document.getElementById('advance').textContent='Return to Wildwood →';}return result;};
@@ -390,12 +406,13 @@ ForestPatrols.bind=function(c){const next=ForestAdventure.next(c),key='wildwood-
  const n=FOREST_NODES.find(n=>n.id===plan.questNode);if(plan.slot>=2)Object.assign(n,{x:home.x,y:home.y});
  }
 };
-const refresh=ForestAdventure.refreshTitle;ForestAdventure.refreshTitle=function(...args){const result=refresh.apply(this,args),start=document.getElementById('forest-quest-start'),resume=document.getElementById('forest-quest-continue');if(start&&!start.dataset.confirm)start.textContent='Enter Wildwood →';if(resume)resume.textContent='Continue Wildwood';return result;};
-const attach=ForestAdventure.attach;ForestAdventure.attach=function(...args){const result=attach.apply(this,args);window.addEventListener('load',()=>{const button=document.getElementById('teacher-forest-quest');if(button)button.textContent='Play Wildwood with this set';});const card=document.getElementById('forest-quest-start').closest('section');if(card){card.querySelector('h2').textContent='Explore Wildwood';const copy=card.querySelector('p');if(copy)copy.textContent='A large open forest board. Follow four quest encounters, or roam for caches, ruins and optional patrols. Saved separately from your other games.';}return result;};
+const refresh=ForestAdventure.refreshTitle;ForestAdventure.refreshTitle=function(...args){const result=refresh.apply(this,args),start=document.getElementById('forest-quest-start'),resume=document.getElementById('forest-quest-continue');if(start&&!start.dataset.confirm)start.textContent=valley?'Enter the river valley →':'Enter Wildwood →';if(resume)resume.textContent='Continue Wildwood';return result;};
+const attach=ForestAdventure.attach;ForestAdventure.attach=function(...args){const result=attach.apply(this,args);window.addEventListener('load',()=>{const button=document.getElementById('teacher-forest-quest');if(button)button.textContent='Play Wildwood with this set';});const card=document.getElementById('forest-quest-start').closest('section');if(card){card.querySelector('h2').textContent='Explore Wildwood';const copy=card.querySelector('p');if(copy)copy.textContent=valley?'Follow the trail from Mossgate to the Guardian. Search seven caches, enter Rootbound Sanctuary or stop at the Moonwell. Your valley journey saves separately.':'A large open forest board. Follow four quest encounters, or roam for caches, ruins and optional patrols. Saved separately from your other games.';}return result;};
 const sync=ForestFastPlay.sync;ForestFastPlay.sync=function(s){const result=sync.call(this,s);if(P.active()){
+ if(valley)valley.updatePlaces(s.campaign);
  let stats=document.getElementById('wildwood-discoveries');if(!stats){stats=document.createElement('small');stats.id='wildwood-discoveries';document.getElementById('forest-mini-body').append(stats);}stats.textContent='Caches '+L.caches.filter(n=>s.campaign.completed.includes(n.id)).length+'/'+L.caches.length+' · click map ground to walk';
  const mini=document.getElementById('forest-mini-ground');if(!mini._wildwoodClick){mini._wildwoodClick=true;mini.addEventListener('click',event=>{if(event.target.closest('button')||ForestFastPlay.state?.phase!=='world'||document.getElementById('map-dialog').open)return;event.stopPropagation();const rect=mini.getBoundingClientRect(),goal={x:(event.clientX-rect.left)/rect.width*100,y:(event.clientY-rect.top)/rect.height*100};P.navigate(P.unproject(goal.x,goal.y));});}
  }return result;};
-const style=document.createElement('style');style.textContent='#start,#continue,#visual-trial-start,#load-lesson,#continue-teacher,#title-world-map-open,#launch-lesson{display:none!important}#wildwood-discoveries{display:block;padding:5px 7px;font:11px/1.3 system-ui;color:#d9d5b0}';document.head.append(style);
-const label=document.createElement('p');label.style.cssText='position:fixed;top:0;left:50%;transform:translateX(-50%);z-index:1000;margin:0;padding:5px 14px;background:#18352e;color:#fff4ce;font:13px system-ui;border-radius:0 0 8px 8px';label.innerHTML=(options.get('terrain')==='relief'?'Wildwood terrain study':'Wildwood')+' · progress saved separately · <a href="index.html" style="color:#ffe09a">Original game</a>';document.body.append(label);
+const style=document.createElement('style');style.textContent='#valley-destinations{width:100%;font:12px system-ui;margin-top:4px}#start,#continue,#visual-trial-start,#load-lesson,#continue-teacher,#title-world-map-open,#launch-lesson{display:none!important}#wildwood-discoveries{display:block;padding:5px 7px;font:11px/1.3 system-ui;color:#d9d5b0}';document.head.append(style);
+const label=document.createElement('p');label.style.cssText='position:fixed;top:0;left:50%;transform:translateX(-50%);z-index:1000;margin:0;padding:5px 14px;background:#18352e;color:#fff4ce;font:13px system-ui;border-radius:0 0 8px 8px';label.innerHTML=(valley?'Wildwood river valley':options.get('terrain')==='relief'?'Wildwood terrain study':'Wildwood')+' · progress saved separately · <a href="index.html" style="color:#ffe09a">Original game</a>';document.body.append(label);
 })();

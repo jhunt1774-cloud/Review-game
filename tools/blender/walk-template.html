@@ -4,12 +4,15 @@
 <title>Wildwood · Forest crossing</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#151c19;color:#f1eadc;font:15px/1.45 system-ui,sans-serif}main{width:min(100%,1150px);margin:auto;padding:12px 16px}header,footer,nav{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}h1{font:500 clamp(23px,3vw,34px) Georgia,serif;margin:0}button{background:#2c382f;border:1px solid #69745f;color:#fff4dc;border-radius:5px;padding:8px 14px;font:inherit;cursor:pointer}button:focus-visible,canvas:focus-visible{outline:3px solid #efcc72}figure{margin:10px 0;background:#263128;line-height:0;text-align:center}canvas{width:min(100%,calc((100vh - 148px)*1.5));height:auto;max-width:100%;cursor:crosshair;touch-action:manipulation}footer{color:#c2cbbd;font-size:14px}output{color:#f3d799}p{margin:0}button[hidden]{display:none} @media(max-height:550px){canvas{width:min(100%,650px)}}
+#play{color:#f5d385;text-underline-offset:3px}
 </style>
-<main><header><h1>Wildwood · Forest crossing</h1><nav><button id="compare" aria-pressed="false">View original painting</button><button id="reset">Return to camp</button></nav></header>
+<main><header><h1>Wildwood · Forest crossing</h1><nav><a id="play" hidden href="../../index.html?map=wildwood&amp;terrain=valley">Play the forest adventure</a><button id="compare" aria-pressed="false">View original painting</button><button id="reset">Return to camp</button></nav></header>
 <figure><canvas width="1536" height="1024" tabindex="0" aria-label="Explore Wildwood. Click a destination or move with the arrow keys.">Wildwood walking study</canvas></figure>
 <footer><p id="help">Click or tap the ground to walk, or use WASD or the arrow keys.</p><output id="status" aria-live="polite">Loading the valley…</output></footer></main>
 <script>
 const study=__STUDY__;
+const play=document.querySelector('#play');
+if(location.protocol==='http:'||location.protocol==='https:')play.hidden=false;
 (async()=>{
  const canvas=document.querySelector('canvas'),ctx=canvas.getContext('2d'),status=document.querySelector('#status'),compare=document.querySelector('#compare'),reset=document.querySelector('#reset'),help=document.querySelector('#help');
  const load=async url=>{const img=new Image();img.src=url;await img.decode();return img};

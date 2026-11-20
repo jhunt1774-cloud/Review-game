@@ -43,7 +43,7 @@ def collection(name):
 
 land = collection("01  Valley floor and running water")
 timber = collection("02  Hollow crossing | joinery and stone")
-places = collection("03  Camp and Rootbound entrance")
+places = collection("03  Places in the river valley")
 trees = collection("04  Woodland canopy")
 brush = collection("05  Bank stones and understory")
 rig = collection("06  Cameras, sun and original painting")
@@ -139,7 +139,31 @@ east=bridge_point(3.75,0)
 main=[(-6,-15),(-7.5,-11),(-7.3,-9),(-6.7,-7),(-5,-5.8),(-3.5,-4.6),(-3.1,-3),(-3.9,-1.8),(-3.9,-.5),(-3.1,.65),(-1.7,1.1),west,east,(10,3.25),(11.4,4.7),(11.2,6.2),(10,8.1),(10.9,10),(13,12.8),(14.4,16)]
 spur=[(-3.9,-.5),(-5.2,.2),(-6.6,.8),(-7.8,2),(-8.1,3.5),(-7.65,4.55)]
 camp_spur=[(-7.3,-9),(-8.7,-8.6),(-9.8,-7.9)]
-routes=[main,spur,camp_spur]
+# Short branches leave the main trail at the place where their landmark comes into view.
+mill_x=river(-4.9)+halfwidth(-4.9)+1.11
+hoist_y=-2.9
+hoist_x=river(hoist_y)-halfwidth(hoist_y)-.91
+gauge_y=8.05
+gauge_x=river(gauge_y)-halfwidth(gauge_y)-.69
+sites=[
+    ('map-detail-2',-12.7,-2.8,2.15,.79),
+    ('map-painted-moonwell',-11.6,1.2,1.8,.64),
+    ('map-detail-3',-2.25,5.85,2.05,.48),
+    ('wildwood-watermill',mill_x,-4.9,3.8,1.22),
+    ('forest-courtyard-v2',13.5,.15,3.75,0),
+    ('map-painted-ancient-tree',11.35,7.45,4.0,1.02),
+    ('map-painted-gate',-5.85,-5.55,2.65,0),
+]
+routes=[main,spur,camp_spur,
+    [(-6.7,-7),(-8.55,-5.3),(-10.4,-4.8),(-12.3,-3.9),(-12.6,-3.55)],
+    [(-12.6,-3.55),(-13,-2.1),(-12.6,-.35),(-11.4,.35)],
+    [(-3.1,.65),(-2.85,2.1),(-3.52,3.45),(-2.85,4.75)],
+    [(-1.7,1.1),(-1.35,-.45),(hoist_x-.86,-1.9),(hoist_x-.78,hoist_y-.48)],
+    [(-2.85,4.75),(-3.15,6.24),(gauge_x-.95,7.62)],
+    [(-10.4,-4.8),(-11.8,-5.4),(-12.7,-6.3)],
+    [(10,3.25),(11.05,1.65),(12.45,-.65),(13.25,-.75)],
+    [(11.05,1.65),(9.4,.2),(8.75,-1.85),(mill_x+1.38,-3.9),(mill_x+1.40,-5.65)],
+]
 def trail_dist(x,y):
     best=10000
     for route in routes:
@@ -194,7 +218,16 @@ for p in ground.data.vertices:
 base=mix_texture(n,l,vg,grass,earth)
 base=mix_texture(n,l,vb,base,rock)
 base=mix_texture(n,l,vt,base,path)
-bs=n.get('Principled BSDF');l.new(base,bs.inputs['Base Color'])
+# Break up the even valley light with broad canopy shade and warm openings.
+tint=n.new('ShaderNodeValToRGB')
+tint.color_ramp.elements[0].position=.23;tint.color_ramp.elements[0].color=(.40,.55,.49,1)
+tint.color_ramp.elements[1].position=.72;tint.color_ramp.elements[1].color=(1,.99,.79,1)
+light_noise=n.new('ShaderNodeTexNoise');light_noise.inputs['Scale'].default_value=.38
+light_noise.inputs['Detail'].default_value=2.3;l.new(tc.outputs['Object'],light_noise.inputs[0])
+l.new(light_noise.outputs['Fac'],tint.inputs[0])
+sunwash=n.new('ShaderNodeMixRGB');sunwash.blend_type='MULTIPLY';sunwash.inputs[0].default_value=.59
+l.new(base,sunwash.inputs[1]);l.new(tint.outputs[0],sunwash.inputs[2])
+bs=n.get('Principled BSDF');l.new(sunwash.outputs[0],bs.inputs['Base Color'])
 bs.inputs['Roughness'].default_value=.92
 ground.data.materials.append(m)
 
@@ -288,13 +321,20 @@ def plant(key,x,y,w,group,mirror=False,foot=0):
     return obj
 plant('map-painted-camp',-9.9,-7.85,3.25,places,False,1.05)
 plant('map-painted-cave',-7.65,4.82,4.45,places,True,1.27)
-plant('map-painted-runestone',-4.85,-.4,.68,places)
+plant('map-painted-runestone',-9.33,4.42,.66,places)
+for key,x,y,width,foot in sites:
+    plant(key,x,y,width,places,key=='wildwood-watermill',foot)
+# Keep the archway and courtyard openings walkable while blocking the stonework.
+solids.extend([(-7.00,-5.55,.28,.27),(-4.68,-5.55,.28,.27),
+               (11.99,.25,.29,.67),(15,.25,.26,.66),(13.5,1.05,.86,.25)])
 # Group large crowns along ridges, leaving the road, door and bridge readable.
 accepted=[]
 for _ in range(2800):
     x=random.uniform(-20,20);y=random.uniform(-18,20)
     if abs(x-river(y))<halfwidth(y)+1.00 or trail_dist(x,y)<2.1:continue
     if any(((x-a)/w)**2+((y-b)/h)**2<1 for a,b,w,h in [(-9.6,-8.8,3.8,4.3),(-7.6,3,3.9,3.9),(bx,by-.7,5.5,4),(-3.7,-1,3.6,3.4)]):continue
+    if any(abs(x-a)<1.8 and b-3.9<y<b+1 for a,b in [(hoist_x,hoist_y),(gauge_x,gauge_y),(-12.7,-6.3)]):continue
+    if any(abs(x-a)<width*.57+1 and b-4.2<y<b+1.2 for _,a,b,width,_ in sites):continue
     patch=field(x,y,.16)
     if patch<-.27 or -12<x<-6 and -13<y<-8.2: continue
     w=random.uniform(2.2,4.2) * (1.08 if y>5 else .98)
@@ -370,7 +410,7 @@ def limestone_material():
 stone_mat=limestone_material()
 shapes=[stone_mesh('Eroded limestone %02d'%k,k+.4) for k in range(7)]
 for data in shapes:data.materials.append(stone_mat)
-paving=tint_material('Sun-bleached trail flags',(.47,.383,.224))
+paving=tint_material('Sun-bleached trail flags',(.36,.292,.168))
 pavers=[data.copy() for data in shapes]
 for data in pavers:
     data.materials.clear();data.materials.append(paving)
@@ -404,18 +444,27 @@ for cx,cy,dx,dy,length in [(-11,3.9,1,.20,5),(-7.2,5.4,.8,.45,4),(-2.8,3.1,.74,.
         s=details.uniform(.21,.79)
         if s>.56:solids.append((x,y,s*.92,s*.69))
         boulder(x,y,height(x,y)-.13,(s*1.10,s*.82,s*1.14),'Outcrop on valley shoulder')
-# Pale stone showing through a well-used dirt surface breaks its smooth edges.
-for _ in range(1050):
-    x=details.uniform(-15,15);y=details.uniform(-15,16)
-    d=trail_dist(x,y)
-    if d>1.22 or abs(x-river(y))<halfwidth(y)+.72:continue
-    a,b=bridge_local(x,y)
-    if abs(a)<3.66 and abs(b)<.80:continue
-    number=details.randint(2,7)
-    for i in range(number):
-        px=x+details.uniform(-.39,.39);py=y+details.uniform(-.27,.27)
-        s=details.uniform(.046,.16)
-        boulder(px,py,height(px,py)+.015,(s*1.32,s*.86,s*.12),'Inset trail limestone')
+# Stone is laid where carts or feet would wear away the soil. The open forest
+# trails stay earthen. Each short course is aligned across its approach.
+paved_approaches = [
+    ((-6.66,-6.94),(-5.38,-5.95),5,3),  # Mossgate threshold
+    ((-8.00,2.38),(-7.76,3.79),5,2),    # sanctuary ascent
+    (bridge_point(-5.18,0),bridge_point(-3.74,0),6,4),
+    (bridge_point(3.74,0),bridge_point(4.96,0),5,4),
+    ((mill_x+1.38,-3.98),(mill_x+1.40,-5.5),5,2),
+    ((12.25,-.72),(13.42,-.62),4,2),    # surviving courtyard paving
+]
+for begin,end,rows,columns in paved_approaches:
+    dx,dy=end[0]-begin[0],end[1]-begin[1]
+    length=math.hypot(dx,dy);nx,ny=-dy/length,dx/length
+    for row in range(rows):
+        t=(row+.5)/rows
+        for col in range(columns):
+            if (col==0 or col==columns-1) and details.random()<.18:continue
+            offset=(col-(columns-1)*.5)*.28 + (.055 if row%2==1 else -.055)
+            x=begin[0]+dx*t+nx*offset;y=begin[1]+dy*t+ny*offset
+            slab=boulder(x,y,height(x,y)+.02,(.168,.112,.050),'Inset trail limestone')
+            slab.rotation_euler.z=math.atan2(ny,nx)+details.uniform(-.16,.16)
 # Shallow current seams part around the inside gravel bars.
 foam_mat=tint_material('Broken water reflections',(.51,.75,.70))
 ribbons=[];faces=[]
@@ -434,6 +483,95 @@ for _ in range(1850):
         if k:faces.append(tuple(start+2*k+q for q in (-2,-1,1,0)))
 mesh('Surface glints in shallow current',ribbons,faces,land,foam_mat)
 
+# The overlook is the unloading point for the ranger stores. The timber frame
+# spans the bank; the suspended crate is on the water side of its stone footing.
+joinery = collection("03b  Trail signs, river gauge and ranger cargo hoist")
+hardware = tint_material('Forged iron | hoist fittings',(.083,.098,.091))
+hemp = tint_material('Tarred hemp | lifting line',(.21,.14,.061))
+ochre = tint_material('Carved waymark | ochre',(.72,.48,.14))
+chalk = tint_material('Carved waymark | limestone wash',(.75,.70,.5))
+def post(name,a,b,width,depth,mat):
+    a,b=Vector(a),Vector(b)
+    axis=b-a
+    base=axis.to_track_quat('Z','Y').to_matrix()
+    vertices=[tuple(a+base@Vector((x*width*.5,y*depth*.5,z*axis.length)))
+              for z in (0,1) for x,y in ((-1,-1),(1,-1),(1,1),(-1,1))]
+    return mesh(name,vertices,[(3,2,1,0),(4,5,6,7),(0,1,5,4),(1,2,6,5),(2,3,7,6),(3,0,4,7)],joinery,mat)
+def spindle(name,a,b,r,mat,sides=12):
+    a,b=Vector(a),Vector(b);axis=b-a
+    basis=axis.to_track_quat('Z','Y').to_matrix()
+    pts=[tuple(end+basis@Vector((r*math.cos(i*math.tau/sides),r*math.sin(i*math.tau/sides),0)))
+         for end in (a,b) for i in range(sides)]
+    faces=[tuple(reversed(range(sides))),tuple(range(sides,2*sides))]
+    faces.extend((i,(i+1)%sides,sides+(i+1)%sides,sides+i) for i in range(sides))
+    return mesh(name,pts,faces,joinery,mat)
+
+hx,hy=hoist_x,hoist_y
+hz=height(hx,hy)
+def lift(x,y,z):return (hx+x,hy+y,hz+z)
+for side in (-.41,.41):
+    for dx in (-.36,.36):
+        x,y=hx+dx,hy+side
+        post('Stone bed for hoist', (x,y,height(x,y)-.17),(x,y,height(x,y)+.15),.35,.35,stone[1])
+        post('Braced oak trestle',(x,y,height(x,y)+.11),lift(0,side,1.72),.15,.17,wood[1])
+    post('Diagonal under lifting jib',lift(-.16,side,.53),lift(.85,side,1.81),.12,.14,wood[0])
+    post('Cantilevered oak jib',lift(-.53,side,1.77),lift(1.37,side,1.88),.18,.18,wood[2])
+spindle('Winch axle',lift(0,-.65,.91),lift(0,.66,.91),.085,hardware)
+spindle('Windlass drum',lift(0,-.36,.91),lift(0,.36,.91),.17,wood[2])
+for i in range(11):
+    y=-.30+i*.054
+    spindle('Coiled turns on drum',lift(0,y,.91),lift(0,y+.029,.91),.185,hemp)
+post('Winch crank',lift(0,-.63,.91),lift(-.23,-.63,1.12),.06,.065,hardware)
+spindle('Hand grip',lift(-.23,-.63,1.12),lift(-.23,-.83,1.12),.044,wood[2])
+spindle('Head sheave',lift(1.27,-.17,1.85),lift(1.27,.17,1.85),.15,hardware)
+spindle('Hauling line',lift(.05,0,1.05),lift(1.25,0,1.98),.027,hemp)
+spindle('Hanging line',lift(1.39,0,1.87),lift(1.39,0,.64),.027,hemp)
+for side in (-.21,.21):
+    spindle('Crate sling',lift(1.39,0,.69),lift(1.39,side,.35),.022,hemp)
+post('Slung supply crate',lift(1.39,0,-.05),lift(1.39,0,.36),.52,.48,wood[1])
+for y in (-.18,.18):
+    post('Crate band',lift(1.39,y,-.06),lift(1.39,y,.37),.54,.034,hardware)
+solids.append((hx,hy,.58,.60))
+
+# The river gauge and stone bed identify the high-water survey cache upriver.
+gx,gy=gauge_x,gauge_y
+gz=height(gx,gy)
+post('Survey gauge footing',(gx,gy,gz-.13),(gx,gy,gz+.15),.33,.33,stone[1])
+post('Flood gauge staff',(gx,gy,gz+.12),(gx,gy,gz+1.28),.18,.14,wood[0])
+for i in range(5):
+    post('Cut water-level notch',(gx,gy-.08,gz+.36+i*.155),(gx,gy-.08,gz+.396+i*.155),.13 if i%2==0 else .083,.018,chalk)
+solids.append((gx,gy,.18,.18))
+
+# Directional arrowboards share a mortised post. The symbols face the game camera.
+sx,sy=-4.85,.04
+sz=height(sx,sy)
+post('Fork waypost',(sx,sy,sz-.06),(sx,sy,sz+1.26),.14,.16,wood[0])
+def arrowboard(name,direction,z,colour):
+    points=[(-.13,-.10),(.39,-.10),(.39,-.16),(.64,0),(.39,.16),(.39,.1),(-.13,.1)]
+    verts=[(sx+direction*x,sy+dy,sz+z+y+direction*x*.08) for dy in (-.13,-.015) for x,y in points]
+    count=len(points)
+    faces=[tuple(range(count)),tuple(reversed(range(count,2*count)))]
+    faces.extend((i,(i+1)%count,count+(i+1)%count,count+i) for i in range(count))
+    mesh(name,verts,faces,joinery,wood[2])
+    post('Painted blaze', (sx+direction*.28,sy-.138,sz+z-.063),(sx+direction*.28,sy-.138,sz+z+.065),.075,.016,colour)
+arrowboard('Left arm | sanctuary',-1,1.07,chalk)
+arrowboard('Right arm | crossing',1,.82,ochre)
+solids.append((sx,sy,.13,.13))
+# Field flowers are confined to the beekeeper's forage meadow.
+blooms=[];blossoms=[]
+seed=random.Random(712)
+for i in range(170):
+    a=seed.random()*math.tau;dist=seed.random()**.5
+    x=-12.7+math.cos(a)*1.75*dist;y=-6.3+math.sin(a)*.88*dist
+    if trail_dist(x,y)<.58:continue
+    base_z=height(x,y)+seed.uniform(.08,.16);size=seed.uniform(.023,.051);n=len(blooms)
+    blooms.append((x,y,base_z))
+    for j in range(8):
+        ang=j*math.pi/4;r=size*(1 if j%2==0 else .44)
+        blooms.append((x+math.cos(ang)*r,y+math.sin(ang)*r,base_z+.014))
+    blossoms.extend((n,n+1+j,n+1+(j+1)%8) for j in range(8))
+mesh('Meadow buttercups by the apiary',blooms,blossoms,brush,ochre)
+
 camera=bpy.data.cameras.new('Player view | orthographic')
 cam=bpy.data.objects.new('Player view',camera);rig.objects.link(cam)
 cam.location=(0,-30,36);target=Vector((0,0,1.8))
@@ -443,7 +581,7 @@ sun=bpy.data.lights.new("Afternoon sunlight",'SUN');sun.energy=2.8;sun.angle=mat
 light=bpy.data.objects.new('Sun through leaves',sun);rig.objects.link(light)
 light.rotation_euler=Vector((.57,.60,-1)).to_track_quat('-Z','Y').to_euler()
 # An image empty places the exact source inside the project without affecting the render.
-ref=bpy.data.objects.new("REFERENCE | Forest river valley Ã¢â‚¬Â¢ Map Floor Studio",None)
+ref=bpy.data.objects.new('REFERENCE | Forest river valley - Map Floor Studio',None)
 rig.objects.link(ref);ref.empty_display_type='IMAGE';ref.data=bpy.data.images.load(str(assets/'geography-forest.webp'),check_existing=True)
 ref.hide_render=True;ref.empty_display_size=30;ref.location=(42,5,2);ref.rotation_euler=cam.rotation_euler
 
@@ -468,6 +606,22 @@ def project(x,y,z=None):
     uv=world_to_camera_view(scene,cam,Vector((x,y,height(x,y) if z is None else z)))
     return [round(uv.x,6),round(1-uv.y,6)]
 anchors={'camp':project(-8.2,-8.65),'hollow':project(-3.9,-.65),'cave':project(-7.6,3.63),'bridge':project(bx,by,deck(0)+.068),'east':project(*bridge_point(4.05,0))}
+# Interactions sit on open ground just outside the painted buildings.
+world_stops={
+    'entry':(-8.1,-9.6),'merchant':(-8.95,-8.43),'m0':(-5.82,-5.94),
+    'm1':(-3.88,-.84),'m2':bridge_point(-4.12,0),'m3':(11.25,6.28),
+    'forest-supplies':(-10.3,-6.34),'forest-spirit':(-11.4,.35),
+    'forest-ranger':(-2.85,4.66),'crypt-entrance':(-7.6,3.63),
+    'wildwood-herbalist-cache':(-12.28,-3.6),'wildwood-watch-cache':(-1.22,5.34),
+    'wildwood-mill-cache':(mill_x+1.4,-5.65),'wildwood-ruin-cache':(13.38,-.52),
+    'wildwood-overlook-cache':(hoist_x-.82,hoist_y-.61),'wildwood-river-cache':(gauge_x-.93,7.62),
+    'wildwood-meadow-cache':(-12.42,-6.48),'roam-0-2':(-13.35,4.12),
+    'roam-0-3':(14,-4.05),'ranger-roots':(-1.86,4.77)
+}
+stops={key:project(*xy) for key,xy in world_stops.items()}
+stops['gate-west']=project(*bridge_point(-.55,0),deck(-.55))
+stops['gate-east']=project(*bridge_point(.55,0),deck(.55))
+(out/'game-stops.json').write_text(json.dumps(stops))
 (out/'landmarks.json').write_text(json.dumps(anchors,indent=2))
 for screen in bpy.data.screens:
     for area in screen.areas:
@@ -482,7 +636,7 @@ scene.render.filepath='//Wildwood.png'
 bpy.ops.wm.save_as_mainfile(filepath=str(out/'Wildwood.blend'))
 scene.render.filepath=str(out/'Wildwood.png')
 bpy.ops.render.render(write_still=True)
-for group in [land,timber,places,trees,brush]:group.hide_render=True
+for group in [land,timber,places,trees,brush,joinery]:group.hide_render=True
 guides.hide_render=False;guides.hide_viewport=False
 scene.world.node_tree.nodes['Background'].inputs[1].default_value=0
 scene.cycles.samples=1;scene.cycles.use_denoising=False
@@ -492,11 +646,16 @@ bpy.ops.render.render(write_still=True)
 
 # An 8-bit image stores the projected foot height of scenery in front of a traveler.
 # Draw the opaque scene black so the terrain still hides buried portions of each cutout.
-for group in [land,timber,places,trees,brush]:group.hide_render=False
+for group in [land,timber,places,trees,brush,joinery]:group.hide_render=False
 guides.hide_render=True
 for obj in [*land.objects,*timber.objects,*brush.objects]:
     if obj.type=='MESH' and obj.data not in cards.values():
         obj.data.materials.clear();obj.data.materials.append(black)
+for obj in joinery.objects:
+    # Each fixture has a locally authored mesh, with its origin at world zero.
+    center=sum((v.co for v in obj.data.vertices),Vector())/len(obj.data.vertices)
+    fraction=project(center.x,center.y)[1]
+    obj.data.materials.clear();obj.data.materials.append(solid_mat('Fixture depth',fraction))
 for data in cards.values():
     mat=data.materials[0];n=mat.node_tree.nodes;l=mat.node_tree.links
     tex=next(node for node in n if node.type=='TEX_IMAGE')
