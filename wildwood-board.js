@@ -40,15 +40,21 @@ const P=window.WildwoodBoard={
   source.getContext('2d').drawImage(c.canvas,left,topEdge,source.width,source.height,0,0,source.width,source.height);
   const step=20,rows=56;
   c.clearRect(left,topEdge,source.width,source.height);
+  const edge=x=>Array.from({length:rows+1},(_,row)=>
+   this.projectY(x/w*100,(topEdge+source.height*row/rows)/h*100)*h/100);
+  let near=edge(left);
+  c.save();
   for(let x=left;x<right;x+=step){
-   const width=Math.min(step,right-x),cx=100*(x+width/2)/w;
-   let top=topEdge;
+   const width=Math.min(step,right-x),far=edge(x+width),depth=source.height/rows;
    for(let row=0;row<rows;row++){
-    const y0=source.height*row/rows,y1=source.height*(row+1)/rows,bottom=this.projectY(cx,(topEdge+y1)*100/h)*h/100;
-    c.drawImage(source,x-left,y0,width,y1-y0,x,top,width,bottom-top+.25);
-    top=bottom;
+    const shear=(far[row]-near[row])/width;
+    const height=(near[row+1]-near[row]+far[row+1]-far[row])/2;
+    c.setTransform(1,shear,0,height/depth,x,near[row]);
+    c.drawImage(source,x-left,row*depth,width,depth,0,0,width,depth+1);
    }
+   near=far;
   }
+  c.restore();
   source.width=source.height=0;
  },
  heightAt(x,y){
@@ -285,7 +291,21 @@ const P=window.WildwoodBoard={
   c.globalAlpha=1;
   this.paintCrossing(c,w,h,waterPath);
   this.paintRelief(c,w,h,waterPath);
+  const stoneBridge=this.image('stoneBridge');
+  const stoneReady=stoneBridge.complete&&stoneBridge.naturalWidth;
+  const bridgeArt=stoneReady?stoneBridge:this.image('bridge');
+  if(bridgeArt.complete&&bridgeArt.naturalWidth)for(const b of this.bridges){
+   const x=this.river(b.y)*w/100,y=b.y*h/100,width=b.width*w/100;
+   if(stoneReady){
+    const height=width*bridgeArt.naturalHeight/bridgeArt.naturalWidth;
+    c.drawImage(bridgeArt,x-width/2,y-height/2,width,height);
+   }else{
+    const height=b.depth*h/100*1.6;
+    c.drawImage(bridgeArt,130,115,760,525,x-width/2,y-height/2,width,height);
+   }
+  }
   const shade=c.createLinearGradient(0,0,w,h);shade.addColorStop(0,'#112c241d');shade.addColorStop(.5,'#112c2400');shade.addColorStop(1,'#092c3322');c.fillStyle=shade;c.fillRect(0,0,w,h);
+  this.projectTerrain(c,w,h);
  },
  navigate(goal){const c=DungeonRules.campaign,closed=!RegionGates.open(0,c.completed),reachable=M.reachable(closed),cell=W.cell(goal);let target=null,best=1.6;for(let y=Math.max(0,cell.y-4);y<=Math.min(W.height-1,cell.y+4);y++)for(let x=Math.max(0,cell.x-4);x<=Math.min(W.width-1,cell.x+4);x++){if(!reachable[y*W.width+x])continue;const p=W.point(x,y),d=metric(p,goal);if(d<best){best=d;target=p;}}if(!target)return false;const route=MouseNavigation.route(0,c.explorePosition||M.layout.entry,target,closed);if(!route)return false;MouseNavigation.path=route;return true;},
  scene(c,list,toScreen,p){

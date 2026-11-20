@@ -6,6 +6,17 @@ require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root
  await send('Page.navigate',{url:'http://127.0.0.1:8138'+(process.env.SITE_PREFIX||'/')+map});await wait(`!!window.TeacherContent&&!!window.WildwoodBoard`);
  await e(`MotionPreference.set('still');document.querySelector('#defense-mode').value='assisted';document.querySelector('#forest-quest-start').click();document.querySelector('#begin-chapter').click()`);
  await wait(`OpenPaintedMaps.ready()&&document.querySelector('#forest-map').dataset.canvasActors==='true'`,30000);
+ assert.ok(await e(`(()=>{
+  const board=WildwoodBoard,canvas=ForestRenderer.terrain,c=canvas.getContext('2d');
+  return board.bridges.every(bridge=>{
+   const x=Math.round(board.river(bridge.y)*canvas.width/100);
+   const y=Math.round(board.projectY(board.river(bridge.y),bridge.y)*canvas.height/100);
+   const data=c.getImageData(x-10,y-5,20,10).data;
+   let limestone=0;
+   for(let i=0;i<data.length;i+=4)if(data[i]>data[i+2]+12&&data[i]>60)limestone++;
+   return limestone>120;
+  });
+ })()`),'Both bridges render a limestone deck over the river');
  const base=await e(`GameProgress.exportData()`);assert.equal(base.slot,'web-wizardry-wildwood-v1');assert.equal(await e(`localStorage.getItem('web-wizardry-forest-v1')`),'original-forest-sentinel');
  assert.deepEqual(await e(`WorldCamera.size(0,1366,600)`),{width:6000,height:4000});assert.equal(await e(`ExploreRules.speed`),4.8);assert.ok(await e(`WildwoodBoard.objects.filter(o=>o.tree).length>500`));
  for(const id of ['m0','m1','m2','forest-supplies','forest-spirit','forest-ranger',...await e(`WildwoodLayout.caches.map(n=>n.id)`)])assert.ok(await e(`!!ForestWorld.route(OpenPaintedMaps.layout.entry,FOREST_NODES.find(n=>n.id==='${id}'),false)`),id+' connected');
