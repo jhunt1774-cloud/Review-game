@@ -9,7 +9,7 @@ const treeFallback={'canopy-conifer':'pine','canopy-oak':'oak','canopy-sycamore'
 const P=window.WildwoodBoard={
  active(){return ForestAdventure.active()&&!DungeonRules.campaign?.dungeon&&(ExploreRules.activeChapter||0)===0;},
  objects:[],
- assets:{crossingKit:'assets/wildwood-crossing-kit.webp',paintedGround:'assets/wildwood-painted-ground.webp','canopy-conifer':'assets/wildwood-conifer.webp','canopy-oak':'assets/wildwood-oak.webp','canopy-sycamore':'assets/wildwood-sycamore.webp',stoneBridge:'assets/wildwood-stone-bridge.webp',stoneDetails:'assets/wildwood-stone-details.webp',soil:'assets/forrest_ground_01.webp',mud:'assets/brown_mud_leaves_01.webp',bridge:'assets/recovered-timber-bridge.png',courtyard:'assets/forest-courtyard-v2.webp',grass:'assets/wildwood-forest-floor.webp',stump:'assets/map-detail-1.webp',tower:'assets/map-detail-3.webp',shelter:'assets/map-detail-2.webp',roots:'assets/crypt-layered-overgrowth.webp',watermill:'assets/wildwood-watermill.webp',library:'assets/map-city-library.webp',wall:'assets/map-city-wall.webp'},
+ assets:{hillside:'assets/wildwood-western-hillside.webp',crossingKit:'assets/wildwood-crossing-kit.webp',paintedGround:'assets/wildwood-painted-ground.webp','canopy-conifer':'assets/wildwood-conifer.webp','canopy-oak':'assets/wildwood-oak.webp','canopy-sycamore':'assets/wildwood-sycamore.webp',stoneBridge:'assets/wildwood-stone-bridge.webp',stoneDetails:'assets/wildwood-stone-details.webp',soil:'assets/forrest_ground_01.webp',mud:'assets/brown_mud_leaves_01.webp',bridge:'assets/recovered-timber-bridge.png',courtyard:'assets/forest-courtyard-v2.webp',grass:'assets/wildwood-forest-floor.webp',stump:'assets/map-detail-1.webp',tower:'assets/map-detail-3.webp',shelter:'assets/map-detail-2.webp',roots:'assets/crypt-layered-overgrowth.webp',watermill:'assets/wildwood-watermill.webp',library:'assets/map-city-library.webp',wall:'assets/map-city-wall.webp'},
  trails:L.trails,bridges:[{y:44,width:6.4,depth:2.2},{y:25,width:6.4,depth:2.2}],
  river(y){return 64+4*Math.sin((y-44)*.07)+1.8*Math.sin((y-44)*.17);},
  riverWidth(y){return 1.8+.3*Math.sin(y*.11);},
@@ -120,6 +120,22 @@ const P=window.WildwoodBoard={
   c.drawImage(image,cell%3*sw,Math.floor(cell/3)*sh,sw,sh,-width/2,-height/2,width,height);
   c.restore();
  },
+ paintHillside(c,w,h){
+  const art=this.image('hillside');
+  if(!art.complete||!art.naturalWidth)return;
+  const {left,top,width,height}=L.hillside;
+  const layer=document.createElement('canvas');
+  layer.width=Math.ceil(w*width/100);layer.height=Math.ceil(h*height/100);
+  const ctx=layer.getContext('2d'),lw=layer.width,lh=layer.height;
+  ctx.drawImage(art,0,0,lw,lh);
+  ctx.globalCompositeOperation='destination-in';
+  ctx.save();ctx.translate(lw/2,lh/2);ctx.scale(lw/2,lh/2);
+  const edge=ctx.createRadialGradient(0,0,.55,0,0,1);
+  edge.addColorStop(0,'#fff');edge.addColorStop(.76,'#fffe');edge.addColorStop(1,'#fff0');
+  ctx.fillStyle=edge;ctx.fillRect(-1,-1,2,2);ctx.restore();
+  c.drawImage(layer,left*w/100,top*h/100);
+  layer.width=layer.height=0;
+ },
  paintRelief(c,w,h,waterPath){
   // Bake broad slope lighting once. A single light direction ties the hills together.
   const map=document.createElement('canvas');map.width=320;map.height=216;
@@ -206,6 +222,7 @@ const P=window.WildwoodBoard={
   // Blend leaf litter beneath groves; clear grass remains readable between them.
   const soil=this.image('soil'),mud=this.image('mud');
   for(const [gx,gy,rx,ry]of L.groves){c.save();const mask=document.createElement('canvas');mask.width=Math.ceil(rx*w/50);mask.height=Math.ceil(ry*h/50);const q=mask.getContext('2d');q.fillStyle=q.createPattern(soil,'repeat');q.fillRect(0,0,mask.width,mask.height);q.globalCompositeOperation='destination-in';const fade=q.createRadialGradient(mask.width/2,mask.height/2,0,mask.width/2,mask.height/2,Math.max(mask.width,mask.height)/2);fade.addColorStop(0,'#000a');fade.addColorStop(1,'#0000');q.fillStyle=fade;q.fillRect(0,0,mask.width,mask.height);c.globalAlpha=.65;c.drawImage(mask,(gx-rx)*w/100,(gy-ry)*h/100);c.restore();}
+  this.paintHillside(c,w,h);
   for(const [x,y]of Object.values(positions)){const light=c.createRadialGradient(x*w/100,y*h/100,0,x*w/100,y*h/100,w*.065);light.addColorStop(0,'#efdf9e24');light.addColorStop(1,'#efdf9e00');c.fillStyle=light;c.fillRect(x*w/100-w*.07,y*h/100-w*.07,w*.14,w*.14);}
   // Bake warm contact shadows under existing objects once, independent of navigation.
   for(const o of this.objects){
@@ -295,7 +312,7 @@ const ensure=ForestRenderer.ensure;ForestRenderer.ensure=function(){const ok=ens
 const bind=DungeonRules.bind;DungeonRules.bind=function(...args){const result=bind.apply(this,args);if(P.active()){ExploreRules.speed=L.speed;PartyTrail.spacing=.85;}return result;};
 const paint=M.paint;M.paint=function(c,w,h){return P.active()?P.paint(c,w,h):paint.call(this,c,w,h);};
 const scene=M.scene;M.scene=function(...args){return P.active()?P.scene(...args):scene.apply(this,args);};
-const ready=M.ready;M.ready=function(){if(!P.active())return ready.call(this);this.build();return ['stoneBridge','stoneDetails','paintedGround','crossingKit'].every(key=>P.image(key).complete)&&['soil','mud','bridge','courtyard','grass','canopy-conifer','canopy-oak','canopy-sycamore','gate','camp','cave','ancient','moonwell','tower','roots','stump','ferns','rocks','rune','path','water','wood','watermill','library','wall','shelter','closed','open'].every(key=>{const im=P.image(key);return im.complete&&im.naturalWidth;});};
+const ready=M.ready;M.ready=function(){if(!P.active())return ready.call(this);this.build();return ['stoneBridge','stoneDetails','paintedGround','crossingKit','hillside'].every(key=>P.image(key).complete)&&['soil','mud','bridge','courtyard','grass','canopy-conifer','canopy-oak','canopy-sycamore','gate','camp','cave','ancient','moonwell','tower','roots','stump','ferns','rocks','rune','path','water','wood','watermill','library','wall','shelter','closed','open'].every(key=>{const im=P.image(key);return im.complete&&im.naturalWidth;});};
 for(const owner of [LayeredFoliage,ScenicSeals]){const old=owner.scene;owner.scene=function(...args){if(!P.active())return old.apply(this,args);};}
 const landmark=ForestArt.landmark;ForestArt.landmark=function(c,n,at,done,time){if(P.active()&&(n.wildwood||n.id==='crypt-entrance'))return;if(P.active()&&['merchant','m0','m1','m3','forest-spirit'].includes(n.id)){if(n.id==='merchant'&&DungeonRules.campaign?.forestQuest?.ranger)return landmark.call(this,c,n,at,done,time);return;}return landmark.call(this,c,n,at,done,time);};
 // The small location map must show this terrain, not the original painting.

@@ -94,6 +94,10 @@ The study adds no image downloads or 3D renderer. It is an orthographic height-s
 
 Run the full projected-board smoke test with `WILDWOOD_RELIEF=1`.
 
+## Painted western hillside
+
+Whispering Hollow now uses a generated, continuous painted hillside underlay with a readable crest, shadowed folds and embedded limestone. Mossgate supplied the palette and surface reference. The prompt specified a broad rolling rise, gradual falloff, matching overhead camera and ground with no props or baked trails. The terrain cache blends the hillside into the surrounding forest and draws the routes over it. The trail bends along the shoulder before descending to the river, then turns uphill beyond the bridge. This art pass is visible in both Wildwood views and adds one approximately 368 KiB WebP.
+
 ## Verification and limits
 
 `tools/wildwood-smoke.cjs` checks free-grass keyboard movement, minimap navigation,
