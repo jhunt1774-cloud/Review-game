@@ -1,6 +1,11 @@
 // Small scene-space effects, synchronized to contact. No camera movement or hit pause.
 window.CombatPresentation={pending:new Set(),
  point(el,arena,y=.55){const r=el.getBoundingClientRect(),b=arena.getBoundingClientRect();return {x:r.left+r.width/2-b.left,y:r.top+r.height*y-b.top};},
+ arrowOrigin(renderer,arena){
+  const portrait=renderer.portrait||renderer.el,r=portrait.getBoundingClientRect(),box=arena.getBoundingClientRect();
+  const side=Math.min(r.width,r.height),x=r.left+(r.width-side)/2,y=r.bottom-side;
+  return {x:x+side*.82-box.left,y:y+side*.46-box.top};
+ },
  async contact({type,target,arena,layer,damage=null,label='',heavy=false}){
   const nodes=[],motions=[],reduced=MotionPreference.reduced(),p=this.point(target,arena),colors={slash:'#ffe2a0',hammer:'#e4b47b',arrow:'#c3edaf',fireball:'#ffb75c',ice:'#a9eeff'},color=colors[type]||'#e2d1ff';
   const add=(kind,at=p)=>{const el=document.createElement('div');el.className='combat-fx '+kind;el.style.left=at.x+'px';el.style.top=at.y+'px';el.style.setProperty('--strike-color',color);layer.appendChild(el);nodes.push(el);return el;};
@@ -27,7 +32,7 @@ window.CombatPresentation={pending:new Set(),
    const start=this.point(actor,arena),end=this.point(target,arena);
    if(melee&&!reduced){advance=Math.max(0,end.x-start.x-95);renderer.setState('walk');await move(actor,[{translate:'0px'},{translate:advance+'px'}],210,'forwards');}
    await CombatTiming.release(renderer);audio?.launch(type,-.25);
-   if(!melee){const a=this.point(actor,arena,.46),b=this.point(target,arena),dx=b.x-a.x,dy=b.y-a.y,angle=Math.atan2(dy,dx)*180/Math.PI,p=document.createElement('div');p.className='combat-fx combat-projectile '+type;p.style.left=a.x+'px';p.style.top=a.y+'px';
+   if(!melee){const a=type==='arrow'?this.arrowOrigin(renderer,arena):this.point(actor,arena,.46),b=this.point(target,arena),dx=b.x-a.x,dy=b.y-a.y,angle=Math.atan2(dy,dx)*180/Math.PI,p=document.createElement('div');p.className='combat-fx combat-projectile '+type;p.style.left=a.x+'px';p.style.top=a.y+'px';
     if(type==='arrow')p.innerHTML='<svg viewBox="0 0 110 18"><path d="M2 9H101M88 2L106 9L88 16" fill="none" stroke="#ffeac4" stroke-width="3"/><path d="M2 2L15 9L2 16" fill="none" stroke="#b6d6a1" stroke-width="3"/></svg>';
     layer.appendChild(p);nodes.push(p);await move(p,[{transform:'translate(-50%,-50%) rotate('+angle+'deg)',opacity:1},{transform:'translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px)) rotate('+angle+'deg)',opacity:1}],Math.max(220,Math.min(420,Math.hypot(dx,dy)*.65)));p.hidden=true;
    }
