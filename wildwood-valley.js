@@ -55,9 +55,9 @@
     {source:'wildwood-ruin-cache', id:'east-warden-seal', name:'East warden’s seal', slot:'accessory', role:null, hp:4, skill:.02}
   ];
   for (const find of finds) EquipmentLoot.catalog.push({rarity:'uncommon', damage:0, hp:0, guard:0, skill:0, ...find});
-  const ground = 'assets/wildwood-valley.webp?v=outer-valley1';
-  const canopy = 'assets/wildwood-valley-canopy.webp?v=outer-valley1';
-  const sluice='assets/wildwood-sluice-open.webp';
+  const ground = 'assets/wildwood-valley.webp?v=painted-workshops2';
+  const canopy = 'assets/wildwood-valley-canopy.webp?v=painted-workshops2';
+  const sluice='assets/wildwood-sluice-open.webp?v=painted-workshops2';
   window.WildwoodValley = {
     migrate(campaign) {
       const quest=campaign.forestQuest;

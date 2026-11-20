@@ -17,13 +17,13 @@ window.WildwoodLayout={version:1,width:6000,height:4000,speed:4.8,
  ],
  groves:[[4,18,5,16],[5,50,6,18],[4,82,5,16],[25,96,21,5],[63,96,25,4],[95,80,5,17],[96,43,4,23],[27,5,22,4],[83,6,12,4],[17,47,7,8],[27,37,6,10],[42,30,7,5],[39,59,6,5],[31,81,4,7],[52,84,5,8],[76,79,10,9],[85,44,7,7],[71,31,4,8],[9,20,5,7],[86,18,5,5],[15,89,3,3]],
  caches:[
-  {id:'wildwood-herbalist-cache',name:'Herbalist’s supplies',x:12,y:58},
-  {id:'wildwood-watch-cache',name:'Old watchtower cache',x:18,y:28},
-  {id:'wildwood-meadow-cache',name:'Firefly meadow cache',x:30,y:88},
-  {id:'wildwood-mill-cache',name:'Mill keeper’s chest',x:59,y:75},
-  {id:'wildwood-ruin-cache',name:'Eastern ruin strongbox',x:82,y:65},
-  {id:'wildwood-overlook-cache',name:'River overlook supplies',x:53.7,y:43.75},
-  {id:'wildwood-river-cache',name:'Riverhead explorer’s cache',x:55,y:16}
+  {id:'wildwood-herbalist-cache',name:'Herbalist’s medicine case',x:12,y:58,container:'medicine-case',gold:0,potions:1,runes:1},
+  {id:'wildwood-watch-cache',name:'Lookout’s satchel',x:18,y:28,container:'satchel',gold:14,potions:1,runes:0},
+  {id:'wildwood-meadow-cache',name:'Forager’s remedy case',x:30,y:88,container:'medicine-case',gold:0,potions:3,runes:0},
+  {id:'wildwood-mill-cache',name:'Millwright’s tool crate',x:59,y:75,container:'crate',gold:18,potions:0,runes:1},
+  {id:'wildwood-ruin-cache',name:'Eastern ruin strongbox',x:82,y:65,container:'strongbox',gold:40,potions:0,runes:2},
+  {id:'wildwood-overlook-cache',name:'Ferryman’s cargo crate',x:53.7,y:43.75,container:'crate',gold:32,potions:2,runes:0},
+  {id:'wildwood-river-cache',name:'Surveyor’s field bag',x:55,y:16,container:'satchel',gold:8,potions:0,runes:3}
  ],
  landmarks:[
   {id:'camp',x:22,y:80.5,art:'camp',width:4.2,height:6.4,footprints:[{x:22,y:79.6,rx:1.3,ry:.75}]},

@@ -31,7 +31,7 @@
   event.preventDefault();G.stop();
  });
  const clear=MouseNavigation.clear;MouseNavigation.clear=function(...args){G.cancelVersion++;const result=clear.apply(this,args);G.sync();return result;};
- const advance=MouseNavigation.advance;MouseNavigation.advance=function(...args){const moving=this.path.length>0,version=G.cancelVersion,result=advance.apply(this,args);if(moving&&!this.path.length&&version===G.cancelVersion&&!$('world').hidden)$('explore-tip').textContent='Destination reached. Use E / Search if an interaction is available.';G.sync();return result;};
+ const advance=MouseNavigation.advance;MouseNavigation.advance=function(...args){const moving=this.path.length>0,version=G.cancelVersion,result=advance.apply(this,args);if(moving&&!this.path.length&&version===G.cancelVersion&&!$('world').hidden)$('explore-tip').textContent=$('crypt-interact')&&!$('crypt-interact').hidden?'Destination reached. Press E to interact.':'Destination reached.';G.sync();return result;};
  const scene=OpenPaintedMaps.scene;OpenPaintedMaps.scene=function(c,list,toScreen,p){scene.call(this,c,list,toScreen,p);G.sync();if(MouseNavigation.path.length)list.push({y:-Infinity,draw:()=>G.draw(c,toScreen,p)});};
  // Mode changes and modal transitions already clear navigation; discard stale UI too.
  const bind=DungeonRules.bind;DungeonRules.bind=function(...args){const result=bind.apply(this,args);G.sync();return result;};

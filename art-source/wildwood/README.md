@@ -1,6 +1,6 @@
 # Wildwood river valley
 
-The playable chapter starts at `index.html?map=wildwood&terrain=valley` on the game server. Choose **Enter the river valley**. Use the small map to pick your next encounter, or use **Walk to a place** to explore. Use the nearby interaction button or E to search a cache or enter Rootbound Sanctuary. **Walk Wildwood.html** is the offline art comparison. When served alongside the game, it also links to the adventure.
+The playable chapter starts at `index.html?map=wildwood&terrain=valley` on the game server. Choose **Enter the river valley**. Use the small map to pick your next encounter, or use **Walk to a place** to explore. Walk over a loot container to open it and see its contents. Use E or the nearby interaction button to enter Rootbound Sanctuary. **Walk Wildwood.html** is the offline art comparison. When served alongside the game, it also links to the adventure.
 
 ## Route and rewards
 
@@ -31,7 +31,11 @@ All seven cache IDs use the existing once-only reward and save systems. Equipmen
 
 ## Blender source
 
-**Wildwood.blend** contains the editable slopes, river, bridge, fixtures, shared painted scenery, gameplay camera and movement floor. The waypost, survey gauge and rope-and-drum cargo hoist are modeled geometry in collection **03b**. The wheelhouse, apiary, cave, lookout and trees reuse the game's painted cutouts. The painting beside the scene is the Forest river valley image from Map Floor Studio. Its SHA-256 matches `assets/geography-forest.webp`.
+**Wildwood.blend** contains the editable slopes, river, bridge, fixtures, shared painted scenery, gameplay camera and movement floor. Collection **03b** stores hidden construction guides for the fixtures. The visible waypost, gauge, hoist and errand sites use the painted cutouts in **Places**. The wheelhouse, apiary, cave, lookout and trees reuse the game's existing illustrations. The painting beside the scene is the Forest river valley image from Map Floor Studio. Its SHA-256 matches `assets/geography-forest.webp`.
+
+The new fixtures and container pairs were generated using the original forest painting as the visual reference. The direction called for weathered timber, chipped limestone, moss, a three-quarter view, and sunlight from the upper left. Cut out each object, match its values against the nearby buildings, then place its lower edge at the existing Blender footprint. Keep both states of a moving fixture on the same baseline. The press, sawbuck, quarry and beacon are baked into the valley image. The sluice gets a small second render for the repaired state. Only collectible containers need separate closed and open sprites in the browser.
+
+The herbalist and forager use sage-painted wooden medicine cases. The lookouts carry satchels, freight travels in timber crates, and the ruins hold a strongbox. Each cache has a permanent ID and its own contents in `wildwood-layout.js`. The contents panel uses the existing inventory portraits for potions and runes. Four additional portraits were generated using that inventory sheet as the reference for the gold, smock, mallet and seal. Equipment uses the same portrait in the reward panel and the inventory.
 
 From the repository root, use Blender 5.2 and Python with Pillow. Render into a work directory before replacing the reviewed source or preview files.
 

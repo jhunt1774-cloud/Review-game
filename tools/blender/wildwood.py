@@ -697,6 +697,22 @@ for i in range(5):
     spindle('Dry beacon billet',(x-.56*math.cos(a),y-.56*math.sin(a),z+1.79),(x+.56*math.cos(a),y+.56*math.sin(a),z+1.80),.10,wood[0],8)
 solids.append((x,y,1.18,1.13))
 
+# Retain the measured timber frames as construction guides. The camera sees
+# painted elevations, with the same terrain lighting and depth as the forest.
+joinery.hide_render=True
+joinery.hide_viewport=True
+for key,x,y,w in [
+    ('apples',-25.9,-11.02,2.85),('press',-21.48,6.48,3.30),
+    ('timber',24,-11.36,4.1),('quarry',25.84,4.59,5.15),
+    ('hoist',hoist_x,hoist_y,2.64),('gauge',gauge_x,gauge_y,1.08),
+    ('sign',-4.85,.04,1.37),('beacon',21.3,18.30,2.52)
+]:
+    plant('valley-painted-'+key,x,y,w,places)
+closed_gate=plant('valley-painted-sluice',sluice_x,sluice_y,2.85,places)
+raised_gate=plant('valley-painted-raised',sluice_x,sluice_y,2.85,places)
+raised_gate.hide_render=True
+raised_gate.hide_viewport=True
+
 camera=bpy.data.cameras.new('Player view | orthographic')
 cam=bpy.data.objects.new('Player view',camera);rig.objects.link(cam)
 cam.location=(0,-30,36);target=Vector((0,0,1.8))
@@ -744,7 +760,8 @@ world_stops={**outlying,
     'roam-0-3':(21.15,-8.96),'ranger-roots':(-1.86,4.77)
 }
 stops={key:project(*xy) for key,xy in world_stops.items()}
-stops['beacon-flame']=project(21.3,18.46,height(21.3,18.46)+1.9)
+beacon_top=cards['valley-painted-beacon'].vertices[2].co
+stops['beacon-flame']=project(21.3,18.30+2.52*beacon_top.y*.94,height(21.3,18.30)+2.52*beacon_top.z*.94)
 stops['gate-west']=project(*bridge_point(-.55,0),deck(-.55))
 stops['gate-east']=project(*bridge_point(.55,0),deck(.55))
 (out/'game-stops.json').write_text(json.dumps(stops))
@@ -765,11 +782,11 @@ bpy.ops.render.render(write_still=True)
 # Render only the repaired fixture for the game's persistent terrain change.
 cx,cy=project(sluice_x,sluice_y)
 w,h=scene.render.resolution_x,scene.render.resolution_y
-x0,y0=int(cx*w)-166,int(cy*h)-115
+x0,y0=int(cx*w)-166,int(cy*h)-160
 x1,y1=int(cx*w)+121,int(cy*h)+92
 (out/'sluice-patch.json').write_text(json.dumps([x0/w,y0/h,(x1-x0)/w,(y1-y0)/h]))
-shutters=[obj for obj in joinery.objects if obj.name.startswith('Sluice shutter')]
-for board in shutters:board.location.z+=.78
+closed_gate.hide_render=True
+raised_gate.hide_render=False
 spill.hide_render=False
 scene.render.use_border=True;scene.render.use_crop_to_border=True
 scene.render.border_min_x=x0/w;scene.render.border_max_x=x1/w
@@ -777,7 +794,8 @@ scene.render.border_min_y=1-y1/h;scene.render.border_max_y=1-y0/h
 scene.render.filepath=str(out/'Sluice-open.png')
 bpy.ops.render.render(write_still=True)
 scene.render.use_border=False;scene.render.use_crop_to_border=False
-for board in shutters:board.location.z-=.78
+closed_gate.hide_render=False
+raised_gate.hide_render=True
 spill.hide_render=True
 for group in [land,timber,places,trees,brush,joinery]:group.hide_render=True
 guides.hide_render=False;guides.hide_viewport=False
@@ -789,16 +807,11 @@ bpy.ops.render.render(write_still=True)
 
 # An 8-bit image stores the projected foot height of scenery in front of a traveler.
 # Draw the opaque scene black so the terrain still hides buried portions of each cutout.
-for group in [land,timber,places,trees,brush,joinery]:group.hide_render=False
+for group in [land,timber,places,trees,brush]:group.hide_render=False
 guides.hide_render=True
 for obj in [*land.objects,*timber.objects,*brush.objects]:
     if obj.type=='MESH' and obj.data not in cards.values():
         obj.data.materials.clear();obj.data.materials.append(black)
-for obj in joinery.objects:
-    # Each fixture has a locally authored mesh, with its origin at world zero.
-    center=sum((v.co for v in obj.data.vertices),Vector())/len(obj.data.vertices)
-    fraction=project(center.x,center.y)[1]
-    obj.data.materials.clear();obj.data.materials.append(solid_mat('Fixture depth',fraction))
 for data in cards.values():
     mat=data.materials[0];n=mat.node_tree.nodes;l=mat.node_tree.links
     tex=next(node for node in n if node.type=='TEX_IMAGE')

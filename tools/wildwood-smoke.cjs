@@ -92,11 +92,16 @@ require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root
  const pick=await e(`(()=>{const el=document.querySelector('#forest-mini-ground'),r=el.getBoundingClientRect();for(let y=15;y<90;y+=9)for(let x=10;x<55;x+=7){const p={x,y},px=r.left+r.width*x/100,py=r.top+r.height*y/100,target=document.elementFromPoint(px,py);if(ForestWorld.walkable(p)&&!target?.closest('button')&&el.contains(target)&&WildwoodBoard.bank(p)===0&&ForestWorld.route(ForestFastPlay.state.campaign.explorePosition,p,true))return {x:px,y:py};}return null;})()`);assert.ok(pick);
  await send('Input.dispatchMouseEvent',{type:'mousePressed',x:pick.x,y:pick.y,button:'left',clickCount:1});await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:pick.x,y:pick.y,button:'left',clickCount:1});assert.ok(await e(`MouseNavigation.path.length>0`),'Clicking open ground on the minimap starts navigation');
  await e(`GameProgress.restoreData(${JSON.stringify(base)})`);
- // A real contextual search pays once and survives a reload.
- await standAt('wildwood-herbalist-cache');await wait(`!document.querySelector('#crypt-interact').hidden&&document.querySelector('#crypt-interact').textContent.includes('Herbalist')`);
- const before=await e(`GameProgress.exportData().data.campaign`);await e(`document.querySelector('#crypt-interact').click()`);const after=await e(`GameProgress.exportData().data.campaign`);
+ // Walk from camp with the normal route control. Arrival alone opens the medicine case.
+ const before=await e(`GameProgress.exportData().data.campaign`);
+ if(valley)await e(`ForestAdventure.walkTo('wildwood-herbalist-cache')`);
+ else await standAt('wildwood-herbalist-cache');
+ await wait(`GameProgress.exportData().data.campaign.completed.includes('wildwood-herbalist-cache')`,45000);
+ const after=await e(`GameProgress.exportData().data.campaign`);
  if(valley){
   assert.ok(after.equipmentLoot.owned.includes('apiary-smock'));
+  assert.deepEqual(await e(`Array.from(document.querySelectorAll('.loot-receipt li [data-item]'),el=>el.dataset.item)`),['apiary-smock','healing-potion','forge-rune']);
+  fs.writeFileSync(path.resolve(root,'work/wildwood-loot.png'),Buffer.from((await send('Page.captureScreenshot',{format:'png'})).data,'base64'));
   const duplicate=await e(`(()=>{const s=ForestFastPlay.state,prior=s.gold;
    ForestAdventure.interact(s,FOREST_NODES.find(n=>n.id==='wildwood-herbalist-cache'),{});
    return [s.gold-prior,s.campaign.equipmentLoot.owned.filter(id=>id==='apiary-smock').length];})()`);
@@ -131,9 +136,20 @@ require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root
  if(valley){
   assert.equal(await e(`document.getElementById('valley-destinations').lastElementChild.disabled`),false);
   for(const [site,item] of [['wildwood-mill-cache','millwright-mallet'],['wildwood-ruin-cache','east-warden-seal']]){
-   await standAt(site);await wait(`!document.querySelector('#crypt-interact').hidden`);
-   await e(`document.querySelector('#crypt-interact').click()`);
+   await standAt(site);
    await wait(`GameProgress.exportData().data.campaign.equipmentLoot.owned.includes('${item}')`);
+  }
+  assert.deepEqual(await e(`[...new Set(WildwoodBoard.objects.filter(o=>o.cache).map(o=>o.art))].sort()`),['closed','crate','medicine-case','satchel']);
+  for(const site of ['wildwood-watch-cache','wildwood-overlook-cache','wildwood-river-cache','wildwood-meadow-cache']){
+   const start=await e(`GameProgress.exportData().data`);
+   const box=await e(`WildwoodLayout.caches.find(n=>n.id==='${site}')`);
+   await standAt(site);await wait(`DungeonRules.campaign.completed.includes('${site}')`);
+   const finish=await e(`GameProgress.exportData().data`);
+   if(!start.campaign.completed.includes(site)){
+    assert.equal(finish.gold-start.gold,box.gold,site);
+    assert.equal(finish.campaign.potions-start.campaign.potions,box.potions,site);
+    assert.equal(finish.campaign.runes-start.campaign.runes,box.runes,site);
+   }
   }
   const useSite=async id=>{
    await standAt(id);
@@ -163,13 +179,13 @@ require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root
    if(finish==='valley-mill-sluice'){
     await send('Page.reload');await wait(`document.getElementById('forest-quest-continue')?.disabled===false`);
     await e(`document.getElementById('forest-quest-continue').click()`);
-    await wait(`ForestRenderer._openLayout?.endsWith(':sluice-open') && OpenPaintedMaps.ready()`);
-    assert.ok(await e(`(()=>{const [x,y,w,h]=WildwoodValleyData.sluiceBox,t=ForestRenderer.terrain;
+    await wait(`ForestRenderer._openLayout?.endsWith(':sluice-open') && ForestRenderer._openReady && OpenPaintedMaps.ready()`);
+    assert.ok(await e(`(async()=>{const [x,y,w,h]=WildwoodValleyData.sluiceBox,t=ForestRenderer.terrain;
      const region=t.getContext('2d').getImageData(Math.round(x*t.width),Math.round(y*t.height),Math.round(w*t.width),Math.round(h*t.height));
-     const img=ForestRenderer.image('assets/wildwood-sluice-open.webp'),cv=document.createElement('canvas');
+     const img=new Image(),cv=document.createElement('canvas');img.src='assets/wildwood-sluice-open.webp';await img.decode();
      cv.width=region.width;cv.height=region.height;const ctx=cv.getContext('2d');ctx.drawImage(img,0,0,cv.width,cv.height);
      const reference=ctx.getImageData(0,0,cv.width,cv.height).data;
-     let error=0;for(let i=0;i<reference.length;i+=4)error+=Math.abs(reference[i]-region.data[i]);return error/(reference.length/4)<3;})()`));
+     let error=0;for(let i=0;i<reference.length;i+=4)error+=Math.abs(reference[i]-region.data[i]);return error/(reference.length/4)<3;})()`),'Repaired sluice matches the painted open gate');
    }
    assert.equal(after.campaign.potions-before.campaign.potions,finish==='valley-cider-press'?2:0);
   }
