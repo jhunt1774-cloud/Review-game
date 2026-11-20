@@ -10,7 +10,7 @@ local progress, including progress-file export and restore.
 
 - A 6,000 × 4,000 camera space, with a 300 × 200 navigation grid.
 - Open grass, authored woodland groves, clearings, two lakes, a winding river,
-  two timber crossings, a waterfall, camp, watermill, watchtowers and ruins.
+  two stone crossings, camp, watermill, watchtowers and ruins.
 - The four existing forest quest encounters and their equipment/teacher-question
   systems remain intact. The bridge sentinel unlocks both crossings.
 - Two additional optional patrols use the existing detection, pursuit, retreat,
@@ -46,7 +46,7 @@ consumes optimized WebP copies with alpha transparency.
 | --- | --- | --- |
 | Woodland watermill | `assets/wildwood-watermill.webp` | Riverbank building and cache landmark |
 | Willow tree | `assets/wildwood-willow.webp` | Lakeside tree variation |
-| Mossy waterfall | `assets/wildwood-waterfall.webp` | Riverhead landmark |
+| Mossy waterfall | `assets/wildwood-waterfall.webp` | Archived standalone sprite |
 
 Reused assets include the oak, pine, camp, Mossgate, Moonwell,
 ancient tree, hollow, watchtower, shelter, stone library, walls, chest states,

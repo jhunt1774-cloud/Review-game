@@ -8,7 +8,7 @@ const treeFallback={'canopy-conifer':'pine','canopy-oak':'oak','canopy-sycamore'
 const P=window.WildwoodBoard={
  active(){return ForestAdventure.active()&&!DungeonRules.campaign?.dungeon&&(ExploreRules.activeChapter||0)===0;},
  objects:[],
- assets:{crossingKit:'assets/wildwood-crossing-kit.webp',paintedGround:'assets/wildwood-painted-ground.webp','canopy-conifer':'assets/wildwood-conifer.webp','canopy-oak':'assets/wildwood-oak.webp','canopy-sycamore':'assets/wildwood-sycamore.webp',stoneBridge:'assets/wildwood-stone-bridge.webp',stoneDetails:'assets/wildwood-stone-details.webp',soil:'assets/forrest_ground_01.webp',mud:'assets/brown_mud_leaves_01.webp',bridge:'assets/recovered-timber-bridge.png',courtyard:'assets/forest-courtyard-v2.webp',grass:'assets/wildwood-forest-floor.webp',stump:'assets/map-detail-1.webp',tower:'assets/map-detail-3.webp',shelter:'assets/map-detail-2.webp',roots:'assets/crypt-layered-overgrowth.webp',watermill:'assets/wildwood-watermill.webp',waterfall:'assets/wildwood-waterfall.webp',library:'assets/map-city-library.webp',wall:'assets/map-city-wall.webp'},
+ assets:{crossingKit:'assets/wildwood-crossing-kit.webp',paintedGround:'assets/wildwood-painted-ground.webp','canopy-conifer':'assets/wildwood-conifer.webp','canopy-oak':'assets/wildwood-oak.webp','canopy-sycamore':'assets/wildwood-sycamore.webp',stoneBridge:'assets/wildwood-stone-bridge.webp',stoneDetails:'assets/wildwood-stone-details.webp',soil:'assets/forrest_ground_01.webp',mud:'assets/brown_mud_leaves_01.webp',bridge:'assets/recovered-timber-bridge.png',courtyard:'assets/forest-courtyard-v2.webp',grass:'assets/wildwood-forest-floor.webp',stump:'assets/map-detail-1.webp',tower:'assets/map-detail-3.webp',shelter:'assets/map-detail-2.webp',roots:'assets/crypt-layered-overgrowth.webp',watermill:'assets/wildwood-watermill.webp',library:'assets/map-city-library.webp',wall:'assets/map-city-wall.webp'},
  trails:L.trails,bridges:[{y:44,width:6.4,depth:2.2},{y:25,width:6.4,depth:2.2}],
  river(y){return 64+4*Math.sin((y-44)*.07)+1.8*Math.sin((y-44)*.17);},
  riverWidth(y){return 1.8+.3*Math.sin(y*.11);},
@@ -43,7 +43,6 @@ const P=window.WildwoodBoard={
    props.push({...p,rx:.27,ry:.29,art,width,height:width*2,tree:true});
   }
   props.push(...L.landmarks.map(o=>({...o,footprints:o.footprints?.map(f=>({...f}))})));
-  props.push({id:'riverhead-falls',x:this.river(14),y:16,art:'waterfall',width:9,height:14,footprints:[{x:this.river(14),y:11,rx:2.7,ry:2.2}]});
   for(const [i,[x,y]]of [[40,72],[48,79],[16,21],[24,23],[69,78],[71,83]].entries())props.push({x,y,art:'canopy-sycamore',width:4.2+i%2*.6,height:8.5,rx:.35,ry:.35,tree:true});
   // Smaller ferns, stones and fallen logs create a planted forest floor.
   for(let i=0;i<900;i++){
@@ -101,9 +100,9 @@ const P=window.WildwoodBoard={
    [-1,39.8,1,2.5,.37],[-1,42.2,3,2.4,-.24],[-1,46,1,2.6,.49],[-1,48.3,3,2.1,.56],
    [1,39.4,3,2.7,-.22],[1,42,1,2.9,.21],[1,45.8,3,2.7,.39],[1,48.3,1,2.6,.54]
   ])draw(cell,this.river(y)+side*this.riverWidth(y),y,width,angle);
-  c.save();c.clip(waterPath);
-  for(const [side,y,width] of [[-1,41.3,1.9],[1,42.4,2.6],[-1,46.5,2.2],[1,47.4,2.4]]) {
-   draw(4,this.river(y)+side*(this.riverWidth(y)-.6),y,width,side*.3);
+  c.save();c.clip(waterPath);c.globalAlpha=.42;
+  for(const [side,y,width] of [[-1,41.3,1.1],[1,42.4,1.3],[-1,46.5,1.2],[1,47.4,1.3]]) {
+   draw(4,this.river(y)+side*(this.riverWidth(y)-.32),y,width,.46);
   }
   c.restore();
   for(const [dx,dy,cell,width,angle] of [
