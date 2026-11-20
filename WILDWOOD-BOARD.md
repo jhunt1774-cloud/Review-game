@@ -78,6 +78,10 @@ Wildwood uses three original tree cutouts and a low-contrast overhead moss, ivy,
 
 Whispering Hollow is marked with a large oak. The cave opening off the western trail is the entrance to the existing Rootbound Sanctuary side quest. It supports entering, saving inside, and returning to Wildwood.
 
+## Main crossing art study
+
+The crossing at the Ancient Crossing encounter uses a local art kit based on a generated reference painting from the playing camera. The references were a screenshot of the playable crossing and the Mossgate battle painting. The bridge width, bank line and walking routes come from the board. The generated six-cell transparent kit contains exposed roots, leaf litter, mossy rock shelves, pebbles and reeds, water ripples, and breaking flagstone edges. The first pass limits these stamps and dappled light to the main bridge. Light is composed into the existing terrain cache, and the river clips the ripple stamps. The kit can be reused at other crossings after reviewing the playable result.
+
 ## Verification and limits
 
 `tools/wildwood-smoke.cjs` checks free-grass keyboard movement, minimap navigation,
