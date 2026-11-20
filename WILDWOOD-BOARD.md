@@ -82,9 +82,9 @@ Whispering Hollow is marked with a large oak. The cave opening off the western t
 
 The crossing at the Ancient Crossing encounter uses a local art kit based on a generated reference painting from the playing camera. The references were a screenshot of the playable crossing and the Mossgate battle painting. The bridge width, bank line and walking routes come from the board. The generated six-cell transparent kit contains exposed roots, leaf litter, mossy rock shelves, pebbles and reeds, water ripples, and breaking flagstone edges. The first pass limits these stamps and dappled light to the main bridge. Light is composed into the existing terrain cache, and the river clips the ripple stamps. The kit can be reused at other crossings after reviewing the playable result.
 
-## River overlook
+## Rolling terrain
 
-A generated limestone terrace adds a raised clearing west of the main bridge. Its art was generated from Mossgate and the crossing art study with an overhead playable floor and one south-facing flight of steps. The stone sides block movement; the stair lane and upper clearing are walkable and lead to an optional cache. Use the Overlook stop on the minimap to route there. The river itself remains level.
+The river and bridge lie at the low point of a continuous terrain profile. The trail starts on the lower forest floor at camp, bends through the western foothills, descends to the crossing, then rises into the eastern slopes toward the Guardian. Hill shading is based on the same terrain profile that modestly adjusts travel speed on slopes. The overlook cache remains on a walkable knoll reached by a trail spur. Water, solid scenery, and quest gates still drive collision.
 
 ## Verification and limits
 
