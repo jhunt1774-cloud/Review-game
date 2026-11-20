@@ -19,7 +19,7 @@ require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root
   });
  })()`),'Both bridges render a limestone deck over the river');
  const base=await e(`GameProgress.exportData()`);assert.equal(base.slot,valley?'web-wizardry-wildwood-valley-v1':'web-wizardry-wildwood-v1');assert.equal(await e(`localStorage.getItem('web-wizardry-forest-v1')`),'original-forest-sentinel');
- assert.deepEqual(await e(`WorldCamera.size(0,1366,600)`),valley?{width:2280,height:1520}:{width:6000,height:4000});assert.equal(await e(`ExploreRules.speed`),4.8);if(!valley)assert.ok(await e(`WildwoodBoard.objects.filter(o=>o.tree).length>500`));
+ assert.deepEqual(await e(`WorldCamera.size(0,1366,600)`),valley?{width:4560,height:3040}:{width:6000,height:4000});assert.equal(await e(`ExploreRules.speed`),valley?2.4:4.8);if(!valley)assert.ok(await e(`WildwoodBoard.objects.filter(o=>o.tree).length>500`));
  for(const id of ['m0','m1','m2','forest-supplies','forest-spirit','forest-ranger',...await e(`WildwoodLayout.caches.map(n=>n.id)`)])assert.ok(await e(`!!ForestWorld.route(OpenPaintedMaps.layout.entry,FOREST_NODES.find(n=>n.id==='${id}'),false)`),id+' connected');
  assert.equal(await e(`ForestWorld.route(OpenPaintedMaps.layout.entry,FOREST_NODES.find(n=>n.id==='m3'),true)`),null);
  if(valley)assert.equal(await e(`ForestWorld.route(WildwoodValley.west,WildwoodValley.east,true)`),null);
@@ -32,6 +32,15 @@ require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root
   await e(`const place=document.getElementById('valley-destinations');place.value='wildwood-herbalist-cache';place.dispatchEvent(new Event('change'))`);
   await wait(`MouseNavigation.path.length>0`);
   await e(`MouseNavigation.clear()`);
+  const migrated=await e(`(()=>{
+   const f=GameProgress.exportData(), c=f.data.campaign;
+   delete c.forestQuest.valleyRevision;c.explorePosition={x:20,y:70,chapter:0};
+   c.forestQuest.returnPoint={x:80,y:30,chapter:0};
+   const first=GameProgress.validate(f.data);
+   const second=GameProgress.validate(first);
+   return [first.campaign.explorePosition,second.campaign.explorePosition,second.campaign.forestQuest.returnPoint];
+  })()`);
+  assert.deepEqual(migrated,[{x:35,y:60,chapter:0},{x:35,y:60,chapter:0},{x:65,y:40,chapter:0}]);
   const equipment=await e(`EquipmentLoot.catalog.filter(i=>i.source.startsWith('wildwood-')).map(i=>i.id)`);
   assert.equal(new Set(equipment).size,3);
   await e(`localStorage.setItem('web-wizardry-wildwood-v1','old-wildwood-sentinel')`);
@@ -126,6 +135,45 @@ require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root
    await e(`document.querySelector('#crypt-interact').click()`);
    await wait(`GameProgress.exportData().data.campaign.equipmentLoot.owned.includes('${item}')`);
   }
+  const useSite=async id=>{
+   await standAt(id);
+   await wait(`!document.querySelector('#crypt-interact').hidden && document.querySelector('#crypt-interact').textContent.includes(FOREST_NODES.find(n=>n.id==='${id}').name)`);
+   await e(`document.querySelector('#crypt-interact').click()`);
+  };
+  const jobs=[['valley-apple-harvest','valley-cider-press'],['valley-timber-yard','valley-mill-sluice'],['valley-quarry-glass','valley-ridge-beacon']];
+  for(const [pickup,finish] of jobs){
+   await useSite(finish);
+   assert.equal(await e(`DungeonRules.campaign.completed.includes('${finish}')`),false);
+   await useSite(pickup);
+   assert.ok(await e(`DungeonRules.campaign.completed.includes('${pickup}')`));
+   await send('Page.reload');await wait(`document.getElementById('forest-quest-continue')?.disabled===false`);
+   await e(`document.getElementById('forest-quest-continue').click()`);await wait(`WildwoodBoard.active()&&OpenPaintedMaps.ready()`);
+   const before=await e(`GameProgress.exportData().data`);
+   await useSite(finish);
+   if(finish==='valley-ridge-beacon'){
+    await wait(`document.getElementById('valley-beacon-lens')?.open`);
+    await e(`document.querySelector('#valley-beacon-lens button').click()`);
+    assert.equal(await e(`DungeonRules.campaign.completed.includes('${finish}')`),false);
+    await e(`document.querySelectorAll('#valley-beacon-lens button')[1].click()`);
+   }
+   const after=await e(`GameProgress.exportData().data`);
+   assert.ok(after.campaign.completed.includes(finish));
+   assert.equal(after.gold-before.gold,finish==='valley-cider-press'?10:finish==='valley-mill-sluice'?45:0);
+   assert.equal(after.campaign.runes-before.campaign.runes,finish==='valley-ridge-beacon'?3:0);
+   if(finish==='valley-mill-sluice'){
+    await send('Page.reload');await wait(`document.getElementById('forest-quest-continue')?.disabled===false`);
+    await e(`document.getElementById('forest-quest-continue').click()`);
+    await wait(`ForestRenderer._openLayout?.endsWith(':sluice-open') && OpenPaintedMaps.ready()`);
+    assert.ok(await e(`(()=>{const [x,y,w,h]=WildwoodValleyData.sluiceBox,t=ForestRenderer.terrain;
+     const region=t.getContext('2d').getImageData(Math.round(x*t.width),Math.round(y*t.height),Math.round(w*t.width),Math.round(h*t.height));
+     const img=ForestRenderer.image('assets/wildwood-sluice-open.webp'),cv=document.createElement('canvas');
+     cv.width=region.width;cv.height=region.height;const ctx=cv.getContext('2d');ctx.drawImage(img,0,0,cv.width,cv.height);
+     const reference=ctx.getImageData(0,0,cv.width,cv.height).data;
+     let error=0;for(let i=0;i<reference.length;i+=4)error+=Math.abs(reference[i]-region.data[i]);return error/(reference.length/4)<3;})()`));
+   }
+   assert.equal(after.campaign.potions-before.campaign.potions,finish==='valley-cider-press'?2:0);
+  }
+  assert.match(await e(`document.querySelector('#valley-errands summary').textContent`),/3\/3/);
   assert.equal(await e(`localStorage.getItem('web-wizardry-wildwood-v1')`),'old-wildwood-sentinel');
  }
  console.log('PASS keyboard movement, bridge gating, all destinations, saved rewards, patrols, quiz damage, four quest fights, postgame exploration and 768x600.');

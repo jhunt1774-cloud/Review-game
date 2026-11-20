@@ -23,7 +23,7 @@ scene.render.engine = 'CYCLES'
 scene.cycles.samples = 10
 scene.cycles.use_denoising = True
 scene.cycles.transparent_max_bounces = 12
-scene.render.resolution_x, scene.render.resolution_y = 1536, 1024
+scene.render.resolution_x, scene.render.resolution_y = 3072, 2048
 scene.render.resolution_percentage = 100
 scene.view_settings.view_transform = 'Standard'
 scene.world = bpy.data.worlds.new("Cool open sky")
@@ -126,6 +126,7 @@ def height(x,y):
     dist=abs(x-river(y))-halfwidth(y)
     banks=smooth(-.37,1.05,dist)
     rises=2.8*hill(x,y,-8,9,6,6)+1.65*hill(x,y,-12,-3,5.8,6.7)+1.15*hill(x,y,1,-9,5.4,6)+2.5*hill(x,y,12,9,7,6)
+    rises+=3.8*hill(x,y,24,16,10,7)+2.35*hill(x,y,-23,10,9,7)+1.4*hill(x,y,-24,-14,11,8)
     rough=.18*field(x,y,.52)+.1*field(x,y,1.2)
     ground=1.19+rises+.18*math.sin(x*.47+y*.23)+rough
     u,v=bridge_local(x,y)
@@ -154,7 +155,21 @@ sites=[
     ('map-painted-ancient-tree',11.35,7.45,4.0,1.02),
     ('map-painted-gate',-5.85,-5.55,2.65,0),
 ]
+sluice_y=-18.0
+sluice_x=river(sluice_y)+halfwidth(sluice_y)+.80
+# Stops are at the working side of each fixture, clear of its foundation.
+outlying={
+    'valley-apple-harvest':(-25,-11.7),'valley-cider-press':(-22,5.65),
+    'valley-timber-yard':(24,-12.65),'valley-mill-sluice':(sluice_x+1.15,sluice_y-.65),
+    'valley-quarry-glass':(26,3.55),'valley-ridge-beacon':(21.3,17.35)
+}
 routes=[main,spur,camp_spur,
+    [(-12.7,-6.3),(-15.8,-7),(-18.2,-9.2),(-22,-10),(-25,-11.7),(-25.1,-14),(-20,-16.8),(-12,-17.2),(-6,-15)],
+    [(-25,-11.7),(-27,-8.6),(-27.5,-3.4),(-25.6,.2),(-22.8,3.2),(-22,5.65),(-19.5,6.4),(-17,4.9),(-14,2),(-11.4,.35)],
+    [(13.25,-.75),(16,-2.5),(17.5,-5.6),(20.4,-8.3),(24,-12.65),(23,-14.6),(19.1,-17.2),(14,-18.5),(sluice_x+1.15,sluice_y-.65)],
+    [(sluice_x+1.15,sluice_y-.65),(river(-14)+3.3,-14),(river(-11)+3.2,-11),(mill_x+1.4,-8.2),(mill_x+1.4,-5.65)],
+    [(13.25,-.75),(17.6,-.2),(20.7,2),(23.5,2.15),(26,3.55),(27.2,6.3),(25.7,9.3),(26,12.2),(24,15.1),(21.3,17.35),(18,16.1),(14.4,16)],
+
     [(-6.7,-7),(-8.55,-5.3),(-10.4,-4.8),(-12.3,-3.9),(-12.6,-3.55)],
     [(-12.6,-3.55),(-13,-2.1),(-12.6,-.35),(-11.4,.35)],
     [(-3.1,.65),(-2.85,2.1),(-3.52,3.45),(-2.85,4.75)],
@@ -185,7 +200,7 @@ def grid(name,nx,ny,size,group):
                 faces.append((v-nx-2,v-nx-1,v,v-1))
     return mesh(name,verts,faces,group)
 
-ground=grid("Continuous slopes, west hollow and incised streambed",220,220,43,land)
+ground=grid("Continuous slopes, west hollow and incised streambed",370,370,76,land)
 for face in ground.data.polygons:
     face.use_smooth=True
 m,n,l=material("Valley | grass, exposed limestone and trampled trail")
@@ -233,8 +248,8 @@ ground.data.materials.append(m)
 
 # The stream follows the actual bottom of the ravine. Shallows take their tint from the bank distance.
 water_verts=[];water_faces=[];depth=[]
-for j in range(201):
-    y=-21.5+j*43/200
+for j in range(381):
+    y=-38+j*.2
     for i in range(13):
         t=i/6-1
         water_verts.append((river(y)+t*(halfwidth(y)+.3),y,-.07+.016*math.sin(y*4+t*5)))
@@ -329,8 +344,14 @@ solids.extend([(-7.00,-5.55,.28,.27),(-4.68,-5.55,.28,.27),
                (11.99,.25,.29,.67),(15,.25,.26,.66),(13.5,1.05,.86,.25)])
 # Group large crowns along ridges, leaving the road, door and bridge readable.
 accepted=[]
-for _ in range(2800):
-    x=random.uniform(-20,20);y=random.uniform(-18,20)
+for attempt in range(9500):
+    if attempt<2800:
+        x=random.uniform(-20,20);y=random.uniform(-18,20)
+    else:
+        x=random.uniform(-35,35);y=random.uniform(-33,33)
+        if -20<x<20 and -18<y<20:continue
+    if any(abs(x-a)<3.3 and b-3.9<y<b+3.8 for a,b in outlying.values()):continue
+    if -28.5<x<-21.5 and -13<y<-5.5:continue
     if abs(x-river(y))<halfwidth(y)+1.00 or trail_dist(x,y)<2.1:continue
     if any(((x-a)/w)**2+((y-b)/h)**2<1 for a,b,w,h in [(-9.6,-8.8,3.8,4.3),(-7.6,3,3.9,3.9),(bx,by-.7,5.5,4),(-3.7,-1,3.6,3.4)]):continue
     if any(abs(x-a)<1.8 and b-3.9<y<b+1 for a,b in [(hoist_x,hoist_y),(gauge_x,gauge_y),(-12.7,-6.3)]):continue
@@ -346,8 +367,9 @@ for _ in range(2800):
     species=random.choices(['wildwood-oak','wildwood-sycamore','wildwood-conifer'],[5,2 if abs(x-river(y))<5 else 1,3 if y>5 else .6])[0]
     plant(species,x,y,w,trees,random.choice([True,False]),w*.13)
     accepted.append((x,y,w))
-for i in range(1100):
-    x=random.uniform(-19,19);y=random.uniform(-18,19)
+for i in range(3700):
+    x=random.uniform(-34,34);y=random.uniform(-32,33)
+    if any(math.hypot(x-a,y-b)<2.1 for a,b in outlying.values()):continue
     shore=abs(x-river(y))-halfwidth(y)
     if trail_dist(x,y)<1.08 or any(math.hypot(x-a,y-b)<r for a,b,r in [(-9.9,-7.85,1.85),(-7.65,4.82,2.1),(bx,by,3.75)]):continue
     if -.34<shore<.84:
@@ -421,8 +443,8 @@ def boulder(x,y,z,scale,name='Shore limestone'):
     return obj
 
 for bank_side in (-1,1):
-    y=-18
-    while y<18:
+    y=-32
+    while y<33:
         y+=details.uniform(.19,.45)
         u=details.uniform(.02,.62);x=river(y)+bank_side*(halfwidth(y)+u)
         a,b=bridge_local(x,y)
@@ -430,8 +452,8 @@ for bank_side in (-1,1):
         w=details.uniform(.18,.79)
         boulder(x,y,height(x,y)-.03,(w*.68,w*1.08,w*details.uniform(.6,1.45)))
     # Small gravel bars form on alternate bends.
-    for _ in range(380):
-        y=details.uniform(-18,18);f=math.sin(y*.63)*bank_side
+    for _ in range(730):
+        y=details.uniform(-32,33);f=math.sin(y*.63)*bank_side
         if f<-.1:continue
         x=river(y)+bank_side*(halfwidth(y)+details.uniform(-.55,.24))
         s=details.uniform(.055,.235)
@@ -468,8 +490,8 @@ for begin,end,rows,columns in paved_approaches:
 # Shallow current seams part around the inside gravel bars.
 foam_mat=tint_material('Broken water reflections',(.51,.75,.70))
 ribbons=[];faces=[]
-for _ in range(1850):
-    y=details.uniform(-19,19);side=details.choice((-1,1));t=details.uniform(.27,1.0)
+for _ in range(3500):
+    y=details.uniform(-33,33);side=details.choice((-1,1));t=details.uniform(.27,1.0)
     if details.random()>(t**3*.9+.045):continue
     x=river(y)+side*t*halfwidth(y)
     w=details.uniform(.009,.033);length=details.uniform(.06,.39)
@@ -572,11 +594,114 @@ for i in range(170):
     blossoms.extend((n,n+1+j,n+1+(j+1)%8) for j in range(8))
 mesh('Meadow buttercups by the apiary',blooms,blossoms,brush,ochre)
 
+# The cart roads loop back into the original valley. Orchard rows, a screw
+# press, lumber stacks, a sluice gate and the signal bowl identify the jobs.
+for row in range(2):
+    for column in range(4):
+        x=-28.1+column*1.92; y=-9.65+row*2.27+.13*math.sin(column)
+        plant('wildwood-oak',x,y,1.82+column%2*.18,trees,column%2==0,.27)
+apple=tint_material('Russet apple skin',(.48,.069,.022))
+def orchard_bin(x,y):
+    z=height(x,y)
+    for side in [-1,1]:
+        for i in range(3):
+            lo=z+.07+i*.135
+            post('Orchard bin slat',(x-.50,y+side*.33,lo),(x+.50,y+side*.33,lo),.105,.10,wood[i])
+            post('Bin end slat',(x+side*.49,y-.34,lo),(x+side*.49,y+.34,lo),.105,.10,wood[i])
+    for row in range(3):
+        for col in range(5):
+            ax=x-.37+col*.18;ay=y-.20+row*.17
+            spindle('Picked russet apple',(ax,ay,z+.34),(ax+.015,ay,z+.46),.095,apple,8)
+    solids.append((x,y,.52,.36))
+orchard_bin(-25.3,-10.78);orchard_bin(-26.45,-10.67)
+x,y=-22,6.98;z=height(x,y)
+spindle('Cider press stone bed',(x,y,z-.16),(x,y,z+.36),1.05,stone[1],16)
+for i in range(18):
+    a=i*math.tau/18;px=x+.59*math.cos(a);py=y+.59*math.sin(a)
+    post('Slatted apple basket',(px,py,z+.34),(px,py,z+.96),.15,.13,wood[i%3])
+for dx in [-.93,.93]:
+    post('Press frame upright',(x+dx,y,z+.14),(x+dx,y,z+1.99),.21,.24,wood[0])
+post('Screw press crossbeam',(x-1.08,y,z+1.89),(x+1.08,y,z+1.89),.28,.3,wood[1])
+spindle('Wooden screw',(x,y,z+.80),(x,y,z+2.35),.11,wood[2])
+post('Turning bar',(x-.72,y-.21,z+2.21),(x+.72,y+.21,z+2.21),.095,.10,wood[0])
+solids.append((x,y,1.05,.69))
+# Weathered stave barrels at the press, with forged hoops and bung lids.
+for dx,dy in ((1.52,-.11),(1.75,.66)):
+    px,py=x+dx,y+dy;pz=height(px,py)
+    spindle('Cider cask belly',(px,py,pz+.07),(px,py,pz+.82),.33,wood[2],14)
+    for dz in (.21,.67):
+        spindle('Cask hoop',(px,py,pz+dz),(px,py,pz+dz+.055),.345,hardware,14)
+    spindle('Cask lid',(px,py,pz+.81),(px,py,pz+.85),.30,wood[0],14)
+    solids.append((px,py,.33,.33))
+# Timber is stored on the high bank, away from the waterwheel.
+x,y=24,-10.55;z=height(x,y)
+for row,count in enumerate((5,4,3)):
+    for i in range(count):
+        py=y+i*.31+row*.155
+        spindle('Stacked sawlog',(x-1.75,py,z+.17+row*.28),(x+1.72,py+.06,z+.17+row*.28),.17,wood[i%3])
+solids.append((x,y+.66,1.7,.8))
+for dx in (-1.1,1.1):
+    for sign in (-1,1):
+        post('Crossed sawbuck leg',(x+dx,y-1.25+.37*sign,z),(x+dx,y-1.25-.28*sign,z+.98),.105,.13,wood[0])
+spindle('Partly sawn log',(x-1.66,y-1.25,z+.79),(x+1.66,y-1.25,z+.79),.21,wood[2])
+solids.append((x,y-1.25,1.55,.34))
+x,y=sluice_x,sluice_y;z=height(x,y)
+for dx in [-1.16,1.16]:
+    post('Sluice guide post',(x+dx,y,z-1.33),(x+dx,y,z+1.64),.26,.31,wood[0])
+for i in range(6):
+    post('Sluice shutter',(x-1.1,y,z-.72+i*.23),(x+1.1,y,z-.72+i*.23),.22,.24,wood[1+i%2])
+post('Sluice header',(x-1.38,y,z+1.48),(x+1.38,y,z+1.48),.23,.28,wood[1])
+spindle('Lift screw',(x,y,z+.12),(x,y,z+1.95),.082,hardware)
+post('Sluice handbar',(x-.4,y,z+1.87),(x+.4,y,z+1.87),.08,.1,wood[1])
+solids.append((x,y,1.23,.3))
+# Only the repaired gate spills water down this short outlet to the river.
+spill_verts=[];spill_faces=[]
+for i in range(19):
+    t=i/18;px=x+.22-2.62*t;py=y-.17-.22*math.sin(t*math.pi)
+    for side in (-1,1):
+        sy=py+side*(.22+.16*t)
+        spill_verts.append((px,sy,max(-.04,height(px,sy)+.038)))
+    if i:spill_faces.append((2*i-2,2*i-1,2*i+1,2*i))
+spill=mesh('Tailrace flow after shutter repair',spill_verts,spill_faces,land,water.data.materials[0])
+spill.hide_render=True;spill.hide_viewport=True
+# Beds of cut stone step back from the quarry floor. The surveyor left a lens
+# on the sorting table, below the signal that once marked the ridge road.
+x,y=26,5.12;z=height(x,y)
+for row in range(3):
+    for col in range(5-row):
+        px=x-1.75+col*.78+row*.23;py=y+row*.55
+        post('Quarried limestone',(px,py,z-.15),(px,py,z+.46+row*.38),.75,.70,stone[(row+col)%3])
+solids.append((x,y+.50,2.0,1.12))
+for i in range(30):
+    dx=details.uniform(-3.4,2.7);dy=details.uniform(1.45,3.4)
+    px,py=x+dx,y+dy;shelf=details.uniform(.45,1.05)
+    boulder(px,py,height(px,py)+.12,(shelf*1.2,shelf*.79,shelf*1.25),'Split quarry face')
+    solids.append((px,py,shelf*.86,shelf*.58))
+# The lens lies on an inspection bench where quarried glass was graded.
+px=x-2.30; py=y-.20; pz=height(px,py)
+for dx in (-.46,.46):
+    post('Sorting bench leg',(px+dx,py,pz),(px+dx,py,pz+.57),.13,.20,wood[0])
+post('Quarry sorting bench',(px-.69,py,pz+.62),(px+.69,py,pz+.62),.52,.10,wood[2])
+glass=tint_material('Blue-green quarry glass',(.11,.43,.47))
+spindle('Polished glass lens',(px,py,pz+.69),(px,py,pz+.78),.19,glass,10)
+solids.append((px,py,.64,.32))
+x,y=21.3,18.46;z=height(x,y)
+for tier in range(3):
+    spindle('Ridge beacon plinth',(x,y,z+tier*.23-.09),(x,y,z+tier*.23+.17),1.25-.21*tier,stone[tier],8)
+for i in range(4):
+    a=i*math.pi/2+.45
+    post('Brazier leg',(x+.68*math.cos(a),y+.68*math.sin(a),z+.60),(x+.50*math.cos(a),y+.50*math.sin(a),z+1.67),.14,.16,hardware)
+spindle('Signal fire bowl',(x,y,z+1.51),(x,y,z+1.74),.78,hardware,12)
+for i in range(5):
+    a=i*math.pi/5
+    spindle('Dry beacon billet',(x-.56*math.cos(a),y-.56*math.sin(a),z+1.79),(x+.56*math.cos(a),y+.56*math.sin(a),z+1.80),.10,wood[0],8)
+solids.append((x,y,1.18,1.13))
+
 camera=bpy.data.cameras.new('Player view | orthographic')
 cam=bpy.data.objects.new('Player view',camera);rig.objects.link(cam)
 cam.location=(0,-30,36);target=Vector((0,0,1.8))
 cam.rotation_euler=(target-cam.location).to_track_quat('-Z','Y').to_euler()
-camera.type='ORTHO';camera.ortho_scale=33.5;scene.camera=cam
+camera.type='ORTHO';camera.ortho_scale=67;scene.camera=cam
 sun=bpy.data.lights.new("Afternoon sunlight",'SUN');sun.energy=2.8;sun.angle=math.radians(10);sun.color=(1,.93,.78)
 light=bpy.data.objects.new('Sun through leaves',sun);rig.objects.link(light)
 light.rotation_euler=Vector((.57,.60,-1)).to_track_quat('-Z','Y').to_euler()
@@ -607,7 +732,7 @@ def project(x,y,z=None):
     return [round(uv.x,6),round(1-uv.y,6)]
 anchors={'camp':project(-8.2,-8.65),'hollow':project(-3.9,-.65),'cave':project(-7.6,3.63),'bridge':project(bx,by,deck(0)+.068),'east':project(*bridge_point(4.05,0))}
 # Interactions sit on open ground just outside the painted buildings.
-world_stops={
+world_stops={**outlying,
     'entry':(-8.1,-9.6),'merchant':(-8.95,-8.43),'m0':(-5.82,-5.94),
     'm1':(-3.88,-.84),'m2':bridge_point(-4.12,0),'m3':(11.25,6.28),
     'forest-supplies':(-10.3,-6.34),'forest-spirit':(-11.4,.35),
@@ -615,10 +740,11 @@ world_stops={
     'wildwood-herbalist-cache':(-12.28,-3.6),'wildwood-watch-cache':(-1.22,5.34),
     'wildwood-mill-cache':(mill_x+1.4,-5.65),'wildwood-ruin-cache':(13.38,-.52),
     'wildwood-overlook-cache':(hoist_x-.82,hoist_y-.61),'wildwood-river-cache':(gauge_x-.93,7.62),
-    'wildwood-meadow-cache':(-12.42,-6.48),'roam-0-2':(-13.35,4.12),
-    'roam-0-3':(14,-4.05),'ranger-roots':(-1.86,4.77)
+    'wildwood-meadow-cache':(-12.42,-6.48),'roam-0-2':(-19.50,6.40),
+    'roam-0-3':(21.15,-8.96),'ranger-roots':(-1.86,4.77)
 }
 stops={key:project(*xy) for key,xy in world_stops.items()}
+stops['beacon-flame']=project(21.3,18.46,height(21.3,18.46)+1.9)
 stops['gate-west']=project(*bridge_point(-.55,0),deck(-.55))
 stops['gate-east']=project(*bridge_point(.55,0),deck(.55))
 (out/'game-stops.json').write_text(json.dumps(stops))
@@ -636,6 +762,23 @@ scene.render.filepath='//Wildwood.png'
 bpy.ops.wm.save_as_mainfile(filepath=str(out/'Wildwood.blend'))
 scene.render.filepath=str(out/'Wildwood.png')
 bpy.ops.render.render(write_still=True)
+# Render only the repaired fixture for the game's persistent terrain change.
+cx,cy=project(sluice_x,sluice_y)
+w,h=scene.render.resolution_x,scene.render.resolution_y
+x0,y0=int(cx*w)-166,int(cy*h)-115
+x1,y1=int(cx*w)+121,int(cy*h)+92
+(out/'sluice-patch.json').write_text(json.dumps([x0/w,y0/h,(x1-x0)/w,(y1-y0)/h]))
+shutters=[obj for obj in joinery.objects if obj.name.startswith('Sluice shutter')]
+for board in shutters:board.location.z+=.78
+spill.hide_render=False
+scene.render.use_border=True;scene.render.use_crop_to_border=True
+scene.render.border_min_x=x0/w;scene.render.border_max_x=x1/w
+scene.render.border_min_y=1-y1/h;scene.render.border_max_y=1-y0/h
+scene.render.filepath=str(out/'Sluice-open.png')
+bpy.ops.render.render(write_still=True)
+scene.render.use_border=False;scene.render.use_crop_to_border=False
+for board in shutters:board.location.z-=.78
+spill.hide_render=True
 for group in [land,timber,places,trees,brush,joinery]:group.hide_render=True
 guides.hide_render=False;guides.hide_viewport=False
 scene.world.node_tree.nodes['Background'].inputs[1].default_value=0

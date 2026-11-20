@@ -15,6 +15,18 @@ The main trail runs from the ranger camp through Mossgate and Whispering Hollow 
 | Cargo hoist | A braced jib reaches out from the lower west bank. The overlook cache sits at its loading point. | Search the dockside supplies before challenging the sentinel. |
 | East bank | The waterwheel faces the channel. The road splits between the mill, the ruined courtyard and the ancient tree. | Find the Millwright’s mallet and East warden’s seal, or continue to the Guardian. |
 
+The expanded valley is 4,560 × 3,040 world pixels. The original crossing occupies the center of the map. The camera, paths and terrain cover twice the former width and height. Three new cart roads and switchbacks loop back to established places.
+
+| Optional route | What to do | Reward |
+| --- | --- | --- |
+| Western orchard road | Gather the windfalls beside the orchard bins. Carry the basket to the screw press and make cider. | Two healing potions and 10 gold. |
+| Downstream timber road | Pick up a cut board from the sawbuck. Bring it to the mill’s tailrace gate. The repaired shutter opens and the outlet flows again. | 45 gold. |
+| Eastern ridge switchback | Recover a polished lens from the quarry. At the beacon, read the engraving and aim the light toward its receiver. | Three forge runes and a lit beacon. |
+
+Open **Valley errands** on the small map for clues and delivery status. Select destinations under **Walk to a place**. The western loop opens at the start. The two eastern loops open with the sentinel’s bridge. Each errand can be finished after the Guardian, and each reward is paid once.
+
+Older valley saves keep the same slot. The first load centers saved outdoor positions within the new map, including camp and dungeon return points. Dungeon interior coordinates use their original map.
+
 All seven cache IDs use the existing once-only reward and save systems. Equipment uses the regular inventory and camp equipment rules. The valley has its own progress slot. The teacher's question set, forest quest sequence and dungeon rules come from the existing game.
 
 ## Blender source

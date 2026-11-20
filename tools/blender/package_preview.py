@@ -23,7 +23,7 @@ def image_data(im,fmt='WEBP',**options):
 frame=Image.open(folder/'Wildwood.png').convert('RGB')
 frame.save(folder/'Wildwood.webp',quality=91,method=6)
 mask=Image.open(folder/'Floor.png').convert('L').resize((256,171),Image.Resampling.BOX)
-grid=bytes(int(p>=200) for p in mask.getdata())
+grid=bytes(int(p>=200) for p in mask.tobytes())
 w,h=mask.size
 coords=json.loads((folder/'landmarks.json').read_text())
 starts={name:int(y*h)*w+int(x*w) for name,(x,y) in coords.items()}

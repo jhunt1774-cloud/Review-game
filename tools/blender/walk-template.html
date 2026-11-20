@@ -23,6 +23,7 @@ if(location.protocol==='http:'||location.protocol==='https:')play.hidden=false;
  const sprite=document.createElement('canvas');sprite.width=48;sprite.height=48;
  const sc=sprite.getContext('2d',{willReadFrequently:true});
  const {w,h,marks}=study,grid=Uint8Array.from(atob(study.floor),c=>c.charCodeAt(0));
+ canvas.width=valley.naturalWidth;canvas.height=valley.naturalHeight;
  const W=canvas.width,H=canvas.height;
  let pos={...marks.camp},route=[],dir=1,phase=0,previous=0,frame=0,reference=false,lastMessage='';
  const held=new Set(), arrows={arrowleft:[-1,0],a:[-1,0],arrowright:[1,0],d:[1,0],arrowup:[0,-1],w:[0,-1],arrowdown:[0,1],s:[0,1]};
