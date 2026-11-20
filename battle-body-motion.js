@@ -30,7 +30,9 @@
   const role = ['axe','hammer','bow','magic'].find((_,i) => renderer.el.classList.contains('hero-'+i));
   const kind = enemy ? enemyStyles[renderer.config.key] ||
    (renderer.config.projectileColor ? 'magic' : 'claw') : role || 'axe';
-  const motion = {source,context,enemy,style:styles[kind],loaded:false,lean:0,compression:0,reach:0};
+  const facing = Number(getComputedStyle(renderer.el).getPropertyValue('--battle-facing-x')) || 1;
+  const direction = enemy ? -facing : facing;
+  const motion = {source,context,direction,style:styles[kind],loaded:false,lean:0,compression:0,reach:0};
   active.set(renderer,motion);
   return motion;
  }
@@ -39,8 +41,7 @@
   const canvas = renderer.portrait;
   if (!canvas || !motion.loaded || !canvas.isConnected || canvas.width !== motion.width || canvas.height !== motion.height) return;
   const ctx = canvas.getContext('2d');
-  const {source,lean,compression,reach,enemy} = motion;
-  const direction = enemy ? -1 : 1;
+  const {source,lean,compression,reach,direction} = motion;
   const {width,height} = canvas;
   ctx.save();
   ctx.setTransform(1,0,0,1,0,0);
