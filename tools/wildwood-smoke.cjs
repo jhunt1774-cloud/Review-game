@@ -27,6 +27,19 @@ require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root
  await wait(`WildwoodBoard.active()&&OpenPaintedMaps.ready()`);
  await e(`GameProgress.restoreData(${JSON.stringify(base)})`);
  console.log('Checked sanctuary entry, reload and return');
+ assert.equal(await e(`WildwoodBoard.objects.some(o=>o.art==='waterfall')`),false);
+ const overlook=await e(`(()=>{
+  const t=WildwoodLayout.terrace, x=(t.stairLeft+t.stairRight)/2, y=(t.top+t.floorEnd)/2;
+  const upper={x,y}, lower={x,y:t.bottom+.55};
+  return {
+   art:WildwoodBoard.terraceReady,
+   stairs:ForestWorld.stepClear(lower,upper),
+   cliff:ForestWorld.stepClear({x:t.left-.55,y},upper),
+   cache:!!ForestWorld.route(lower,WildwoodLayout.caches.find(n=>n.id==='wildwood-overlook-cache'),true)
+  };
+ })()`);
+ assert.deepEqual(overlook,{art:true,stairs:true,cliff:false,cache:true});
+ console.log('Checked overlook stairs, impassable cliff, connected cache and level river');
  // Walk on clear grass away from every suggested trail using actual keyboard input.
  const grass=await e(`(()=>{for(let y=10;y<90;y+=2)for(let x=10;x<55;x+=2){const p={x,y},q={x:x+3,y};if(WildwoodBoard.trailDistance(p)>4&&ForestWorld.stepClear(p,q,[])&&WildwoodLayout.patrols.every(a=>Math.hypot((x-a.home[0])*1.5,y-a.home[1])>17))return p;}return null;})()`);assert.ok(grass);
  await e(`(()=>{const f=GameProgress.exportData();f.data.campaign.explorePosition={x:${grass.x},y:${grass.y},chapter:0};GameProgress.restoreData(f);})()`);

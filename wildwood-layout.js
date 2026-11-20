@@ -1,12 +1,14 @@
 /* Authored places and grove clusters. Coordinates describe objects, not walk rails. */
 (()=>{'use strict';if(new URLSearchParams(location.search).get('map')!=='wildwood')return;
 window.WildwoodLayout={version:1,width:6000,height:4000,speed:4.8,
+ terrace:{left:51.4,right:56,top:42.45,bottom:46.65,floorEnd:44.95,stairLeft:53.05,stairRight:54.35},
  positions:{entry:[18,82],merchant:[22,82],m0:[29,69],m1:[38,42],m2:[58,44],m3:[83,25],'forest-supplies':[26,59],'forest-spirit':[38,72],'forest-ranger':[48,55],'crypt-entrance':[22,34]},
  trails:[
   [[18,82],[22,82],[23,77],[27,73],[29,69],[28,63],[26,59],[28,51],[33,47],[38,42]],
   [[29,69],[34,69],[38,72],[43,68],[46,61],[48,55],[52,50],[58,44]],
   [[38,42],[45,39],[51,39],[58,44],[65,44],[73,43],[78,36],[83,25]],
   [[26,59],[19,57],[12,58]],[[38,42],[32,34],[26,25],[18,28]],[[32,34],[27,36],[22,34]],
+  [[52,50],[53.7,47],[53.7,46.5]],
   [[48,55],[55,63],[59,69],[59,75]],[[38,42],[45,28],[55,25],[64,25],[74,24]],
   [[73,43],[77,49],[79,58],[82,65]],[[83,25],[88,33],[88,49],[82,65]],
   [[18,82],[12,77],[12,65]],[[38,72],[36,80],[30,88]]
@@ -18,6 +20,7 @@ window.WildwoodLayout={version:1,width:6000,height:4000,speed:4.8,
   {id:'wildwood-meadow-cache',name:'Firefly meadow cache',x:30,y:88},
   {id:'wildwood-mill-cache',name:'Mill keeper’s chest',x:59,y:75},
   {id:'wildwood-ruin-cache',name:'Eastern ruin strongbox',x:82,y:65},
+  {id:'wildwood-overlook-cache',name:'River overlook supplies',x:53.7,y:43.75},
   {id:'wildwood-river-cache',name:'Riverhead explorer’s cache',x:55,y:16}
  ],
  landmarks:[

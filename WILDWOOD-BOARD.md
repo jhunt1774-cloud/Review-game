@@ -16,7 +16,7 @@ local progress, including progress-file export and restore.
 - Two additional optional patrols use the existing detection, pursuit, retreat,
   escape-grace, quiz-combat and saved-victory systems. The next required imp or
   wolf also patrols its clearing. Defeating the Guardian restores peace.
-- Six optional caches award supplies once. Missed caches remain collectible
+- Seven optional caches award supplies once. Missed caches remain collectible
   after the main quest. The ranger rescue physically removes a root obstruction.
 - WASD/arrows, click-to-walk and minimap-ground navigation work across open
   grass. Dirt trails are visual suggestions, not assigned walking paths.
@@ -81,6 +81,10 @@ Whispering Hollow is marked with a large oak. The cave opening off the western t
 ## Main crossing art study
 
 The crossing at the Ancient Crossing encounter uses a local art kit based on a generated reference painting from the playing camera. The references were a screenshot of the playable crossing and the Mossgate battle painting. The bridge width, bank line and walking routes come from the board. The generated six-cell transparent kit contains exposed roots, leaf litter, mossy rock shelves, pebbles and reeds, water ripples, and breaking flagstone edges. The first pass limits these stamps and dappled light to the main bridge. Light is composed into the existing terrain cache, and the river clips the ripple stamps. The kit can be reused at other crossings after reviewing the playable result.
+
+## River overlook
+
+A generated limestone terrace adds a raised clearing west of the main bridge. Its art was generated from Mossgate and the crossing art study with an overhead playable floor and one south-facing flight of steps. The stone sides block movement; the stair lane and upper clearing are walkable and lead to an optional cache. Use the Overlook stop on the minimap to route there. The river itself remains level.
 
 ## Verification and limits
 
