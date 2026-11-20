@@ -7,7 +7,7 @@ const L=WildwoodLayout,positions=L.positions;
 const P=window.WildwoodBoard={
  active(){return ForestAdventure.active()&&!DungeonRules.campaign?.dungeon&&(ExploreRules.activeChapter||0)===0;},
  objects:[],
- assets:{soil:'assets/forrest_ground_01.webp',mud:'assets/brown_mud_leaves_01.webp',rock1:'assets/moss-rock-1.webp',rock2:'assets/moss-rock-2.webp',rock3:'assets/moss-rock-3.webp',rock4:'assets/moss-rock-4.webp',rock5:'assets/moss-rock-5.webp',rock6:'assets/moss-rock-6.webp',bridge:'assets/recovered-timber-bridge.png',courtyard:'assets/forest-courtyard-v2.webp',grass:'assets/wildwood-forest-floor.webp',hollow:'assets/map-detail-0.webp',stump:'assets/map-detail-1.webp',tower:'assets/map-detail-3.webp',shelter:'assets/map-detail-2.webp',roots:'assets/crypt-layered-overgrowth.webp',watermill:'assets/wildwood-watermill.webp',willow:'assets/wildwood-willow.webp',waterfall:'assets/wildwood-waterfall.webp',library:'assets/map-city-library.webp',wall:'assets/map-city-wall.webp'},
+ assets:{stoneBridge:'assets/wildwood-stone-bridge.webp',stoneDetails:'assets/wildwood-stone-details.webp',soil:'assets/forrest_ground_01.webp',mud:'assets/brown_mud_leaves_01.webp',rock1:'assets/moss-rock-1.webp',rock2:'assets/moss-rock-2.webp',rock3:'assets/moss-rock-3.webp',rock4:'assets/moss-rock-4.webp',rock5:'assets/moss-rock-5.webp',rock6:'assets/moss-rock-6.webp',bridge:'assets/recovered-timber-bridge.png',courtyard:'assets/forest-courtyard-v2.webp',grass:'assets/wildwood-forest-floor.webp',hollow:'assets/map-detail-0.webp',stump:'assets/map-detail-1.webp',tower:'assets/map-detail-3.webp',shelter:'assets/map-detail-2.webp',roots:'assets/crypt-layered-overgrowth.webp',watermill:'assets/wildwood-watermill.webp',willow:'assets/wildwood-willow.webp',waterfall:'assets/wildwood-waterfall.webp',library:'assets/map-city-library.webp',wall:'assets/map-city-wall.webp'},
  trails:L.trails,bridges:[{y:44,width:6.4,depth:2.2},{y:25,width:6.4,depth:2.2}],
  river(y){return 64+4*Math.sin((y-44)*.07)+1.8*Math.sin((y-44)*.17);},
  riverWidth(y){return 1.8+.3*Math.sin(y*.11);},
@@ -57,17 +57,49 @@ const P=window.WildwoodBoard={
   const entry=graph.points.get('entry'),nodes=FOREST_NODES.filter(n=>n.chapter===0&&!n.dungeon&&!n.global);
   M.layout={key,id:'region-0',chapter:0,theme:'forest',dungeon:false,entry,originalEntry:entry,gate,graph,nodes,props:[],features:[],edges:[],islandEdges:[],islandPoints:[graph.points.get('m3')],islandIds:new Set(['m3']),a:graph.points.get(gate.a),b:graph.points.get(gate.b),ready:true,traversalClean:true,floor:p=>this.ground(p)};
  },
+ stampStone(c,image,cell,x,y,width,angle=0){
+  if(!image.complete||!image.naturalWidth)return;
+  const sw=image.naturalWidth/3,sh=image.naturalHeight/2,height=width*sh/sw*(cell>=3?.68:.8);
+  c.save();c.translate(x,y);c.rotate(angle);
+  c.drawImage(image,cell%3*sw,Math.floor(cell/3)*sh,sw,sh,-width/2,-height/2,width,height);
+  c.restore();
+ },
  paint(c,w,h){
   this.build();c.imageSmoothingEnabled=true;c.imageSmoothingQuality='high';
   const grass=this.image('grass');c.fillStyle=grass.complete&&grass.naturalWidth?c.createPattern(grass,'repeat'):'#446044';c.fillRect(0,0,w,h);c.fillStyle='#314c2909';c.fillRect(0,0,w,h);
+  // Broad changes of light interrupt the repeating ground texture.
+  for(const [x,y,rx,ry,color] of [
+   [22,81,17,14,'#d7ad594f'],[37,42,14,14,'#e9c77538'],
+   [68,43,17,13,'#80b79b30'],[82,65,12,15,'#d5bc6948'],
+   [41,71,13,11,'#275d5539'],[83,25,11,15,'#e3cf6845'],
+   [9,55,16,42,'#14352e65'],[48,5,37,10,'#162d244c']
+  ]){
+   c.save();c.translate(x*w/100,y*h/100);c.scale(rx*w/100,ry*h/100);
+   const light=c.createRadialGradient(0,0,.12,0,0,1);
+   light.addColorStop(0,color);light.addColorStop(1,'#0000');
+   c.fillStyle=light;c.fillRect(-1,-1,2,2);c.restore();
+  }
   // Blend leaf litter beneath groves; clear grass remains readable between them.
   const soil=this.image('soil'),mud=this.image('mud');
   for(const [gx,gy,rx,ry]of L.groves){c.save();const mask=document.createElement('canvas');mask.width=Math.ceil(rx*w/50);mask.height=Math.ceil(ry*h/50);const q=mask.getContext('2d');q.fillStyle=q.createPattern(soil,'repeat');q.fillRect(0,0,mask.width,mask.height);q.globalCompositeOperation='destination-in';const fade=q.createRadialGradient(mask.width/2,mask.height/2,0,mask.width/2,mask.height/2,Math.max(mask.width,mask.height)/2);fade.addColorStop(0,'#000a');fade.addColorStop(1,'#0000');q.fillStyle=fade;q.fillRect(0,0,mask.width,mask.height);c.globalAlpha=.65;c.drawImage(mask,(gx-rx)*w/100,(gy-ry)*h/100);c.restore();}
   for(const [x,y]of Object.values(positions)){const light=c.createRadialGradient(x*w/100,y*h/100,0,x*w/100,y*h/100,w*.065);light.addColorStop(0,'#efdf9e24');light.addColorStop(1,'#efdf9e00');c.fillStyle=light;c.fillRect(x*w/100-w*.07,y*h/100-w*.07,w*.14,w*.14);}
-  // Real terrain water, not a river painted into a background picture.
+  // Bake warm contact shadows under existing objects once, independent of navigation.
+  for(const o of this.objects){
+   if(!o.tree&&!o.id)continue;
+   const x=o.x*w/100,y=o.y*h/100,radius=o.width*w/100;
+   const shadow=c.createRadialGradient(0,0,.08,0,0,1);
+   shadow.addColorStop(0,o.tree?'#13291e94':'#241c107a');shadow.addColorStop(1,'#0000');
+   c.save();c.translate(x+radius*.16,y-radius*.04);c.scale(radius*.61,radius*.29);
+   c.fillStyle=shadow;c.fillRect(-1,-1,2,2);c.restore();
+  }
+  // Use the same shoreline geometry as navigation.
   const waterPath=new Path2D();for(let y=0;y<=100;y+=.3){const x=(this.river(y)-this.riverWidth(y))*w/100;if(!y)waterPath.moveTo(x,y*h/100);else waterPath.lineTo(x,y*h/100);}for(let y=100;y>=0;y-=.3)waterPath.lineTo((this.river(y)+this.riverWidth(y))*w/100,y*h/100);waterPath.closePath();
   for(const [x,y,rx,ry]of this.lakes()){for(let a=0;a<=Math.PI*2+.04;a+=.04){const r=this.lakeRadius(-a),px=(x+Math.cos(a)*rx*r)*w/100,py=(y-Math.sin(a)*ry*r)*h/100;if(!a)waterPath.moveTo(px,py);else waterPath.lineTo(px,py);}waterPath.closePath();}
-  c.save();c.shadowColor='#173d3b88';c.shadowBlur=10;c.strokeStyle='#76845a';c.lineWidth=w*.003;c.stroke(waterPath);c.restore();c.save();c.clip(waterPath);const water=this.image('water');c.fillStyle=water.complete&&water.naturalWidth?c.createPattern(water,'repeat'):'#347d89';c.fillRect(0,0,w,h);c.fillStyle='#1b565d38';c.fillRect(0,0,w,h);c.restore();
+  c.save();c.strokeStyle='#686849';c.lineWidth=w*.0034;c.stroke(waterPath);
+  c.strokeStyle='#9f9470';c.lineWidth=w*.0018;c.stroke(waterPath);c.restore();
+  c.save();c.clip(waterPath);const water=this.image('water');c.fillStyle=water.complete&&water.naturalWidth?c.createPattern(water,'repeat'):'#347d89';c.fillRect(0,0,w,h);c.fillStyle='#143d4b24';c.fillRect(0,0,w,h);
+  c.strokeStyle='#52b6a766';c.lineWidth=w*.007;c.stroke(waterPath);
+  c.strokeStyle='#baddb35e';c.lineWidth=w*.0011;c.stroke(waterPath);c.restore();
   // Trails suggest destinations. Every unblocked grass cell is still walkable.
   const layer=document.createElement('canvas');layer.width=w;layer.height=h;const t=layer.getContext('2d');t.lineCap='round';t.lineJoin='round';const texture=this.image('path');
   for(const points of this.trails){this.curve(t,points,w,h);t.strokeStyle='#8b875a60';t.lineWidth=w*.019;t.filter='blur(4px)';t.stroke();t.filter='blur(3px)';t.strokeStyle=texture.complete&&texture.naturalWidth?t.createPattern(texture,'repeat'):'#b1a477';t.lineWidth=w*.012;t.stroke();}
@@ -75,9 +107,42 @@ const P=window.WildwoodBoard={
   // Small irregular earth and stone patches break up the road edges at world scale.
   const noise=n=>{const v=Math.sin(n*127.13)*43758.54;return v-Math.floor(v);};
   for(let i=0;i<18000;i++){const x=noise(i+1)*100,y=noise(i+22001)*100,d=this.trailDistance({x,y});if(d>1.5||this.water({x,y}))continue;const edge=d>.65;t.fillStyle=edge?(i%3?'#758b3d88':'#c7be7b88'):(i%3?'#ead6a155':'#695a3b44');t.beginPath();t.ellipse(x*w/100,y*h/100,(1+noise(i+40001)*3)*w/4500,(.7+noise(i+50001)*2)*h/3000,noise(i)*3,0,Math.PI*2);t.fill();}
+  const stones=this.image('stoneDetails');
+  // Uneven flagstone remnants cluster near the gate, crossings and ruined courtyard.
+  for(const [index,points] of this.trails.entries()){
+   for(let i=1;i<points.length;i++){
+    const [ax,ay]=points[i-1],[bx,by]=points[i],run=metric({x:ax,y:ay},{x:bx,y:by});
+    for(let offset=.5;offset<run;offset+=.8){
+     const seed=index*83+i*37+offset*17,progress=offset/run;
+     const x=ax+(bx-ax)*progress+(noise(seed)-.5)*.48,y=ay+(by-ay)*progress+(noise(seed+3)-.5)*.45;
+     const closeToStone=[[29,69],[58,44],[83,25],[82,65]].some(([sx,sy])=>metric({x,y},{x:sx,y:sy})<8);
+     if(noise(seed+5)>(closeToStone?.87:.33))continue;
+     t.globalAlpha=closeToStone?.84:.58;
+     this.stampStone(t,stones,3+Math.floor(noise(seed+9)*3),x*w/100,y*h/100,w*(.012+noise(seed+6)*.01),(noise(seed+7)-.5)*.9);
+    }
+   }
+  }
+  t.globalAlpha=1;
   // Do not paint trails over water between the two actual crossings.
   t.globalCompositeOperation='destination-out';t.fillStyle='#fff';t.fill(waterPath);c.drawImage(layer,0,0);
-  for(const b of this.bridges){const x=this.river(b.y)*w/100,y=b.y*h/100,dw=b.width*w/100,dh=b.depth*h/100,im=this.image('bridge');if(im.complete&&im.naturalWidth)c.drawImage(im,130,115,760,525,x-dw/2,y-dh*.8,dw,dh*1.6);}
+  // Irregular stone shelves soften the bank at map scale; these are visual only.
+  c.globalAlpha=.85;
+  for(const side of [-1,1]){
+   for(let y=.5;y<100;y+=.56){
+    if(this.bridges.some(b=>Math.abs(y-b.y)<1.4)||noise(y*103+side)<.32)continue;
+    const edge=this.river(y)+side*(this.riverWidth(y)+.07);
+    this.stampStone(c,stones,Math.floor(noise(y*71+side)*3),edge*w/100,y*h/100,w*(.009+noise(y*41+side)*.009),noise(y*53+side)*Math.PI*2);
+   }
+  }
+  for(const [x,y,rx,ry] of this.lakes()){
+   for(let a=0;a<Math.PI*2;a+=.15){
+    if(noise(a*73+x)<.27)continue;
+    const radius=this.lakeRadius(a),px=x+Math.cos(a)*rx*radius,py=y+Math.sin(a)*ry*radius;
+    this.stampStone(c,stones,Math.floor(noise(a*47+y)*3),px*w/100,py*h/100,w*(.01+noise(a*63+x)*.008),a);
+   }
+  }
+  c.globalAlpha=1;
+  for(const b of this.bridges){const x=this.river(b.y)*w/100,y=b.y*h/100,dw=b.width*w/100,dh=b.depth*h/100,im=this.image('stoneBridge');if(im.complete&&im.naturalWidth){const height=dw*im.naturalHeight/im.naturalWidth;c.drawImage(im,x-dw/2,y-height/2,dw,height);}else{const old=this.image('bridge');if(old.complete&&old.naturalWidth)c.drawImage(old,130,115,760,525,x-dw/2,y-dh*.8,dw,dh*1.6);}}
   const shade=c.createLinearGradient(0,0,w,h);shade.addColorStop(0,'#112c241d');shade.addColorStop(.5,'#112c2400');shade.addColorStop(1,'#092c3322');c.fillStyle=shade;c.fillRect(0,0,w,h);
  },
  navigate(goal){const c=DungeonRules.campaign,closed=!RegionGates.open(0,c.completed),reachable=M.reachable(closed),cell=W.cell(goal);let target=null,best=1.6;for(let y=Math.max(0,cell.y-4);y<=Math.min(W.height-1,cell.y+4);y++)for(let x=Math.max(0,cell.x-4);x<=Math.min(W.width-1,cell.x+4);x++){if(!reachable[y*W.width+x])continue;const p=W.point(x,y),d=metric(p,goal);if(d<best){best=d;target=p;}}if(!target)return false;const route=MouseNavigation.route(0,c.explorePosition||M.layout.entry,target,closed);if(!route)return false;MouseNavigation.path=route;return true;},
@@ -87,7 +152,7 @@ const P=window.WildwoodBoard={
    list.push({y:at.y+(o.solid===false?-1:0),draw:()=>{c.save();if(/^rock[1-6]$/.test(o.art)){c.translate(0,height*.16);c.filter='brightness(1.35) saturate(.85)';}const party=[p,...(window.PartyTrail?.formation?.()||[])];if(o.tree&&party.some(q=>Math.abs(q.x-o.x)<o.width*.65&&q.y<o.y+1&&q.y>o.y-o.height))c.globalAlpha=.2;else if(o.solid!==false&&metric(p,o)<2&&p.y<o.y)c.globalAlpha=.45;if(o.flip){c.translate(at.x*2,0);c.scale(-1,1);}const im=this.image(o.cache&&DungeonRules.campaign?.completed.includes(o.cache)?'open':o.art);if(o.cell!==undefined&&im.complete&&im.naturalWidth){const sw=im.naturalWidth/4,sh=im.naturalHeight/3,scale=Math.min(width/sw,height/sh);const inset=Math.min(sw,sh)*.065;c.drawImage(im,o.cell%4*sw+inset,Math.floor(o.cell/4)*sh+inset,sw-inset*2,sh-inset*2,at.x-sw*scale/2,at.y-sh*scale,sw*scale,sh*scale);}else if(o.art==='camp'&&im.complete&&im.naturalWidth){const sh=im.naturalHeight*.965,scale=Math.min(width/im.naturalWidth,height/sh);c.drawImage(im,0,0,im.naturalWidth,sh,at.x-im.naturalWidth*scale/2,at.y-sh*scale,im.naturalWidth*scale,sh*scale);}else ForestArt.fit(c,im,at.x,at.y,width,height);c.restore();}});
   }
   if(DungeonRules.campaign?.completed.includes('m3')){const at=toScreen(83,24);list.push({y:-Infinity,draw:()=>{c.save();const glow=c.createRadialGradient(at.x,at.y,4,at.x,at.y,100);glow.addColorStop(0,'#bef9c588');glow.addColorStop(1,'#88e7b400');c.fillStyle=glow;c.fillRect(at.x-100,at.y-100,200,200);c.restore();}});}
-  if(!RegionGates.open(0,DungeonRules.campaign.completed))for(const b of this.bridges){const at=toScreen(this.river(b.y),b.y);list.push({y:at.y+.2,draw:()=>{c.save();c.strokeStyle='#5c4c30';c.lineWidth=7;for(let i=-1;i<=1;i++){c.beginPath();c.moveTo(at.x-30,at.y+21+i*7);c.bezierCurveTo(at.x-12,at.y-15,at.x+10,at.y+29,at.x+30,at.y-20+i*7);c.stroke();}c.restore();}});}
+  if(!RegionGates.open(0,DungeonRules.campaign.completed))for(const b of this.bridges){const at=toScreen(this.river(b.y),b.y);list.push({y:at.y+.2,draw:()=>{const size=toScreen(this.river(b.y)+2,b.y+b.depth);ForestArt.fit(c,this.image('roots'),at.x,at.y+(size.y-at.y)*.35,(size.x-at.x)*1.2,(size.y-at.y)*1.3);}});}
 
  },
 };
@@ -99,7 +164,7 @@ const ensure=ForestRenderer.ensure;ForestRenderer.ensure=function(){const ok=ens
 const bind=DungeonRules.bind;DungeonRules.bind=function(...args){const result=bind.apply(this,args);if(P.active()){ExploreRules.speed=L.speed;PartyTrail.spacing=.85;}return result;};
 const paint=M.paint;M.paint=function(c,w,h){return P.active()?P.paint(c,w,h):paint.call(this,c,w,h);};
 const scene=M.scene;M.scene=function(...args){return P.active()?P.scene(...args):scene.apply(this,args);};
-const ready=M.ready;M.ready=function(){if(!P.active())return ready.call(this);this.build();return ['soil','mud','rock1','rock2','rock3','rock4','rock5','rock6','bridge','courtyard','grass','oak','pine','gate','camp','hollow','ancient','moonwell','tower','roots','stump','ferns','rocks','rune','path','water','wood','watermill','willow','waterfall','library','wall','shelter','closed','open'].every(key=>{const im=P.image(key);return im.complete&&im.naturalWidth;});};
+const ready=M.ready;M.ready=function(){if(!P.active())return ready.call(this);this.build();return ['stoneBridge','stoneDetails'].every(key=>P.image(key).complete)&&['soil','mud','rock1','rock2','rock3','rock4','rock5','rock6','bridge','courtyard','grass','oak','pine','gate','camp','hollow','ancient','moonwell','tower','roots','stump','ferns','rocks','rune','path','water','wood','watermill','willow','waterfall','library','wall','shelter','closed','open'].every(key=>{const im=P.image(key);return im.complete&&im.naturalWidth;});};
 for(const owner of [LayeredFoliage,ScenicSeals]){const old=owner.scene;owner.scene=function(...args){if(!P.active())return old.apply(this,args);};}
 const landmark=ForestArt.landmark;ForestArt.landmark=function(c,n,at,done,time){if(P.active()&&n.wildwood)return;if(P.active()&&['merchant','m0','m1','m3','forest-spirit'].includes(n.id)){if(n.id==='merchant'&&DungeonRules.campaign?.forestQuest?.ranger)return landmark.call(this,c,n,at,done,time);return;}return landmark.call(this,c,n,at,done,time);};
 // The small location map must show this terrain, not the original painting.

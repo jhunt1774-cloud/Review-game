@@ -66,6 +66,12 @@ Create one isolated reusable 2D RPG sprite of a mature woodland willow tree. Use
 
 Generate one reusable isolated woodland waterfall and mossy cliff object for a high quality 2D RPG. The attached image is ONLY a style reference for detailed lush hand-painted fantasy brushwork and materials, not a tree to copy. Elevated orthographic three-quarter top-down camera 45 degrees, same scale and lighting as a fantasy RPG environment sprite. Subject: short broad irregular rocky cliff ledge overgrown with ferns and moss, clear turquoise water spilling over its center in TWO narrow natural cascades, foam and stones at the foot, small shallow irregular catch basin at the front designed to visually join a separate river below. Compact readable structure; no enormous mountain, no full landscape. The cliff rock blocks walking, the water is visibly separate, plants are attached to the ledge. Warm sunlight upper left with cool blue shadows. Entire object comfortably inside frame, generous transparent margin, actual transparent background. No backdrop, no colored matte, no vignette, no frame, no text, no people, no buildings. This must be a standalone game asset, not a map painting.
 
+## Painted river crossings
+
+Both crossings use an original, generated ivy-covered limestone bridge with a continuous flagstone deck. Six additional transparent stamps add riverbank rocks, reeds and worn flagstones. The art references were the game's Mossgate battle background and, for the bridge, the illustrated world overview. The prompt specified an isolated horizontal bridge from an elevated overhead angle, with pale weathered limestone and light from above left. The stamp prompt specified six isolated overhead patches in a 3 × 2 grid, with riverbank stones on top and worn paving on the bottom.
+
+The bridge and stamps are `assets/wildwood-stone-bridge.webp` and `assets/wildwood-stone-details.webp`. Together they add roughly 414 KiB. They are composited into the existing terrain cache with warm clearings, grove shadows and shallower-looking shoreline water. Existing painted roots mark the sealed crossings. Bridge, shore and path locations still follow the original board geometry.
+
 ## Verification and limits
 
 `tools/wildwood-smoke.cjs` checks free-grass keyboard movement, minimap navigation,
