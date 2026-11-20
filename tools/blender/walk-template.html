@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wildwood · Forest crossing</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#151c19;color:#f1eadc;font:15px/1.45 system-ui,sans-serif}main{width:min(100%,1150px);margin:auto;padding:12px 16px}header,footer,nav{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}h1{font:500 clamp(23px,3vw,34px) Georgia,serif;margin:0}button{background:#2c382f;border:1px solid #69745f;color:#fff4dc;border-radius:5px;padding:8px 14px;font:inherit;cursor:pointer}button:focus-visible,canvas:focus-visible{outline:3px solid #efcc72}figure{margin:10px 0;background:#263128;line-height:0;text-align:center}canvas{width:min(100%,calc((100vh - 148px)*1.5));height:auto;max-width:100%;cursor:crosshair;touch-action:manipulation}footer{color:#c2cbbd;font-size:14px}output{color:#f3d799}p{margin:0}button[hidden]{display:none} @media(max-height:550px){canvas{width:min(100%,650px)}}
+</style>
+<main><header><h1>Wildwood · Forest crossing</h1><nav><button id="compare" aria-pressed="false">View original painting</button><button id="reset">Return to camp</button></nav></header>
+<figure><canvas width="1536" height="1024" tabindex="0" aria-label="Explore Wildwood. Click a destination or move with the arrow keys.">Wildwood walking study</canvas></figure>
+<footer><p id="help">Click or tap the ground to walk, or use WASD or the arrow keys.</p><output id="status" aria-live="polite">Loading the valley…</output></footer></main>
+<script>
+const study=__STUDY__;
+(async()=>{
+ const canvas=document.querySelector('canvas'),ctx=canvas.getContext('2d'),status=document.querySelector('#status'),compare=document.querySelector('#compare'),reset=document.querySelector('#reset'),help=document.querySelector('#help');
+ const load=async url=>{const img=new Image();img.src=url;await img.decode();return img};
+ const [valley,original,actor,depthImage]=await Promise.all([study.valley,study.original,study.actor,study.depth].map(load));
+ const scratch=document.createElement('canvas');scratch.width=depthImage.width;scratch.height=depthImage.height;
+ const ds=scratch.getContext('2d',{willReadFrequently:true});ds.drawImage(depthImage,0,0);
+ const depth=ds.getImageData(0,0,scratch.width,scratch.height).data;
+ const sprite=document.createElement('canvas');sprite.width=48;sprite.height=48;
+ const sc=sprite.getContext('2d',{willReadFrequently:true});
+ const {w,h,marks}=study,grid=Uint8Array.from(atob(study.floor),c=>c.charCodeAt(0));
+ const W=canvas.width,H=canvas.height;
+ let pos={...marks.camp},route=[],dir=1,phase=0,previous=0,frame=0,reference=false,lastMessage='';
+ const held=new Set(), arrows={arrowleft:[-1,0],a:[-1,0],arrowright:[1,0],d:[1,0],arrowup:[0,-1],w:[0,-1],arrowdown:[0,1],s:[0,1]};
+ const messages={camp:'Ranger camp',hollow:'Hollow fork',cave:'Rootbound cave entrance',bridge:'The timber crossing',east:'East bank'};
+ function say(text){if(lastMessage!==text){status.textContent=text;lastMessage=text}}
+ function nearby(){let label='Wildwood trail',best=60;for(const [k,m] of Object.entries(marks)){const d=Math.hypot(m.x-pos.x,m.y-pos.y);if(d<best){best=d;label=messages[k]}}say(label)}
+ function cell(x,y){const a=Math.floor(x/W*w),b=Math.floor(y/H*h);return a<0||a>=w||b<0||b>=h?-1:b*w+a}
+ function center(i){return {x:(i%w+.5)*W/w,y:(Math.floor(i/w)+.5)*H/h}}
+ function plan(x,y){
+   const start=cell(pos.x,pos.y),goal=cell(x,y);if(!grid[goal]||goal<0)return false;
+   const prev=new Int32Array(w*h).fill(-1),q=new Int32Array(w*h);let head=0,tail=1;q[0]=start;prev[start]=start;
+   while(head<tail && prev[goal]===-1){const id=q[head++],a=id%w,b=Math.floor(id/w);
+     for(const [dx,dy] of [[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[1,-1],[-1,1],[1,1]]){
+       const u=a+dx,v=b+dy,n=v*w+u;if(u<0||v<0||u>=w||v>=h||!grid[n]||prev[n]!==-1)continue;
+       if(dx&&dy&&(!grid[b*w+u]||!grid[v*w+a]))continue;prev[n]=id;q[tail++]=n;
+     }
+   }
+   if(prev[goal]===-1)return false;const points=[];for(let id=goal;id!==start;id=prev[id])points.push(center(id));
+   route=points.reverse();route.push({x,y});return true;
+ }
+ function paint(){
+   ctx.drawImage(reference?original:valley,0,0,W,H);if(reference)return;
+   const fw=actor.width/4,fh=actor.height/4,s=48,x=Math.round(pos.x-s/2),y=Math.round(pos.y-s*.9375);
+   sc.clearRect(0,0,s,s);sc.drawImage(actor,Math.floor(phase)%4*fw,dir*fh,fw,fh,0,0,s,s);
+   const pix=sc.getImageData(0,0,s,s);
+   for(let j=0;j<s;j++)for(let i=0;i<s;i++){
+     const dx=Math.floor((x+i)/W*scratch.width),dy=Math.floor((y+j)/H*scratch.height);
+     if(dx>=0&&dy>=0&&dx<scratch.width&&dy<scratch.height&&depth[(dy*scratch.width+dx)*4]/255>(pos.y+3)/H)pix.data[(j*s+i)*4+3]=0;
+   }
+   sc.putImageData(pix,0,0);ctx.drawImage(sprite,x,y);
+ }
+ function move(dx,dy,budget){
+   const dist=Math.hypot(dx,dy);if(!dist)return true;
+   dir=Math.abs(dx)>Math.abs(dy)?(dx>0?2:3):(dy>0?1:0);
+   const factor=Math.min(1,budget/dist),x=pos.x+dx*factor,y=pos.y+dy*factor;
+   if(!grid[cell(x,y)]||!grid[cell(x,pos.y)]||!grid[cell(pos.x,y)])return false;
+   pos={x,y};phase+=Math.min(budget,dist)/12;return true;
+ }
+ function tick(now){frame=0;const dt=previous?Math.min(.04,(now-previous)/1000):.016;previous=now;
+   let dx=0,dy=0;for(const k of held){dx+=arrows[k][0];dy+=arrows[k][1]}
+   if(dx||dy){route=[];move(dx*50,dy*50,dt*165)}
+   else if(route.length){let budget=dt*165;
+     while(budget>0&&route.length){const t=route[0],dx=t.x-pos.x,dy=t.y-pos.y,d=Math.hypot(dx,dy);
+       if(!move(dx,dy,budget)){route=[];break}if(d<=budget+.001)route.shift();budget-=d;
+     }
+   }
+   if(!route.length&&!held.size)phase=0;nearby();paint();
+   if((route.length||held.size)&&!reference)wake();else previous=0;
+ }
+ function wake(){if(!frame)frame=requestAnimationFrame(tick)}
+ canvas.addEventListener('pointerdown',e=>{if(reference)return;canvas.focus();const box=canvas.getBoundingClientRect();
+   const x=(e.clientX-box.left)*W/box.width,y=(e.clientY-box.top)*H/box.height;
+   if(plan(x,y))wake();else{route=[];say('Choose open ground or the bridge deck.')}
+ });
+ addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(reference||!Object.hasOwn(arrows,k))return;e.preventDefault();route=[];held.add(k);wake()});
+ addEventListener('keyup',e=>held.delete(e.key.toLowerCase()));
+ addEventListener('blur',()=>{held.clear();route=[]});
+ compare.onclick=()=>{reference=!reference;route=[];held.clear();cancelAnimationFrame(frame);frame=0;previous=0;
+   compare.setAttribute('aria-pressed',String(reference));compare.textContent=reference?'Back to Blender scene':'View original painting';
+   reset.hidden=reference;help.hidden=reference;if(reference)say('Forest river valley · Map Floor Studio');else nearby();paint()};
+ reset.onclick=()=>{pos={...marks.camp};route=[];held.clear();phase=0;dir=1;nearby();paint();canvas.focus()};
+ nearby();paint();
+})().catch(()=>{document.querySelector('#status').textContent='The preview images could not be opened.'});
+</script></html>
