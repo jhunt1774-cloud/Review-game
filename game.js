@@ -98,13 +98,14 @@ function renderLootReceipt(notice,item){
   const row=document.createElement('li'),name=document.createElement('span'),count=document.createElement('b');
   name.textContent=entry.name;count.textContent='×'+entry.quantity;
   row.append(ItemArt.image(entry,44),name,count);
+  if(entry.detail){const detail=document.createElement('small');detail.textContent=entry.detail;row.append(detail);}
   if(entry.kept!==undefined&&entry.kept<entry.quantity){
    const limit=document.createElement('small');limit.textContent=entry.kept?'Added '+entry.kept+' · pack full':'Pack full';row.append(limit);
   }
   list.append(row);
  }
  const xp=document.createElement('small');xp.textContent='+'+item.xp+' XP';
- notice.append(heading,close,list,xp);notice.hidden=false;
+ notice.append(heading,close,list);if(item.xp)notice.append(xp);notice.hidden=false;
  discoveryTimer=setTimeout(nextDiscoveryNotice,9000);
 }
 function showCollectedLoot(title,contents,xp){

@@ -20,6 +20,31 @@
   for (const key of Object.keys(layout.positions)) layout.positions[key] = stops[key];
   for (const cache of layout.caches) Object.assign(cache, point(stops[cache.id]));
   for (const patrol of layout.patrols) patrol.home = stops[patrol.questNode];
+  // Keep the original item IDs so the pack, battle actions and old saves agree.
+  const relicTrails = [
+    ['loot-axe','m0','Mossgate arch','After the briars retreat, look inside the old gate for an axe sigil.',c=>c.completed.includes('m0')],
+    ['loot-shield','m2','Sentinel’s landing','When the crossing opens, read the oath cut into the west landing.',c=>c.completed.includes('m2')],
+    ['loot-bow','wildwood-watch-cache','Ranger watch','Free the ranger or light the ridge beacon to locate the buried quiver at the watch.',c=>c.forestQuest.ranger||c.completed.includes('valley-ridge-beacon')],
+    ['loot-moon','forest-spirit','Moonwell','After choosing supplies or the spirit’s shield, return to the Moonwell and search the water.',c=>!!c.forestQuest.boon||c.completed.includes('m3')]
+  ];
+  const requirements=new Map();
+  for(const [id,stop,place,clue,ready] of relicTrails){
+    const site=LootRules.sites.find(s=>s.id===id);
+    const node=FOREST_NODES.find(n=>n.id===id);
+    Object.assign(node,{kind:'forest-find',forestFind:true,wildwood:true,valleyRelic:site,...point(stops[stop])});
+    layout.positions[id]=stops[stop];
+    LootRules.powers[site.hero].hint=clue;
+    requirements.set(id,ready);
+  }
+  const entrance='amber-hollow-entrance',delivery='valley-wagon-delivery';
+  const atPress=point(stops['valley-cider-press']),atOrchard=point(stops['valley-apple-harvest']);
+  layout.positions[entrance]=stops['valley-cider-press'];
+  Object.assign(FOREST_NODES.find(n=>n.id===entrance),atPress);
+  Object.assign(SideAdventures.specs.find(s=>s.id==='amber-hollow').surfaceEntry,atPress);
+  requirements.set(entrance,c=>c.completed.includes('valley-cider-press'));
+  requirements.set(delivery,c=>c.completed.includes('amber-hollow-wagon'));
+  FOREST_NODES.push({id:delivery,name:'Orchard caravan delivery',...atOrchard,chapter:0,stage:0,
+    kind:'forest-find',forestFind:true,wildwood:true,optional:true,hidden:true});
   const errands = [
     {
       pickup:'valley-apple-harvest', start:'West orchard', action:'Gather windfall apples',
@@ -59,6 +84,11 @@
   const canopy = 'assets/wildwood-valley-canopy.webp?v=painted-workshops2';
   const sluice='assets/wildwood-sluice-open.webp?v=painted-workshops2';
   window.WildwoodValley = {
+    revealed(c,id){return requirements.has(id)?requirements.get(id)(c):undefined;},
+    caravan(c){
+      if(!c.completed.includes('amber-hollow-wagon'))return null;
+      return {x:atOrchard.x-1.8,y:atOrchard.y+.1,width:2.7,height:3.6,art:'orchardCaravan',solid:false};
+    },
     migrate(campaign) {
       const quest=campaign.forestQuest;
       if (!quest || quest.valleyRevision>=2) return;
@@ -103,6 +133,21 @@
     interact(state,node,ui) {
       const c=state.campaign,job=node.valleyJob;
       if (c.completed.includes(node.id)) return;
+      if(this.revealed(c,node.id)===false)return;
+      if(node.valleyRelic){
+        const site=node.valleyRelic,potions=c.potions,runes=c.runes;
+        if(!LootRules.collect(state,node.id))return;
+        const power=LootRules.powers[site.hero],contents=[{id:site.id,name:site.item,quantity:1,detail:power.name+' · 3 focus, once per battle'}];
+        if(site.gold)contents.push({id:'gold',name:'Gold',quantity:site.gold});
+        if(site.potions)contents.push({id:'healing-potion',name:'Healing potion',quantity:site.potions,kept:c.potions-potions});
+        if(site.runes)contents.push({id:'forge-rune',name:'Forge rune',quantity:site.runes,kept:c.runes-runes});
+        ui.loot(site.name,contents,site.xp);ui.save();ui.reward?.(['rare-item']);return;
+      }
+      if(node.id===delivery){
+        if(c.potions>97){ui.notice(node.name,'The crew is holding two healing potions for you. Return with room for both.');return;}
+        if(!DungeonRules.reward(state,node.id,0,0,2,0,'First orchard delivery'))return;
+        ui.loot(node.name,[{id:'healing-potion',name:'Healing potion',quantity:2}],0);ui.save();ui.reward?.(['chest-open']);return;
+      }
       if (node.id===job.finish && !c.completed.includes(job.pickup)) {
         ui.notice(job.end,job.hint); return;
       }
@@ -113,7 +158,7 @@
       }
       const complete=()=>{
         if (!DungeonRules.reward(state,node.id,45,job.gold,job.potions,job.runes,job.deliver)) return;
-        ui.save(); ui.world(); ui.reward?.(['quest-complete']); ui.notice(job.end,job.reward);
+        ui.save(); ui.world(); ui.reward?.(['quest-complete']); ui.notice(job.end,job.reward+(node.id==='valley-cider-press'?' The press keeper opens the cart road into Amber Hollow. Enter here to help the stranded wagon.':''));
       };
       if (job.finish==='valley-ridge-beacon') this.aimBeacon(complete);
       else complete();
@@ -137,12 +182,22 @@
           for (const [id,name] of places) group.append(new Option(name,id));
           select.append(group);
         }
+        const discoveries=document.createElement('optgroup');discoveries.label='Discovered trails';
+        for(const [id,label] of [[entrance,'Amber Hollow · orchard road'],[delivery,'Returning caravan'],...relicTrails.map(([id,,place])=>[id,LootRules.sites.find(s=>s.id===id).item+' · '+place])])
+          discoveries.append(new Option(label,id));
+        select.insertBefore(discoveries,select.lastElementChild);
         select.onchange = () => {
           if (select.value) ForestAdventure.walkTo(select.value);
           select.selectedIndex = 0;
         };
         stopsBox.after(select);
       }
+      const discoveries=select.querySelector('optgroup[label="Discovered trails"]');
+      for(const option of discoveries.children){
+        option.hidden=!this.revealed(campaign,option.value)||(option.value!==entrance&&campaign.completed.includes(option.value));
+        option.disabled=option.hidden;
+      }
+      discoveries.hidden=Array.from(discoveries.children).every(o=>o.hidden);
       for (const job of errands) {
         const picked=campaign.completed.includes(job.pickup),done=campaign.completed.includes(job.finish);
         select.querySelector('[value="'+job.pickup+'"]').textContent=job.start+(picked?' (collected)':'');
@@ -162,6 +217,21 @@
           li.textContent=progress[i]==='2'?job.end+' complete':progress[i]==='1'?job.carried+' — deliver to '+job.end:job.hint;
           return li;
         }));
+      }
+      let log=document.getElementById('valley-field-notes');
+      if(!log){
+        log=document.createElement('details');log.id='valley-field-notes';
+        log.append(document.createElement('summary'),document.createElement('ul'));tracker.after(log);
+      }
+      const marks=relicTrails.map(([id])=>campaign.completed.includes(id)?2:this.revealed(campaign,id)?1:0);
+      const wagon=campaign.completed.includes('amber-hollow-wagon'),open=this.revealed(campaign,entrance);
+      const key=marks.join('')+open+wagon+campaign.completed.includes(delivery);
+      if(log.dataset.progress!==key){
+        log.dataset.progress=key;
+        log.firstChild.textContent='Field notes · '+marks.filter(v=>v===2).length+'/4 relics';
+        const lines=relicTrails.map(([id,,place,clue],i)=>marks[i]===2?place+' · '+LootRules.sites.find(s=>s.id===id).item+' recovered':clue);
+        lines.push(wagon?(campaign.completed.includes(delivery)?'The orchard caravan is provisioned.':'The rescued wagon is at the west orchard. Its crew has two potions for you.'):open?'The press keeper has opened Amber Hollow. Protect the supply wagon on the expedition trail.':'Help press the orchard apples to reopen the cart road.');
+        log.lastChild.replaceChildren(...lines.map(line=>{const li=document.createElement('li');li.textContent=line;return li;}));
       }
       const east = select.lastElementChild;
       const locked = !RegionGates.open(0,campaign.completed);

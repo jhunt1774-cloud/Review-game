@@ -89,7 +89,7 @@ const P=window.WildwoodBoard={
  trailDistance(p){let best=Infinity;for(const trail of this.trails)for(let i=1;i<trail.length;i++){const a=trail[i-1],b=trail[i],dx=(b[0]-a[0])*1.5,dy=b[1]-a[1],t=Math.max(0,Math.min(1,((p.x-a[0])*1.5*dx+(p.y-a[1])*dy)/(dx*dx+dy*dy)));best=Math.min(best,Math.hypot((p.x-a[0])*1.5-dx*t,p.y-a[1]-dy*t));}return best;},
  curve(c,points,w,h){const p=points.map(([x,y])=>[x*w/100,y*h/100]);c.beginPath();c.moveTo(...p[0]);for(let i=0;i<p.length-1;i++){const a=p[Math.max(0,i-1)],b=p[i],d=p[i+1],e=p[Math.min(p.length-1,i+2)];c.bezierCurveTo(b[0]+(d[0]-a[0])/6,b[1]+(d[1]-a[1])/6,d[0]-(e[0]-b[0])/6,d[1]-(e[1]-b[1])/6,...d);}},
  build(){
-  const c=DungeonRules.campaign,q=c.forestQuest,key=ForestAdventure.slot+':'+q.ranger+(valley&&c.completed.includes('valley-mill-sluice')?':sluice-open':'');
+  const c=DungeonRules.campaign,q=c.forestQuest,caravan=valley&&valley.caravan(c),key=ForestAdventure.slot+':'+q.ranger+(caravan?':caravan':'')+(valley&&c.completed.includes('valley-mill-sluice')?':sluice-open':'');
   if(M.layout?.key===key&&W._openKey===key&&W.cells)return;
   const graph=MapRoutes.graphs[0];
   for(const [id,[x,y]]of Object.entries(positions)){const n=FOREST_NODES.find(n=>n.id===id),p=graph.points.get(id);if(n)Object.assign(n,{x,y});if(p)Object.assign(p,{x,y});}
@@ -97,16 +97,25 @@ const P=window.WildwoodBoard={
   JOURNEY_CHAPTERS[0].camp=positions.merchant.slice();const gate=RegionGates.gate(0);
   Object.assign(graph.points.get(gate.a),valley?.west||{x:61,y:44});Object.assign(graph.points.get(gate.b),valley?.east||{x:67,y:44});
   const props=[];
+  if(caravan){this.assets.orchardCaravan='assets/world-restored-caravan.webp';props.push(caravan);}
   if(!valley)this.woodlandProps(props);
   const roots=valley?.roots||{x:51,y:54.6};
-  if(!q.ranger)props.push({x:roots.x,y:roots.y+.9,art:'roots',width:3.7,height:5,roots:true,footprints:[{...roots,rx:1.1,ry:.65}]});
+  if(!q.ranger){
+   if(valley){
+    this.assets.snaggedRanger='assets/valley-rowan-snared.webp';
+    props.push({...roots,art:'snaggedRanger',width:1.12,height:1.65,roots:true,footprints:[{...roots,rx:.50,ry:.38}]});
+   }else props.push({x:roots.x,y:roots.y+.9,art:'roots',width:3.7,height:5,roots:true,footprints:[{...roots,rx:1.1,ry:.65}]});
+  }
   for(const n of L.caches){
    const painted=n.container!=='strongbox';
    if(painted)for(const key of [n.container,n.container+'-open']){
     this.assets[key]='assets/valley-painted-'+key+'.webp';this.image(key);
    }
+   const fieldBag=valley&&n.container==='satchel';
+   const surveyKit=valley&&n.id==='wildwood-river-cache';
    props.push({x:n.x,y:n.y,art:painted?n.container:'closed',openArt:painted?n.container+'-open':'open',
-    width:valley?1.08:1.1,height:valley?1.63:1.7,solid:false,cache:n.id});
+    width:fieldBag ? .64 : surveyKit ? .78 : valley ? 1.08 : 1.1,
+    height:fieldBag ? 1.01 : surveyKit ? 1.17 : valley ? 1.63 : 1.7,solid:false,cache:n.id});
   }
   this.objects=props;this.buckets=new Map();
   // Navigation uses the same object footprints that appear above the ground.
@@ -330,6 +339,12 @@ const P=window.WildwoodBoard={
   if(valley)valley.foreground(c,list,toScreen);
   for(const o of this.objects){const at=toScreen(o.x,o.y),measure=toScreen.flat||toScreen,base=measure(o.x,o.y),a=measure(o.x+o.width,o.y),height=measure(o.x,o.y+o.height).y-base.y,width=a.x-base.x;
    if(at.x<-width||at.x>c.canvas.width+width||at.y<-30||at.y>c.canvas.height+height)continue;
+   if(valley&&(o.cache||o.art==='snaggedRanger'||o.art==='orchardCaravan')){
+    list.push({y:at.y-2,draw:()=>{
+     ForestRenderer.ellipse(c,at.x+width*.05,at.y-1,width*.40,height*.075,'#35291830');
+     ForestRenderer.ellipse(c,at.x,at.y-2,width*.30,height*.048,'#34261838');
+    }});
+   }
    list.push({y:at.y+(o.solid===false?-1:0),draw:()=>{c.save();if(/^rock[1-6]$/.test(o.art)){const stones=this.image('stoneDetails');if(stones.complete&&stones.naturalWidth)this.stampStone(c,stones,(Number(o.art.slice(-1))-1)%3,at.x,at.y-height*.12,width);else ForestArt.fit(c,this.image('rocks'),at.x,at.y,width,height);c.restore();return;}if(o.art==='ferns')c.filter='brightness(.93) saturate(.85)';const party=[p,...(window.PartyTrail?.formation?.()||[])];if(o.tree&&party.some(q=>Math.abs(q.x-o.x)<o.width*.65&&q.y<o.y+1&&q.y>o.y-o.height))c.globalAlpha=.2;else if(o.solid!==false&&metric(p,o)<2&&p.y<o.y)c.globalAlpha=.45;if(o.flip){c.translate(at.x*2,0);c.scale(-1,1);}const im=this.image(o.cache&&DungeonRules.campaign?.completed.includes(o.cache)?o.openArt:o.art);if(o.cell!==undefined&&im.complete&&im.naturalWidth){const sw=im.naturalWidth/4,sh=im.naturalHeight/3,scale=Math.min(width/sw,height/sh);const inset=Math.min(sw,sh)*.065;c.drawImage(im,o.cell%4*sw+inset,Math.floor(o.cell/4)*sh+inset,sw-inset*2,sh-inset*2,at.x-sw*scale/2,at.y-sh*scale,sw*scale,sh*scale);}else if(o.art==='camp'&&im.complete&&im.naturalWidth){const sh=im.naturalHeight*.965,scale=Math.min(width/im.naturalWidth,height/sh);c.drawImage(im,0,0,im.naturalWidth,sh,at.x-im.naturalWidth*scale/2,at.y-sh*scale,im.naturalWidth*scale,sh*scale);}else ForestArt.fit(c,im,at.x,at.y,width,height);c.restore();}});
   }
   if(DungeonRules.campaign?.completed.includes('m3')){const at=toScreen(...(valley?positions.m3:[83,24]));list.push({y:-Infinity,draw:()=>{c.save();const glow=c.createRadialGradient(at.x,at.y,4,at.x,at.y,100);glow.addColorStop(0,'#bef9c588');glow.addColorStop(1,'#88e7b400');c.fillStyle=glow;c.fillRect(at.x-100,at.y-100,200,200);c.restore();}});}
@@ -351,9 +366,9 @@ const ensure=ForestRenderer.ensure;ForestRenderer.ensure=function(){const ok=ens
 const bind=DungeonRules.bind;DungeonRules.bind=function(...args){const result=bind.apply(this,args);if(P.active()){ExploreRules.speed=L.speed;PartyTrail.spacing=valley?0.43:.85;}return result;};
 const paint=M.paint;M.paint=function(c,w,h){return P.active()?P.paint(c,w,h):paint.call(this,c,w,h);};
 const scene=M.scene;M.scene=function(...args){return P.active()?P.scene(...args):scene.apply(this,args);};
-const ready=M.ready;M.ready=function(){if(!P.active())return ready.call(this);this.build();if(valley)return valley.ready()&&['closed','open','roots'].every(key=>P.image(key).naturalWidth);return ['stoneBridge','stoneDetails','paintedGround','crossingKit','hillside'].every(key=>P.image(key).complete)&&['soil','mud','bridge','courtyard','grass','canopy-conifer','canopy-oak','canopy-sycamore','gate','camp','cave','ancient','moonwell','tower','roots','stump','ferns','rocks','rune','path','water','wood','watermill','library','wall','shelter','closed','open'].every(key=>{const im=P.image(key);return im.complete&&im.naturalWidth;});};
+const ready=M.ready;M.ready=function(){if(!P.active())return ready.call(this);this.build();if(valley)return valley.ready()&&['closed','open'].every(key=>P.image(key).naturalWidth)&&(DungeonRules.campaign.forestQuest.ranger||P.image('snaggedRanger').naturalWidth);return ['stoneBridge','stoneDetails','paintedGround','crossingKit','hillside'].every(key=>P.image(key).complete)&&['soil','mud','bridge','courtyard','grass','canopy-conifer','canopy-oak','canopy-sycamore','gate','camp','cave','ancient','moonwell','tower','roots','stump','ferns','rocks','rune','path','water','wood','watermill','library','wall','shelter','closed','open'].every(key=>{const im=P.image(key);return im.complete&&im.naturalWidth;});};
 for(const owner of [LayeredFoliage,ScenicSeals]){const old=owner.scene;owner.scene=function(...args){if(!P.active())return old.apply(this,args);};}
-const landmark=ForestArt.landmark;ForestArt.landmark=function(c,n,at,done,time){if(P.active()&&(n.wildwood||n.id==='crypt-entrance'))return;if(P.active()&&['merchant','m0','m1','m3','forest-spirit'].includes(n.id)){if(n.id==='merchant'&&DungeonRules.campaign?.forestQuest?.ranger)return landmark.call(this,c,n,at,done,time);return;}return landmark.call(this,c,n,at,done,time);};
+const landmark=ForestArt.landmark;ForestArt.landmark=function(c,n,at,done,time){if(P.active()&&(n.wildwood||n.id==='crypt-entrance'||valley&&['forest-ranger','amber-hollow-entrance'].includes(n.id)))return;if(P.active()&&['merchant','m0','m1','m3','forest-spirit'].includes(n.id)){if(n.id==='merchant'&&DungeonRules.campaign?.forestQuest?.ranger)return landmark.call(this,c,n,at,done,time);return;}return landmark.call(this,c,n,at,done,time);};
 // The small location map must show this terrain, not the original painting.
 const mini=ForestFastPlay.map;ForestFastPlay.map=function(c,p){if(P.active()&&ForestRenderer.terrain&&M.ready()&&ForestRenderer._openLayout===M.layout.key&&ForestRenderer._openReady){
  const key=M.layout.key+':'+c.completed.join(',');if(P.minimap?.key!==key){const canvas=document.createElement('canvas');canvas.width=360;canvas.height=240;const context=canvas.getContext('2d');context.drawImage(ForestRenderer.terrain,0,0,360,240);const objects=[],project=(x,y)=>({x:x*3.6,y:P.projectY(x,y)*2.4});project.flat=(x,y)=>({x:x*3.6,y:y*2.4});P.scene(context,objects,project,{x:-100,y:200});objects.sort((a,b)=>a.y-b.y).forEach(o=>o.draw());P.minimap={key,image:canvas.toDataURL('image/webp',.8)};ForestRenderer.minimap=P.minimap.image;}
@@ -390,14 +405,23 @@ for(const n of L.caches)FOREST_NODES.push({...n,chapter:0,stage:0,kind:'forest-f
 const forestActive=ForestAdventure.active;
 ForestAdventure.active=function(value){
  const campaign=value?.campaign||value||DungeonRules.campaign;
- return campaign?.dungeon?.id!=='rootbound'&&forestActive.call(this,value);
+ return campaign?.dungeon?.id!=='rootbound'&&!(valley&&campaign?.dungeon?.id==='amber-hollow')&&forestActive.call(this,value);
 };
 const visible=ForestAdventure.visible,available=ForestAdventure.available,interact=ForestAdventure.interact;
-ForestAdventure.visible=function(c,n){return P.active()&&(n.wildwood||n.id==='crypt-entrance')?true:visible.call(this,c,n);};
-ForestAdventure.available=function(c,n){if(P.active()&&n.id==='crypt-entrance')return true;if(P.active()&&(n.wildwood||['roam-0-2','roam-0-3'].includes(n.id)))return !c.completed.includes(n.id);return available.call(this,c,n);};
+ForestAdventure.visible=function(c,n){if(P.active())return valley?.revealed(c,n.id)??(n.wildwood||n.id==='crypt-entrance'||visible.call(this,c,n));return visible.call(this,c,n);};
+ForestAdventure.available=function(c,n){
+ if(P.active()){
+  const revealed=valley?.revealed(c,n.id);
+  if(revealed!==undefined)return revealed&&(n.kind==='dungeon'||!c.completed.includes(n.id));
+  if(valley&&n.id==='forest-ranger')return c.completed.includes('m0')&&!c.forestQuest.ranger;
+  if(n.id==='crypt-entrance')return true;
+  if(n.wildwood||['roam-0-2','roam-0-3'].includes(n.id))return !c.completed.includes(n.id);
+ }
+ return available.call(this,c,n);
+};
 ForestAdventure.interact=function(s,n,ui){
  if(!P.active()||!n.wildwood)return interact.call(this,s,n,ui);
- if(n.valleyJob)return valley.interact(s,n,ui);
+ if(n.valleyJob||n.valleyRelic||n.id==='valley-wagon-delivery')return valley.interact(s,n,ui);
  const c=s.campaign,previousPotions=c.potions,previousRunes=c.runes;
  if(!DungeonRules.reward(s,n.id,35,n.gold,n.potions,n.runes,n.name))return;
  const equipment=valley&&EquipmentLoot.catalog.find(item=>item.source===n.id);

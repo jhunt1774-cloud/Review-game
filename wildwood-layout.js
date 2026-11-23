@@ -23,7 +23,7 @@ window.WildwoodLayout={version:1,width:6000,height:4000,speed:4.8,
   {id:'wildwood-mill-cache',name:'Millwright’s tool crate',x:59,y:75,container:'crate',gold:18,potions:0,runes:1},
   {id:'wildwood-ruin-cache',name:'Eastern ruin strongbox',x:82,y:65,container:'strongbox',gold:40,potions:0,runes:2},
   {id:'wildwood-overlook-cache',name:'Ferryman’s cargo crate',x:53.7,y:43.75,container:'crate',gold:32,potions:2,runes:0},
-  {id:'wildwood-river-cache',name:'Surveyor’s field bag',x:55,y:16,container:'satchel',gold:8,potions:0,runes:3}
+  {id:'wildwood-river-cache',name:'Surveyor’s instrument case',x:55,y:16,container:'medicine-case',gold:8,potions:0,runes:3}
  ],
  landmarks:[
   {id:'camp',x:22,y:80.5,art:'camp',width:4.2,height:6.4,footprints:[{x:22,y:79.6,rx:1.3,ry:.75}]},

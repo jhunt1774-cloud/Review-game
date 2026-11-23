@@ -391,6 +391,9 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 #discovery-notice.loot-receipt li:has(small) .item-portrait{grid-row:span 2}
 #discovery-notice.loot-receipt li small{grid-column:2 / 4;color:#e6c781}
 #discovery-notice.loot-receipt b,#discovery-notice.loot-receipt>small{color:#e8c985}
+#valley-field-notes{padding:4px 6px;color:#efe6cb;font:12px/1.4 system-ui}
+#valley-field-notes ul{max-height:100px;overflow:auto;padding-left:17px;margin:5px 0}
+#valley-field-notes li+li{margin-top:4px}
 @media(max-width:700px){
  #game #battle #arena #party,#game #battle #arena[data-question=visible] #party{right:12px;left:12px;bottom:10px;width:auto;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px}
  #game #battle #arena #party .party-card{min-height:54px;padding:5px;font-size:9px}#game #battle #arena #party strong{font-size:11px}

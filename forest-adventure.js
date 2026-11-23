@@ -20,7 +20,9 @@
    if (s.adventure === undefined) return !s.campaign?.forestQuest;
    const q = s.campaign?.forestQuest;
    const challenge=q?.challenge;
-   return s.adventure === 'forest-quest' && q?.version === 1 && (challenge==null || typeof challenge==='object'&&!Array.isArray(challenge)&&challenge.version===1&&steps.includes(challenge.node)&&typeof challenge.complete==='boolean'&&typeof challenge.paid==='boolean'&&(!challenge.paid||challenge.complete)&&[undefined,0,1].includes(challenge.gain)) && s.campaign.viewChapter === 0 && (!s.campaign.dungeon || ['web-wizardry-wildwood-v1','web-wizardry-wildwood-valley-v1'].includes(this.slot) && s.campaign.dungeon.id === 'rootbound') &&
+   const dungeon=s.campaign.dungeon?.id;
+   const allowedDungeon=!s.campaign.dungeon || (dungeon==='rootbound'&&['web-wizardry-wildwood-v1','web-wizardry-wildwood-valley-v1'].includes(this.slot)) || (dungeon==='amber-hollow'&&this.slot==='web-wizardry-wildwood-valley-v1');
+   return s.adventure === 'forest-quest' && q?.version === 1 && (challenge==null || typeof challenge==='object'&&!Array.isArray(challenge)&&challenge.version===1&&steps.includes(challenge.node)&&typeof challenge.complete==='boolean'&&typeof challenge.paid==='boolean'&&(!challenge.paid||challenge.complete)&&[undefined,0,1].includes(challenge.gain)) && s.campaign.viewChapter === 0 && allowedDungeon &&
     [null,'supplies','spirit'].includes(q.boon) && ['ranger','bossPrepared','shortcut'].every(k => typeof q[k] === 'boolean') &&
     Number.isFinite(q.walkingSeconds) && q.walkingSeconds >= 0 && (!q.returnPoint ||
      Number.isFinite(q.returnPoint.x) && Number.isFinite(q.returnPoint.y) && q.returnPoint.chapter === 0 &&
