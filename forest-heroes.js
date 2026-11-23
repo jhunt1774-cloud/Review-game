@@ -15,7 +15,7 @@
   m3:[[0,'We break the bindings. The Guardian stays.'],[2,'I will watch for the first opening.']]
  };
  const H=window.ForestHeroes={profiles,state:null,
-  portrait(s,role){const p=profiles[role];return s.campaign.activeRoster?.[role]===p.id?'assets/forest-hero-'+p.id+'.webp':null;},
+  portrait(s,role){const p=profiles[role],preview=role===0&&window.PaintedSwordPreview?.portraitFor(s.campaign.activeRoster?.[role],s);return preview||(s.campaign.activeRoster?.[role]===p.id?'assets/forest-hero-'+p.id+'.webp':null);},
   image(source,size=64){const image=document.createElement('img');image.src=source;image.alt='';image.width=image.height=size;image.decoding='async';image.className='forest-hero-portrait';return image;},
   identity(parent,s){
    if(!Q.active(s))return;const box=parent.querySelector('.hero-identity');if(!box)return;const select=parent._identity?.role,name=parent._identity?.name,chosen=s.campaign.playerHero.chosen;

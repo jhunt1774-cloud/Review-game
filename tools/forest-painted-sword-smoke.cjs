@@ -55,6 +55,10 @@ require('./browser-harness.cjs')(async ({evaluate, send, wait, errors, missing, 
    };
   }`);
  await fixture();
+ await wait("document.querySelector('#hero-menu-title img')?.naturalWidth===192");
+ assert.match(await evaluate("document.querySelector('#hero-menu-title img').src"),/painted-swordsman-portrait/);
+ assert.match(await evaluate("PartyAppearance.portrait('thorin').style.backgroundImage"),/painted-swordsman-portrait/);
+ assert.doesNotMatch(await evaluate("PartyAppearance.portrait('brom').style.backgroundImage"),/painted-swordsman-portrait/);
  await evaluate(`new MutationObserver(records=>{
   for(const {target} of records){
    const phase=target.dataset.swordPhase;

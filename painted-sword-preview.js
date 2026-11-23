@@ -4,6 +4,7 @@
  if (new URLSearchParams(location.search).get('swordPreview') !== '1') return;
 
  const image = 'assets/warrior/painted-swordsman-strike.webp?v=3';
+ const portrait = 'assets/warrior/painted-swordsman-portrait.webp?v=1';
  const cell = 360;
  const columns = 4;
  const rows = 4;
@@ -28,9 +29,13 @@
  const nextFrame = () => new Promise(resolve => requestAnimationFrame(resolve));
 
  window.PaintedSwordPreview = {
+  portraitFor(member, state) {
+   return ready && member === 'thorin' && state?.campaign &&
+    !Object.values(EquipmentAppearance.loadout(state, 0) || {}).some(Boolean) ? portrait : null;
+  },
+
   configFor(hero, role, state) {
-   if (!ready || role !== 0 || state.campaign.activeRoster[role] !== 'thorin' ||
-       Object.values(EquipmentAppearance.loadout(state, role) || {}).some(Boolean)) return hero;
+   if (role !== 0 || !this.portraitFor(state.campaign.activeRoster[role], state)) return hero;
 
    const states = Object.fromEntries(Object.entries(hero.states).map(([name, clip]) => [
     name, {frames:clip.frames.map(() => 0), fps:clip.fps, loop:clip.loop, releaseFrame:clip.releaseFrame}

@@ -1,6 +1,6 @@
 # Play the painted sword preview
 
-Serve the development checkout or its static Pages package and add `?swordPreview=1` to the game URL. Start or continue a forest battle with Thorin selected as vanguard and no equipped loot. Choose **Attack** and answer correctly. The preview changes Thorin's battle art for this test. The roster, character name, stats, quiz, damage and saves use the existing game flow.
+Serve the development checkout or its static Pages package and add `?swordPreview=1` to the game URL. Start or continue a forest battle with Thorin selected as vanguard and no equipped loot. Choose **Attack** and answer correctly. The preview changes Thorin's battle art and matching menu, story and roster portraits for this test. The roster, character name, stats, quiz, damage and saves use the existing game flow.
 
 For a local preview, run `node tools/build-pages.cjs` and serve `work/site` using a static server. For example, with Python available, use `python -m http.server 8000 --bind 127.0.0.1 --directory work/site` from the checkout and open [the local preview](http://127.0.0.1:8000/?swordPreview=1).
 
