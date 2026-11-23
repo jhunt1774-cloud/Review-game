@@ -4,6 +4,8 @@ const groups={
  'level-up':[['reward-level-up']], 'chest-open':[['reward-treasure-chest']], 'rare-item':[['reward-rare-item']], 'quest-complete':[['reward-quest-complete']], 'area-unlocked':[['reward-area-unlocked']],
  'signature-0':[['battle-axe-release']], 'signature-1':[['battle-brom-hammer-skill']], 'signature-2':[['battle-lira-arrow-skill']], 'signature-3':[['battle-seren-ice-skill']],
  'warning-quick':[['battle-warning-quick']], 'warning-heavy':[['battle-warning-heavy']], 'warning-spell':[['battle-warning-spell']], 'warning-boss':[['battle-warning-boss']],
+ 'sword-special-launch':[['blade-swing-1','blade-swing-0']],
+ 'sword-special-impact':[['metal-hit-1'],['body-hit-1']],
  'sword-launch':[['blade-swing-0','blade-swing-1']],
  'sword-impact':[['metal-hit-0','metal-hit-1'],['body-hit-0','body-hit-1']],
  'slash-launch':[['battle-axe-release']], 'slash-impact':[['battle-axe-contact']],

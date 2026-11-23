@@ -10,20 +10,21 @@ require('./browser-harness.cjs')(async ({evaluate, send, wait, errors, missing, 
  const base = await evaluate('GameProgress.exportData()');
  const saved = () => evaluate("JSON.parse(localStorage.getItem('web-wizardry-forest-v1'))");
 
- async function fixture({motion='full', hp=113}={}) {
+ async function fixture({motion='full', hp=113, focus=0}={}) {
   const data = structuredClone(base);
   data.data.phase = 'battle';
   data.data.encounter = 0;
   data.data.enemyHp = hp;
   data.data.campaign.battleNode = 'm0';
+  data.data.campaign.focus = focus;
   await evaluate(`MotionPreference.set('${motion}');GameProgress.restoreData(${JSON.stringify(data)});`);
   await wait("!document.querySelector('#hero-command-menu').hidden");
  }
 
- async function answer(correct=true) {
+ async function answer(correct=true, action='attack') {
   const question = (await saved()).practice.question;
   const index = correct ? question.correct : (question.correct+1)%question.answers.length;
-  await evaluate(`document.querySelector('#hero-menu-actions [data-action=attack]').click();
+  await evaluate(`document.querySelector('#hero-menu-actions [data-action=${action}]').click();
    document.querySelectorAll('#answers button')[${index}].click()`);
   await wait("!document.querySelector('#next-question').hidden || !document.querySelector('#result').hidden");
   return saved();
@@ -34,6 +35,10 @@ require('./browser-harness.cjs')(async ({evaluate, send, wait, errors, missing, 
  const damage = 113 - control.enemyHp;
  assert.ok(damage > 0);
  assert.equal(await evaluate('Boolean(window.PaintedSwordPreview)'), false);
+ await fixture({focus:2});
+ const controlSpecial=await answer(true,'special');
+ assert.ok(controlSpecial.enemyHp < control.enemyHp);
+ assert.equal(controlSpecial.campaign.focus,0);
 
  await send('Page.navigate', {url:preview});
  await wait('!!window.PaintedSwordPreview && !!window.GameProgress');
@@ -51,6 +56,7 @@ require('./browser-harness.cjs')(async ({evaluate, send, wait, errors, missing, 
    const original=CombatAudio.prototype[cue];
    CombatAudio.prototype[cue]=function(type,...args){
     if(type==='sword')strikeLog.push(cue);
+    if(type==='sword-special')strikeLog.push('special-'+cue);
     return original.call(this,type,...args);
    };
   }`);
@@ -153,6 +159,22 @@ require('./browser-harness.cjs')(async ({evaluate, send, wait, errors, missing, 
   {before:0,hits:1,cues:['defense'],frames:[],defense:null,state:'idle'}
  ]);
 
+ await fixture();
+ assert.equal(await evaluate("document.querySelector('#hero-menu-actions [data-action=special]').disabled"),true);
+ await fixture({focus:2});
+ assert.match(await evaluate("document.querySelector('#hero-menu-actions [data-action=special]').textContent"),/Ironfall cleave/);
+ await evaluate('strikeLog.length=0');
+ const special=await answer(true,'special');
+ assert.equal(special.enemyHp,controlSpecial.enemyHp);
+ assert.equal(special.campaign.focus,controlSpecial.campaign.focus);
+ assert.equal(special.correct,1);
+ assert.deepEqual(await evaluate('strikeLog'),['special-launch','special-impact',['impact','hurt',113-special.enemyHp]]);
+
+ await fixture({motion:'still',focus:2});
+ await evaluate('strikeLog.length=0');
+ assert.equal((await answer(true,'special')).enemyHp,controlSpecial.enemyHp);
+ assert.deepEqual(await evaluate('strikeLog'),[[null,'hurt',113-special.enemyHp]]);
+
  await send('Network.enable');
  await send('Network.setBlockedURLs',{urls:['*painted-swordsman-strike.webp*']});
  await send('Page.reload');
@@ -162,5 +184,5 @@ require('./browser-harness.cjs')(async ({evaluate, send, wait, errors, missing, 
  assert.equal(await evaluate("document.querySelector('#hero-0').hasAttribute('data-sword-phase')"),false);
  assert.deepEqual(errors,[]);
  assert.deepEqual(missing.filter(file=>!file.endsWith('/favicon.ico')),[]);
- console.log('PASS Painted swordsman: authored phases, synchronized contact and audio, dodge and parry, quiz and damage parity, lethal hit, Still poses, blocked atlas and cleanup.');
+ console.log('PASS Painted swordsman: authored phases, synchronized contact and audio, dodge and parry, special Focus and damage, quiz and damage parity, lethal hit, Still poses, blocked atlas and cleanup.');
 }).catch(error=>{console.error(error);process.exitCode=1;});

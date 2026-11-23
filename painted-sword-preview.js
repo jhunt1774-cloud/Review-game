@@ -3,10 +3,10 @@
  'use strict';
  if (new URLSearchParams(location.search).get('swordPreview') !== '1') return;
 
- const image = 'assets/warrior/painted-swordsman-strike.webp?v=3';
+ const image = 'assets/warrior/painted-swordsman-strike.webp?v=4';
  const portrait = 'assets/warrior/painted-swordsman-portrait.webp?v=1';
  const cell = 360;
- const columns = 4;
+ const columns = 5;
  const rows = 4;
  const strideFrames = [6,7,8,9];
  const bladeTip = 349;
@@ -25,10 +25,21 @@
   {time:528, frame:5, phase:'recovery', advance:.65},
   {time:672, frame:0, phase:'recovery', advance:0}
  ];
- const duration = 736;
+ const specialBeats = [
+  {time:0, frame:16, phase:'windup', advance:0},
+  {time:336, frame:17, phase:'swing', advance:.72},
+  {time:464, frame:18, phase:'impact', advance:1},
+  {time:580, frame:4, phase:'follow-through', advance:1},
+  {time:704, frame:5, phase:'recovery', advance:.65},
+  {time:848, frame:0, phase:'recovery', advance:0}
+ ];
  const nextFrame = () => new Promise(resolve => requestAnimationFrame(resolve));
 
  window.PaintedSwordPreview = {
+  specialFor(role, state) {
+   return role === 0 && this.portraitFor(state?.campaign?.activeRoster?.[0], state);
+  },
+
   portraitFor(member, state) {
    return ready && member === 'thorin' && state?.campaign &&
     !Object.values(EquipmentAppearance.loadout(state, 0) || {}).some(Boolean) ? portrait : null;
@@ -88,7 +99,7 @@
    };
   },
 
-  async play({renderer, target, audio, onImpact, valid}) {
+  async play({renderer, target, audio, onImpact, valid, special=false}) {
    if (!renderer.config.paintedSwordPreview || MotionPreference.reduced() ||
        !window.requestAnimationFrame || !valid()) return false;
    const actor = renderer.el;
@@ -100,7 +111,9 @@
    const enemy = target.getBoundingClientRect();
    const size = Math.min(box.width, box.height);
    if (!size || !enemy.width) return false;
-   const bladeX = box.left + box.width / 2 + (bladeTip / cell - .5) * size;
+   const duration = special ? 912 : 736;
+   const tip = special ? 347 : bladeTip;
+   const bladeX = box.left + box.width / 2 + (tip / cell - .5) * size;
    const advance = Math.max(0, enemy.left + enemy.width * .34 - bladeX);
    const lunge = Math.min(advance, size * .30);
    const approach = advance - lunge;
@@ -140,15 +153,15 @@
     }
     const start = await nextFrame();
     let now = start;
-    for (const beat of beats) {
+    for (const beat of special ? specialBeats : beats) {
      while (stillHere() && now - start < beat.time) now = await nextFrame();
      if (!stillHere()) return hit;
      draw(beat.frame);
      present(beat.phase, approach + lunge * beat.advance);
-     if (beat.phase === 'swing') audio?.launch('sword', -.25);
+     if (beat.phase === 'swing') audio?.launch(special?'sword-special':'sword', -.25);
      if (beat.phase === 'impact') {
       hit = true;
-      audio?.impact('sword', .25);
+      audio?.impact(special?'sword-special':'sword', .25);
       await onImpact?.();
      }
      // Give each authored pose a draw opportunity after a slow or suspended frame.
