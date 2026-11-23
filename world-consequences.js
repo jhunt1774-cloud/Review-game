@@ -7,23 +7,65 @@ const sites=[
  {id:'world-dock',chapter:3,quest:'navigator-trail',join:'s6',x:12,y:73,key:'dock',before:'Derelict coastal landing',name:'Chartkeeper’s ferry dock',prop:13,change:'The chartkeeper reopens the ferry. Boats reach cleared coastal landing sites, supplies arrive and road patrols return.',gift:'Receive the dock delivery · 2 potions and 1 rune',description:'Turn in The navigator’s trail at camp to restore this landing. Recover the chart and tide-sealed treasure, and investigate the reef.'}
 ];const byId=new Map(sites.map(s=>[s.id,s]));
 const surfaces=[DungeonRules.mainGraph,MineExpansion.surface,MapRoutes.graphs[2],MapRoutes.graphs[3]];
+const expeditionJournal='loot-frost-lore';
+const hasJournal=c=>c.completed.includes(expeditionJournal);
+const helped=c=>c.worldChanges?.frostpeakAid==='helped';
+const canRecover=s=>!s.campaign.worldChanges.frostpeakMedicUsed&&s.hp.some((hp,i)=>hp>0&&hp<RosterSystem.max(s,i));
+const healExpedition=s=>{s.hp=s.hp.map((hp,i)=>hp>0?Math.min(RosterSystem.max(s,i),hp+Math.ceil(RosterSystem.max(s,i)*.25)):0);};
+
+function frostpeakChoices(s,site,ui,restored){
+ const c=s.campaign,record=c.worldChanges;
+ if(helped(c))return [{
+  label:record.frostpeakMedicUsed?'Field medic · treatment used':'Field medic · restore 25% max HP to living heroes',
+  disabled:!canRecover(s),
+  act(){
+   if(!WorldConsequences.atSite(s,site)||!helped(c)||!canRecover(s))return false;
+   healExpedition(s);record.frostpeakMedicUsed=true;ui.save();
+   ui.notice('Field medic','The climbing party’s medic treats your living heroes.');return true;
+  }
+ }];
+ if(restored||!hasJournal(c))return [];
+ return [{
+  label:'Treat the injured climbers · spend 1 healing potion',
+  disabled:c.potions<1,
+  act(){
+   if(!WorldConsequences.atSite(s,site)||!hasJournal(c)||helped(c)||c.potions<1)return false;
+   c.potions--;record.frostpeakAid='helped';ui.save();
+   ui.notice('Field medic available','The climbers set up a recovery stop. Return here when a living hero needs treatment.');return true;
+  }
+ },{
+  label:'Continue toward the mine · keep your supplies',
+  act(){
+   if(!WorldConsequences.atSite(s,site)||helped(c))return false;
+   record.frostpeakAid='passed';ui.save();return true;
+  }
+ }];
+}
 for(const site of sites){const g=surfaces[site.chapter],p=g.points.get(site.join),cost=Math.hypot(site.x-p.x,site.y-p.y);g.points.set(site.id,{id:site.id,x:site.x,y:site.y});g.edges.set(site.id,[{id:site.join,cost}]);g.edges.get(site.join).push({id:site.id,cost});FOREST_NODES.push({id:site.id,kind:'world-service',chapter:site.chapter,stage:site.chapter*4,name:site.before,description:site.description,x:site.x,y:site.y,radius:2.1});}
 window.WorldConsequences={sites,byId,surfaces,
- defaults(c){const old=c.worldChanges||{},valid=v=>Array.isArray(v)?[...new Set(v.filter(id=>byId.has(id)))]:[];c.worldChanges={used:valid(old.used),notified:valid(old.notified)};return c.worldChanges;},
+ defaults(c){const old=c.worldChanges||{},valid=v=>Array.isArray(v)?[...new Set(v.filter(id=>byId.has(id)))]:[];c.worldChanges={used:valid(old.used),notified:valid(old.notified),frostpeakAid:['helped','passed'].includes(old.frostpeakAid)?old.frostpeakAid:null,frostpeakMedicUsed:old.frostpeakAid==='helped'&&old.frostpeakMedicUsed===true};return c.worldChanges;},
  restored(c,site){return !!c.questBoard?.claimed?.includes(site.quest);},
  scan(s){const c=s.campaign,store=this.defaults(c),messages=[];if(c.dungeon)return messages;for(const site of sites)if(site.chapter===c.viewChapter&&this.restored(c,site)&&!store.notified.includes(site.id)){store.notified.push(site.id);messages.push(site.name+' is restored. '+site.change);}return messages;},
- bind(c){this.defaults(c);for(const site of sites){const n=FOREST_NODES.find(n=>n.id===site.id);n.name=this.restored(c,site)?site.name:site.before;n.description=this.restored(c,site)?site.change:site.description;}},
- usable(s,site){if(!site||s.phase!=='world'||s.campaign.dungeon||s.campaign.viewChapter!==site.chapter||!this.restored(s.campaign,site))return false;const p=s.campaign.explorePosition||surfaces[site.chapter].points.get(s.campaign.location);return !!p&&Math.hypot(p.x-site.x,p.y-site.y)<=4.5;},
- gift(s,id){const site=byId.get(id),c=s.campaign,store=this.defaults(c);if(!this.usable(s,site)||store.used.includes(id)||(site.key==='caravan'||site.key==='dock')&&c.potions>97)return false;store.used.push(id);const m=c.progression.materials;if(site.key==='caravan'||site.key==='dock')c.potions+=2;if(site.key==='dock')c.runes=Math.min(999,c.runes+1);if(site.key==='expedition'){s.hp=s.hp.map((hp,i)=>hp>0?Math.min(RosterSystem.max(s,i),hp+Math.ceil(RosterSystem.max(s,i)*.25)):0);m.leather=Math.min(9999,m.leather+3);}if(site.key==='archive'){m.essence=Math.min(9999,m.essence+4);m.crystal=Math.min(9999,m.crystal+1);}return true;},
+ bind(c){this.defaults(c);for(const site of sites){const n=FOREST_NODES.find(n=>n.id===site.id);const restored=this.restored(c,site),expedition=site.key==='expedition';n.name=restored?site.name:expedition&&helped(c)?'Expedition field medic':expedition&&hasJournal(c)?'Injured climbing party':site.before;n.description=restored?site.change:expedition&&helped(c)?'A recovery stop for injured living heroes.':expedition&&hasJournal(c)?'The journal marks this shelter. Treat the climbers or continue toward the mine.':site.description;}},
+ atSite(s,site){if(!site||s.phase!=='world'||s.campaign.dungeon||s.campaign.viewChapter!==site.chapter)return false;const p=s.campaign.explorePosition||surfaces[site.chapter].points.get(s.campaign.location);return !!p&&Math.hypot(p.x-site.x,p.y-site.y)<=4.5;},
+ usable(s,site){return this.atSite(s,site)&&this.restored(s.campaign,site);},
+ gift(s,id){const site=byId.get(id),c=s.campaign,store=this.defaults(c);if(!this.usable(s,site)||store.used.includes(id)||(site.key==='caravan'||site.key==='dock')&&c.potions>97)return false;store.used.push(id);const m=c.progression.materials;if(site.key==='caravan'||site.key==='dock')c.potions+=2;if(site.key==='dock')c.runes=Math.min(999,c.runes+1);if(site.key==='expedition'){healExpedition(s);m.leather=Math.min(9999,m.leather+3);}if(site.key==='archive'){m.essence=Math.min(9999,m.essence+4);m.crystal=Math.min(9999,m.crystal+1);}return true;},
  quote(site){return site.key==='caravan'?{name:'Buy 1 healing potion · 30 gold',gold:30,key:'potions',count:1,cap:99}:site.key==='expedition'?{name:'Buy 2 ore · 18 gold',gold:18,key:'ore',count:2,cap:9999}:site.key==='archive'?{name:'Buy 3 essence · 35 gold',gold:35,key:'essence',count:3,cap:9999}:null;},
  canBuy(s,id){const site=byId.get(id),q=site&&this.quote(site);if(!q||!this.usable(s,site)||s.gold<q.gold)return false;const bag=q.key==='potions'?s.campaign:s.campaign.progression.materials;return bag[q.key]+q.count<=q.cap;},
  buy(s,id){const site=byId.get(id),q=site&&this.quote(site);if(!q||!this.usable(s,site)||s.gold<q.gold)return false;const bag=q.key==='potions'?s.campaign:s.campaign.progression.materials;if(bag[q.key]+q.count>q.cap)return false;s.gold-=q.gold;bag[q.key]+=q.count;return true;},
  landings(s){if(!this.usable(s,byId.get('world-dock')))return [];return ['entry','m12','m13','m14'].filter(id=>id==='entry'||s.campaign.completed.includes(id));},
  sail(s,id){const dock=byId.get('world-dock');if(!this.usable(s,dock)||s.gold<5||!this.landings(s).includes(id))return false;const point=surfaces[3].points.get(id);if(!point)return false;s.gold-=5;s.campaign.location=id;s.campaign.explorePosition={x:point.x,y:point.y,chapter:3};delete s.campaign.pendingJourney;delete s.campaign.resumeRoad;MouseNavigation.clear();return true;},
- interact(s,n,ui){const site=byId.get(n.id);if(!site)return;if(!this.restored(s.campaign,site)){ui.notice(site.before,site.description);return;}const store=this.defaults(s.campaign),quote=this.quote(site),choices=[{label:store.used.includes(site.id)?'First delivery already collected':site.gift,disabled:store.used.includes(site.id)||(site.key==='caravan'||site.key==='dock')&&s.campaign.potions>97,act:()=>{if(!this.gift(s,site.id))return false;ui.save();ui.notice(site.name,'Local aid collected. This first delivery is granted once per adventure.');return true;}}];if(quote)choices.push({label:quote.name,disabled:!WorldConsequences.canBuy(s,site.id),act:()=>{if(!this.buy(s,site.id))return false;ui.save();ui.notice(site.name,quote.name+' · added to your pack.');return true;}});if(site.key==='dock')for(const id of this.landings(s))choices.push({label:'Ferry to '+(id==='entry'?'the southern trail':FOREST_NODES.find(n=>n.id===id).name)+' · 5 gold',disabled:s.gold<5,act:()=>{if(!this.sail(s,id))return false;ui.save();ui.notice('Ferry landing','The crew brings the party to a cleared coastal stop.');return true;}});MineExpansion.modal(site.name,site.change+' First deliveries are once per adventure; trade and ferry services remain available. Gold: '+s.gold+'.',choices,s,ui);},
+ interact(s,n,ui){const site=byId.get(n.id);if(!site)return;const store=this.defaults(s.campaign),restored=this.restored(s.campaign,site),expedition=site.key==='expedition'?frostpeakChoices(s,site,ui,restored):[];
+ if(!restored){
+  if(expedition.length){
+   MineExpansion.modal(n.name,helped(s.campaign)?'The medic has supplies for one treatment. Injured living heroes can recover here.':'The climbers are injured and short on supplies. Share a potion to help them set up a field medic, or press on to the mine.',expedition,s,ui);
+  }else ui.notice(site.before,site.description);
+  return;
+ }
+ const quote=this.quote(site),choices=[{label:store.used.includes(site.id)?'First delivery already collected':site.gift,disabled:store.used.includes(site.id)||(site.key==='caravan'||site.key==='dock')&&s.campaign.potions>97,act:()=>{if(!this.gift(s,site.id))return false;ui.save();ui.notice(site.name,'Local aid collected. This first delivery is granted once per adventure.');return true;}}];choices.push(...expedition);if(quote)choices.push({label:quote.name,disabled:!WorldConsequences.canBuy(s,site.id),act:()=>{if(!this.buy(s,site.id))return false;ui.save();ui.notice(site.name,quote.name+' · added to your pack.');return true;}});if(site.key==='dock')for(const id of this.landings(s))choices.push({label:'Ferry to '+(id==='entry'?'the southern trail':FOREST_NODES.find(n=>n.id===id).name)+' · 5 gold',disabled:s.gold<5,act:()=>{if(!this.sail(s,id))return false;ui.save();ui.notice('Ferry landing','The crew brings the party to a cleared coastal stop.');return true;}});MineExpansion.modal(site.name,site.change+' First deliveries are once per adventure; trade and ferry services remain available. Gold: '+s.gold+'.',choices,s,ui);},
  report(s,ui){const site=sites.find(site=>site.chapter===s.campaign.viewChapter);if(!site)return;const restored=this.restored(s.campaign,site),q=QuestBoard.get(site.quest),progress=QuestBoard.progress(s.campaign,q);const text=(restored?site.name+' is restored. '+site.change:site.description+' Contract progress: '+progress.complete+'/'+progress.total+'.')+'\n\n'+(restored?'Visit the '+site.name+' to use its services. '+(this.defaults(s.campaign).used.includes(site.id)?'First delivery collected.':site.gift+'.'):'Accept the contract and claim its reward at camp. Earlier discoveries count.')+'\n\n'+this.localChanges(s.campaign).join('\n');const dialog=MineExpansion.modal('Changes in '+JOURNEY_CHAPTERS[site.chapter].name,text,[],s,ui);dialog.panel.children[1].style.whiteSpace='pre-line';},
  localChanges(c){const map={'amber-hollow-wagon':'Amber Hollow: the supply wagon has reached shelter.','clockwork-garden-relays':'Conservatory: the relay route is restored.','lantern-grotto-cargo':'Lantern Grotto: the cargo has been recovered.'};return Object.entries(map).filter(([id])=>c.completed.includes(id)&&EncounterObjectives.byId.get(id).chapter===c.viewChapter).map(([,message])=>message);},
- draw(c,n,at,done,time){const site=byId.get(n.id),campaign=DungeonRules.campaign;if(!site||!campaign)return false;const restored=this.restored(campaign,site);if(!restored)return MapVariety.draw(c,site.prop,at.x,at.y,105,95);const im=ForestRenderer.image('assets/world-restored-'+site.key+'.webp');if(!im.complete||!im.naturalWidth)return MapVariety.draw(c,site.prop,at.x,at.y,105,95);ForestArt.fit(c,im,at.x,at.y,155,140);c.save();c.fillStyle='#e8ca79';c.fillRect(at.x+54,at.y-56,3,45);c.fillStyle='#478c77';c.beginPath();c.moveTo(at.x+57,at.y-55);c.lineTo(at.x+78,at.y-49);c.lineTo(at.x+57,at.y-39);c.closePath();c.fill();c.restore();return true;}
+ draw(c,n,at,done,time){const site=byId.get(n.id),campaign=DungeonRules.campaign;if(!site||!campaign)return false;const restored=this.restored(campaign,site)||(site.key==='expedition'&&helped(campaign));if(!restored)return MapVariety.draw(c,site.prop,at.x,at.y,105,95);const im=ForestRenderer.image('assets/world-restored-'+site.key+'.webp');if(!im.complete||!im.naturalWidth)return MapVariety.draw(c,site.prop,at.x,at.y,105,95);ForestArt.fit(c,im,at.x,at.y,155,140);c.save();c.fillStyle='#e8ca79';c.fillRect(at.x+54,at.y-56,3,45);c.fillStyle='#478c77';c.beginPath();c.moveTo(at.x+57,at.y-55);c.lineTo(at.x+78,at.y-49);c.lineTo(at.x+57,at.y-39);c.closePath();c.fill();c.restore();return true;}
 };
 for(const site of sites){const q=QuestBoard.get(site.quest);q.story+=' World change on turn-in: '+site.change;}
 const defaults=Progression.defaults;Progression.defaults=function(c){defaults.call(this,c);WorldConsequences.defaults(c);return c;};
