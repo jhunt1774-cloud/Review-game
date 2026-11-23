@@ -40,7 +40,7 @@ require('./browser-harness.cjs')(async ({evaluate, send, wait, errors, missing, 
  await wait(`PaintedSwordPreview.configFor(HEROES[0],0,${JSON.stringify(base.data)}).paintedSwordPreview===true`);
  const gearCheck = await evaluate(`(()=>{const fixture=${JSON.stringify(base.data)};fixture.campaign.equipmentLoot={loadouts:[{weapon:'loot-preview'}]};return PaintedSwordPreview.configFor(HEROES[0],0,fixture)===HEROES[0];})()`);
  assert.ok(gearCheck);
- await evaluate(`window.strikeLog=[];window.phaseLog=[];
+ await evaluate(`window.strikeLog=[];window.phaseLog=[];window.strideLog={approach:[],retreat:[]};
   const oldContact=CombatPresentation.contact;
   CombatPresentation.contact=function(args){
    const hero=document.querySelector('#hero-0');
@@ -56,8 +56,13 @@ require('./browser-harness.cjs')(async ({evaluate, send, wait, errors, missing, 
   }`);
  await fixture();
  await evaluate(`new MutationObserver(records=>{
-  for(const {target} of records)if(target.dataset.swordPhase)phaseLog.push(target.dataset.swordPhase);
- }).observe(document.querySelector('#hero-0'),{attributeFilter:['data-sword-phase']});`);
+  for(const {target} of records){
+   const phase=target.dataset.swordPhase;
+   if(!phase)continue;
+   phaseLog.push(phase);
+   if(strideLog[phase])strideLog[phase].push(Number(target.dataset.frame));
+  }
+ }).observe(document.querySelector('#hero-0'),{attributeFilter:['data-sword-phase','data-frame']});`);
 
  if(process.env.SWORD_SCREENSHOT) {
   await evaluate(`const original=PaintedSwordPreview.play;
@@ -84,6 +89,8 @@ require('./browser-harness.cjs')(async ({evaluate, send, wait, errors, missing, 
  assert.equal(full.pendingEnemy.damage,control.pendingEnemy.damage);
  assert.deepEqual(await evaluate('strikeLog'),['launch','impact',['impact','hurt',damage]]);
  assert.deepEqual(await evaluate('[...new Set(phaseLog)]'),['approach','windup','swing','impact','follow-through','recovery','retreat']);
+ const strides=await evaluate('Object.fromEntries(Object.entries(strideLog).map(([phase,frames])=>[phase,[...new Set(frames)]]))');
+ assert.deepEqual(strides,{approach:[6,7,8,9],retreat:[9,8,7,6]});
  assert.equal(await evaluate("document.querySelector('#hero-0').style.translate"),'');
 
  await fixture();

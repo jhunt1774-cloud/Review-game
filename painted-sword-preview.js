@@ -3,13 +3,16 @@
  'use strict';
  if (new URLSearchParams(location.search).get('swordPreview') !== '1') return;
 
- const image = 'assets/warrior/painted-swordsman-strike.webp?v=1';
+ const image = 'assets/warrior/painted-swordsman-strike.webp?v=2';
  const cell = 360;
+ const columns = 5;
+ const rows = 2;
+ const strideFrames = [6,7,8,9];
  const bladeTip = 349;
  const sheet = new Image();
  sheet.src = image;
  let ready = false;
- const checkSheet = () => { ready = sheet.naturalWidth === 3 * cell && sheet.naturalHeight === 2 * cell; };
+ const checkSheet = () => { ready = sheet.naturalWidth === columns * cell && sheet.naturalHeight === rows * cell; };
  sheet.addEventListener('load', checkSheet, {once:true});
  checkSheet();
 
@@ -32,10 +35,11 @@
    const states = Object.fromEntries(Object.entries(hero.states).map(([name, clip]) => [
     name, {frames:clip.frames.map(() => 0), fps:clip.fps, loop:clip.loop, releaseFrame:clip.releaseFrame}
    ]));
+   states.walk = {frames:strideFrames, fps:12, loop:true};
    states.attack.frames = [1,2,3,4,5,0];
    states.attack.releaseFrame = 2;
-   return {...hero, image, crop:null, frameWidth:cell, frameHeight:cell, columns:3, rows:2,
-    sheetWidth:3 * cell, sheetHeight:2 * cell, frameRects:null, states, paintedSwordPreview:true};
+   return {...hero, image, crop:null, frameWidth:cell, frameHeight:cell, columns, rows,
+    sheetWidth:columns * cell, sheetHeight:rows * cell, frameRects:null, states, paintedSwordPreview:true};
   },
 
   async play({renderer, target, audio, onImpact, valid}) {
@@ -58,12 +62,20 @@
    const saved = {translate:actor.style.translate, zIndex:actor.style.zIndex};
    const stillHere = () => valid() && actor.isConnected && renderer.portrait === canvas;
    const present = (phase, offset) => {
-    actor.dataset.swordPhase = phase;
+    if (actor.dataset.swordPhase !== phase) actor.dataset.swordPhase = phase;
     actor.style.translate = offset + 'px';
    };
+   let lastFrame = -1;
    const draw = frame => {
+    if (frame === lastFrame) return;
+    lastFrame = frame;
+    actor.dataset.frame = String(frame);
     context.clearRect(0, 0, cell, cell);
-    context.drawImage(sheet, frame % 3 * cell, Math.floor(frame / 3) * cell, cell, cell, 0, 0, cell, cell);
+    context.drawImage(sheet, frame % columns * cell, Math.floor(frame / columns) * cell, cell, cell, 0, 0, cell, cell);
+   };
+   const stride = (progress, backward) => {
+    const index = Math.min(strideFrames.length - 1, Math.floor(progress * strideFrames.length));
+    draw(strideFrames[backward ? strideFrames.length - 1 - index : index]);
    };
    let hit = false;
 
@@ -74,7 +86,9 @@
      const start = await nextFrame();
      let elapsed = 0;
      while (stillHere() && elapsed < travel) {
-      present('approach', approach * elapsed / travel);
+      const progress = elapsed / travel;
+      present('approach', approach * progress);
+      stride(progress, false);
       elapsed = (await nextFrame()) - start;
      }
     }
@@ -96,7 +110,9 @@
     }
     while (stillHere() && now - start < duration + travel) {
      if (now - start >= duration && travel) {
-      present('retreat', approach * Math.max(0, 1 - (now - start - duration) / travel));
+      const progress = (now - start - duration) / travel;
+      present('retreat', approach * (1 - progress));
+      stride(progress, true);
      }
      now = await nextFrame();
     }
