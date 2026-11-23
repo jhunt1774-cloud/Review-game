@@ -24,6 +24,14 @@ The master map locates all ten existing zones. Its roads and region boundaries a
 - Keep main story fights in order. Optional battles, equipment, contracts and exploration may be completed freely and cannot seal regional gates.
 - Use the same progression flags for the compass, local objective text, world atlas and travel availability.
 
+## Exploration on all ten replacement maps
+
+- Build each area with room for several optional destinations, connecting paths, and at least one loop or shortcut where the terrain supports it. Give each branch a reason to visit, such as a landmark, a clue, a useful item, or an encounter.
+- Include several optional quests and spread discoverable items across the map. Mix choices, puzzles, rescues, and changes to the environment with trail finds, supplies, gear, and relics. Use River Valley's tailrace satchel as one example of an action that changes what players can find.
+- Put clues in scenery, dialogue, and field notes. Let curious players discover rewards by following the clue or noticing the landmark. Keep optional quests and items available after the story objective wherever the area's state allows it.
+- Use the paintings as art and layout references. Build terrain, landmarks, and foreground props as separate Blender assets and derive walking and collision from the modeled floor before exporting to the browser.
+- Play the main route and its optional branches before calling a map ready. Check that paths are readable, discoveries open at the right time, and quest outcomes and one-time rewards survive save and resume.
+
 ## Local encounter beats
 
 Each region contains its four existing main encounters. Each is a level-development unit: approach, visible landmark, encounter, consequence, onward path. Required destination maps expand the middle of the region rather than appearing as unrelated bonus boards.
