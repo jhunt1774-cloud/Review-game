@@ -2,7 +2,16 @@
 
 This design replaces the short Frostpeak trail blockout as the map reference. The lower meadow loops past a ruined arch to the journal. A side climb reaches the station and watchtower, while the timber crossing leads to the mine's graded switchbacks and an additional lookout. The art uses the painted Frostpeak and River Valley maps as references for style and scale.
 
-The Blender study pins the painting to a fixed orthographic camera and projects 20 landmarks and eight connected route groups onto elevation-aware geometry. The design spans 132 Blender meters in the camera. The generator checks connectivity and caps the grade of each authored segment at 35%. The current scene contains route surfaces and the reference art. Terrain between routes, collision, foreground scenery and the browser export still need to be built.
+The Blender scene projects the new painting onto a continuous elevation mesh in a fixed orthographic camera. A separate walkable floor includes the trails and wider clearings and leaves the ravine and landmark footprints blocked. The exporter checks all 20 landmarks are reachable and the mine route depends on the bridge. The near bridge railing and two spruce trees are separate depth layers that can draw in front of the character.
+
+Open `frostpeak-walk.html` on the static preview server. Use the map, keyboard, or landmark picker. The preview remembers the party's position in its own browser save. It uses the projected art and exported floor. Combat, journal collection, and the medic choice are outside this walking preview.
+
+To rebuild the scene and browser assets with Blender, run:
+
+```powershell
+blender --background --factory-startup --python-exit-code 1 --python tools/blender/frostpeak_terrain_study.py -- --out "work/frostpeak-depth/Frostpeak Terrain.blend" --preview-assets assets
+node tools/build-pages.cjs
+```
 
 ## Image prompt
 

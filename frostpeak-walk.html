@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frostpeak Pass · Walking preview</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#101a21;color:#f6ecd7;font:15px/1.4 system-ui}
+main{width:min(100%,1200px);margin:auto;padding:12px 16px}
+header, nav, footer{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+h1{font:32px Georgia,serif;margin:0}canvas{display:block;width:min(100%,calc((100dvh - 108px)*1.5));height:auto;margin:12px auto;background:#263947;touch-action:none;cursor:crosshair}
+button,select{font:inherit;padding:7px 10px;background:#253944;color:#fff4dc;border:1px solid #647a83;border-radius:5px}
+button:focus-visible,select:focus-visible,canvas:focus-visible{outline:3px solid #ecc67b}output{color:#f8d58a}
+</style>
+<main>
+<header><h1>Frostpeak Pass</h1><nav>
+<select id="destination" aria-label="Walk to a landmark">
+<option value="">Walk to a landmark…</option>
+<option>Journal</option><option>Climbing station</option><option>Watchtower</option>
+<option>East lookout</option><option>Mine entrance</option>
+</select>
+<button type="button" id="overview" aria-pressed="false">Show full map</button>
+<button type="button" id="trailhead">Return to trailhead</button>
+</nav></header>
+<canvas width="1152" height="768" tabindex="0" aria-label="Frostpeak walking preview">Frostpeak walking preview</canvas>
+<footer><span>Click a spot to walk, or use WASD or arrow keys on the map.</span><output id="location" aria-live="polite">Loading Frostpeak…</output></footer>
+</main>
+<script src="frostpeak-walk.js?v=1"></script>
+</html>
