@@ -52,12 +52,17 @@
    if (loading) return loading;
    const image = new Image();
    image.decoding = 'async';
+   const loaded = new Promise(resolve => {
+    image.onload = () => resolve(true);
+    image.onerror = () => resolve(false);
+   });
    image.src = swordImage;
    atlas = image;
-   loading = image.decode?.().then(() => {
-    ready = image.naturalWidth === columns * cell && image.naturalHeight === rows * cell;
+   const decoded = typeof image.decode === 'function' ? image.decode().then(() => true, () => false) : loaded;
+   loading = decoded.then(success => {
+    ready = success && image.naturalWidth === columns * cell && image.naturalHeight === rows * cell;
     return ready;
-   }, () => false);
+   });
    return loading;
   },
 
@@ -97,6 +102,7 @@
    };
 
    try {
+    draw(travelTime ? walkStart : 0);
     origin.append(canvas);
     portrait.style.visibility = 'hidden';
     origin.style.zIndex = '4';

@@ -19,9 +19,9 @@ window.CombatPresentation={pending:new Set(),
   }finally{motions.forEach(m=>m.cancel?.());nodes.forEach(n=>n.remove());}})();this.pending.add(work);try{await work;}finally{this.pending.delete(work);}
  },
  async finish(){await Promise.allSettled([...this.pending]);},
- async basic({type,renderer,target,arena,layer,audio,onImpact,valid=()=>true}){
+ async basic({action,type,renderer,target,arena,layer,audio,onImpact,valid=()=>true}){
   const sword=type==='slash'&&window.HumanSwordAttack?.supports(renderer);
-  if(sword&&await HumanSwordAttack.play({renderer,target,audio,onImpact,valid})){await this.finish();return;}
+  if(action==='attack'&&sword&&await HumanSwordAttack.play({renderer,target,audio,onImpact,valid})){await this.finish();return;}
   if(!valid())return;
   const sound=sword?'sword':type;
   const reduced=MotionPreference.reduced(),actor=renderer.el,melee=['slash','hammer'].includes(type),motions=[],nodes=[];let advance=0,landed=false;
