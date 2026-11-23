@@ -107,6 +107,7 @@ const P=window.WildwoodBoard={
    }else props.push({x:roots.x,y:roots.y+.9,art:'roots',width:3.7,height:5,roots:true,footprints:[{...roots,rx:1.1,ry:.65}]});
   }
   for(const n of L.caches){
+   if(valley?.revealed(c,n.id)===false)continue;
    const painted=n.container!=='strongbox';
    if(painted)for(const key of [n.container,n.container+'-open']){
     this.assets[key]='assets/valley-painted-'+key+'.webp';this.image(key);
@@ -421,6 +422,7 @@ ForestAdventure.available=function(c,n){
 };
 ForestAdventure.interact=function(s,n,ui){
  if(!P.active()||!n.wildwood)return interact.call(this,s,n,ui);
+ if(valley?.revealed(s.campaign,n.id)===false)return;
  if(n.valleyJob||n.valleyRelic||n.id==='valley-wagon-delivery')return valley.interact(s,n,ui);
  const c=s.campaign,previousPotions=c.potions,previousRunes=c.runes;
  if(!DungeonRules.reward(s,n.id,35,n.gold,n.potions,n.runes,n.name))return;
@@ -487,7 +489,7 @@ ForestPatrols.bind=function(c){const next=ForestAdventure.next(c),key='wildwood-
  }
 };
 const refresh=ForestAdventure.refreshTitle;ForestAdventure.refreshTitle=function(...args){const result=refresh.apply(this,args),start=document.getElementById('forest-quest-start'),resume=document.getElementById('forest-quest-continue');if(start&&!start.dataset.confirm)start.textContent=valley?'Enter the river valley →':'Enter Wildwood →';if(resume)resume.textContent='Continue Wildwood';return result;};
-const attach=ForestAdventure.attach;ForestAdventure.attach=function(...args){const result=attach.apply(this,args);window.addEventListener('load',()=>{const button=document.getElementById('teacher-forest-quest');if(button)button.textContent='Play Wildwood with this set';});const card=document.getElementById('forest-quest-start').closest('section');if(card){card.querySelector('h2').textContent='Explore Wildwood';const copy=card.querySelector('p');if(copy)copy.textContent=valley?'Follow the trail from Mossgate to the Guardian. Follow the orchard cart road, repair the mill sluice or relight the ridge beacon. Seven caches and Rootbound Sanctuary lie along the way. Your valley journey saves separately.':'A large open forest board. Follow four quest encounters, or roam for caches, ruins and optional patrols. Saved separately from your other games.';}return result;};
+const attach=ForestAdventure.attach;ForestAdventure.attach=function(...args){const result=attach.apply(this,args);window.addEventListener('load',()=>{const button=document.getElementById('teacher-forest-quest');if(button)button.textContent='Play Wildwood with this set';});const card=document.getElementById('forest-quest-start').closest('section');if(card){card.querySelector('h2').textContent='Explore Wildwood';const copy=card.querySelector('p');if(copy)copy.textContent=valley?'Follow the trail from Mossgate to the Guardian. Follow the orchard cart road, repair the mill sluice or relight the ridge beacon. Hidden caches and Rootbound Sanctuary lie along the way. Your valley journey saves separately.':'A large open forest board. Follow four quest encounters, or roam for caches, ruins and optional patrols. Saved separately from your other games.';}return result;};
 const sync=ForestFastPlay.sync;ForestFastPlay.sync=function(s){const result=sync.call(this,s);if(P.active()){
  if(valley)valley.updatePlaces(s.campaign);
  let stats=document.getElementById('wildwood-discoveries');if(!stats){stats=document.createElement('small');stats.id='wildwood-discoveries';document.getElementById('forest-mini-body').append(stats);}stats.textContent='Caches '+L.caches.filter(n=>s.campaign.completed.includes(n.id)).length+'/'+L.caches.length+' · click map ground to walk';

@@ -28,6 +28,12 @@
     ['loot-moon','forest-spirit','Moonwell','After choosing supplies or the spirit’s shield, return to the Moonwell and search the water.',c=>!!c.forestQuest.boon||c.completed.includes('m3')]
   ];
   const requirements=new Map();
+  const tailraceCache='wildwood-tailrace-cache';
+  layout.caches.push({
+    id:tailraceCache,name:'Tailrace keeper’s satchel',x:68.5,y:87.2,
+    container:'satchel',gold:24,potions:1,runes:2
+  });
+  requirements.set(tailraceCache,c=>c.completed.includes('valley-mill-sluice'));
   for(const [id,stop,place,clue,ready] of relicTrails){
     const site=LootRules.sites.find(s=>s.id===id);
     const node=FOREST_NODES.find(n=>n.id===id);
@@ -56,7 +62,7 @@
       pickup:'valley-timber-yard', start:'Timber yard', action:'Collect a sluice board',
       finish:'valley-mill-sluice', end:'Tailrace sluice', deliver:'Repair the mill sluice',
       carried:'Seasoned sluice board', hint:'The tailrace gate is missing a board. The timber yard keeps cut replacements.',
-      reward:'The mill can drain its tailrace again. The millwright pays 45 gold.', potions:0, runes:0, gold:45
+      reward:'The millwright pays 45 gold. The water drops below the gate, exposing a muddy shelf. Follow the bank downstream and look for a stranded satchel.', potions:0, runes:0, gold:45
     },
     {
       pickup:'valley-quarry-glass', start:'Old glass quarry', action:'Recover the beacon lens',
@@ -238,12 +244,15 @@
       }
       const marks=relicTrails.map(([id])=>campaign.completed.includes(id)?2:this.revealed(campaign,id)?1:0);
       const wagon=campaign.completed.includes('amber-hollow-wagon'),open=this.revealed(campaign,entrance);
-      const key=marks.join('')+open+wagon+campaign.completed.includes(delivery);
+      const tailrace=campaign.completed.includes(tailraceCache)?2:this.revealed(campaign,tailraceCache)?1:0;
+      const key=marks.join('')+open+wagon+campaign.completed.includes(delivery)+tailrace;
       if(log.dataset.progress!==key){
         log.dataset.progress=key;
         log.firstChild.textContent='Field notes · '+marks.filter(v=>v===2).length+'/4 relics';
         const lines=relicTrails.map(([id,,place,clue],i)=>marks[i]===2?place+' · '+LootRules.sites.find(s=>s.id===id).item+' recovered':clue);
         lines.push(wagon?(campaign.completed.includes(delivery)?'The orchard caravan is provisioned.':'The rescued wagon is at the west orchard. Its crew has two potions for you.'):open?'The press keeper has opened Amber Hollow. Protect the supply wagon on the expedition trail.':'Help press the orchard apples to reopen the cart road.');
+        if(tailrace===1)lines.push('The open sluice exposed a stranded satchel. Follow the bank downstream from the gate.');
+        if(tailrace===2)lines.push('The tailrace keeper’s satchel is recovered.');
         log.lastChild.replaceChildren(...lines.map(line=>{const li=document.createElement('li');li.textContent=line;return li;}));
       }
       const east = select.lastElementChild;

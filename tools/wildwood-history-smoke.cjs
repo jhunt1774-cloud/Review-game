@@ -85,6 +85,22 @@ require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing})=>{
  }
  await resume();assert.equal(await e("document.querySelector('#valley-field-notes summary').textContent"),'Field notes · 4/4 relics');
  assert.ok(await e("LootRules.powers.every((_,i)=>LootRules.canUse({...DungeonRules.campaign,focus:3},i))"));
+ const satchel='wildwood-tailrace-cache';
+ const drawn=()=>e(`WildwoodBoard.objects.some(o=>o.cache==='${satchel}')`);
+ assert.equal(await drawn(),false);
+ assert.equal(await e(`ForestAdventure.walkTo('${satchel}')`),false);
+ await use('valley-timber-yard');await use('valley-mill-sluice');
+ await wait(`WildwoodBoard.objects.some(o=>o.cache==='${satchel}')`);
+ assert.match(await e("document.querySelector('#valley-field-notes').textContent"),/Follow the bank downstream/);
+ const funds=await e('GameProgress.exportData().data.gold');
+ assert.equal(await e(`ForestAdventure.walkTo('${satchel}')`),true);
+ await wait(`GameProgress.exportData().data.campaign.completed.includes('${satchel}')`,25000);
+ assert.equal(await e('GameProgress.exportData().data.gold'),funds+24);
+ await resume();
+ assert.equal(await count(satchel),1);
+ await e(`ForestAdventure.interact(ForestFastPlay.state,FOREST_NODES.find(n=>n.id==='${satchel}'),{})`);
+ assert.equal(await e('GameProgress.exportData().data.gold'),funds+24);
+ console.log('Tailrace satchel stayed hidden until repair, opened on contact, and paid once across reload.');
  await at('roam-0-2');await wait("GameProgress.exportData().data.phase==='battle'");
  await e("(()=>{const f=GameProgress.exportData();f.data.campaign.focus=3;GameProgress.restoreData(f)})()");
  await wait("!document.querySelector('#hero-command-menu').hidden && !document.querySelector('#hero-menu-actions [data-action=relic]')?.disabled");
