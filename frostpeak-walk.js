@@ -40,16 +40,32 @@
   const point = mark=>({x:mark.x*W,y:mark.y*H});
   let pos=point(marks.Trailhead), route=[], frame=0, previous=0, dir=0, phase=0;
   let view={x:0,y:0,w:W,h:H}, fullMap=false;
+  const expedition={journal:false,aid:null,treated:false,potions:2,health:70};
+  const goal=document.querySelector('#expedition-goal');
+  const pack=document.querySelector('#expedition-pack');
+  const interact=document.querySelector('#expedition-interact');
+  const dialog=document.querySelector('#expedition-choice');
+  const title=document.querySelector('#expedition-title');
+  const copy=document.querySelector('#expedition-copy');
+  const actions=document.querySelector('#expedition-actions');
   let saveTimer;
   try {
    const saved=JSON.parse(localStorage.getItem(saveKey));
    if(saved && grid[cell(saved.x*W,saved.y*H)]) pos=point(saved);
+   if(saved?.expedition?.journal===true) {
+    expedition.journal=true;
+    expedition.aid=['passed','helped'].includes(saved.expedition.aid)?saved.expedition.aid:null;
+    expedition.treated=expedition.aid==='helped'&&saved.expedition.treated===true;
+    expedition.potions=expedition.aid==='helped'?1:2;
+    expedition.health=expedition.treated?95:70;
+   }
   } catch {}
+  function save() {
+   try {localStorage.setItem(saveKey,JSON.stringify({x:pos.x/W,y:pos.y/H,expedition}));} catch {}
+  }
   function remember() {
    clearTimeout(saveTimer);
-   saveTimer=setTimeout(()=>{
-    try {localStorage.setItem(saveKey,JSON.stringify({x:pos.x/W,y:pos.y/H}));} catch {}
-   },120);
+   saveTimer=setTimeout(save,120);
   }
   function say(value) {
    if(status.textContent!==value) status.textContent=value;
@@ -61,6 +77,69 @@
     if(d<distance) {closest=name;distance=d;}
    }
    say(closest);
+   updateExpedition(closest);
+  }
+  function updateExpedition(location) {
+   const task=!expedition.journal?'Find the journal by the wrecked cart.':
+    expedition.treated?'Treatment used. The mine is across the bridge.':
+    expedition.aid==='helped'?'Field medic available at the climbing station.':
+    expedition.aid==='passed'?'Follow the bridge and switchbacks to the mine, or return to help the climbers.':
+    'The journal points to injured climbers at the climbing station.';
+   const supplies=expedition.potions+' healing potions · '+expedition.health+'% HP';
+   if(goal.textContent!==task)goal.textContent=task;
+   if(pack.textContent!==supplies)pack.textContent=supplies;
+   const journal=location==='Journal'&&!expedition.journal;
+   const station=location==='Climbing station'&&expedition.journal;
+   const label=journal?'Read the journal · E':station?
+    (expedition.aid==='helped'?'Visit the field medic · E':'Speak to the climbers · E'):'';
+   if(interact.textContent!==label)interact.textContent=label;
+   interact.hidden=!label;
+   interact.dataset.place=journal?'journal':station?'station':'';
+  }
+  function choice(label,act) {
+   const button=document.createElement('button');
+   button.type='button';
+   button.textContent=label;
+   button.onclick=()=>{
+    if(!dialog.open)return;
+    act();
+    save();
+    dialog.close();
+    locate();
+   };
+   actions.append(button);
+  }
+  interact.onclick=()=>{
+   if(interact.hidden||dialog.open)return;
+   route=[];
+   held.clear();
+   phase=0;
+   paint();
+   if(interact.dataset.place==='journal') {
+    expedition.journal=true;
+    save();
+    locate();
+    canvas.focus();
+    return;
+   }
+   actions.replaceChildren();
+   if(expedition.aid==='helped') {
+    title.textContent='Expedition field medic';
+    copy.textContent=expedition.treated?'The medic has used the available supplies.':'The medic can restore 25% max HP once.';
+    if(!expedition.treated)choice('Accept treatment',()=>{
+     expedition.treated=true;
+     expedition.health=Math.min(100,expedition.health+25);
+    });
+   } else {
+    title.textContent='Injured climbing party';
+    copy.textContent='The climbers need a healing potion. Help them set up a medic here, or keep your supplies and continue toward the mine.';
+    choice('Help the climbers · 1 healing potion',()=>{
+     expedition.aid='helped';
+     expedition.potions--;
+    });
+    choice('Continue toward the mine',()=>{expedition.aid='passed';});
+   }
+   dialog.showModal();
   }
   function plan(x,y) {
    const startCell=cell(pos.x,pos.y),goal=cell(x,y);
@@ -151,6 +230,11 @@
   });
   canvas.addEventListener('keydown',event=>{
    const key=event.key.toLowerCase();
+   if(key==='e'&&!interact.hidden) {
+    event.preventDefault();
+    interact.click();
+    return;
+   }
    if(!keys.has(key))return;
    event.preventDefault();
    route=[];
@@ -159,9 +243,8 @@
   });
   window.addEventListener('keyup',event=>held.delete(event.key.toLowerCase()));
   canvas.addEventListener('blur',()=>held.clear());
-  window.addEventListener('pagehide',()=>{
-   try {localStorage.setItem(saveKey,JSON.stringify({x:pos.x/W,y:pos.y/H}));} catch {}
-  });
+  window.addEventListener('pagehide',save);
+  dialog.addEventListener('close',()=>canvas.focus());
   overview.onclick=()=>{
    fullMap=!fullMap;
    overview.textContent=fullMap?'Follow the party':'Show full map';

@@ -7,9 +7,12 @@
 *{box-sizing:border-box}body{margin:0;background:#101a21;color:#f6ecd7;font:15px/1.4 system-ui}
 main{width:min(100%,1200px);margin:auto;padding:12px 16px}
 header, nav, footer{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-h1{font:32px Georgia,serif;margin:0}canvas{display:block;width:min(100%,calc((100dvh - 108px)*1.5));height:auto;margin:12px auto;background:#263947;touch-action:none;cursor:crosshair}
+h1{font:32px Georgia,serif;margin:0}canvas{display:block;width:min(100%,calc((100dvh - 155px)*1.5));height:auto;margin:12px auto;background:#263947;touch-action:none;cursor:crosshair}
 button,select{font:inherit;padding:7px 10px;background:#253944;color:#fff4dc;border:1px solid #647a83;border-radius:5px}
 button:focus-visible,select:focus-visible,canvas:focus-visible{outline:3px solid #ecc67b}output{color:#f8d58a}
+#expedition{display:flex;align-items:center;justify-content:space-between;gap:8px 18px;flex-wrap:wrap;min-height:36px;margin:8px 0}
+dialog{max-width:min(450px,92vw);padding:20px;background:#172630;color:inherit;border:1px solid #647a83;border-radius:7px}
+dialog::backdrop{background:#081119b5}dialog h2{font:25px Georgia,serif;margin:0}dialog button{display:block;margin-top:8px}button:disabled{opacity:.6}
 </style>
 <main>
 <header><h1>Frostpeak Pass</h1><nav>
@@ -23,6 +26,16 @@ button:focus-visible,select:focus-visible,canvas:focus-visible{outline:3px solid
 </nav></header>
 <canvas width="1152" height="768" tabindex="0" aria-label="Frostpeak walking preview">Frostpeak walking preview</canvas>
 <footer><span>Click a spot to walk, or use WASD or arrow keys on the map.</span><output id="location" aria-live="polite">Loading Frostpeak…</output></footer>
+<section id="expedition" aria-label="Frostpeak expedition">
+<span id="expedition-goal" role="status"></span>
+<span id="expedition-pack"></span>
+<button id="expedition-interact" type="button" hidden></button>
+</section>
+<dialog id="expedition-choice" aria-labelledby="expedition-title">
+<h2 id="expedition-title"></h2><p id="expedition-copy"></p>
+<div id="expedition-actions"></div>
+<form method="dialog"><button>Leave</button></form>
+</dialog>
 </main>
-<script src="frostpeak-walk.js?v=1"></script>
+<script src="frostpeak-walk.js?v=2"></script>
 </html>

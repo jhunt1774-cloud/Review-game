@@ -4,7 +4,7 @@ This design replaces the short Frostpeak trail blockout as the map reference. Th
 
 The Blender scene projects the new painting onto a continuous elevation mesh in a fixed orthographic camera. A separate walkable floor includes the trails and wider clearings and leaves the ravine and landmark footprints blocked. The exporter checks all 20 landmarks are reachable and the mine route depends on the bridge. The near bridge railing and two spruce trees are separate depth layers that can draw in front of the character.
 
-Open `frostpeak-walk.html` on the static preview server. Use the map, keyboard, or landmark picker. The preview remembers the party's position in its own browser save. It uses the projected art and exported floor. Combat, journal collection, and the medic choice are outside this walking preview.
+Open `frostpeak-walk.html` on the static preview server. Use the map, keyboard, or landmark picker. Read the journal by the wrecked cart, then speak to the climbers at the station. The preview party starts with two potions and 70% HP so both choices can be tried. Sharing one potion unlocks one 25-point treatment. Players can keep their supplies while exploring toward the mine and return to help later. Position, journal, aid, and treatment state are stored in the preview's own browser save. The campaign, mine interior, and combat remain separate from this preview.
 
 To rebuild the scene and browser assets with Blender, run:
 
