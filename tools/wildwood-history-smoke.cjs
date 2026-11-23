@@ -19,7 +19,20 @@ require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing})=>{
  const count=id=>e(`DungeonRules.campaign.completed.filter(i=>i===${JSON.stringify(id)}).length`);
  const entrance='amber-hollow-entrance',wagon='amber-hollow-wagon';
  assert.equal(await e(`DungeonRules.visible(FOREST_NODES.find(n=>n.id==='${entrance}'))`),false);
- await use('valley-apple-harvest');await use('valley-cider-press');
+ const walkErrand=async id=>{
+  await e(`document.querySelector('#valley-errands').open=true;
+   document.querySelector('[data-errand-walk="${id}"]').click()`);
+  await wait('MouseNavigation.path.length>0');
+  await wait(`!document.querySelector('#crypt-interact').hidden &&
+   document.querySelector('#crypt-interact').textContent.includes(FOREST_NODES.find(n=>n.id==='${id}').name)`,45000);
+  await e("document.querySelector('#crypt-interact').click()");
+ };
+ assert.equal(await e("document.querySelector('[data-errand-walk=valley-timber-yard]').disabled"),true);
+ await walkErrand('valley-apple-harvest');
+ await resume();
+ assert.equal(await e("!!document.querySelector('[data-errand-walk=valley-apple-harvest]')"),false);
+ await walkErrand('valley-cider-press');
+ assert.equal(await e("!!document.querySelector('[data-errand-walk=valley-cider-press]')"),false);
  await use(entrance);await wait("DungeonRules.campaign?.dungeon?.id==='amber-hollow'");
  await resume();assert.equal(await e('SideAdventures.active?.id'),'amber-hollow');
  assert.equal(await e("DungeonRules.allowed(DungeonRules.campaign,FOREST_NODES.find(n=>n.id==='amber-hollow-secret'))"),false);

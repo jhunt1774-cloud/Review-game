@@ -208,13 +208,26 @@
         tracker=document.createElement('details');tracker.id='valley-errands';
         tracker.append(document.createElement('summary'),document.createElement('ul'));select.after(tracker);
       }
+      const locked = !RegionGates.open(0,campaign.completed);
       const progress=errands.map(job=>campaign.completed.includes(job.finish)?2:campaign.completed.includes(job.pickup)?1:0).join('');
-      if (tracker.dataset.progress!==progress) {
-        tracker.dataset.progress=progress;
+      const trackerKey=progress+':'+locked;
+      if (tracker.dataset.progress!==trackerKey) {
+        tracker.dataset.progress=trackerKey;
         tracker.firstChild.textContent='Valley errands '+[...progress].filter(n=>n==='2').length+'/3';
         tracker.lastChild.replaceChildren(...errands.map((job,i)=>{
           const li=document.createElement('li');
-          li.textContent=progress[i]==='2'?job.end+' complete':progress[i]==='1'?job.carried+' — deliver to '+job.end:job.hint;
+          const done=progress[i]==='2',carrying=progress[i]==='1',acrossBridge=i>0&&locked;
+          li.textContent=done?job.end+' complete':carrying?job.carried+' — deliver to '+job.end:job.hint;
+          if(done)return li;
+          if(acrossBridge)li.append(' Defeat the sentinel to reach this errand.');
+          const destination=carrying?job.finish:job.pickup;
+          const walk=document.createElement('button');
+          walk.type='button';
+          walk.dataset.errandWalk=destination;
+          walk.textContent='Walk to '+(carrying?job.end:job.start);
+          walk.disabled=acrossBridge;
+          walk.onclick=()=>ForestAdventure.walkTo(destination);
+          li.append(walk);
           return li;
         }));
       }
@@ -234,7 +247,6 @@
         log.lastChild.replaceChildren(...lines.map(line=>{const li=document.createElement('li');li.textContent=line;return li;}));
       }
       const east = select.lastElementChild;
-      const locked = !RegionGates.open(0,campaign.completed);
       east.disabled = locked;
       east.label = locked ? 'Across the bridge · defeat the sentinel' : 'Across the bridge';
     },

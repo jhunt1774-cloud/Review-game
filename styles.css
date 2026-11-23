@@ -573,3 +573,5 @@ html,body{width:100%;min-height:100%;background:#071416}#game{position:relative;
 #sets-delete-dialog{max-width:min(520px,90vw)}
 
 #teacher-set-manager{padding:16px;background:#10231ff5;border:1px solid #65716a;border-radius:10px}
+
+#valley-errands [data-errand-walk]{display:block;margin:4px 0 7px;padding:5px 8px;font-size:11px;text-align:left}
