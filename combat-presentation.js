@@ -19,7 +19,9 @@ window.CombatPresentation={pending:new Set(),
   }finally{motions.forEach(m=>m.cancel?.());nodes.forEach(n=>n.remove());}})();this.pending.add(work);try{await work;}finally{this.pending.delete(work);}
  },
  async finish(){await Promise.allSettled([...this.pending]);},
- async basic({type,renderer,target,arena,layer,audio,onImpact}){
+ async basic({action,type,renderer,target,arena,layer,audio,onImpact,valid=()=>true}){
+  if(action==='attack'&&type==='slash'&&await window.PaintedSwordPreview?.play({renderer,target,audio,onImpact,valid})){await this.finish();return;}
+  if(!valid())return;
   const reduced=MotionPreference.reduced(),actor=renderer.el,melee=['slash','hammer'].includes(type),motions=[],nodes=[];let advance=0,landed=false;
   const move=async(el,frames,ms,fill)=>{const m=el.animate(frames,{duration:reduced?60:ms,easing:'ease-out',...(fill?{fill}:{} )});motions.push(m);await m.finished;};
   const strike=async()=>{if(landed)return;landed=true;audio?.impact(type,.25);await onImpact?.();};

@@ -1,0 +1,23 @@
+# Play the painted sword preview
+
+Serve the development checkout or its static Pages package and add `?swordPreview=1` to the game URL. Start or continue a forest battle with Thorin selected as vanguard and no equipped loot. Choose **Attack** and answer correctly. The preview changes Thorin's battle art for this test. The roster, character name, stats, quiz, damage and saves use the existing game flow.
+
+For a local preview, run `node tools/build-pages.cjs` and serve `work/site` using a static server. For example, with Python available, use `python -m http.server 8000 --bind 127.0.0.1 --directory work/site` from the checkout and open [the local preview](http://127.0.0.1:8000/?swordPreview=1).
+
+## Attack and performance
+
+The six full-body poses use the approved guard image and a generated five-pose sequence. Every painted pose uses the same foot baseline. The sword sound starts at 256 ms and the blade contacts at 320 ms from the start of the windup. Existing combat code applies HP loss, recoil or defeat, the contact flash, and the damage number at that event. Follow-through and recovery return to the approved guard pose.
+
+The game fetches one 1080 × 720 WebP of about 192 KiB only with the preview enabled. The software copies one frame into the existing portrait canvas per pose. Equipped loot and a missing atlas use the original renderer and presentation. Still poses retains the existing reduced-motion damage flow. Travel art still uses the standard roster. The approach and retreat slide in guard, and the preview has no dedicated painted defense, hurt or victory poses. School Chromebook performance and playback through speakers remain to be measured.
+
+## Rebuild and check
+
+From the checkout root, run `node tools/pack-painted-warrior.cjs` using Chrome. The packer reads the source images in `art-source/warrior`, validates transparency and frame bounds, and writes the WebP atlas. Bump its URL version if replacing published art. To test the preview, run `node tools/forest-painted-sword-smoke.cjs`. It checks opt-in, phase order, one contact, sound cues, correct and wrong answers, defeat, Still poses, fallbacks, and cleanup. The optional `SWORD_SCREENSHOT` environment variable saves a contact screenshot at a path relative to the checkout.
+
+## Asset sources
+
+The approved guard and attack source are generated from the project's painted roster references. The sword sound reuses the credited Sabre Swing sample and metal and body impact samples from [the game audio credits](../../AUDIO-CREDITS.txt).
+
+Attack image prompt:
+
+Create a 3-column by 2-row animation key pose sprite sheet for the EXACT attached approved painted human swordsman. Same face, same brown hair and beard, warm ornate steel armor, red and brass shield, dark red cape, sword, boots; preserve the exact illustrative rendering. Landscape canvas, six equally sized grid cells with clear generous padding and transparent alpha gutters, absolutely no lines, ground, shadows, text or effects. Every cell contains one whole full-body character with sword, shield and both boots, right-facing 3/4 combat camera. All six same apparent scale and one foot in each pose anchored on the same floor height relative to its cell. Left-to-right top row: (1) guard, sword held low diagonally forward as in reference; (2) anticipation, crouch with body turned back and sword pulled up behind shoulder and back knee bent; (3) acceleration, front boot steps to right, shoulders turn and sword comes forward from above. Left-to-right bottom row: (4) full sword contact, blade thrust horizontally toward the right at chest level, right arm straight and body lunging, front foot planted, back leg extended; (5) follow-through, torso leaned forward, sword lowered and to the right, front knee bent; (6) recovery, torso rising and sword brought close toward the guard, feet returning. Each silhouette especially pose 4 must fit completely within its individual cell including sword tip. These are distinct motion poses of ONE character. Transparent background.

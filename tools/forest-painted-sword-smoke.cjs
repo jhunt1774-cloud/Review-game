@@ -1,0 +1,115 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+
+require('./browser-harness.cjs')(async ({evaluate, send, wait, errors, missing, root}) => {
+ const prefix = process.env.SITE_PREFIX || '/';
+ const preview = 'http://127.0.0.1:8138' + prefix + '?swordPreview=1';
+ await send('Emulation.setDeviceMetricsOverride', {width:Number(process.env.SWORD_WIDTH)||1024,height:Number(process.env.SWORD_HEIGHT)||600,deviceScaleFactor:1,mobile:false});
+ await evaluate("document.querySelector('#forest-quest-start').click()");
+ const base = await evaluate('GameProgress.exportData()');
+ const saved = () => evaluate("JSON.parse(localStorage.getItem('web-wizardry-forest-v1'))");
+
+ async function fixture({motion='full', hp=113}={}) {
+  const data = structuredClone(base);
+  data.data.phase = 'battle';
+  data.data.encounter = 0;
+  data.data.enemyHp = hp;
+  data.data.campaign.battleNode = 'm0';
+  await evaluate(`MotionPreference.set('${motion}');GameProgress.restoreData(${JSON.stringify(data)});`);
+  await wait("!document.querySelector('#hero-command-menu').hidden");
+ }
+
+ async function answer(correct=true) {
+  const question = (await saved()).practice.question;
+  const index = correct ? question.correct : (question.correct+1)%question.answers.length;
+  await evaluate(`document.querySelector('#hero-menu-actions [data-action=attack]').click();
+   document.querySelectorAll('#answers button')[${index}].click()`);
+  await wait("!document.querySelector('#next-question').hidden || !document.querySelector('#result').hidden");
+  return saved();
+ }
+
+ await fixture();
+ const control = await answer();
+ const damage = 113 - control.enemyHp;
+ assert.ok(damage > 0);
+ assert.equal(await evaluate('Boolean(window.PaintedSwordPreview)'), false);
+
+ await send('Page.navigate', {url:preview});
+ await wait('!!window.PaintedSwordPreview && !!window.GameProgress');
+ await wait(`PaintedSwordPreview.configFor(HEROES[0],0,${JSON.stringify(base.data)}).paintedSwordPreview===true`);
+ const gearCheck = await evaluate(`(()=>{const fixture=${JSON.stringify(base.data)};fixture.campaign.equipmentLoot={loadouts:[{weapon:'loot-preview'}]};return PaintedSwordPreview.configFor(HEROES[0],0,fixture)===HEROES[0];})()`);
+ assert.ok(gearCheck);
+ await evaluate(`window.strikeLog=[];window.phaseLog=[];
+  const oldContact=CombatPresentation.contact;
+  CombatPresentation.contact=function(args){
+   const hero=document.querySelector('#hero-0');
+   strikeLog.push([hero.dataset.swordPhase||null,args.target.dataset.state,args.damage]);
+   return oldContact.call(this,args);
+  };
+  for(const cue of ['launch','impact']){
+   const original=CombatAudio.prototype[cue];
+   CombatAudio.prototype[cue]=function(type,...args){
+    if(type==='sword')strikeLog.push(cue);
+    return original.call(this,type,...args);
+   };
+  }`);
+ await fixture();
+ await evaluate(`new MutationObserver(records=>{
+  for(const {target} of records)if(target.dataset.swordPhase)phaseLog.push(target.dataset.swordPhase);
+ }).observe(document.querySelector('#hero-0'),{attributeFilter:['data-sword-phase']});`);
+
+ if(process.env.SWORD_SCREENSHOT) {
+  await evaluate(`const original=PaintedSwordPreview.play;
+   PaintedSwordPreview.play=function(args){
+    return original.call(this,{...args,onImpact:async()=>{
+     await args.onImpact();
+     await new Promise(resolve=>{window.resumeSword=resolve;});
+    }});
+   };`);
+ }
+ const attack=answer();
+ if(process.env.SWORD_SCREENSHOT) {
+  await wait("typeof window.resumeSword==='function'");
+  try {
+   const picture=await send('Page.captureScreenshot',{format:'png'});
+   fs.writeFileSync(path.resolve(root,process.env.SWORD_SCREENSHOT),Buffer.from(picture.data,'base64'));
+  } finally {
+   await evaluate('window.resumeSword();PaintedSwordPreview.play=original;');
+  }
+ }
+ const full=await attack;
+ assert.equal(full.enemyHp,control.enemyHp);
+ assert.equal(full.correct,1);
+ assert.equal(full.pendingEnemy.damage,control.pendingEnemy.damage);
+ assert.deepEqual(await evaluate('strikeLog'),['launch','impact',['impact','hurt',damage]]);
+ assert.deepEqual(await evaluate('[...new Set(phaseLog)]'),['approach','windup','swing','impact','follow-through','recovery','retreat']);
+ assert.equal(await evaluate("document.querySelector('#hero-0').style.translate"),'');
+
+ await fixture();
+ await evaluate('strikeLog.length=0');
+ const wrong=await answer(false);
+ assert.equal(wrong.enemyHp,113);
+ assert.equal(wrong.wrong,1);
+ assert.deepEqual(await evaluate('strikeLog'),[]);
+
+ await fixture({motion:'still'});
+ assert.equal((await answer()).enemyHp,control.enemyHp);
+ assert.deepEqual(await evaluate('strikeLog'),[[null,'hurt',damage]]);
+
+ await fixture({hp:1});
+ await evaluate('strikeLog.length=0');
+ await answer();
+ assert.deepEqual(await evaluate('strikeLog'),['launch','impact',['impact','defeat',1]]);
+
+ await send('Network.enable');
+ await send('Network.setBlockedURLs',{urls:['*painted-swordsman-strike.webp*']});
+ await send('Page.reload');
+ await wait('!!window.PaintedSwordPreview && !!window.GameProgress');
+ await fixture();
+ assert.equal((await answer()).enemyHp,control.enemyHp);
+ assert.equal(await evaluate("document.querySelector('#hero-0').hasAttribute('data-sword-phase')"),false);
+ assert.deepEqual(errors,[]);
+ assert.deepEqual(missing.filter(file=>!file.endsWith('/favicon.ico')),[]);
+ console.log('PASS Painted swordsman: authored phases, synchronized contact and audio, quiz and damage parity, lethal hit, Still poses, blocked atlas and cleanup.');
+}).catch(error=>{console.error(error);process.exitCode=1;});
