@@ -1,5 +1,7 @@
 # Human warrior combat animation
 
+This branch verifies attack timing using the retired Alden artwork. The art is unsuitable for the painted roster. Keep this branch as a mechanics reference until a painted Human warrior is ready.
+
 ## Play it
 
 Start a quest or visit camp and select **Alden · Human warrior** as the vanguard appearance. You can also select Alden as a vanguard companion while playing another role. In battle, select Alden, choose the ordinary attack and answer correctly. Alden uses the existing vanguard stats, damage type, focus rules, equipment slots and quiz flow. Thorin stays the default for new adventures and older saves.
