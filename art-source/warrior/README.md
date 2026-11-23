@@ -1,0 +1,9 @@
+# Painted Human swordsman art review
+
+The full-body guard pose is a candidate for the Human vanguard. The existing Thorin, Iden and Seren sprites appear beside it on the Mossgate backdrop in the battle-size comparison. The candidate is shown at 132 pixels tall on the same foot baseline. Its rendered materials and proportions are closest to Iden's. Thorin and Seren have larger heads relative to their bodies.
+
+This source art stays outside the published game. It is a single stance preview. Carry forward the chosen silhouette, armor, grip and ground line into the anticipation, contact and recovery poses. Check the grounded silhouette at each beat before building the attack atlas.
+
+## Image prompt
+
+Create one original full-body Human swordsman game sprite for the painted Forest Path fantasy RPG. References are the project's Thorin battle atlas (style, silhouette scale and lighting) and Human Iden battle atlas (human proportions, rendering and facing). Do not copy either identity or gear. Match their richly textured painterly storybook RPG look, semi-realistic dimensional rendering, subtly heroic head and hand proportions, crisp readable silhouette, warm forest highlights and deep soft shadows. An adult human vanguard with short dark hair, modest charcoal steel cuirass and pauldrons over oxblood cloth, worn brown leather boots, a simple straight steel sword in right hand and compact oxblood heater shield in left. Show both full boots and full sword, right-facing three-quarter in a stable bent-knee combat guard. Sword forward at a slight upward angle, shield close. Match perspective of a side-view battle with feet on the same ground plane, no jump. Entire figure with generous clear padding on transparent background. One character, one pose, no props besides sword and shield, no text, no borders, no floor, no ground shadow. Avoid flat polygon or vector aesthetics, oversized weapons and glossy modern 3D.
