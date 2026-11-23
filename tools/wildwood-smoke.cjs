@@ -129,7 +129,29 @@ require('./browser-harness.cjs')(async({evaluate:e,send,wait,errors,missing,root
  const optional=await finishBattle(true);assert.ok(optional.campaign.completed.includes('roam-0-2'));assert.ok(!optional.campaign.completed.includes('m0'));assert.ok(await e(`!!GameProgress.validate(GameProgress.exportData().data)`));
  // Now complete the main adventure using actual click-to-walk and battle controls.
  await e(`document.querySelector('#home').click();window.wildwoodLesson={version:1,name:'Wildwood classroom proof',difficulty:'beginner',questions:[{topic:'Programming',text:'Wildwood classroom-only question: choose green.',answers:['red','blue','green','yellow'],correct:2,explanation:'The classroom set selects green.'}]};TeacherMode.load(wildwoodLesson);document.querySelector('#teacher-forest-quest').click()`);await wait(`document.querySelector('#forest-quest-start').dataset.confirm==='yes'`);await e(`document.querySelector('#forest-quest-start').click()`);await wait(`document.querySelector('#game').dataset.scene==='prologue'`);assert.equal(await e(`GameProgress.exportData().data.lesson.name`),'Wildwood classroom proof');await e(`document.querySelector('#begin-chapter').click()`);await wait(`document.querySelector('#game').dataset.scene==='world'`);
- for(const id of ['m0','m1','m2','m3']){await e(`ForestAdventure.walkTo('${id}')`);await wait(`GameProgress.exportData().data.phase==='battle'`,45000);assert.equal(await e(`GameProgress.exportData().data.campaign.battleNode`),id);assert.match(await e(`GameProgress.exportData().data.practice.question.text`),/Wildwood classroom-only/);const s=await finishBattle();assert.ok(s.campaign.completed.includes(id));console.log('Cleared',id);await wait(`document.querySelector('#game').dataset.scene==='result'`);if(id!=='m3'){await e(`document.querySelector('#advance').click()`);await wait(`document.querySelector('#game').dataset.scene==='world'`);}}
+ for(const id of ['m0','m1','m2','m3']){
+  if(!valley||id==='m0'||id==='m2')await e("ForestAdventure.walkTo('"+id+"')");
+  await wait("GameProgress.exportData().data.phase==='battle'",45000);
+  assert.equal(await e('GameProgress.exportData().data.campaign.battleNode'),id);
+  assert.match(await e('GameProgress.exportData().data.practice.question.text'),/Wildwood classroom-only/);
+  const s=await finishBattle();
+  assert.ok(s.campaign.completed.includes(id));
+  console.log('Cleared',id);
+  await wait("document.querySelector('#game').dataset.scene==='result'");
+  if(valley&&(id==='m0'||id==='m2')){
+   const nextName=await e("FOREST_NODES.find(n=>n.id===ForestAdventure.next(GameProgress.exportData().data.campaign)).name");
+   assert.equal(await e("document.querySelector('#valley-next-encounter').textContent"),'Walk to '+nextName);
+   assert.equal(await e("document.querySelector('#advance').textContent"),'Return to the valley');
+   await e("document.querySelector('#valley-next-encounter').click()");
+   await wait("document.querySelector('#game').dataset.scene==='world' && MouseNavigation.path.length>0");
+  }else if(id!=='m3'){
+   await e("document.querySelector('#advance').click()");
+   await wait("document.querySelector('#game').dataset.scene==='world'");
+   assert.equal(await e('MouseNavigation.path.length'),0);
+  }else{
+   assert.equal(await e("!!document.querySelector('#valley-next-encounter')"),false);
+  }
+ }
  assert.equal(await e(`GameProgress.exportData().data.phase`),'complete');await e(`document.querySelector('#advance').click()`);await wait(`document.querySelector('#game').dataset.scene==='world'`);assert.equal(await e(`RoamingWorld.actors.length`),0);
  await send('Emulation.setDeviceMetricsOverride',{width:768,height:600,deviceScaleFactor:1,mobile:false});await new Promise(r=>setTimeout(r,150));assert.ok(await e(`document.documentElement.scrollWidth<=innerWidth`));fs.writeFileSync(path.resolve(root,'work/wildwood-small.png'),Buffer.from((await send('Page.captureScreenshot',{format:'png'})).data,'base64'));
  assert.equal(await e(`localStorage.getItem('web-wizardry-forest-v1')`),'original-forest-sentinel');assert.equal(await e(`localStorage.getItem('web-wizardry-teacher-save-v1')`),'original-teacher-sentinel');assert.deepEqual(errors,[]);assert.deepEqual(missing.filter(p=>p!=='/favicon.ico'),[]);

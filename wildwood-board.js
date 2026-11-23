@@ -437,7 +437,45 @@ ForestAdventure.interact=function(s,n,ui){
 };
 const challenge=ForestAdventure.beginEncounter;ForestAdventure.beginEncounter=function(s){if(P.active()&&['roam-0-2','roam-0-3'].includes(s.campaign.battleNode)){s.campaign.forestQuest.challenge=null;return;}return challenge.call(this,s);};
 const present=ForestAdventure.presentChallenge;ForestAdventure.presentChallenge=function(s){const result=present.call(this,s);if(P.active()&&['roam-0-2','roam-0-3'].includes(s.campaign.battleNode)){document.getElementById('battle-chapter').textContent='WILDWOOD · OPTIONAL PATROL';document.getElementById('trail').textContent='Optional encounter · victory does not change the main quest order';}return result;};
-const forestResult=ForestAdventure.result;ForestAdventure.result=function(s,...args){const result=forestResult.call(this,s,...args);if(P.active()&&s.phase==='complete')document.getElementById('result-copy').textContent='The Heart is free. Wildwood is safe again. Explore for any caches you missed, or return to camp.';if(P.active()&&s.phase==='victory'&&['roam-0-2','roam-0-3'].includes(s.campaign.battleNode)){document.getElementById('result-copy').textContent='Patrol cleared. Its territory stays safe for this adventure. Explore for supplies or return to your next quest encounter.';document.getElementById('advance').textContent='Return to Wildwood →';}return result;};
+const forestResult=ForestAdventure.result;
+ForestAdventure.result=function(s,...args){
+ const result=forestResult.call(this,s,...args);
+ const advance=document.getElementById('advance');
+ document.getElementById('valley-next-encounter')?.remove();
+ advance.classList.add('primary');
+ if(!P.active())return result;
+ const copy=document.getElementById('result-copy');
+ if(s.phase==='complete')copy.textContent='The Heart is free. Wildwood is safe again. Explore for any caches you missed, or return to camp.';
+ if(s.phase!=='victory')return result;
+ if(['roam-0-2','roam-0-3'].includes(s.campaign.battleNode)){
+  copy.textContent='Patrol cleared. Its territory stays safe for this adventure. Explore for supplies or return to your next quest encounter.';
+  advance.textContent='Return to Wildwood →';
+ }
+ if(!valley)return result;
+
+ const next=FOREST_NODES.find(node=>node.id===this.next(s.campaign));
+ if(!next||!this.available(s.campaign,next))return result;
+ const walk=document.createElement('button');
+ walk.id='valley-next-encounter';
+ walk.type='button';
+ walk.className='primary';
+ walk.textContent='Walk to '+next.name;
+ walk.onclick=async()=>{
+  walk.disabled=true;
+  try {
+   await advance.onclick();
+   if(s.phase==='world'&&!this.walkTo(next.id)){
+    document.getElementById('explore-tip').textContent='Use the valley map to head toward '+next.name+'.';
+   }
+  } finally {
+   walk.disabled=false;
+  }
+ };
+ advance.classList.remove('primary');
+ advance.textContent='Return to the valley';
+ advance.before(walk);
+ return result;
+};
 // Keep the existing pursuit, retreat, escape grace, combat and save behavior.
 ForestPatrols.bind=function(c){const next=ForestAdventure.next(c),key='wildwood-patrol:'+next+':'+c.completed.filter(id=>id.startsWith('roam-')).join(',');const R=RoamingWorld;if(R.context===key&&R.campaign===c)return;R.context=key;R.campaign=c;R.actors=[];R.defaults(c);
  for(const plan of L.patrols){if(c.completed.includes(plan.questNode)||plan.slot<2&&next!==plan.questNode)continue;const spec=R.specs.find(s=>s.chapter===0&&s.slot===plan.slot),origin={x:plan.home[0],y:plan.home[1]},home=ForestWorld.nearest(origin,2);if(!home)continue;const route=[{x:home.x,y:home.y}];
