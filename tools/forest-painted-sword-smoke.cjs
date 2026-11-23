@@ -109,6 +109,46 @@ require('./browser-harness.cjs')(async ({evaluate, send, wait, errors, missing, 
  await answer();
  assert.deepEqual(await evaluate('strikeLog'),['launch','impact',['impact','defeat',1]]);
 
+ await fixture();
+ const defenses = await evaluate(`(async()=>{
+  const arena=document.querySelector('#arena');
+  const hero=document.createElement('div'),enemy=document.createElement('div'),layer=document.createElement('div');
+  arena.append(hero,enemy,layer);
+  const defender=new CharacterRenderer(hero,PaintedSwordPreview.configFor(HEROES[0],0,GameProgress.exportData().data));
+  const attacker=new CharacterRenderer(enemy,HEROES[1]);
+  const results=[];
+  try {
+   const cases=[['dodge','perfect',false],['parry','guard',false],['dodge','miss',false],['parry','perfect',true]];
+   for(const [action,grade,still] of cases){
+    MotionPreference.set(still?'still':'full');
+    defender.setState('idle',true);
+    const frames=[],cues=[];
+    const observer=new MutationObserver(()=>frames.push(Number(hero.dataset.frame)));
+    observer.observe(hero,{attributeFilter:['data-frame']});
+    const audio={warning(){},launch(){},defense(){cues.push('defense');},impact(){cues.push('impact');}};
+    const strike={renderer:attacker,defenders:[defender],type:'claw',arena,layer,audio,valid:()=>true};
+    const step={action,grade};
+    const prepared=CombatTelegraph.create(strike);
+    prepared.defend(step);
+    const before=Number(hero.dataset.frame);
+    await Promise.resolve();
+    let hits=0;
+    await CombatTiming.enemyStrike({...strike,step,prepared,onImpact(){hits++;if(grade!=='perfect')defender.setState('hurt',true);}});
+    observer.disconnect();
+    results.push({before,hits,cues,frames:[...new Set(frames.filter(n=>n>=10))],defense:hero.dataset.defense||null,state:defender.state});
+   }
+  } finally {
+   defender.destroy();attacker.destroy();hero.remove();enemy.remove();layer.remove();MotionPreference.set('full');
+  }
+  return results;
+ })()`);
+ assert.deepEqual(defenses,[
+  {before:10,hits:1,cues:['defense'],frames:[10,11,12],defense:null,state:'idle'},
+  {before:13,hits:1,cues:['defense'],frames:[13,14,15],defense:null,state:'idle'},
+  {before:0,hits:1,cues:['impact'],frames:[],defense:null,state:'hurt'},
+  {before:0,hits:1,cues:['defense'],frames:[],defense:null,state:'idle'}
+ ]);
+
  await send('Network.enable');
  await send('Network.setBlockedURLs',{urls:['*painted-swordsman-strike.webp*']});
  await send('Page.reload');
@@ -118,5 +158,5 @@ require('./browser-harness.cjs')(async ({evaluate, send, wait, errors, missing, 
  assert.equal(await evaluate("document.querySelector('#hero-0').hasAttribute('data-sword-phase')"),false);
  assert.deepEqual(errors,[]);
  assert.deepEqual(missing.filter(file=>!file.endsWith('/favicon.ico')),[]);
- console.log('PASS Painted swordsman: authored phases, synchronized contact and audio, quiz and damage parity, lethal hit, Still poses, blocked atlas and cleanup.');
+ console.log('PASS Painted swordsman: authored phases, synchronized contact and audio, dodge and parry, quiz and damage parity, lethal hit, Still poses, blocked atlas and cleanup.');
 }).catch(error=>{console.error(error);process.exitCode=1;});

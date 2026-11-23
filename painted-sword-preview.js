@@ -3,10 +3,10 @@
  'use strict';
  if (new URLSearchParams(location.search).get('swordPreview') !== '1') return;
 
- const image = 'assets/warrior/painted-swordsman-strike.webp?v=2';
+ const image = 'assets/warrior/painted-swordsman-strike.webp?v=3';
  const cell = 360;
- const columns = 5;
- const rows = 2;
+ const columns = 4;
+ const rows = 4;
  const strideFrames = [6,7,8,9];
  const bladeTip = 349;
  const sheet = new Image();
@@ -38,8 +38,49 @@
    states.walk = {frames:strideFrames, fps:12, loop:true};
    states.attack.frames = [1,2,3,4,5,0];
    states.attack.releaseFrame = 2;
+   states.paintedDodgeReady = {frames:[10],fps:12,loop:false};
+   states.paintedDodgeContact = {frames:[11,12],fps:12,loop:false};
+   states.paintedParryReady = {frames:[13],fps:12,loop:false};
+   states.paintedParryContact = {frames:[14,15],fps:12,loop:false};
    return {...hero, image, crop:null, frameWidth:cell, frameHeight:cell, columns, rows,
     sheetWidth:columns * cell, sheetHeight:rows * cell, frameRects:null, states, paintedSwordPreview:true};
+  },
+
+  defense(renderer, step) {
+   const dodge = step.action === 'dodge';
+   if (!renderer.config.paintedSwordPreview || MotionPreference.reduced() ||
+       step.grade === 'miss' || (!dodge && step.action !== 'parry')) return null;
+   const actor = renderer.el;
+   const ready = dodge ? 'paintedDodgeReady' : 'paintedParryReady';
+   const contact = dodge ? 'paintedDodgeContact' : 'paintedParryContact';
+   let movement;
+   return {
+    prepare() {
+     actor.dataset.defense = step.action;
+     renderer.setState(ready, true);
+    },
+    async react() {},
+    contact() {
+     if (!actor.isConnected || renderer.state === 'defeat') return;
+     renderer.setState(contact, true);
+     if (dodge) movement = actor.animate([{translate:'0px'},{translate:'-34px'}],
+      {duration:145,easing:'ease-out',fill:'forwards'});
+    },
+    async finish() {
+     try {
+      if (movement && actor.isConnected && renderer.state === contact) {
+       const back = actor.animate([{translate:'-34px'},{translate:'0px'}],
+        {duration:150,easing:'ease-in-out'});
+       movement.cancel();
+       await back.finished;
+      }
+     } finally {
+      movement?.cancel();
+      delete actor.dataset.defense;
+      if (renderer.state === ready || renderer.state === contact) renderer.setState('idle', true);
+     }
+    }
+   };
   },
 
   async play({renderer, target, audio, onImpact, valid}) {

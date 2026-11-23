@@ -5,7 +5,8 @@ require('./browser-harness.cjs')(async ({evaluate})=>{
   const source=await load('art-source/warrior/painted-human-warrior-strike-source.png');
   const approved=await load('art-source/warrior/painted-human-warrior-guard-v3.png');
   const stride=await load('art-source/warrior/painted-human-warrior-stride-source.png');
-  const atlas=document.createElement('canvas');atlas.width=1800;atlas.height=720;
+  const defense=await load('art-source/warrior/painted-human-warrior-defense-source.png');
+  const atlas=document.createElement('canvas');atlas.width=1440;atlas.height=1440;
   const ctx=atlas.getContext('2d');ctx.imageSmoothingQuality='high';
   const bounds=(canvas,x,y,w,h)=>{
    const data=canvas.getContext('2d').getImageData(x,y,w,h).data;
@@ -21,12 +22,13 @@ require('./browser-harness.cjs')(async ({evaluate})=>{
   const poses=[cover,...[1,2,3,4,5].map(i=>bounds(source,(i%3)*512,Math.floor(i/3)*512,512,512))];
   const strideWidth=stride.width/2,strideHeight=stride.height/2;
   const strides=Array.from({length:4},(_,i)=>bounds(stride,i%2*strideWidth,Math.floor(i/2)*strideHeight,strideWidth,strideHeight));
-  const details=[...poses,...strides].map((pose,i)=>{
-   const scale=292/(i>=6?strides[0].h:i?guard.h:cover.h);
+  const defenses=Array.from({length:6},(_,i)=>bounds(defense,i%3*512,Math.floor(i/3)*512,512,512));
+  const details=[...poses,...strides,...defenses].map((pose,i)=>{
+   const scale=292/(i>=10?defenses[5].h:i>=6?strides[0].h:i?guard.h:cover.h);
    const width=pose.w*scale,height=pose.h*scale;
    if(width>354||height>347)throw Error('Frame exceeds portrait: '+JSON.stringify({i,width,height}));
    const x=(360-width)/2+(i===3?Math.min(8,(360-width)/2):0);
-   ctx.drawImage(i>=6?stride:i?source:approved,pose.x,pose.y,pose.w,pose.h,(i%5)*360+x,Math.floor(i/5)*360+347-height,width,height);
+   ctx.drawImage(i>=10?defense:i>=6?stride:i?source:approved,pose.x,pose.y,pose.w,pose.h,(i%4)*360+x,Math.floor(i/4)*360+347-height,width,height);
    return {pose,width,height,x,blade:i===3?x+width:null};
   });
   return {image:atlas.toDataURL('image/webp',.88).split(',')[1],details};
